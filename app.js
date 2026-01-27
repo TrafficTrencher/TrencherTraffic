@@ -1,3 +1,5 @@
+// Trencher Traffic — app.js (FULL CLEAN REPLACEMENT)
+
 const GOAL_MILES = 50000;
 const CLAIMS_TOTAL = 25;
 const STEP = GOAL_MILES / CLAIMS_TOTAL; // 2000
@@ -10,8 +12,20 @@ function fmt(n) {
 }
 
 function clampMiles(n) {
-  const x = Math.max(0, Math.min(GOAL_MILES, Math.floor(Number(n) || 0)));
-  return x;
+  return Math.max(0, Math.min(GOAL_MILES, Math.floor(Number(n) || 0)));
+}
+
+/**
+ * LIVE badge behavior:
+ * - Badge is always visible in HTML (class="live-badge")
+ * - We toggle .is-live to light it up red/pulse
+ */
+function setLiveBadge(isLive) {
+  const badge = $("liveBadge");
+  if (!badge) return;
+
+  if (isLive) badge.classList.add("is-live");
+  else badge.classList.remove("is-live");
 }
 
 function buildMilestones(current) {
@@ -19,8 +33,10 @@ function buildMilestones(current) {
   if (!list) return;
 
   list.innerHTML = "";
+
   for (let i = 1; i <= CLAIMS_TOTAL; i++) {
     const mileMark = i * STEP;
+
     const li = document.createElement("li");
     li.style.margin = "10px 0";
     li.style.padding = "10px 12px";
@@ -70,6 +86,10 @@ function updateMilesUI(current) {
 function setStream(url) {
   const frame = $("streamFrame");
   if (frame) frame.src = url || "";
+
+  // Light up badge when a URL is set
+  const isLive = Boolean(url && url.trim().length > 5);
+  setLiveBadge(isLive);
 }
 
 function init() {
@@ -78,7 +98,7 @@ function init() {
   if (year) year.textContent = new Date().getFullYear();
 
   // Load saved values
-  const savedStream = localStorage.getItem("tt_stream_url") || "";
+  const savedStream = (localStorage.getItem("tt_stream_url") || "").trim();
   const savedMiles = clampMiles(localStorage.getItem("tt_miles") || 0);
 
   const streamUrlInput = $("streamUrl");
