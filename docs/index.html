@@ -1,575 +1,218 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TrencherTraffic</title>
+  <title>Trencher Traffic</title>
+  <meta name="description" content="Trencher Traffic — Drive-to-earn livestream challenge documenting a 50,000 mile journey across Southwest Florida." />
 
-  <style>
-    :root{
-      --bg:#0b0f1a;
-      --card:#121a2b;
-      --card2:#0f1626;
-      --text:#e7eefc;
-      --muted:#9cb0d3;
-      --line:rgba(255,255,255,.08);
-      --accent:#4da3ff;
-      --accent2:#2cffc5;
-      --warning:#ffcc66;
-      --danger:#ff6b6b;
-      --shadow: 0 20px 60px rgba(0,0,0,.45);
-      --radius:18px;
-      --radius2:24px;
-    }
-
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-      background: radial-gradient(1200px 700px at 20% -10%, rgba(77,163,255,.15), transparent 60%),
-                  radial-gradient(900px 600px at 90% 10%, rgba(44,255,197,.10), transparent 55%),
-                  var(--bg);
-      color:var(--text);
-      overflow-x:hidden;
-    }
-    a{color:var(--accent); text-decoration:none}
-    a:hover{text-decoration:underline}
-
-    .wrap{
-      max-width:1100px;
-      margin:0 auto;
-      padding: 18px 16px 60px;
-    }
-
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      padding: 12px 14px;
-      border:1px solid var(--line);
-      background: rgba(18,26,43,.75);
-      backdrop-filter: blur(12px);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      position: sticky;
-      top: 10px;
-      z-index: 50;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width: 220px;
-    }
-    .logo{
-      width:42px;
-      height:42px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, rgba(77,163,255,.85), rgba(44,255,197,.65));
-      box-shadow: 0 12px 30px rgba(77,163,255,.18);
-      display:grid;
-      place-items:center;
-      font-weight:900;
-      letter-spacing:.4px;
-      color:#03101f;
-      user-select:none;
-    }
-    .brand h1{
-      font-size: 16px;
-      margin:0;
-      line-height:1.1;
-    }
-    .brand p{
-      margin:0;
-      color:var(--muted);
-      font-size: 12px;
-    }
-
-    .nav{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-    .nav a{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: rgba(15,22,38,.75);
-      color: var(--text);
-      font-size: 13px;
-      transition: transform .08s ease, border-color .2s ease, background .2s ease;
-    }
-    .nav a:hover{
-      transform: translateY(-1px);
-      border-color: rgba(77,163,255,.35);
-      background: rgba(15,22,38,.92);
-      text-decoration:none;
-    }
-
-    .hero{
-      margin-top: 18px;
-      display:grid;
-      grid-template-columns: 1.2fr .8fr;
-      gap: 14px;
-    }
-    @media (max-width: 900px){
-      .hero{grid-template-columns:1fr}
-      .brand{min-width:auto}
-    }
-
-    .card{
-      border:1px solid var(--line);
-      background: rgba(18,26,43,.72);
-      border-radius: var(--radius2);
-      box-shadow: var(--shadow);
-      overflow:hidden;
-    }
-    .card .pad{padding:16px}
-    .card h2{
-      margin:0 0 10px 0;
-      font-size: 16px;
-      letter-spacing:.2px;
-    }
-    .muted{color:var(--muted)}
-    .kpi{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 10px;
-      align-items: flex-end;
-      margin-top: 10px;
-    }
-    .big{
-      font-size: 40px;
-      font-weight: 900;
-      letter-spacing: .2px;
-      line-height: 1;
-    }
-    .subkpi{
-      padding-bottom: 6px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .barWrap{
-      margin-top: 14px;
-      background: rgba(255,255,255,.06);
-      border:1px solid var(--line);
-      border-radius: 999px;
-      overflow:hidden;
-      height: 14px;
-    }
-    .bar{
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, rgba(77,163,255,.95), rgba(44,255,197,.85));
-      border-radius: 999px;
-      transition: width .6s ease;
-    }
-
-    .row{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 14px;
-      margin-top:14px;
-    }
-    @media (max-width: 900px){
-      .row{grid-template-columns:1fr}
-    }
-
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(15,22,38,.75);
-      font-size: 12px;
-      color: var(--muted);
-      margin-right: 8px;
-      margin-top: 6px;
-      user-select:none;
-    }
-
-    .section{
-      margin-top: 16px;
-    }
-
-    .grid3{
-      display:grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 12px;
-      margin-top: 10px;
-    }
-    @media (max-width: 900px){
-      .grid3{grid-template-columns:1fr}
-    }
-
-    .mileCard{
-      border:1px solid var(--line);
-      background: rgba(15,22,38,.75);
-      border-radius: 18px;
-      padding: 14px;
-      min-height: 92px;
-    }
-    .mileCard .label{font-size:12px; color:var(--muted); margin-bottom:8px}
-    .mileCard .value{font-size:18px; font-weight:800}
-
-    .list{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      margin-top: 10px;
-    }
-    .milestone{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      padding: 12px 12px;
-      border:1px solid var(--line);
-      background: rgba(15,22,38,.72);
-      border-radius: 18px;
-    }
-    .milestone .left{
-      display:flex;
-      flex-direction:column;
-      gap: 2px;
-    }
-    .milestone .title{
-      font-weight:800;
-      font-size: 13px;
-    }
-    .milestone .desc{
-      font-size: 12px;
-      color:var(--muted);
-    }
-    .status{
-      font-size: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.06);
-      color: var(--muted);
-      white-space:nowrap;
-    }
-    .status.done{
-      background: rgba(44,255,197,.10);
-      border-color: rgba(44,255,197,.25);
-      color: #bfffee;
-    }
-
-    .iframeWrap{
-      border-top:1px solid var(--line);
-      background: rgba(10,14,24,.55);
-      padding: 0;
-    }
-    iframe{
-      width:100%;
-      height: 420px;
-      border:0;
-      display:block;
-      background: #0a0f19;
-    }
-
-    .note{
-      border:1px dashed rgba(255,255,255,.18);
-      background: rgba(255,255,255,.04);
-      color: var(--muted);
-      padding: 12px;
-      border-radius: 16px;
-      font-size: 13px;
-      margin-top: 12px;
-      line-height: 1.4;
-    }
-
-    .footer{
-      margin-top: 18px;
-      color: var(--muted);
-      font-size: 12px;
-      text-align:center;
-      padding: 18px 10px;
-    }
-    code{
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
-      font-size: 12px;
-      color: #cfe4ff;
-    }
-  </style>
+  <!-- Cache-bust so new styles load -->
+  <link rel="stylesheet" href="style.css?v=7" />
 </head>
 
 <body>
-  <div class="wrap">
-    <div class="topbar">
-      <div class="brand">
-        <div class="logo">TT</div>
-        <div>
-          <h1>TrencherTraffic</h1>
-          <p class="muted">Drive-to-earn progress (official miles are repo-controlled)</p>
-        </div>
-      </div>
 
-      <div class="nav">
+<header class="topbar">
+  <div class="container topbar__inner">
+    <div class="brand">
+      <div class="brand__dot"></div>
+      <div>
+        <div class="brand__name">
+          Trencher Traffic
+          <span id="liveBadge" class="live-badge">LIVE</span>
+        </div>
+        <div class="brand__tag">Drive-to-Earn • Road to 50,000 Miles</div>
+      </div>
+    </div>
+
+    <nav class="nav nav--desktop">
+      <a href="#live">Live</a>
+      <a href="#miles">Miles</a>
+      <a href="#how">How It Works</a>
+      <a href="#links">Links</a>
+    </nav>
+
+    <details class="menu menu--mobile">
+      <summary class="menu__summary">Menu</summary>
+      <div class="menu__panel">
         <a href="#live">Live</a>
-        <a href="#progress">Track Progress</a>
-        <a href="#map">Map</a>
+        <a href="#miles">Miles</a>
+        <a href="#how">How It Works</a>
+        <a href="#links">Links</a>
       </div>
+    </details>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero__grid">
+    <div>
+      <h1>Drive. Stream. Reach 50,000 Miles.</h1>
+
+      <p class="lead">
+        A real-world drive-to-earn challenge streamed live from Southwest Florida —
+        including daily runs across the iconic Sunshine Skyway Bridge.
+      </p>
+
+      <div class="cta">
+        <a class="btn btn--primary" href="#live">Watch Live</a>
+        <a class="btn" href="https://x.com/TrencherTraffic" target="_blank" rel="noreferrer">Follow on X</a>
+        <a class="btn btn--ghost" href="#miles">Track Progress</a>
+      </div>
+
+      <div class="pillrow">
+        <span class="pill">Weekdays • 3:00–7:00 PM EST</span>
+        <span class="pill">50,000 Mile Goal</span>
+        <span class="pill">25 Milestones</span>
+      </div>
+
+      <!-- COUNTDOWN -->
+      <div id="countdown" class="countdown">Loading countdown…</div>
     </div>
 
-    <div class="hero">
-      <!-- Progress Card -->
-      <div class="card" id="progress">
-        <div class="pad">
-          <h2>Track Progress</h2>
-          <div class="muted">Goal: <span id="goalMiles">50,000</span> miles</div>
-
-          <div class="kpi">
-            <div class="big"><span id="currentMiles">0</span></div>
-            <div class="subkpi">
-              miles completed • <span id="percentComplete">0.0%</span>
-            </div>
-          </div>
-
-          <div class="barWrap" aria-label="progress bar">
-            <div class="bar" id="progressBar"></div>
-          </div>
-
-          <div>
-            <span class="pill">Official miles: <strong>read-only</strong></span>
-            <span class="pill">Update method: edit <code>data/progress.json</code></span>
-            <span class="pill" id="versionPill">v=4</span>
-          </div>
-
-          <div class="note">
-            Visitors cannot change the public miles number. Only you can update it by committing changes to
-            <code>data/progress.json</code> in GitHub.
-          </div>
-        </div>
+    <div class="card">
+      <div class="card__head"><b>Project Overview</b></div>
+      <div class="card__body">
+        <div class="info"><span class="small">Platform</span><b>pump.fun</b></div>
+        <div class="info"><span class="small">Route</span><b>Southwest Florida</b></div>
+        <div class="info"><span class="small">Highlight</span><b>Sunshine Skyway Bridge</b></div>
+        <p class="small" style="margin-top:12px">
+          A long-form livestream challenge designed to bring real engagement and consistency to pump.fun streaming.
+        </p>
       </div>
-
-      <!-- Quick Stats -->
-      <div class="card">
-        <div class="pad">
-          <h2>Milestones</h2>
-          <div class="muted">Automatic unlocks based on official miles</div>
-
-          <div class="grid3">
-            <div class="mileCard">
-              <div class="label">Next milestone</div>
-              <div class="value" id="nextMilestone">—</div>
-            </div>
-            <div class="mileCard">
-              <div class="label">Miles remaining</div>
-              <div class="value" id="milesRemaining">50,000</div>
-            </div>
-            <div class="mileCard">
-              <div class="label">Unlocked</div>
-              <div class="value" id="unlockedCount">0</div>
-            </div>
-          </div>
-
-          <div class="list" id="milestoneList"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- LIVE -->
-    <div class="section card" id="live">
-      <div class="pad">
-        <h2>Live</h2>
-        <div class="muted">Drop your stream embed here (YouTube/Twitch/etc.)</div>
-
-        <div class="note">
-          Replace the <code>src</code> of the iframe below with your stream embed URL.
-          If you don’t want an iframe, delete it and paste your widget code.
-        </div>
-      </div>
-
-      <div class="iframeWrap">
-        <!-- Replace this URL with your real stream embed -->
-        <iframe
-          id="liveFrame"
-          title="Live Stream"
-          src="about:blank"
-          allow="autoplay; encrypted-media; picture-in-picture"
-          referrerpolicy="no-referrer"
-        ></iframe>
-      </div>
-    </div>
-
-    <!-- MAP -->
-    <div class="section card" id="map">
-      <div class="pad">
-        <h2>Map</h2>
-        <div class="muted">Embed a real map (Google My Maps, Google Maps, etc.)</div>
-
-        <div class="note">
-          Replace the <code>src</code> below with your map embed link.
-          Google My Maps: “Share” → “Embed on my site” → copy iframe URL.
-        </div>
-      </div>
-
-      <div class="iframeWrap">
-        <!-- Replace this URL with your real map embed -->
-        <iframe
-          id="mapFrame"
-          title="Route Map"
-          src="about:blank"
-          loading="lazy"
-          referrerpolicy="no-referrer"
-        ></iframe>
-      </div>
-    </div>
-
-    <div class="footer">
-      © <span id="year"></span> TrencherTraffic • GitHub Pages
     </div>
   </div>
+</section>
 
-  <script>
-    // =========================
-    // CONFIG
-    // =========================
-    const GOAL_MILES = 50000;
+<section id="live" class="section">
+  <div class="container">
+    <h2>Live Stream</h2>
+    <p class="small">Paste your pump.fun stream link below to activate the stream.</p>
 
-    // Default milestones (edit these however you want)
-    const MILESTONES = [
-      { miles: 5000,  title: "5,000 miles",  reward: "First milestone reward" },
-      { miles: 10000, title: "10,000 miles", reward: "Claimable fee milestone" },
-      { miles: 25000, title: "25,000 miles", reward: "Midpoint achievement" },
-      { miles: 50000, title: "50,000 miles", reward: "Goal reached (main claim)" }
-    ];
+    <div class="livegrid">
+      <div class="card">
+        <div class="card__head"><b>Stream Player</b></div>
+        <div class="card__body">
+          <div class="embedwrap">
+            <iframe id="streamFrame" title="Trencher Traffic Stream" src="" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
 
-    // =========================
-    // HELPERS
-    // =========================
-    function qs(name){
-      return new URLSearchParams(location.search).get(name);
-    }
+      <div class="card">
+        <div class="card__head"><b>Stream Setup</b></div>
+        <div class="card__body">
+          <div class="field">
+            <span>pump.fun stream URL</span>
+            <input id="streamUrl" placeholder="https://pump.fun/..." />
+          </div>
+          <button id="saveStream" class="btn btn--primary" type="button">Save Stream</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    function comma(n){
-      return Number(n).toLocaleString();
-    }
+<section id="miles" class="section section--alt">
+  <div class="container">
+    <h2>Miles</h2>
+    <p class="small">Track your progress to 50,000 miles. (Saved locally in your browser.)</p>
 
-    function clamp(n, min, max){
-      return Math.max(min, Math.min(max, n));
-    }
+    <div class="milegrid">
+      <div class="card">
+        <div class="card__head"><b>Track Progress</b></div>
+        <div class="card__body">
+          <div class="progress__meta">
+            <div>
+              <span class="small">Current miles</span>
+              <div><b id="currentMilesText">0</b></div>
+            </div>
+            <div style="text-align:right">
+              <span class="small">Complete</span>
+              <div><b id="percentText">0%</b></div>
+            </div>
+          </div>
 
-    function setText(id, val){
-      const el = document.getElementById(id);
-      if (el) el.textContent = val;
-    }
+          <div class="bar">
+            <div id="barFill" class="bar__fill"></div>
+          </div>
 
-    function buildMilestones(currentMiles){
-      const list = document.getElementById('milestoneList');
-      list.innerHTML = '';
+          <div class="field" style="margin-top:14px">
+            <span>Update current miles</span>
+            <input id="currentMiles" placeholder="e.g., 1250" inputmode="numeric" />
+          </div>
+          <button id="saveMiles" class="btn" type="button">Save Miles</button>
 
-      let unlocked = 0;
-      let next = null;
+          <p class="small" style="margin-top:10px">
+            Goal: <b>50,000</b> miles • <b>25</b> fee-claim milestones (every <b>2,000</b> miles).
+          </p>
+        </div>
+      </div>
 
-      for (const m of MILESTONES){
-        const done = currentMiles >= m.miles;
-        if (done) unlocked++;
-        if (!done && next === null) next = m;
+      <div class="card">
+        <div class="card__head"><b>Milestones (25 Claims)</b></div>
+        <div class="card__body">
+          <ul id="milestoneList" style="list-style:none;padding-left:0;margin:0"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        const row = document.createElement('div');
-        row.className = 'milestone';
+<section id="how" class="section">
+  <div class="container">
+    <h2>How It Works</h2>
+    <div class="howgrid">
+      <div class="card">
+        <div class="card__head"><b>1) Drive</b></div>
+        <div class="card__body">
+          <p class="small">Weekday route runs (3–7 PM EST) across Southwest Florida, featuring the Sunshine Skyway Bridge.</p>
+        </div>
+      </div>
 
-        const left = document.createElement('div');
-        left.className = 'left';
+      <div class="card">
+        <div class="card__head"><b>2) Stream</b></div>
+        <div class="card__body">
+          <p class="small">Stream the journey live on pump.fun and keep the challenge consistent — a real, long-form grind.</p>
+        </div>
+      </div>
 
-        const title = document.createElement('div');
-        title.className = 'title';
-        title.textContent = `${m.title} • ${comma(m.miles)} mi`;
+      <div class="card">
+        <div class="card__head"><b>3) Claim Fees</b></div>
+        <div class="card__body">
+          <p class="small">25 total claims on the path to 50,000 miles — roughly every 2,000 miles. (Token link can be added later.)</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        const desc = document.createElement('div');
-        desc.className = 'desc';
-        desc.textContent = m.reward;
+<section id="links" class="section section--alt">
+  <div class="container">
+    <h2>Links</h2>
+    <div class="linkgrid">
+      <a class="linkcard" href="https://x.com/TrencherTraffic" target="_blank" rel="noreferrer">
+        <b>X (TrencherTraffic)</b>
+        <div class="small" style="margin-top:6px">Updates, clips, and announcements.</div>
+      </a>
 
-        left.appendChild(title);
-        left.appendChild(desc);
+      <div class="linkcard">
+        <b>pump.fun stream</b>
+        <div class="small" style="margin-top:6px">Add your stream URL in the Live section to activate the player.</div>
+      </div>
+    </div>
+  </div>
+</section>
 
-        const status = document.createElement('div');
-        status.className = 'status' + (done ? ' done' : '');
-        status.textContent = done ? 'Unlocked' : `Locked`;
+<footer class="footer">
+  <div class="container footer__inner">
+    <div>© <span id="year"></span> Trencher Traffic</div>
+    <div class="small">Built on GitHub Pages</div>
+  </div>
+</footer>
 
-        row.appendChild(left);
-        row.appendChild(status);
-        list.appendChild(row);
-      }
-
-      setText('unlockedCount', comma(unlocked));
-      setText('nextMilestone', next ? `${comma(next.miles)} mi` : 'All unlocked ✅');
-
-      const remaining = Math.max(0, GOAL_MILES - currentMiles);
-      setText('milesRemaining', comma(remaining));
-    }
-
-    // =========================
-    // LOAD OFFICIAL MILES
-    // =========================
-    async function loadOfficialMiles(){
-      // Bypass cache to avoid GitHub Pages caching confusion
-      const url = './data/progress.json?v=' + Date.now();
-      const res = await fetch(url, { cache: 'no-store' });
-      if (!res.ok) throw new Error('Missing data/progress.json (create it!)');
-      const data = await res.json();
-      const miles = Number(data.miles) || 0;
-      return miles;
-    }
-
-    function render(miles){
-      setText('goalMiles', comma(GOAL_MILES));
-      setText('currentMiles', comma(miles));
-
-      const pct = clamp((miles / GOAL_MILES) * 100, 0, 100);
-      setText('percentComplete', `${pct.toFixed(1)}%`);
-
-      const bar = document.getElementById('progressBar');
-      if (bar) bar.style.width = pct + '%';
-
-      buildMilestones(miles);
-    }
-
-    // =========================
-    // INIT
-    // =========================
-    (async function init(){
-      // Footer year
-      setText('year', new Date().getFullYear());
-
-      // Show version from ?v=4
-      const v = qs('v');
-      if (v) setText('versionPill', `v=${v}`);
-
-      try{
-        const miles = await loadOfficialMiles();
-        render(miles);
-        console.log('Official miles loaded:', miles);
-      }catch(err){
-        console.error(err);
-        // Keep 0s, but show a hint if the JSON is missing
-        const note = document.createElement('div');
-        note.className = 'note';
-        note.innerHTML =
-          `Couldn't load <code>data/progress.json</code>. Create it with <code>{ "miles": 0 }</code> and commit.`;
-        document.querySelector('#progress .pad')?.appendChild(note);
-      }
-
-      // If someone hits /#live, scroll nicely (optional)
-      if (location.hash){
-        const el = document.querySelector(location.hash);
-        if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
-      }
-    })();
-  </script>
+<!-- IMPORTANT: app.js should be a separate file (docs/app.js) -->
+<script src="app.js?v=7"></script>
 </body>
 </html>
 
