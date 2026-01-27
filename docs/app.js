@@ -1,0 +1,114 @@
+const GOAL_MILES = 50000;
+const CLAIMS_TOTAL = 25;
+const STEP = GOAL_MILES / CLAIMS_TOTAL; // 2000
+
+const $ = (id) => document.getElementById(id);
+
+function fmt(n) {
+  const x = Math.max(0, Math.floor(Number(n) || 0));
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+function clampMiles(n) {
+  const x = Math.max(0, Math.min(GOAL_MILES, Math.floor(Number(n) || 0)));
+  return x;
+}
+
+function buildMilestones(current) {
+  const list = $("milestoneList");
+  if (!list) return;
+
+  list.innerHTML = "";
+  for (let i = 1; i <= CLAIMS_TOTAL; i++) {
+    const mileMark = i * STEP;
+    const li = document.createElement("li");
+    li.style.margin = "10px 0";
+    li.style.padding = "10px 12px";
+    li.style.border = "1px solid rgba(255,255,255,.10)";
+    li.style.borderRadius = "12px";
+    li.style.display = "flex";
+    li.style.justifyContent = "space-between";
+    li.style.alignItems = "center";
+    li.style.background = "rgba(255,255,255,.02)";
+
+    const left = document.createElement("div");
+    left.innerHTML = `<b>Claim ${i}</b><div style="font-size:12px;color:#a8b3d1">${fmt(mileMark)} miles</div>`;
+
+    const tag = document.createElement("div");
+    const done = current >= mileMark;
+    tag.textContent = done ? "DONE" : "PENDING";
+    tag.style.fontSize = "12px";
+    tag.style.fontWeight = "800";
+    tag.style.padding = "6px 10px";
+    tag.style.borderRadius = "999px";
+    tag.style.border = "1px solid rgba(255,255,255,.10)";
+    tag.style.color = done ? "#07101a" : "#a8b3d1";
+    tag.style.background = done
+      ? "linear-gradient(135deg,#7c5cff,#00d4ff)"
+      : "rgba(255,255,255,.03)";
+
+    li.appendChild(left);
+    li.appendChild(tag);
+    list.appendChild(li);
+  }
+}
+
+function updateMilesUI(current) {
+  const pct = Math.round((current / GOAL_MILES) * 1000) / 10;
+
+  const currentMilesText = $("currentMilesText");
+  const percentText = $("percentText");
+  const barFill = $("barFill");
+
+  if (currentMilesText) currentMilesText.textContent = fmt(current);
+  if (percentText) percentText.textContent = `${pct}%`;
+  if (barFill) barFill.style.width = `${Math.min(100, (current / GOAL_MILES) * 100)}%`;
+
+  buildMilestones(current);
+}
+
+function setStream(url) {
+  const frame = $("streamFrame");
+  if (frame) frame.src = url || "";
+}
+
+function init() {
+  // Year in footer
+  const year = $("year");
+  if (year) year.textContent = new Date().getFullYear();
+
+  // Load saved values
+  const savedStream = localStorage.getItem("tt_stream_url") || "";
+  const savedMiles = clampMiles(localStorage.getItem("tt_miles") || 0);
+
+  const streamUrlInput = $("streamUrl");
+  const currentMilesInput = $("currentMiles");
+
+  if (streamUrlInput) streamUrlInput.value = savedStream;
+  if (currentMilesInput) currentMilesInput.value = savedMiles ? String(savedMiles) : "";
+
+  setStream(savedStream);
+  updateMilesUI(savedMiles);
+
+  // Save stream
+  const saveStreamBtn = $("saveStream");
+  if (saveStreamBtn) {
+    saveStreamBtn.addEventListener("click", () => {
+      const url = (streamUrlInput?.value || "").trim();
+      localStorage.setItem("tt_stream_url", url);
+      setStream(url);
+    });
+  }
+
+  // Save miles
+  const saveMilesBtn = $("saveMiles");
+  if (saveMilesBtn) {
+    saveMilesBtn.addEventListener("click", () => {
+      const m = clampMiles(currentMilesInput?.value || 0);
+      localStorage.setItem("tt_miles", String(m));
+      updateMilesUI(m);
+    });
+  }
+}
+
+init();
