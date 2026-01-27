@@ -1,162 +1,166 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Trencher Traffic</title>
-  <meta name="description" content="Trencher Traffic — Drive-to-earn livestream challenge to 50,000 miles." />
+// Trencher Traffic — app.js (FULL, with fixed countdown to Feb 2, 2026 3:00 PM EST)
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="style.css?v=5" />
-</head>
+const GOAL_MILES = 50000;
+const CLAIMS_TOTAL = 25;
+const STEP = GOAL_MILES / CLAIMS_TOTAL; // 2000
 
-<body>
+// Feb 2, 2026 @ 3:00 PM EST = Feb 2, 2026 @ 20:00 UTC
+const TARGET_UTC_MS = Date.UTC(2026, 1, 2, 20, 0, 0);
 
-<!-- HEADER -->
-<header class="topbar">
-  <div class="container topbar__inner">
-    <div class="brand">
-      <div class="brand__dot"></div>
-      <div>
-        <div class="brand__name">
-          Trencher Traffic
-          <span id="liveBadge" class="live-badge">LIVE</span>
-        </div>
-        <div class="brand__tag">Drive-to-Earn • Road to 50,000 Miles</div>
-      </div>
-    </div>
+const $ = (id) => document.getElementById(id);
 
-    <nav class="nav nav--desktop">
-      <a href="#live">Live</a>
-      <a href="#miles">Miles</a>
-      <a href="#how">How It Works</a>
-      <a href="#links">Links</a>
-    </nav>
+function fmt(n) {
+  const x = Math.max(0, Math.floor(Number(n) || 0));
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 
-    <details class="menu menu--mobile">
-      <summary class="menu__summary">Menu</summary>
-      <div class="menu__panel">
-        <a href="#live">Live</a>
-        <a href="#miles">Miles</a>
-        <a href="#how">How It Works</a>
-        <a href="#links">Links</a>
-      </div>
-    </details>
-  </div>
-</header>
+function clampMiles(n) {
+  return Math.max(0, Math.min(GOAL_MILES, Math.floor(Number(n) || 0)));
+}
 
-<!-- HERO -->
-<section class="hero">
-  <div class="container hero__grid">
-    <div>
-      <h1>Drive. Stream. Reach 50,000 Miles.</h1>
+/* ---------------- LIVE BADGE ---------------- */
+function setLiveBadge(isLive) {
+  const badge = $("liveBadge");
+  if (!badge) return;
+  if (isLive) badge.classList.add("is-live");
+  else badge.classList.remove("is-live");
+}
 
-      <p class="lead">
-        A real-world drive-to-earn challenge streamed live from Southwest Florida —
-        including daily runs across the Sunshine Skyway Bridge.
-      </p>
+function setStream(url) {
+  const frame = $("streamFrame");
+  if (frame) frame.src = url || "";
+  setLiveBadge(Boolean(url && url.trim().length > 5));
+}
 
-      <div class="cta">
-        <a class="btn btn--primary" href="#live">Watch Live</a>
-        <a class="btn" href="https://x.com/TrencherTraffic" target="_blank">Follow on X</a>
-        <a class="btn btn--ghost" href="#miles">Track Progress</a>
-      </div>
+/* ---------------- MILESTONES ---------------- */
+function buildMilestones(current) {
+  const list = $("milestoneList");
+  if (!list) return;
 
-      <div class="pillrow">
-        <span class="pill">Weekdays • 3:00–7:00 PM EST</span>
-        <span class="pill">50,000 Mile Goal</span>
-        <span class="pill">25 Milestones</span>
-      </div>
+  list.innerHTML = "";
 
-      <!-- COUNTDOWN -->
-      <div id="countdown" class="countdown">Loading countdown…</div>
-    </div>
+  for (let i = 1; i <= CLAIMS_TOTAL; i++) {
+    const mileMark = i * STEP;
 
-    <div class="card">
-      <div class="card__head"><b>Project Overview</b></div>
-      <div class="card__body">
-        <div class="info"><span>Platform</span><b>pump.fun</b></div>
-        <div class="info"><span>Route</span><b>Southwest Florida</b></div>
-        <div class="info"><span>Highlight</span><b>Sunshine Skyway Bridge</b></div>
-        <p class="small">
-          A long-form livestream challenge designed to bring real engagement and consistency to pump.fun streaming.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
+    const li = document.createElement("li");
+    li.style.margin = "10px 0";
+    li.style.padding = "10px 12px";
+    li.style.border = "1px solid rgba(255,255,255,.10)";
+    li.style.borderRadius = "12px";
+    li.style.display = "flex";
+    li.style.justifyContent = "space-between";
+    li.style.alignItems = "center";
+    li.style.background = "rgba(255,255,255,.02)";
 
-<!-- LIVE -->
-<section id="live" class="section">
-  <div class="container">
-    <h2>Live Stream</h2>
-    <p class="small">Paste your pump.fun stream link below to activate the stream.</p>
+    const left = document.createElement("div");
+    left.innerHTML = `<b>Claim ${i}</b><div style="font-size:12px;color:#a8b3d1">${fmt(mileMark)} miles</div>`;
 
-    <div class="livegrid">
-      <div class="card">
-        <div class="card__head"><b>Stream Player</b></div>
-        <div class="card__body">
-          <div class="embedwrap">
-            <iframe id="streamFrame" allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
+    const tag = document.createElement("div");
+    const done = current >= mileMark;
+    tag.textContent = done ? "DONE" : "PENDING";
+    tag.style.fontSize = "12px";
+    tag.style.fontWeight = "800";
+    tag.style.padding = "6px 10px";
+    tag.style.borderRadius = "999px";
+    tag.style.border = "1px solid rgba(255,255,255,.10)";
+    tag.style.color = done ? "#07101a" : "#a8b3d1";
+    tag.style.background = done
+      ? "linear-gradient(135deg,#7c5cff,#00d4ff)"
+      : "rgba(255,255,255,.03)";
 
-      <div class="card">
-        <div class="card__head"><b>Stream Setup</b></div>
-        <div class="card__body">
-          <div class="field">
-            <span>pump.fun stream URL</span>
-            <input id="streamUrl" placeholder="https://pump.fun/..." />
-          </div>
-          <button id="saveStream" class="btn btn--primary">Save Stream</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    li.appendChild(left);
+    li.appendChild(tag);
+    list.appendChild(li);
+  }
+}
 
-<!-- MILES -->
-<section id="miles" class="section section--alt">
-  <div class="container">
-    <h2>Miles</h2>
+function updateMilesUI(current) {
+  const pct = Math.round((current / GOAL_MILES) * 1000) / 10;
 
-    <div class="milegrid">
-      <div class="card">
-        <div class="card__head"><b>Progress</b></div>
-        <div class="card__body">
-          <div class="progress__meta">
-            <div><b id="currentMilesText">0</b> miles</div>
-            <div><b id="percentText">0%</b></div>
-          </div>
-          <div class="bar"><div id="barFill" class="bar__fill"></div></div>
+  const currentMilesText = $("currentMilesText");
+  const percentText = $("percentText");
+  const barFill = $("barFill");
 
-          <div class="field">
-            <span>Update miles</span>
-            <input id="currentMiles" placeholder="e.g. 1234" />
-          </div>
-          <button id="saveMiles" class="btn">Save Miles</button>
-        </div>
-      </div>
+  if (currentMilesText) currentMilesText.textContent = fmt(current);
+  if (percentText) percentText.textContent = `${pct}%`;
+  if (barFill) barFill.style.width = `${Math.min(100, (current / GOAL_MILES) * 100)}%`;
 
-      <div class="card">
-        <div class="card__head"><b>Milestones</b></div>
-        <div class="card__body">
-          <ul id="milestoneList"></ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+  buildMilestones(current);
+}
 
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="container footer__inner">
-    <div>© <span id="year"></span> Trencher Traffic</div>
-    <div class="small">Built on GitHub Pages</div>
-  </div>
-</footer>
+/* ---------------- COUNTDOWN ---------------- */
+function formatDuration(ms) {
+  const total = Math.max(0, Math.floor(ms / 1000));
+  const days = Math.floor(total / 86400);
+  const hrs = Math.floor((total % 86400) / 3600);
+  const mins = Math.floor((total % 3600) / 60);
+  const secs = total % 60;
 
-<script src="app.js?v=5"></script>
-</body>
-</html>
+  const dd = days > 0 ? `${days}d ` : "";
+  const hh = `${hrs}h `;
+  const mm = `${mins}m `;
+  const ss = `${secs}s`;
+  return (dd + hh + mm + ss).trim();
+}
+
+function updateCountdown() {
+  const el = $("countdown");
+  if (!el) return;
+
+  const now = Date.now();
+  const diff = TARGET_UTC_MS - now;
+
+  if (diff <= 0) {
+    el.innerHTML = `🚀 Stream time! <small>(Feb 2 • 3:00 PM EST)</small>`;
+    return;
+  }
+
+  el.innerHTML = `Countdown to Feb 2 • 3:00 PM EST <small>(in ${formatDuration(diff)})</small>`;
+}
+
+/* ---------------- INIT ---------------- */
+function init() {
+  // Footer year
+  const yearEl = $("year");
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  // Load saved values
+  const savedStream = (localStorage.getItem("tt_stream_url") || "").trim();
+  const savedMiles = clampMiles(localStorage.getItem("tt_miles") || 0);
+
+  const streamUrlInput = $("streamUrl");
+  const currentMilesInput = $("currentMiles");
+
+  if (streamUrlInput) streamUrlInput.value = savedStream;
+  if (currentMilesInput) currentMilesInput.value = savedMiles ? String(savedMiles) : "";
+
+  setStream(savedStream);
+  updateMilesUI(savedMiles);
+
+  // Save stream
+  const saveStreamBtn = $("saveStream");
+  if (saveStreamBtn) {
+    saveStreamBtn.addEventListener("click", () => {
+      const url = (streamUrlInput?.value || "").trim();
+      localStorage.setItem("tt_stream_url", url);
+      setStream(url);
+    });
+  }
+
+  // Save miles
+  const saveMilesBtn = $("saveMiles");
+  if (saveMilesBtn) {
+    saveMilesBtn.addEventListener("click", () => {
+      const m = clampMiles(currentMilesInput?.value || 0);
+      localStorage.setItem("tt_miles", String(m));
+      updateMilesUI(m);
+    });
+  }
+
+  // Countdown ticker
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+}
+
+// Run after DOM is ready (extra-safe)
+document.addEventListener("DOMContentLoaded", init);
