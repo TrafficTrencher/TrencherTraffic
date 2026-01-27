@@ -159,7 +159,420 @@
 
     .barWrap{
       margin-top: 14px;
-      background: rgba(25
+      background: rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      border-radius: 999px;
+      overflow:hidden;
+      height: 14px;
+    }
+    .bar{
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, rgba(77,163,255,.95), rgba(44,255,197,.85));
+      border-radius: 999px;
+      transition: width .6s ease;
+    }
+
+    .row{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top:14px;
+    }
+    @media (max-width: 900px){
+      .row{grid-template-columns:1fr}
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(15,22,38,.75);
+      font-size: 12px;
+      color: var(--muted);
+      margin-right: 8px;
+      margin-top: 6px;
+      user-select:none;
+    }
+
+    .section{
+      margin-top: 16px;
+    }
+
+    .grid3{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    @media (max-width: 900px){
+      .grid3{grid-template-columns:1fr}
+    }
+
+    .mileCard{
+      border:1px solid var(--line);
+      background: rgba(15,22,38,.75);
+      border-radius: 18px;
+      padding: 14px;
+      min-height: 92px;
+    }
+    .mileCard .label{font-size:12px; color:var(--muted); margin-bottom:8px}
+    .mileCard .value{font-size:18px; font-weight:800}
+
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      margin-top: 10px;
+    }
+    .milestone{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      padding: 12px 12px;
+      border:1px solid var(--line);
+      background: rgba(15,22,38,.72);
+      border-radius: 18px;
+    }
+    .milestone .left{
+      display:flex;
+      flex-direction:column;
+      gap: 2px;
+    }
+    .milestone .title{
+      font-weight:800;
+      font-size: 13px;
+    }
+    .milestone .desc{
+      font-size: 12px;
+      color:var(--muted);
+    }
+    .status{
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.06);
+      color: var(--muted);
+      white-space:nowrap;
+    }
+    .status.done{
+      background: rgba(44,255,197,.10);
+      border-color: rgba(44,255,197,.25);
+      color: #bfffee;
+    }
+
+    .iframeWrap{
+      border-top:1px solid var(--line);
+      background: rgba(10,14,24,.55);
+      padding: 0;
+    }
+    iframe{
+      width:100%;
+      height: 420px;
+      border:0;
+      display:block;
+      background: #0a0f19;
+    }
+
+    .note{
+      border:1px dashed rgba(255,255,255,.18);
+      background: rgba(255,255,255,.04);
+      color: var(--muted);
+      padding: 12px;
+      border-radius: 16px;
+      font-size: 13px;
+      margin-top: 12px;
+      line-height: 1.4;
+    }
+
+    .footer{
+      margin-top: 18px;
+      color: var(--muted);
+      font-size: 12px;
+      text-align:center;
+      padding: 18px 10px;
+    }
+    code{
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+      font-size: 12px;
+      color: #cfe4ff;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="logo">TT</div>
+        <div>
+          <h1>TrencherTraffic</h1>
+          <p class="muted">Drive-to-earn progress (official miles are repo-controlled)</p>
+        </div>
+      </div>
+
+      <div class="nav">
+        <a href="#live">Live</a>
+        <a href="#progress">Track Progress</a>
+        <a href="#map">Map</a>
+      </div>
+    </div>
+
+    <div class="hero">
+      <!-- Progress Card -->
+      <div class="card" id="progress">
+        <div class="pad">
+          <h2>Track Progress</h2>
+          <div class="muted">Goal: <span id="goalMiles">50,000</span> miles</div>
+
+          <div class="kpi">
+            <div class="big"><span id="currentMiles">0</span></div>
+            <div class="subkpi">
+              miles completed • <span id="percentComplete">0.0%</span>
+            </div>
+          </div>
+
+          <div class="barWrap" aria-label="progress bar">
+            <div class="bar" id="progressBar"></div>
+          </div>
+
+          <div>
+            <span class="pill">Official miles: <strong>read-only</strong></span>
+            <span class="pill">Update method: edit <code>data/progress.json</code></span>
+            <span class="pill" id="versionPill">v=4</span>
+          </div>
+
+          <div class="note">
+            Visitors cannot change the public miles number. Only you can update it by committing changes to
+            <code>data/progress.json</code> in GitHub.
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="card">
+        <div class="pad">
+          <h2>Milestones</h2>
+          <div class="muted">Automatic unlocks based on official miles</div>
+
+          <div class="grid3">
+            <div class="mileCard">
+              <div class="label">Next milestone</div>
+              <div class="value" id="nextMilestone">—</div>
+            </div>
+            <div class="mileCard">
+              <div class="label">Miles remaining</div>
+              <div class="value" id="milesRemaining">50,000</div>
+            </div>
+            <div class="mileCard">
+              <div class="label">Unlocked</div>
+              <div class="value" id="unlockedCount">0</div>
+            </div>
+          </div>
+
+          <div class="list" id="milestoneList"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIVE -->
+    <div class="section card" id="live">
+      <div class="pad">
+        <h2>Live</h2>
+        <div class="muted">Drop your stream embed here (YouTube/Twitch/etc.)</div>
+
+        <div class="note">
+          Replace the <code>src</code> of the iframe below with your stream embed URL.
+          If you don’t want an iframe, delete it and paste your widget code.
+        </div>
+      </div>
+
+      <div class="iframeWrap">
+        <!-- Replace this URL with your real stream embed -->
+        <iframe
+          id="liveFrame"
+          title="Live Stream"
+          src="about:blank"
+          allow="autoplay; encrypted-media; picture-in-picture"
+          referrerpolicy="no-referrer"
+        ></iframe>
+      </div>
+    </div>
+
+    <!-- MAP -->
+    <div class="section card" id="map">
+      <div class="pad">
+        <h2>Map</h2>
+        <div class="muted">Embed a real map (Google My Maps, Google Maps, etc.)</div>
+
+        <div class="note">
+          Replace the <code>src</code> below with your map embed link.
+          Google My Maps: “Share” → “Embed on my site” → copy iframe URL.
+        </div>
+      </div>
+
+      <div class="iframeWrap">
+        <!-- Replace this URL with your real map embed -->
+        <iframe
+          id="mapFrame"
+          title="Route Map"
+          src="about:blank"
+          loading="lazy"
+          referrerpolicy="no-referrer"
+        ></iframe>
+      </div>
+    </div>
+
+    <div class="footer">
+      © <span id="year"></span> TrencherTraffic • GitHub Pages
+    </div>
+  </div>
+
+  <script>
+    // =========================
+    // CONFIG
+    // =========================
+    const GOAL_MILES = 50000;
+
+    // Default milestones (edit these however you want)
+    const MILESTONES = [
+      { miles: 5000,  title: "5,000 miles",  reward: "First milestone reward" },
+      { miles: 10000, title: "10,000 miles", reward: "Claimable fee milestone" },
+      { miles: 25000, title: "25,000 miles", reward: "Midpoint achievement" },
+      { miles: 50000, title: "50,000 miles", reward: "Goal reached (main claim)" }
+    ];
+
+    // =========================
+    // HELPERS
+    // =========================
+    function qs(name){
+      return new URLSearchParams(location.search).get(name);
+    }
+
+    function comma(n){
+      return Number(n).toLocaleString();
+    }
+
+    function clamp(n, min, max){
+      return Math.max(min, Math.min(max, n));
+    }
+
+    function setText(id, val){
+      const el = document.getElementById(id);
+      if (el) el.textContent = val;
+    }
+
+    function buildMilestones(currentMiles){
+      const list = document.getElementById('milestoneList');
+      list.innerHTML = '';
+
+      let unlocked = 0;
+      let next = null;
+
+      for (const m of MILESTONES){
+        const done = currentMiles >= m.miles;
+        if (done) unlocked++;
+        if (!done && next === null) next = m;
+
+        const row = document.createElement('div');
+        row.className = 'milestone';
+
+        const left = document.createElement('div');
+        left.className = 'left';
+
+        const title = document.createElement('div');
+        title.className = 'title';
+        title.textContent = `${m.title} • ${comma(m.miles)} mi`;
+
+        const desc = document.createElement('div');
+        desc.className = 'desc';
+        desc.textContent = m.reward;
+
+        left.appendChild(title);
+        left.appendChild(desc);
+
+        const status = document.createElement('div');
+        status.className = 'status' + (done ? ' done' : '');
+        status.textContent = done ? 'Unlocked' : `Locked`;
+
+        row.appendChild(left);
+        row.appendChild(status);
+        list.appendChild(row);
+      }
+
+      setText('unlockedCount', comma(unlocked));
+      setText('nextMilestone', next ? `${comma(next.miles)} mi` : 'All unlocked ✅');
+
+      const remaining = Math.max(0, GOAL_MILES - currentMiles);
+      setText('milesRemaining', comma(remaining));
+    }
+
+    // =========================
+    // LOAD OFFICIAL MILES
+    // =========================
+    async function loadOfficialMiles(){
+      // Bypass cache to avoid GitHub Pages caching confusion
+      const url = './data/progress.json?v=' + Date.now();
+      const res = await fetch(url, { cache: 'no-store' });
+      if (!res.ok) throw new Error('Missing data/progress.json (create it!)');
+      const data = await res.json();
+      const miles = Number(data.miles) || 0;
+      return miles;
+    }
+
+    function render(miles){
+      setText('goalMiles', comma(GOAL_MILES));
+      setText('currentMiles', comma(miles));
+
+      const pct = clamp((miles / GOAL_MILES) * 100, 0, 100);
+      setText('percentComplete', `${pct.toFixed(1)}%`);
+
+      const bar = document.getElementById('progressBar');
+      if (bar) bar.style.width = pct + '%';
+
+      buildMilestones(miles);
+    }
+
+    // =========================
+    // INIT
+    // =========================
+    (async function init(){
+      // Footer year
+      setText('year', new Date().getFullYear());
+
+      // Show version from ?v=4
+      const v = qs('v');
+      if (v) setText('versionPill', `v=${v}`);
+
+      try{
+        const miles = await loadOfficialMiles();
+        render(miles);
+        console.log('Official miles loaded:', miles);
+      }catch(err){
+        console.error(err);
+        // Keep 0s, but show a hint if the JSON is missing
+        const note = document.createElement('div');
+        note.className = 'note';
+        note.innerHTML =
+          `Couldn't load <code>data/progress.json</code>. Create it with <code>{ "miles": 0 }</code> and commit.`;
+        document.querySelector('#progress .pad')?.appendChild(note);
+      }
+
+      // If someone hits /#live, scroll nicely (optional)
+      if (location.hash){
+        const el = document.querySelector(location.hash);
+        if (el) setTimeout(() => el.scrollIntoView({ behavior: 'smooth', block: 'start' }), 100);
+      }
+    })();
+  </script>
+</body>
+</html>
+
 
 
 
