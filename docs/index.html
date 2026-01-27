@@ -1,219 +1,165 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Trencher Traffic</title>
-  <meta name="description" content="Trencher Traffic — Drive-to-earn livestream challenge documenting a 50,000 mile journey across Southwest Florida." />
+  <title>TrencherTraffic</title>
 
-  <!-- Cache-bust so new styles load -->
-  <link rel="stylesheet" href="style.css?v=7" />
-</head>
+  <style>
+    :root{
+      --bg:#0b0f1a;
+      --card:#121a2b;
+      --card2:#0f1626;
+      --text:#e7eefc;
+      --muted:#9cb0d3;
+      --line:rgba(255,255,255,.08);
+      --accent:#4da3ff;
+      --accent2:#2cffc5;
+      --warning:#ffcc66;
+      --danger:#ff6b6b;
+      --shadow: 0 20px 60px rgba(0,0,0,.45);
+      --radius:18px;
+      --radius2:24px;
+    }
 
-<body>
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 700px at 20% -10%, rgba(77,163,255,.15), transparent 60%),
+                  radial-gradient(900px 600px at 90% 10%, rgba(44,255,197,.10), transparent 55%),
+                  var(--bg);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
 
-<header class="topbar">
-  <div class="container topbar__inner">
-    <div class="brand">
-      <div class="brand__dot"></div>
-      <div>
-        <div class="brand__name">
-          Trencher Traffic
-          <span id="liveBadge" class="live-badge">LIVE</span>
-        </div>
-        <div class="brand__tag">Drive-to-Earn • Road to 50,000 Miles</div>
-      </div>
-    </div>
+    .wrap{
+      max-width:1100px;
+      margin:0 auto;
+      padding: 18px 16px 60px;
+    }
 
-    <nav class="nav nav--desktop">
-      <a href="#live">Live</a>
-      <a href="#miles">Miles</a>
-      <a href="#how">How It Works</a>
-      <a href="#links">Links</a>
-    </nav>
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      padding: 12px 14px;
+      border:1px solid var(--line);
+      background: rgba(18,26,43,.75);
+      backdrop-filter: blur(12px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 10px;
+      z-index: 50;
+    }
 
-    <details class="menu menu--mobile">
-      <summary class="menu__summary">Menu</summary>
-      <div class="menu__panel">
-        <a href="#live">Live</a>
-        <a href="#miles">Miles</a>
-        <a href="#how">How It Works</a>
-        <a href="#links">Links</a>
-      </div>
-    </details>
-  </div>
-</header>
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width: 220px;
+    }
+    .logo{
+      width:42px;
+      height:42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, rgba(77,163,255,.85), rgba(44,255,197,.65));
+      box-shadow: 0 12px 30px rgba(77,163,255,.18);
+      display:grid;
+      place-items:center;
+      font-weight:900;
+      letter-spacing:.4px;
+      color:#03101f;
+      user-select:none;
+    }
+    .brand h1{
+      font-size: 16px;
+      margin:0;
+      line-height:1.1;
+    }
+    .brand p{
+      margin:0;
+      color:var(--muted);
+      font-size: 12px;
+    }
 
-<section class="hero">
-  <div class="container hero__grid">
-    <div>
-      <h1>Drive. Stream. Reach 50,000 Miles.</h1>
+    .nav{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+    }
+    .nav a{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 10px 12px;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: rgba(15,22,38,.75);
+      color: var(--text);
+      font-size: 13px;
+      transition: transform .08s ease, border-color .2s ease, background .2s ease;
+    }
+    .nav a:hover{
+      transform: translateY(-1px);
+      border-color: rgba(77,163,255,.35);
+      background: rgba(15,22,38,.92);
+      text-decoration:none;
+    }
 
-      <p class="lead">
-        A real-world drive-to-earn challenge streamed live from Southwest Florida —
-        including daily runs across the iconic Sunshine Skyway Bridge.
-      </p>
+    .hero{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 14px;
+    }
+    @media (max-width: 900px){
+      .hero{grid-template-columns:1fr}
+      .brand{min-width:auto}
+    }
 
-      <div class="cta">
-        <a class="btn btn--primary" href="#live">Watch Live</a>
-        <a class="btn" href="https://x.com/TrencherTraffic" target="_blank" rel="noreferrer">Follow on X</a>
-        <a class="btn btn--ghost" href="#miles">Track Progress</a>
-      </div>
+    .card{
+      border:1px solid var(--line);
+      background: rgba(18,26,43,.72);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .card .pad{padding:16px}
+    .card h2{
+      margin:0 0 10px 0;
+      font-size: 16px;
+      letter-spacing:.2px;
+    }
+    .muted{color:var(--muted)}
+    .kpi{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      align-items: flex-end;
+      margin-top: 10px;
+    }
+    .big{
+      font-size: 40px;
+      font-weight: 900;
+      letter-spacing: .2px;
+      line-height: 1;
+    }
+    .subkpi{
+      padding-bottom: 6px;
+      color: var(--muted);
+      font-size: 13px;
+    }
 
-      <div class="pillrow">
-        <span class="pill">Weekdays • 3:00–7:00 PM EST</span>
-        <span class="pill">50,000 Mile Goal</span>
-        <span class="pill">25 Milestones</span>
-      </div>
+    .barWrap{
+      margin-top: 14px;
+      background: rgba(25
 
-      <!-- COUNTDOWN -->
-      <div id="countdown" class="countdown">Loading countdown…</div>
-    </div>
-
-    <div class="card">
-      <div class="card__head"><b>Project Overview</b></div>
-      <div class="card__body">
-        <div class="info"><span class="small">Platform</span><b>pump.fun</b></div>
-        <div class="info"><span class="small">Route</span><b>Southwest Florida</b></div>
-        <div class="info"><span class="small">Highlight</span><b>Sunshine Skyway Bridge</b></div>
-        <p class="small" style="margin-top:12px">
-          A long-form livestream challenge designed to bring real engagement and consistency to pump.fun streaming.
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="live" class="section">
-  <div class="container">
-    <h2>Live Stream</h2>
-    <p class="small">Paste your pump.fun stream link below to activate the stream.</p>
-
-    <div class="livegrid">
-      <div class="card">
-        <div class="card__head"><b>Stream Player</b></div>
-        <div class="card__body">
-          <div class="embedwrap">
-            <iframe id="streamFrame" title="Trencher Traffic Stream" src="" allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card__head"><b>Stream Setup</b></div>
-        <div class="card__body">
-          <div class="field">
-            <span>pump.fun stream URL</span>
-            <input id="streamUrl" placeholder="https://pump.fun/..." />
-          </div>
-          <button id="saveStream" class="btn btn--primary" type="button">Save Stream</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="miles" class="section section--alt">
-  <div class="container">
-    <h2>Miles</h2>
-    <p class="small">Track your progress to 50,000 miles. (Saved locally in your browser.)</p>
-
-    <div class="milegrid">
-      <div class="card">
-        <div class="card__head"><b>Track Progress</b></div>
-        <div class="card__body">
-          <div class="progress__meta">
-            <div>
-              <span class="small">Current miles</span>
-              <div><b id="currentMilesText">0</b></div>
-            </div>
-            <div style="text-align:right">
-              <span class="small">Complete</span>
-              <div><b id="percentText">0%</b></div>
-            </div>
-          </div>
-
-          <div class="bar">
-            <div id="barFill" class="bar__fill"></div>
-          </div>
-
-          <div class="field" style="margin-top:14px">
-            <span>Update current miles</span>
-            <input id="currentMiles" placeholder="e.g., 1250" inputmode="numeric" />
-          </div>
-          <button id="saveMiles" class="btn" type="button">Save Miles</button>
-
-          <p class="small" style="margin-top:10px">
-            Goal: <b>50,000</b> miles • <b>25</b> fee-claim milestones (every <b>2,000</b> miles).
-          </p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card__head"><b>Milestones (25 Claims)</b></div>
-        <div class="card__body">
-          <ul id="milestoneList" style="list-style:none;padding-left:0;margin:0"></ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="how" class="section">
-  <div class="container">
-    <h2>How It Works</h2>
-    <div class="howgrid">
-      <div class="card">
-        <div class="card__head"><b>1) Drive</b></div>
-        <div class="card__body">
-          <p class="small">Weekday route runs (3–7 PM EST) across Southwest Florida, featuring the Sunshine Skyway Bridge.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card__head"><b>2) Stream</b></div>
-        <div class="card__body">
-          <p class="small">Stream the journey live on pump.fun and keep the challenge consistent — a real, long-form grind.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card__head"><b>3) Claim Fees</b></div>
-        <div class="card__body">
-          <p class="small">25 total claims on the path to 50,000 miles — roughly every 2,000 miles. (Token link can be added later.)</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="links" class="section section--alt">
-  <div class="container">
-    <h2>Links</h2>
-    <div class="linkgrid">
-      <a class="linkcard" href="https://x.com/TrencherTraffic" target="_blank" rel="noreferrer">
-        <b>X (TrencherTraffic)</b>
-        <div class="small" style="margin-top:6px">Updates, clips, and announcements.</div>
-      </a>
-
-      <div class="linkcard">
-        <b>pump.fun stream</b>
-        <div class="small" style="margin-top:6px">Add your stream URL in the Live section to activate the player.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="container footer__inner">
-    <div>© <span id="year"></span> Trencher Traffic</div>
-    <div class="small">Built on GitHub Pages</div>
-  </div>
-</footer>
-
-<!-- IMPORTANT: app.js should be a separate file (docs/app.js) -->
-<script src="app.js?v=7"></script>
-</body>
-</html>
 
 
