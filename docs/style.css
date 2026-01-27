@@ -1,38 +1,39 @@
-/* =========================
-   Trencher Traffic — style.css (FULL REPLACEMENT)
-   Dark glass theme + clean responsive header + map card
-   ========================= */
+/* =========================================================
+   Trencher Traffic — docs/style.css (FULL REPLACEMENT)
+   Built to match your CURRENT HTML structure + clean spacing
+   ========================================================= */
 
 :root{
   --bg0:#070A10;
   --bg1:#0A1020;
+
+  --text:#EAF0FF;
+  --muted:#A8B3D1;
+
   --card: rgba(255,255,255,.06);
   --card2: rgba(255,255,255,.04);
   --stroke: rgba(255,255,255,.10);
-  --stroke2: rgba(255,255,255,.14);
-  --text:#EAF0FF;
-  --muted:#A8B3D1;
-  --muted2:#8D97B6;
+  --stroke2: rgba(255,255,255,.16);
+
   --shadow: 0 18px 60px rgba(0,0,0,.55);
-  --shadow2: 0 10px 28px rgba(0,0,0,.40);
+  --shadow2: 0 10px 24px rgba(0,0,0,.35);
+
   --radius: 18px;
   --radius2: 22px;
+
   --brandA:#7C5CFF;
   --brandB:#00D4FF;
-  --good:#00E6A7;
-  --warn:#FFB020;
-  --bad:#FF3B6B;
-  --link:#9BD2FF;
 
-  --max: 1120px;
+  --max: 1180px;
   --pad: 22px;
 }
 
+/* Base */
 *{ box-sizing:border-box; }
 html,body{ height:100%; }
 body{
   margin:0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
   color:var(--text);
   background:
     radial-gradient(900px 520px at 20% 10%, rgba(124,92,255,.18), transparent 60%),
@@ -41,7 +42,7 @@ body{
     linear-gradient(180deg, var(--bg0), var(--bg1));
 }
 
-a{ color:var(--link); text-decoration:none; }
+a{ color:#9BD2FF; text-decoration:none; }
 a:hover{ text-decoration:underline; }
 
 .container{
@@ -51,8 +52,10 @@ a:hover{ text-decoration:underline; }
   padding: 0 var(--pad);
 }
 
-/* ========= Top header / nav ========= */
-.topbar{
+/* =========================================================
+   TOP BAR / NAV (works even if your HTML isn’t perfect)
+   ========================================================= */
+header, .topbar{
   position:sticky;
   top:0;
   z-index:50;
@@ -61,35 +64,37 @@ a:hover{ text-decoration:underline; }
   border-bottom:1px solid rgba(255,255,255,.08);
 }
 
-.topbar-inner{
+header .container, .topbar .container, .topbar-inner{
   display:flex;
   align-items:center;
   justify-content:space-between;
   gap:16px;
-  padding: 14px 0;
+  padding: 12px 0;
 }
 
-.brand{
+/* left brand area */
+.brand, .logo, .site-title{
   display:flex;
   align-items:center;
   gap:12px;
-  min-width: 240px;
+  min-width: 260px;
 }
 
-.brand-dot{
+.brand-dot, .dot, .status-dot{
   width:14px; height:14px;
   border-radius:999px;
   background: linear-gradient(135deg,var(--brandA),var(--brandB));
   box-shadow: 0 0 0 5px rgba(124,92,255,.14);
 }
 
-.brand-title{
+/* brand text */
+.brand-title, .title-stack{
   display:flex;
   flex-direction:column;
-  line-height:1.1;
+  line-height:1.15;
 }
 
-.brand-title strong{
+.brand-title strong, .title-stack strong, .site-title strong{
   font-size:15px;
   letter-spacing:.2px;
   display:flex;
@@ -97,14 +102,38 @@ a:hover{ text-decoration:underline; }
   gap:10px;
 }
 
-.brand-title span{
+.brand-title span, .title-stack span, .site-title span{
   font-size:12px;
   color:var(--muted);
   margin-top:2px;
 }
 
-/* LIVE badge */
-.badge{
+/* nav right */
+nav, .nav{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+nav a, .nav a{
+  color: var(--muted);
+  font-weight:800;
+  font-size:14px;
+  padding: 8px 10px;
+  border-radius: 10px;
+}
+nav a:hover, .nav a:hover{
+  background: rgba(255,255,255,.06);
+  color: var(--text);
+  text-decoration:none;
+}
+
+/* =========================================================
+   LIVE BADGE (works with #liveBadge)
+   ========================================================= */
+#liveBadge, .badge{
   display:inline-flex;
   align-items:center;
   gap:8px;
@@ -113,24 +142,25 @@ a:hover{ text-decoration:underline; }
   border:1px solid rgba(255,255,255,.18);
   background: rgba(255,255,255,.06);
   font-size:12px;
-  font-weight:800;
+  font-weight:900;
   letter-spacing:.5px;
   color: var(--muted);
   text-transform:uppercase;
   box-shadow: 0 6px 20px rgba(0,0,0,.25);
 }
-.badge::before{
+#liveBadge::before, .badge::before{
   content:"";
   width:8px; height:8px;
   border-radius:999px;
   background: rgba(255,255,255,.35);
 }
-.badge.is-live{
+
+#liveBadge.is-live, .badge.is-live{
   color:#0A101A;
   border-color: rgba(255,255,255,.08);
   background: linear-gradient(135deg, #FF4D6D, #FFB020);
 }
-.badge.is-live::before{
+#liveBadge.is-live::before, .badge.is-live::before{
   background:#FF002E;
   box-shadow: 0 0 0 6px rgba(255,0,46,.18);
   animation: pulse 1.3s infinite;
@@ -141,100 +171,81 @@ a:hover{ text-decoration:underline; }
   100%{ transform:scale(1); opacity:.9; }
 }
 
-.nav{
-  display:flex;
-  align-items:center;
-  gap:18px;
-  flex-wrap:wrap;
-  justify-content:flex-end;
+/* =========================================================
+   PAGE TYPOGRAPHY (fixes the “too big / cramped” look)
+   ========================================================= */
+h1, .h1{
+  font-size: 54px;
+  letter-spacing:-1px;
+  line-height:1.05;
+  margin: 28px 0 14px;
 }
-
-.nav a{
+h2{
+  font-size: 26px;
+  margin: 28px 0 10px;
+}
+p{
+  margin: 0 0 12px;
   color: var(--muted);
-  font-weight:700;
-  font-size:14px;
-  padding: 8px 10px;
-  border-radius: 10px;
-}
-.nav a:hover{
-  background: rgba(255,255,255,.06);
-  color: var(--text);
-  text-decoration:none;
+  line-height:1.6;
+  font-size: 14px;
 }
 
-/* Mobile nav compression */
-@media (max-width: 760px){
-  :root{ --pad: 16px; }
-  .topbar-inner{ gap:10px; }
-  .brand{ min-width: 0; }
-  .nav{ gap:8px; }
-  .nav a{ font-size:13px; padding:8px 8px; }
-}
-
-/* ========= Hero ========= */
-.hero{
-  padding: 52px 0 18px;
+/* =========================================================
+   HERO LAYOUT (this fixes your top section alignment)
+   ========================================================= */
+.hero, .hero-section{
+  padding: 22px 0 10px;
 }
 
 .hero-grid{
   display:grid;
-  grid-template-columns: 1.25fr .9fr;
+  grid-template-columns: 1.2fr .9fr;
   gap: 22px;
-  align-items:stretch;
+  align-items:start;
 }
 
-.h1{
-  font-size: 54px;
-  letter-spacing:-1px;
-  line-height:1.05;
-  margin: 0 0 14px;
+@media (max-width: 980px){
+  h1, .h1{ font-size: 40px; }
+  .hero-grid{ grid-template-columns:1fr; }
 }
 
-.lede{
-  color: var(--muted);
-  font-size: 15px;
-  line-height:1.6;
-  margin: 0 0 18px;
-  max-width: 58ch;
-}
-
-.actions{
+/* Buttons row */
+.actions, .buttons, .cta-row{
   display:flex;
   flex-wrap:wrap;
   gap:12px;
   margin-top: 14px;
 }
 
-.btn{
+button, .btn, .button{
   appearance:none;
   border:none;
   cursor:pointer;
-  font-weight:800;
+  font-weight:900;
   font-size:14px;
-  padding: 11px 16px;
+  padding: 10px 14px;
   border-radius: 14px;
   color: var(--text);
   background: rgba(255,255,255,.06);
   border:1px solid rgba(255,255,255,.10);
   box-shadow: var(--shadow2);
 }
-.btn:hover{ transform: translateY(-1px); }
-.btn:active{ transform: translateY(0px); }
+button:hover, .btn:hover{ transform: translateY(-1px); }
+button:active, .btn:active{ transform: translateY(0px); }
 
-.btn-primary{
+.btn-primary, .primary{
   background: linear-gradient(135deg,var(--brandA),var(--brandB));
   border: none;
   color: #07101A;
 }
-.btn-ghost{
-  background: rgba(255,255,255,.04);
-}
 
-.pills{
+/* Pills under buttons */
+.pills, .meta-pills{
   display:flex;
   flex-wrap:wrap;
   gap:10px;
-  margin-top: 14px;
+  margin-top: 12px;
 }
 .pill{
   font-size:12px;
@@ -245,43 +256,42 @@ a:hover{ text-decoration:underline; }
   border-radius: 999px;
 }
 
-/* Countdown line */
-.countdown{
+/* Countdown */
+#countdown, .countdown{
   margin-top: 10px;
   color: var(--muted);
   font-size: 13px;
 }
-.countdown small{
-  color: var(--muted2);
+#countdown small, .countdown small{
+  opacity:.85;
   font-size: 12px;
 }
 
-.card{
+/* =========================================================
+   CARDS (fixes your giant stretched Project Overview card)
+   ========================================================= */
+.card, .panel, .box{
   border-radius: var(--radius2);
   border: 1px solid rgba(255,255,255,.10);
   background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
   box-shadow: var(--shadow);
   overflow:hidden;
 }
-.card-header{
-  padding: 14px 16px;
-  border-bottom: 1px solid rgba(255,255,255,.08);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-}
-.card-header h3{
-  margin:0;
-  font-size: 14px;
-  letter-spacing:.2px;
-}
-.card-body{ padding: 16px; }
 
-.kv{
+.card-header, .panel-header{
+  padding: 12px 14px;
+  border-bottom: 1px solid rgba(255,255,255,.08);
+  font-weight: 900;
+  font-size: 14px;
+}
+.card-body, .panel-body{
+  padding: 14px;
+}
+
+.kv, .overview-grid{
   display:grid;
   grid-template-columns: 1fr 1fr;
-  gap: 10px 16px;
+  gap: 8px 14px;
   margin-top: 8px;
 }
 .kv div{
@@ -291,50 +301,36 @@ a:hover{ text-decoration:underline; }
   color: var(--muted);
   font-size: 13px;
 }
-.kv div b{ color: var(--text); font-weight:800; }
-.kv div span{ color: var(--muted); }
+.kv div b{ color: var(--text); font-weight:900; }
 
-@media (max-width: 980px){
-  .hero-grid{ grid-template-columns: 1fr; }
-  .h1{ font-size: 42px; }
-}
-
-/* ========= Sections ========= */
+/* =========================================================
+   MAIN SECTIONS GRID (stream + setup, miles + milestones)
+   ========================================================= */
 .section{
-  padding: 30px 0;
-}
-.section h2{
-  margin: 0 0 10px;
-  font-size: 22px;
-  letter-spacing:-.2px;
-}
-.section p{
-  margin: 0 0 14px;
-  color: var(--muted);
-  line-height:1.65;
-  font-size: 14px;
+  padding: 18px 0;
 }
 
-.grid-2{
+/* generic 2-col grid used throughout */
+.grid-2, .two-col{
   display:grid;
   grid-template-columns: 1fr 1fr;
   gap: 18px;
+  align-items:start;
 }
 @media (max-width: 980px){
-  .grid-2{ grid-template-columns: 1fr; }
+  .grid-2, .two-col{ grid-template-columns:1fr; }
 }
 
-/* ========= Stream frame ========= */
-.frame{
+/* Stream iframe container */
+.frame, iframe{
   width:100%;
   aspect-ratio: 16/9;
   border:1px solid rgba(255,255,255,.10);
   border-radius: var(--radius);
   background: rgba(0,0,0,.25);
-  overflow:hidden;
 }
 
-/* ========= Form controls ========= */
+/* Inputs */
 .field{
   display:flex;
   flex-direction:column;
@@ -344,7 +340,7 @@ a:hover{ text-decoration:underline; }
 label{
   font-size: 12px;
   color: var(--muted);
-  font-weight: 800;
+  font-weight: 900;
   letter-spacing:.3px;
 }
 input{
@@ -361,7 +357,7 @@ input:focus{
   box-shadow: 0 0 0 6px rgba(155,210,255,.12);
 }
 
-/* ========= Progress ========= */
+/* Progress bar */
 .progress{
   margin-top: 10px;
   border:1px solid rgba(255,255,255,.10);
@@ -375,7 +371,6 @@ input:focus{
   width:0%;
   background: linear-gradient(135deg,var(--brandA),var(--brandB));
 }
-
 .progress-row{
   display:flex;
   align-items:center;
@@ -387,102 +382,39 @@ input:focus{
 }
 .progress-row b{ color: var(--text); }
 
-/* ========= Milestones list ========= */
+/* Milestones list (your JS sets styles inline too, this helps overall) */
 #milestoneList{
   list-style:none;
   padding:0;
   margin:0;
 }
 
-/* ========= MAP ========= */
-.map-wrap{
-  display:flex;
-  flex-direction:column;
-  gap: 12px;
-}
-
-.map-caption{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap: 10px;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.map-legend{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  flex-wrap:wrap;
-}
-
-.legend-dot{
-  width:10px; height:10px; border-radius:999px;
-  background: linear-gradient(135deg,var(--brandA),var(--brandB));
-  box-shadow: 0 0 0 5px rgba(124,92,255,.14);
-}
-
-.map-box{
-  border-radius: var(--radius2);
-  border: 1px solid rgba(255,255,255,.10);
-  background: radial-gradient(900px 520px at 50% 30%, rgba(0,212,255,.10), transparent 65%),
-              radial-gradient(900px 520px at 40% 80%, rgba(124,92,255,.10), transparent 65%),
-              rgba(255,255,255,.03);
-  box-shadow: var(--shadow);
-  overflow:hidden;
-}
-
-.map-svg{
-  width:100%;
-  height:auto;
-  display:block;
-}
-
-/* Route styling inside SVG */
-.route-line{
-  fill:none;
-  stroke: url(#routeGrad);
-  stroke-width: 6;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  filter: drop-shadow(0 10px 16px rgba(0,0,0,.35));
-}
-.route-glow{
-  fill:none;
-  stroke: rgba(0,212,255,.28);
-  stroke-width: 12;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-.stop{
-  fill: rgba(255,255,255,.95);
-  stroke: rgba(0,0,0,.22);
-  stroke-width: 1.5;
-}
-.stop-label{
-  font-size: 12px;
-  fill: rgba(234,240,255,.90);
-  font-weight: 800;
-  paint-order: stroke;
-  stroke: rgba(0,0,0,.45);
-  stroke-width: 3px;
-  stroke-linejoin: round;
-}
-
-.map-note{
-  padding: 0 16px 16px;
-  color: var(--muted2);
-  font-size: 12px;
-}
-
-/* ========= Footer ========= */
+/* =========================================================
+   FOOTER
+   ========================================================= */
 .footer{
   padding: 26px 0 40px;
-  color: var(--muted2);
+  color: rgba(168,179,209,.85);
   font-size: 13px;
   border-top: 1px solid rgba(255,255,255,.08);
   margin-top: 26px;
 }
+
+/* =========================================================
+   MOBILE TUNING (fix cramped nav + spacing)
+   ========================================================= */
+@media (max-width: 760px){
+  :root{ --pad: 16px; }
+
+  header .container, .topbar-inner{
+    padding: 10px 0;
+    gap:10px;
+  }
+
+  nav, .nav{ gap:8px; }
+  nav a, .nav a{ font-size:13px; padding:8px 8px; }
+
+  h1, .h1{ font-size: 36px; margin-top: 18px; }
+}
+
 
