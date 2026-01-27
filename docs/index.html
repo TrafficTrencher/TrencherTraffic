@@ -1,218 +1,180 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Trencher Traffic</title>
-  <meta name="description" content="Trencher Traffic — Drive-to-earn livestream challenge documenting a 50,000 mile journey across Southwest Florida." />
-
-  <!-- Cache-bust so new styles load -->
-  <link rel="stylesheet" href="style.css?v=7" />
+  <link rel="stylesheet" href="./style.css" />
 </head>
 
 <body>
-
-<header class="topbar">
-  <div class="container topbar__inner">
+  <!-- Top Nav -->
+  <header class="topbar">
     <div class="brand">
-      <div class="brand__dot"></div>
-      <div>
-        <div class="brand__name">
-          Trencher Traffic
-          <span id="liveBadge" class="live-badge">LIVE</span>
+      <div class="brandDot"></div>
+      <div class="brandText">
+        <div class="brandTitle">
+          Trencher Traffic <span id="liveBadge" class="liveBadge">OFFLINE</span>
         </div>
-        <div class="brand__tag">Drive-to-Earn • Road to 50,000 Miles</div>
+        <div class="brandSub">Drive-to-Earn • Road to 50,000 Miles</div>
       </div>
     </div>
 
-    <nav class="nav nav--desktop">
+    <nav class="nav">
       <a href="#live">Live</a>
       <a href="#miles">Miles</a>
       <a href="#how">How It Works</a>
       <a href="#links">Links</a>
     </nav>
+  </header>
 
-    <details class="menu menu--mobile">
-      <summary class="menu__summary">Menu</summary>
-      <div class="menu__panel">
-        <a href="#live">Live</a>
-        <a href="#miles">Miles</a>
-        <a href="#how">How It Works</a>
-        <a href="#links">Links</a>
-      </div>
-    </details>
-  </div>
-</header>
+  <main class="wrap">
+    <!-- HERO -->
+    <section class="hero" id="live">
+      <div class="heroLeft">
+        <h1>Drive. Stream. Reach 50,000 Miles.</h1>
+        <p class="lead">
+          A real-world drive-to-earn challenge streamed live from Southwest Florida —
+          including daily runs across the iconic Sunshine Skyway Bridge.
+        </p>
 
-<section class="hero">
-  <div class="container hero__grid">
-    <div>
-      <h1>Drive. Stream. Reach 50,000 Miles.</h1>
+        <div class="ctaRow">
+          <a class="btn primary" href="#live">Watch Live</a>
+          <a class="btn" href="#links">Follow on X</a>
+          <a class="btn" href="#miles">Track Progress</a>
+        </div>
 
-      <p class="lead">
-        A real-world drive-to-earn challenge streamed live from Southwest Florida —
-        including daily runs across the iconic Sunshine Skyway Bridge.
-      </p>
+        <div class="chipRow">
+          <span class="chip">Weekdays • 3:00–7:00 PM EST</span>
+          <span class="chip">Goal: 50,000 Miles</span>
+          <span class="chip">25 Milestones</span>
+        </div>
 
-      <div class="cta">
-        <a class="btn btn--primary" href="#live">Watch Live</a>
-        <a class="btn" href="https://x.com/TrencherTraffic" target="_blank" rel="noreferrer">Follow on X</a>
-        <a class="btn btn--ghost" href="#miles">Track Progress</a>
+        <div id="countdown" class="countdown">Loading countdown…</div>
       </div>
 
-      <div class="pillrow">
-        <span class="pill">Weekdays • 3:00–7:00 PM EST</span>
-        <span class="pill">50,000 Mile Goal</span>
-        <span class="pill">25 Milestones</span>
-      </div>
-
-      <!-- COUNTDOWN -->
-      <div id="countdown" class="countdown">Loading countdown…</div>
-    </div>
-
-    <div class="card">
-      <div class="card__head"><b>Project Overview</b></div>
-      <div class="card__body">
-        <div class="info"><span class="small">Platform</span><b>pump.fun</b></div>
-        <div class="info"><span class="small">Route</span><b>Southwest Florida</b></div>
-        <div class="info"><span class="small">Highlight</span><b>Sunshine Skyway Bridge</b></div>
-        <p class="small" style="margin-top:12px">
+      <div class="heroRight card">
+        <div class="cardTitle">Project Overview</div>
+        <div class="kv">
+          <div class="kvRow"><span>Platform</span><b>pump.fun</b></div>
+          <div class="kvRow"><span>Route</span><b>Southwest Florida</b></div>
+          <div class="kvRow"><span>Highlight</span><b>Sunshine Skyway Bridge</b></div>
+        </div>
+        <p class="muted">
           A long-form livestream challenge designed to bring real engagement and consistency to pump.fun streaming.
         </p>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section id="live" class="section">
-  <div class="container">
-    <h2>Live Stream</h2>
-    <p class="small">Paste your pump.fun stream link below to activate the stream.</p>
-
-    <div class="livegrid">
+    <!-- LIVE STREAM -->
+    <section class="grid2">
       <div class="card">
-        <div class="card__head"><b>Stream Player</b></div>
-        <div class="card__body">
-          <div class="embedwrap">
-            <iframe id="streamFrame" title="Trencher Traffic Stream" src="" allowfullscreen></iframe>
-          </div>
+        <div class="cardTitle">Live Stream</div>
+        <p class="muted">Paste your pump.fun stream link below to activate the stream.</p>
+
+        <div class="frameShell">
+          <div class="frameLabel">Stream Player</div>
+          <iframe id="streamFrame" class="frame" src="" loading="lazy"></iframe>
         </div>
+
+        <div class="hint">Tip: once you save a stream URL, the LIVE badge will light up.</div>
       </div>
 
       <div class="card">
-        <div class="card__head"><b>Stream Setup</b></div>
-        <div class="card__body">
-          <div class="field">
-            <span>pump.fun stream URL</span>
-            <input id="streamUrl" placeholder="https://pump.fun/..." />
-          </div>
-          <button id="saveStream" class="btn btn--primary" type="button">Save Stream</button>
+        <div class="cardTitle">Stream Setup</div>
+        <label class="fieldLabel" for="streamUrl">pump.fun stream URL</label>
+        <input id="streamUrl" class="input" placeholder="https://pump.fun/..." />
+        <button id="saveStream" class="btn primary full">Save Stream URL</button>
+
+        <div class="status">
+          <div class="statusTitle">Status</div>
+          <div class="statusLine"><b>Ready</b></div>
+          <div class="muted">You can update the URL any time. The page stores it locally in your browser.</div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section id="miles" class="section section--alt">
-  <div class="container">
-    <h2>Miles</h2>
-    <p class="small">Track your progress to 50,000 miles. (Saved locally in your browser.)</p>
-
-    <div class="milegrid">
+    <!-- MILES -->
+    <section id="miles" class="grid2">
       <div class="card">
-        <div class="card__head"><b>Track Progress</b></div>
-        <div class="card__body">
-          <div class="progress__meta">
+        <div class="cardTitle">Miles</div>
+        <p class="muted">Update miles anytime. Milestones auto-mark as DONE when reached.</p>
+
+        <div class="progressTop">
+          <div class="bigStat">
+            <div class="bigNumber"><span id="currentMilesText">0</span> / 50,000</div>
+            <div class="muted" id="percentText">0%</div>
+          </div>
+        </div>
+
+        <div class="bar">
+          <div id="barFill" class="barFill" style="width:0%"></div>
+        </div>
+
+        <label class="fieldLabel" for="currentMiles">Current miles</label>
+        <input id="currentMiles" class="input" placeholder="e.g. 12500" />
+        <button id="saveMiles" class="btn primary full">Save Miles</button>
+
+        <div class="fineprint">
+          Goal: <b>50,000 miles</b> • <b>25 fee-claim milestones</b> (every 2,000 miles)
+        </div>
+
+        <!-- ROUTE MAP (exact, real provider) -->
+        <div class="mapBlock">
+          <div class="mapHeader">
             <div>
-              <span class="small">Current miles</span>
-              <div><b id="currentMilesText">0</b></div>
+              <div class="mapTitle">Route Map (Tampa Bay Loop)</div>
+              <div class="muted small">Interactive map • sourced from Bing Maps directions</div>
             </div>
-            <div style="text-align:right">
-              <span class="small">Complete</span>
-              <div><b id="percentText">0%</b></div>
+            <div class="mapLinks">
+              <a class="linkBtn" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin=2657%20Beachcomber%20Inlet%20Loop%2C%20Bradenton%2C%20FL%2034211&destination=2657%20Beachcomber%20Inlet%20Loop%2C%20Bradenton%2C%20FL%2034211&waypoints=APTA%20MEDS%20PHARMACY%2C%201617%2034th%20St%20S%2C%20St%20Petersburg%2C%20FL%7C2846%20Broadway%20Center%20Blvd%2C%20Brandon%2C%20FL%2033510%7C115%20E%20Davis%20Blvd%2C%20Tampa%2C%20FL%2033606%7CSavannah%20Grand%20of%20Sarasota%2C%207130%20S%20Beneva%20Rd%2C%20Sarasota%2C%20FL&travelmode=driving">Open Google</a>
+              <a class="linkBtn" target="_blank" rel="noopener" href="https://www.bing.com/maps?rtp=adr.2657%20Beachcomber%20Inlet%20Loop%2C%20Bradenton%2C%20FL%2034211~adr.APTA%20MEDS%20PHARMACY%2C%201617%2034th%20St%20S%2C%20St%20Petersburg%2C%20FL~adr.2846%20Broadway%20Center%20Blvd%2C%20Brandon%2C%20FL%2033510~adr.115%20E%20Davis%20Blvd%2C%20Tampa%2C%20FL%2033606~adr.Savannah%20Grand%20of%20Sarasota%2C%207130%20S%20Beneva%20Rd%2C%20Sarasota%2C%20FL~adr.2657%20Beachcomber%20Inlet%20Loop%2C%20Bradenton%2C%20FL%2034211&mode=D">Open Bing</a>
             </div>
           </div>
 
-          <div class="bar">
-            <div id="barFill" class="bar__fill"></div>
+          <div class="mapFrameShell">
+            <!-- Bing embed (no key required) -->
+            <iframe
+              class="mapFrame"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              src="https://www.bing.com/maps/embed?h=420&w=820&cp=27.88~-82.46&lvl=10&typ=d&sty=r&rtp=adr.2657%20Beachcomber%20Inlet%20Loop%2C%20Bradenton%2C%20FL%2034211~adr.APTA%20MEDS%20PHARMACY%2C%201617%2034th%20St%20S%2C%20St%20Petersburg%2C%20FL~adr.2846%20Broadway%20Center%20Blvd%2C%20Brandon%2C%20FL%2033510~adr.115%20E%20Davis%20Blvd%2C%20Tampa%2C%20FL%2033606~adr.Savannah%20Grand%20of%20Sarasota%2C%207130%20S%20Beneva%20Rd%2C%20Sarasota%2C%20FL~adr.2657%20Beachcomber%20Inlet%20Loop%2C%20Bradenton%2C%20FL%2034211&dir=1">
+            </iframe>
           </div>
 
-          <div class="field" style="margin-top:14px">
-            <span>Update current miles</span>
-            <input id="currentMiles" placeholder="e.g., 1250" inputmode="numeric" />
+          <div class="muted small">
+            If you want to hide addresses completely, we can switch this to a “polyline-only” map using Mapbox (requires an API key).
           </div>
-          <button id="saveMiles" class="btn" type="button">Save Miles</button>
-
-          <p class="small" style="margin-top:10px">
-            Goal: <b>50,000</b> miles • <b>25</b> fee-claim milestones (every <b>2,000</b> miles).
-          </p>
         </div>
       </div>
 
       <div class="card">
-        <div class="card__head"><b>Milestones (25 Claims)</b></div>
-        <div class="card__body">
-          <ul id="milestoneList" style="list-style:none;padding-left:0;margin:0"></ul>
-        </div>
+        <div class="cardTitle">Milestones</div>
+        <ul id="milestoneList" class="milestones"></ul>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<section id="how" class="section">
-  <div class="container">
-    <h2>How It Works</h2>
-    <div class="howgrid">
-      <div class="card">
-        <div class="card__head"><b>1) Drive</b></div>
-        <div class="card__body">
-          <p class="small">Weekday route runs (3–7 PM EST) across Southwest Florida, featuring the Sunshine Skyway Bridge.</p>
-        </div>
-      </div>
+    <!-- HOW -->
+    <section id="how" class="card">
+      <div class="cardTitle">How It Works</div>
+      <p class="muted">
+        Each 2,000 miles unlocks the next milestone (25 total). Track progress above, and watch live when the stream is active.
+      </p>
+    </section>
 
-      <div class="card">
-        <div class="card__head"><b>2) Stream</b></div>
-        <div class="card__body">
-          <p class="small">Stream the journey live on pump.fun and keep the challenge consistent — a real, long-form grind.</p>
-        </div>
-      </div>
+    <!-- LINKS -->
+    <section id="links" class="card">
+      <div class="cardTitle">Links</div>
+      <p class="muted">Add your socials and stream links here.</p>
+    </section>
 
-      <div class="card">
-        <div class="card__head"><b>3) Claim Fees</b></div>
-        <div class="card__body">
-          <p class="small">25 total claims on the path to 50,000 miles — roughly every 2,000 miles. (Token link can be added later.)</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    <footer class="footer">
+      <span>© <span id="year"></span> Trencher Traffic</span>
+    </footer>
+  </main>
 
-<section id="links" class="section section--alt">
-  <div class="container">
-    <h2>Links</h2>
-    <div class="linkgrid">
-      <a class="linkcard" href="https://x.com/TrencherTraffic" target="_blank" rel="noreferrer">
-        <b>X (TrencherTraffic)</b>
-        <div class="small" style="margin-top:6px">Updates, clips, and announcements.</div>
-      </a>
-
-      <div class="linkcard">
-        <b>pump.fun stream</b>
-        <div class="small" style="margin-top:6px">Add your stream URL in the Live section to activate the player.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="container footer__inner">
-    <div>© <span id="year"></span> Trencher Traffic</div>
-    <div class="small">Built on GitHub Pages</div>
-  </div>
-</footer>
-
-<!-- IMPORTANT: app.js should be a separate file (docs/app.js) -->
-<script src="app.js?v=7"></script>
+  <script src="./app.js"></script>
 </body>
 </html>
+
 
