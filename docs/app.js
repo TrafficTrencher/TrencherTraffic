@@ -1,183 +1,169 @@
-/* =========================================================
-   Trencher Traffic — app.js
-   Live stream + countdown + milestones
-   ========================================================= */
+(() => {
+  // =========================
+  // CONFIG
+  // =========================
+  const GOAL = 50000;
+  const CLAIM_COUNT = 25;
+  const STEP = 2000; // every 2,000 miles
 
-/* ---------------- CONFIG ---------------- */
+  // =========================
+  // DOM
+  // =========================
+  const yearEl = document.getElementById("year");
+  const liveBadge = document.getElementById("liveBadge");
+  const streamFrame = document.getElementById("streamFrame");
+  const streamUrlInput = document.getElementById("streamUrl");
+  const saveStreamBtn = document.getElementById("saveStream");
 
-const GOAL_MILES = 50000;
-const CLAIMS_TOTAL = 25;
-const STEP = GOAL_MILES / CLAIMS_TOTAL;
+  const currentMilesText = document.getElementById("currentMilesText");
+  const percentText = document.getElementById("percentText");
+  const barFill = document.getElementById("barFill");
 
-// Feb 2, 2026 @ 3:00 PM EST = 20:00 UTC
-const TARGET_UTC_MS = Date.UTC(2026, 1, 2, 20, 0, 0);
+  const milesInput = document.getElementById("currentMiles");
+  const saveMilesBtn = document.getElementById("saveMiles");
+  const milestoneList = document.getElementById("milestoneList");
 
-/* ---------------- HELPERS ---------------- */
+  // =========================
+  // BASIC HELPERS
+  // =========================
+  const comma = (n) => Number(n).toLocaleString();
+  const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 
-const $ = (id) => document.getElementById(id);
-
-function fmt(n) {
-  return Math.max(0, Math.floor(Number(n) || 0))
-    .toString()
-    .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
-function clampMiles(n) {
-  return Math.max(0, Math.min(GOAL_MILES, Math.floor(Number(n) || 0)));
-}
-
-/* ---------------- LIVE BADGE ---------------- */
-
-function setLiveBadge(isLive) {
-  const badge = $("liveBadge");
-  if (!badge) return;
-
-  if (isLive) {
-    badge.classList.add("is-live");
-    badge.textContent = "LIVE";
-  } else {
-    badge.classList.remove("is-live");
-    badge.textContent = "OFFLINE";
-  }
-}
-
-/* ---------------- STREAM ---------------- */
-
-function setStream(url) {
-  const frame = $("streamFrame");
-  if (frame) frame.src = url || "";
-  setLiveBadge(!!url);
-}
-
-/* ---------------- MILESTONES ---------------- */
-
-function buildMilestones(current) {
-  const list = $("milestoneList");
-  if (!list) return;
-
-  list.innerHTML = "";
-
-  for (let i = 1; i <= CLAIMS_TOTAL; i++) {
-    const mileMark = i * STEP;
-    const done = current >= mileMark;
-
-    const li = document.createElement("li");
-    li.style.cssText = `
-      margin: 10px 0;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.12);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(255,255,255,.03);
-    `;
-
-    const left = document.createElement("div");
-    left.innerHTML = `
-      <b>Claim ${i}</b>
-      <div style="font-size:12px;color:#9aa6c4">${fmt(mileMark)} miles</div>
-    `;
-
-    const tag = document.createElement("div");
-    tag.textContent = done ? "DONE" : "PENDING";
-    tag.style.cssText = `
-      font-size: 12px;
-      font-weight: 800;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.12);
-      color: ${done ? "#07101a" : "#a8b3d1"};
-      background: ${
-        done
-          ? "linear-gradient(135deg,#7c5cff,#00d4ff)"
-          : "rgba(255,255,255,.05)"
-      };
-    `;
-
-    li.appendChild(left);
-    li.appendChild(tag);
-    list.appendChild(li);
-  }
-}
-
-/* ---------------- MILES UI ---------------- */
-
-function updateMilesUI(current) {
-  const pct = Math.round((current / GOAL_MILES) * 1000) / 10;
-
-  if ($("currentMilesText")) $("currentMilesText").textContent = fmt(current);
-  if ($("percentText")) $("percentText").textContent = `${pct}%`;
-  if ($("barFill"))
-    $("barFill").style.width = `${Math.min(100, pct)}%`;
-
-  buildMilestones(current);
-}
-
-/* ---------------- COUNTDOWN ---------------- */
-
-function formatDuration(ms) {
-  const total = Math.max(0, Math.floor(ms / 1000));
-  const d = Math.floor(total / 86400);
-  const h = Math.floor((total % 86400) / 3600);
-  const m = Math.floor((total % 3600) / 60);
-  const s = total % 60;
-
-  return `${d > 0 ? d + "d " : ""}${h}h ${m}m ${s}s`;
-}
-
-function updateCountdown() {
-  const el = $("countdown");
-  if (!el) return;
-
-  const now = Date.now();
-  const diff = TARGET_UTC_MS - now;
-
-  if (diff <= 0) {
-    el.innerHTML = "🚀 Stream is LIVE!";
-    return;
+  function setLiveBadge() {
+    // Show LIVE badge only when on /#live (simple rule you can change)
+    if (!liveBadge) return;
+    const isLive = location.hash === "#live" || location.hash === "#live/";
+    liveBadge.style.display = isLive ? "inline-flex" : "none";
   }
 
-  el.innerHTML = `
-    Countdown to Feb 2 • 3:00 PM EST
-    <span style="opacity:.8">(${formatDuration(diff)})</span>
-  `;
-}
+  // =========================
+  // STREAM (local to viewer is fine)
+  // =========================
+  function loadStream() {
+    const saved = localStorage.getItem("tt_stream_url") || "";
+    if (streamUrlInput) streamUrlInput.value = saved;
 
-/* ---------------- INIT ---------------- */
+    if (streamFrame) {
+      streamFrame.src = saved; // put your embed URL here
+    }
+  }
 
-function init() {
-  // Footer year
-  if ($("year")) $("year").textContent = new Date().getFullYear();
-
-  // Load saved data
-  const savedStream = localStorage.getItem("tt_stream_url") || "";
-  const savedMiles = clampMiles(localStorage.getItem("tt_miles") || 0);
-
-  if ($("streamUrl")) $("streamUrl").value = savedStream;
-  if ($("currentMiles")) $("currentMiles").value = savedMiles || "";
-
-  setStream(savedStream);
-  updateMilesUI(savedMiles);
-
-  // Save stream
-  $("saveStream")?.addEventListener("click", () => {
-    const url = $("streamUrl").value.trim();
+  function saveStream() {
+    const url = (streamUrlInput?.value || "").trim();
     localStorage.setItem("tt_stream_url", url);
-    setStream(url);
-  });
+    if (streamFrame) streamFrame.src = url;
+  }
 
-  // Save miles
-  $("saveMiles")?.addEventListener("click", () => {
-    const miles = clampMiles($("currentMiles").value);
-    localStorage.setItem("tt_miles", miles);
-    updateMilesUI(miles);
-  });
+  // =========================
+  // MILES (OFFICIAL / READ-ONLY)
+  // =========================
+  async function loadOfficialMiles() {
+    // cache-bust so commits show up quickly
+    const res = await fetch(`./data/progress.json?v=${Date.now()}`, { cache: "no-store" });
+    if (!res.ok) throw new Error("Missing data/progress.json");
+    const data = await res.json();
+    return Number(data.miles) || 0;
+  }
 
-  // Countdown tick
-  updateCountdown();
-  setInterval(updateCountdown, 1000);
-}
+  function renderMiles(miles) {
+    if (currentMilesText) currentMilesText.textContent = comma(miles);
 
-document.addEventListener("DOMContentLoaded", init);
+    const pct = clamp((miles / GOAL) * 100, 0, 100);
+    if (percentText) percentText.textContent = `${pct.toFixed(1)}%`;
+    if (barFill) barFill.style.width = `${pct}%`;
+
+    renderMilestones(miles);
+  }
+
+  function renderMilestones(miles) {
+    if (!milestoneList) return;
+    milestoneList.innerHTML = "";
+
+    for (let i = 1; i <= CLAIM_COUNT; i++) {
+      const target = i * STEP; // 2000, 4000, ... 50000
+      const unlocked = miles >= target;
+
+      const li = document.createElement("li");
+      li.style.display = "flex";
+      li.style.justifyContent = "space-between";
+      li.style.alignItems = "center";
+      li.style.padding = "10px 0";
+      li.style.borderBottom = "1px solid rgba(255,255,255,0.08)";
+
+      const left = document.createElement("div");
+      left.innerHTML = `
+        <div style="font-weight:700">${i}) ${comma(target)} miles</div>
+        <div class="small" style="opacity:.85">Claim milestone</div>
+      `;
+
+      const right = document.createElement("div");
+      right.className = "pill"; // uses your existing styling
+      right.textContent = unlocked ? "Unlocked" : "Locked";
+      right.style.opacity = unlocked ? "1" : ".65";
+
+      li.appendChild(left);
+      li.appendChild(right);
+      milestoneList.appendChild(li);
+    }
+  }
+
+  function lockMilesEditorUI() {
+    // This is what prevents public editing.
+    if (milesInput) {
+      milesInput.disabled = true;
+      milesInput.placeholder = "Owner-only (repo controlled)";
+      milesInput.style.opacity = "0.6";
+      milesInput.style.cursor = "not-allowed";
+    }
+    if (saveMilesBtn) {
+      saveMilesBtn.disabled = true;
+      saveMilesBtn.style.opacity = "0.6";
+      saveMilesBtn.style.cursor = "not-allowed";
+      saveMilesBtn.title = "Owner-only (edit data/progress.json in GitHub)";
+    }
+  }
+
+  // =========================
+  // COUNTDOWN (optional placeholder)
+  // =========================
+  function initCountdown() {
+    const el = document.getElementById("countdown");
+    if (!el) return;
+    // Keep your existing countdown logic if you already had one.
+    // This just keeps it from saying "Loading…" forever.
+    el.textContent = "Weekdays • 3:00–7:00 PM EST";
+  }
+
+  // =========================
+  // INIT
+  // =========================
+  async function init() {
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+    setLiveBadge();
+    window.addEventListener("hashchange", setLiveBadge);
+
+    initCountdown();
+
+    // stream UI (local)
+    loadStream();
+    saveStreamBtn?.addEventListener("click", saveStream);
+
+    // miles UI (official + read-only)
+    lockMilesEditorUI();
+
+    try {
+      const miles = await loadOfficialMiles();
+      renderMiles(miles);
+      console.log("Official miles loaded:", miles);
+    } catch (e) {
+      console.error(e);
+      // Fallback display if file missing
+      renderMiles(0);
+    }
+  }
+
+  init();
+})();
+
 
