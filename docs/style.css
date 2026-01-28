@@ -358,17 +358,7 @@ input:focus{border-color:rgba(124,92,255,.7)}
   .topbar__inner{padding:10px 0}
 }
 
-
-margin-top: 18px;
-}
-
-/* Space between the pills and the Project Overview card */
-.hero .pillrow{
-  margin-bottom: 18px;
-}
-
-@media (max-width: 700px){
-  .hero .pillrow{
-    margin-bottom: 22px;
-
+/* On wide desktop: add breathing room between hero columns */
+@media(min-width:900px){
+  .hero__grid{gap:60px}
 }
