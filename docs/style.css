@@ -378,3 +378,15 @@ padding-bottom: 72px;
 padding-top: 56px;
 }
 
+  * MOBILE SPACING: add breathing room between hero text and Project Overview card */
+@media (max-width: 700px) {
+.hero__grid {
+row-gap: 28px; /* increase this number if you want more */
+}
+
+/* extra insurance in case grid gap isn't applied */
+.hero__grid > .card {
+margin-top: 18px;
+}
+
+
