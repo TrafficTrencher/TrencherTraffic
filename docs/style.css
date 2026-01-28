@@ -358,35 +358,17 @@ input:focus{border-color:rgba(124,92,255,.7)}
   .topbar__inner{padding:10px 0}
 }
 
-/* Force spacing between hero and next section */
-.hero {
-padding-bottom: 64px;
-}
 
-/* Add breathing room above Project Overview */
-.section--alt {
-padding-top: 48px;
-}
-
-/* Extra safety for mobile */
-@media (max-width: 600px) {
-.hero {
-padding-bottom: 72px;
-}
-
-.section--alt {
-padding-top: 56px;
-}
-
-  * MOBILE SPACING: add breathing room between hero text and Project Overview card */
-@media (max-width: 700px) {
-.hero__grid {
-row-gap: 28px; /* increase this number if you want more */
-}
-
-/* extra insurance in case grid gap isn't applied */
-.hero__grid > .card {
 margin-top: 18px;
 }
 
+/* Space between the pills and the Project Overview card */
+.hero .pillrow{
+  margin-bottom: 18px;
+}
+
+@media (max-width: 700px){
+  .hero .pillrow{
+    margin-bottom: 22px;
+  }
 
