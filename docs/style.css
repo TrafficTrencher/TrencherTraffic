@@ -358,27 +358,4 @@ input:focus{border-color:rgba(124,92,255,.7)}
   .topbar__inner{padding:10px 0}
 }
 
-/* On wide desktop: add breathing room between hero columns */
-@media(min-width:900px){
-  .hero__grid{gap:60px}
-}
-
-/* Add breathing room under hero section */
-.hero {
-margin-bottom: 48px;
-}
-
-/* Extra spacing before Project Overview card */
-.section .card {
-margin-top: 24px;
-} 
-.hero {
-margin-bottom: 64px;
-}
-
-.section .card {
-margin-top: 32px;
-}
-
-
 
