@@ -217,6 +217,19 @@ h1{
 
 /* ---------------- LIVE ---------------- */
 
+.fomo-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.fomo-logo {
+  width: 46px;
+  height: auto;
+  filter: drop-shadow(0 0 10px rgba(124,92,255,0.6));
+}
+
 .livegrid{
   display:grid;
   grid-template-columns:1.2fr .8fr;
