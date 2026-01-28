@@ -402,3 +402,33 @@ input:focus{border-color:rgba(124,92,255,.7)}
   filter: drop-shadow(0 0 12px rgba(0,212,255,0.4));
 }
 
+/* --- FOMO SECTION FIX --- */
+.fomo-card {
+  max-width: 720px;
+  margin: 24px auto 0;
+  padding: 18px 20px;
+  border-radius: 18px;
+  background: linear-gradient(180deg, #11172a, #0c1222);
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+}
+
+/* Center button nicely */
+.fomo-card .btn {
+  margin-top: 12px;
+}
+
+/* Logo alignment */
+.fomo-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.fomo-logo {
+  width: 42px;
+  height: auto;
+}
+
+
