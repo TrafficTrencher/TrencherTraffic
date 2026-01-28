@@ -363,7 +363,15 @@ input:focus{border-color:rgba(124,92,255,.7)}
   .hero__grid{gap:60px}
 }
 
- 
+/* Add breathing room under hero section */
+.hero {
+margin-bottom: 48px;
+}
+
+/* Extra spacing before Project Overview card */
+.section .card {
+margin-top: 24px;
+} 
 
 
 
