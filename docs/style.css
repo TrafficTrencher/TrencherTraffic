@@ -431,4 +431,31 @@ input:focus{border-color:rgba(124,92,255,.7)}
   height: auto;
 }
 
+  /* FOMO Title Row */
+.fomo-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.fomo-title-logo {
+  height: 26px;
+  width: auto;
+  opacity: 0.95;
+  filter: drop-shadow(0 0 6px rgba(124,92,255,0.5));
+}
+
+/* Mobile spacing tweak */
+@media (max-width: 600px) {
+  .fomo-title {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .fomo-title-logo {
+    height: 22px;
+}
+
+
 
