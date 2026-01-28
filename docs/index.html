@@ -7,8 +7,7 @@
   <meta name="description" content="Trencher Traffic — Drive-to-earn livestream challenge documenting a 50,000 mile journey across Southwest Florida." />
 
   <!-- Cache-bust so new styles load -->
-<link rel="stylesheet" href="style.css?v=8" />
-
+  <link rel="stylesheet" href="style.css?v=8" />
 </head>
 
 <body>
@@ -45,8 +44,11 @@
   </div>
 </header>
 
+<!-- HERO -->
 <section class="hero">
   <div class="container hero__grid">
+
+    <!-- LEFT -->
     <div>
       <h1>Drive. Stream. Reach 50,000 Miles.</h1>
 
@@ -65,9 +67,13 @@
         <span class="pill">Weekdays • 3:00–7:00 PM EST</span>
         <span class="pill">50,000 Mile Goal</span>
         <span class="pill">25 Milestones</span>
-
       </div>
-  
+
+      <!-- COUNTDOWN -->
+      <div id="countdown" class="countdown">Loading countdown…</div>
+    </div>
+
+    <!-- RIGHT -->
     <div class="card">
       <div class="card__head"><b>Project Overview</b></div>
       <div class="card__body">
@@ -79,47 +85,44 @@
         </p>
       </div>
     </div>
+
   </div>
 </section>
 
-<section class="section section--alt">
-  <div class="fomo-header">
-  <img src="images/fomo-logo.png" alt="FOMO Logo" class="fomo-logo" />
+<!-- FOMO (FIXED + CONTAINED) -->
+<section id="fomo" class="section section--alt">
+  <div class="container">
 
-    <div class="container">
+    <div class="fomo-header">
+      <img src="images/fomo-logo.png" alt="FOMO Logo" class="fomo-logo" />
+      <div>
+        <h2 style="margin:0;">Live Trading Activity On FOMO 👀</h2>
+        <p class="small" style="margin:6px 0 0;">
+          Trade alongside the journey. Follow live activity and get reduced fees.
+        </p>
+      </div>
+    </div>
 
-  <h2>Live Trading Activity On FOMO 👀</h2>
+    <div class="card fomo-card">
+      <div class="card__body fomo-body">
+        <p class="small fomo-sub" style="margin-top:0;">
+          10% Off Trading Fees
+        </p>
 
-  <p class="small">
-    Trade alongside the journey. Follow live activity and get reduced fees.
-  </p>
+        <a
+          href="https://fomo.family/r/TrafficTrencher"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn--primary fomo-btn"
+        >
+          🔗 Trade with me on FOMO 👀
+        </a>
 
-  <div class="fomo-card">
-    ...
+        <p class="small fomo-foot" style="margin-bottom:0;"></p>
+      </div>
+    </div>
+
   </div>
-
-</div>
-
-<div class="card fomo-card">
-<div class="card__body fomo-body">
-<p class="small fomo-sub">
-10% Off Trading Fees
-</p>
-
-<a
-href="https://fomo.family/r/TrafficTrencher"
-target="_blank"
-rel="noopener noreferrer"
-class="btn btn--primary fomo-btn"
->
-🔗 Trade with me on FOMO 👀
-</a>
-
-<p class="small fomo-foot">
-</p>
-</div>
-</div>
-</div>
 </section>
 
 <section id="live" class="section">
@@ -249,10 +252,8 @@ class="btn btn--primary fomo-btn"
   </div>
 </footer>
 
-<!-- IMPORTANT: app.js should be a separate file (docs/app.js) -->
 <script src="app.js?v=7"></script>
 </body>
 </html>
-
 
 
