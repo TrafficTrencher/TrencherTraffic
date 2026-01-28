@@ -381,3 +381,11 @@ input:focus{border-color:rgba(124,92,255,.7)}
     margin-bottom: 22px;
 }
 
+  .fomo-logo {
+  width: 64px;
+  height: auto;
+  margin: 10px auto 16px;
+  display: block;
+  filter: drop-shadow(0 0 12px rgba(0,212,255,0.4));
+}
+
