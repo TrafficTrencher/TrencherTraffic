@@ -358,4 +358,23 @@ input:focus{border-color:rgba(124,92,255,.7)}
   .topbar__inner{padding:10px 0}
 }
 
+/* Force spacing between hero and next section */
+.hero {
+padding-bottom: 64px;
+}
+
+/* Add breathing room above Project Overview */
+.section--alt {
+padding-top: 48px;
+}
+
+/* Extra safety for mobile */
+@media (max-width: 600px) {
+.hero {
+padding-bottom: 72px;
+}
+
+.section--alt {
+padding-top: 56px;
+}
 
