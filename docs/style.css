@@ -457,5 +457,18 @@ input:focus{border-color:rgba(124,92,255,.7)}
     height: 22px;
 }
 
+  .fomo-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.fomo-title-logo {
+  height: 26px;
+  width: auto;
+  opacity: 0.9;
+}
+
 
 
