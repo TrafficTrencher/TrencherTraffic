@@ -362,3 +362,22 @@ input:focus{border-color:rgba(124,92,255,.7)}
 @media(min-width:900px){
   .hero__grid{gap:60px}
 }
+
+/* ===== HERO SPACING FIX (pills too close to Project Overview) ===== */
+.hero .pillrow{
+  margin-bottom: 18px; /* controls the gap under the pills */
+}
+
+.hero .pillrow + .card{
+  margin-top: 0; /* keep it clean; pillrow margin handles the spacing */
+}
+
+/* Mobile: when hero collapses to one column, add more breathing room */
+@media (max-width: 900px){
+  .hero__grid{
+    row-gap: 28px;  /* space between hero text block and Project Overview card */
+}
+  .hero .pillrow{
+    margin-bottom: 22px;
+}
+
