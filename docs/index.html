@@ -4,9 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Trencher Traffic</title>
+
   <meta name="description" content="Trencher Traffic — Drive-to-earn livestream challenge documenting a 50,000 mile journey across Southwest Florida." />
 
-  <!-- Cache-bust so new styles load -->
+  <!-- Cache bust -->
   <link rel="stylesheet" href="style.css?v=8" />
 </head>
 
@@ -47,8 +48,6 @@
 <!-- HERO -->
 <section class="hero">
   <div class="container hero__grid">
-
-    <!-- LEFT -->
     <div>
       <h1>Drive. Stream. Reach 50,000 Miles.</h1>
 
@@ -59,7 +58,7 @@
 
       <div class="cta">
         <a class="btn btn--primary" href="#live">Watch Live</a>
-        <a class="btn" href="https://x.com/TrencherTraffic" target="_blank" rel="noreferrer">Follow on X</a>
+        <a class="btn" href="https://x.com/TrencherTraffic" target="_blank">Follow on X</a>
         <a class="btn btn--ghost" href="#miles">Track Progress</a>
       </div>
 
@@ -68,12 +67,8 @@
         <span class="pill">50,000 Mile Goal</span>
         <span class="pill">25 Milestones</span>
       </div>
-
-      <!-- COUNTDOWN -->
-      <div id="countdown" class="countdown">Loading countdown…</div>
     </div>
 
-    <!-- RIGHT -->
     <div class="card">
       <div class="card__head"><b>Project Overview</b></div>
       <div class="card__body">
@@ -85,59 +80,52 @@
         </p>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- FOMO (FIXED + CONTAINED) -->
-<section id="fomo" class="section section--alt">
+<!-- FOMO SECTION -->
+<section class="section section--alt">
   <div class="container">
 
-    <div class="fomo-header">
-      <img src="images/fomo-logo.png" alt="FOMO Logo" class="fomo-logo" />
-      <div>
-
-        <h2>Live Trading Activity On FOMO 👀</h2>
-
-        <p class="small" style="margin:6px 0 0;">
-          Trade alongside the journey. Follow live activity and get reduced fees.
-        </p>
-      </div>
+    <!-- TITLE ROW -->
+    <div class="fomo-title">
+      <h2>Live Trading Activity On FOMO</h2>
+      <img src="images/fomo-logo.png" alt="FOMO" class="fomo-title-logo" />
     </div>
 
+    <p class="small">
+      Trade alongside the journey. Follow live activity and get reduced fees.
+    </p>
+
     <div class="card fomo-card">
-      <div class="card__body fomo-body">
-        <p class="small fomo-sub" style="margin-top:0;">
-          10% Off Trading Fees
-        </p>
+      <div class="card__body">
+        <p class="small">10% Off Trading Fees</p>
 
         <a
           href="https://fomo.family/r/TrafficTrencher"
           target="_blank"
           rel="noopener noreferrer"
-          class="btn btn--primary fomo-btn"
+          class="btn btn--primary"
         >
-          🔗 Trade with me on FOMO 👀
+          🔗 Trade with me on FOMO
         </a>
-
-        <p class="small fomo-foot" style="margin-bottom:0;"></p>
       </div>
     </div>
 
   </div>
 </section>
 
+<!-- LIVE STREAM -->
 <section id="live" class="section">
   <div class="container">
     <h2>Live Stream</h2>
-    <p class="small">Paste your pump.fun stream link below to activate the stream.</p>
 
     <div class="livegrid">
       <div class="card">
         <div class="card__head"><b>Stream Player</b></div>
         <div class="card__body">
           <div class="embedwrap">
-            <iframe id="streamFrame" title="Trencher Traffic Stream" src="" allowfullscreen></iframe>
+            <iframe id="streamFrame" allowfullscreen></iframe>
           </div>
         </div>
       </div>
@@ -145,103 +133,9 @@
       <div class="card">
         <div class="card__head"><b>Stream Setup</b></div>
         <div class="card__body">
-          <div class="field">
-            <span>pump.fun stream URL</span>
-            <input id="streamUrl" placeholder="https://pump.fun/..." />
-          </div>
-          <button id="saveStream" class="btn btn--primary" type="button">Save Stream</button>
+          <input id="streamUrl" placeholder="https://pump.fun/..." />
+          <button id="saveStream" class="btn btn--primary">Save Stream</button>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="miles" class="section section--alt">
-  <div class="container">
-    <h2>Miles</h2>
-    <p class="small">Track your progress to 50,000 miles. (Saved locally in your browser.)</p>
-
-    <div class="milegrid">
-      <div class="card">
-        <div class="card__head"><b>Track Progress</b></div>
-        <div class="card__body">
-          <div class="progress__meta">
-            <div>
-              <span class="small">Current miles</span>
-              <div><b id="currentMilesText">0</b></div>
-            </div>
-            <div style="text-align:right">
-              <span class="small">Complete</span>
-              <div><b id="percentText">0%</b></div>
-            </div>
-          </div>
-
-          <div class="bar">
-            <div id="barFill" class="bar__fill"></div>
-          </div>
-
-          <div class="field" style="margin-top:14px">
-            <span>Update current miles</span>
-            <input id="currentMiles" placeholder="e.g., 1250" inputmode="numeric" />
-          </div>
-          <button id="saveMiles" class="btn" type="button">Save Miles</button>
-
-          <p class="small" style="margin-top:10px">
-            Goal: <b>50,000</b> miles • <b>25</b> fee-claim milestones (every <b>2,000</b> miles).
-          </p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card__head"><b>Milestones (25 Claims)</b></div>
-        <div class="card__body">
-          <ul id="milestoneList" style="list-style:none;padding-left:0;margin:0"></ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="how" class="section">
-  <div class="container">
-    <h2>How It Works</h2>
-    <div class="howgrid">
-      <div class="card">
-        <div class="card__head"><b>1) Drive</b></div>
-        <div class="card__body">
-          <p class="small">Weekday route runs (3–7 PM EST) across Southwest Florida, featuring the Sunshine Skyway Bridge.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card__head"><b>2) Stream</b></div>
-        <div class="card__body">
-          <p class="small">Stream the journey live on pump.fun and keep the challenge consistent — a real, long-form grind.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card__head"><b>3) Claim Fees</b></div>
-        <div class="card__body">
-          <p class="small">25 total claims on the path to 50,000 miles — roughly every 2,000 miles. (Token link can be added later.)</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="links" class="section section--alt">
-  <div class="container">
-    <h2>Links</h2>
-    <div class="linkgrid">
-      <a class="linkcard" href="https://x.com/TrencherTraffic" target="_blank" rel="noreferrer">
-        <b>X (TrencherTraffic)</b>
-        <div class="small" style="margin-top:6px">Updates, clips, and announcements.</div>
-      </a>
-
-      <div class="linkcard">
-        <b>pump.fun stream</b>
-        <div class="small" style="margin-top:6px">Add your stream URL in the Live section to activate the player.</div>
       </div>
     </div>
   </div>
@@ -257,5 +151,6 @@
 <script src="app.js?v=7"></script>
 </body>
 </html>
+
 
 
