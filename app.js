@@ -1,7 +1,7 @@
 // Trencher Traffic — app.js (matches the current index.html)
 
 const CONFIG = {
-  goalMiles: 50000,
+  goalMiles: 25000,
   milestoneCount: 25,
   milesStorageKey: "tt_miles_v1",
   streamStorageKey: "tt_stream_v1",
@@ -63,7 +63,7 @@ function renderMilestones(miles){
   const list = qs("#milestoneList");
   if (!list) return;
 
-  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount); // 2000 for 50k/25
+  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount); // 1000 for 25k/25
   const items = [];
 
   for (let i = 1; i <= CONFIG.milestoneCount; i++){
