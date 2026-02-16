@@ -1,26 +1,29 @@
 /**
- * Trencher Traffic — revamp v20
- * - Overlay mode: ?overlay=1
- * - Minimal live metrics + links
- * - NOTE: No backend. If you want secure “only I can edit miles” we’ll need a backend or GitHub Actions.
- *   This file provides a simple local "admin unlock" so random visitors can’t casually change numbers.
+ * Trencher Traffic — revamp v21
+ * Updates per direction:
+ * - Season 1 goal: 25,000 miles + Friday creator-fee claim
+ * - Next upgrade target: Rear camera
+ * - Copy aligned to "week day route" + "Wage Maxxing"
+ * - Overlay mode retained (?overlay=1) without calling it out in the UI copy
+ *
+ * NOTE:
+ * This is still a front-end-only stats store (localStorage).
+ * It prevents casual edits, but it’s not a true secure global updater yet.
  */
 
 const CONFIG = {
   watchUrl: "https://x.com",     // TODO: replace with your actual live stream URL
   xUrl: "https://x.com",         // TODO: replace with your X profile
   tokenUrl: "#",                 // TODO: replace with token page (optional)
-  // “Live” is manual for now (safe + simple). Change to true when streaming.
-  isLive: false,
-  // Next upgrade target text displayed on hero panel
-  nextTarget: "Tesla down payment → FSD fund",
+  isLive: false,                 // manual toggle
+  seasonGoalMiles: 25000,
+  claimDayLabel: "Every Friday",
+  nextTarget: "Rear camera",
 };
 
-// --- Simple stored stats (edit locally, persists in your browser)
 const DEFAULT_STATS = {
   milesSeason: 0,
   milesToday: 0,
-  streak: 0,
   updatedAtISO: null,
 };
 
@@ -29,7 +32,7 @@ function getParam(name) { return new URLSearchParams(location.search).get(name);
 
 function loadStats() {
   try {
-    const raw = localStorage.getItem("tt_stats_v1");
+    const raw = localStorage.getItem("tt_stats_v2");
     if (!raw) return { ...DEFAULT_STATS };
     const parsed = JSON.parse(raw);
     return { ...DEFAULT_STATS, ...parsed };
@@ -39,17 +42,26 @@ function loadStats() {
 }
 
 function saveStats(stats) {
-  localStorage.setItem("tt_stats_v1", JSON.stringify(stats));
+  localStorage.setItem("tt_stats_v2", JSON.stringify(stats));
 }
 
 function fmtUpdated(iso) {
   if (!iso) return "—";
   try {
     const d = new Date(iso);
-    return d.toLocaleString(undefined, { year:"numeric", month:"short", day:"2-digit", hour:"2-digit", minute:"2-digit" });
+    return d.toLocaleString(undefined, {
+      year:"numeric", month:"short", day:"2-digit",
+      hour:"2-digit", minute:"2-digit"
+    });
   } catch {
     return "—";
   }
+}
+
+function clampInt(n) {
+  const v = parseInt(n, 10);
+  if (Number.isNaN(v) || !Number.isFinite(v)) return 0;
+  return Math.max(0, v);
 }
 
 function setLinks() {
@@ -71,7 +83,6 @@ function setLiveUI() {
   const liveBadge = qs("#liveBadge");
   const liveDot = qs("#liveDot");
   const liveText = qs("#liveText");
-
   const overlayLive = qs("#overlayLive");
 
   if (CONFIG.isLive) {
@@ -94,25 +105,40 @@ function setLiveUI() {
 }
 
 function renderStats(stats) {
-  const milesSeason = qs("#milesSeason");
-  const milesToday = qs("#milesToday");
-  const streak = qs("#streak");
-  const updatedAt = qs("#updatedAt");
-  const nextTarget = qs("#nextTarget");
+  const milesSeasonEl = qs("#milesSeason");
+  const milesTodayEl = qs("#milesToday");
+  const updatedAtEl = qs("#updatedAt");
+  const nextTargetEl = qs("#nextTarget");
+  const claimDayEl = qs("#claimDay");
 
+  const progressPctEl = qs("#progressPct");
+  const remainingMilesEl = qs("#remainingMiles");
+
+  // Overlay
   const overlayMiles = qs("#overlayMiles");
   const overlayToday = qs("#overlayToday");
-  const overlayStreak = qs("#overlayStreak");
+  const overlayNext = qs("#overlayNext");
 
-  if (milesSeason) milesSeason.textContent = String(stats.milesSeason ?? 0);
-  if (milesToday) milesToday.textContent = String(stats.milesToday ?? 0);
-  if (streak) streak.textContent = String(stats.streak ?? 0);
-  if (updatedAt) updatedAt.textContent = `Updated: ${fmtUpdated(stats.updatedAtISO)}`;
-  if (nextTarget) nextTarget.textContent = CONFIG.nextTarget;
+  const milesSeason = clampInt(stats.milesSeason);
+  const milesToday = clampInt(stats.milesToday);
 
-  if (overlayMiles) overlayMiles.textContent = String(stats.milesSeason ?? 0);
-  if (overlayToday) overlayToday.textContent = String(stats.milesToday ?? 0);
-  if (overlayStreak) overlayStreak.textContent = String(stats.streak ?? 0);
+  const goal = CONFIG.seasonGoalMiles;
+  const pct = goal > 0 ? Math.min(100, Math.floor((milesSeason / goal) * 100)) : 0;
+  const remaining = Math.max(0, goal - milesSeason);
+
+  if (milesSeasonEl) milesSeasonEl.textContent = String(milesSeason);
+  if (milesTodayEl) milesTodayEl.textContent = String(milesToday);
+
+  if (progressPctEl) progressPctEl.textContent = String(pct);
+  if (remainingMilesEl) remainingMilesEl.textContent = String(remaining);
+
+  if (updatedAtEl) updatedAtEl.textContent = `Updated: ${fmtUpdated(stats.updatedAtISO)}`;
+  if (nextTargetEl) nextTargetEl.textContent = CONFIG.nextTarget;
+  if (claimDayEl) claimDayEl.textContent = CONFIG.claimDayLabel;
+
+  if (overlayMiles) overlayMiles.textContent = String(milesSeason);
+  if (overlayToday) overlayToday.textContent = String(milesToday);
+  if (overlayNext) overlayNext.textContent = "Rear cam";
 }
 
 function setYear() {
@@ -121,11 +147,9 @@ function setYear() {
 }
 
 /**
- * ADMIN UNLOCK (local only)
- * Visit: yoursite.com/?admin=1
- * Then it prompts for a passphrase.
- * - This is NOT secure against determined users (front-end only),
- *   but it prevents casual messing with your numbers.
+ * Local ADMIN UNLOCK (not global / not secure)
+ * Visit: ?admin=1
+ * Passphrase: change in code
  */
 function maybeAdmin(stats) {
   const admin = getParam("admin");
@@ -134,7 +158,7 @@ function maybeAdmin(stats) {
   const ok = sessionStorage.getItem("tt_admin_ok") === "1";
   if (!ok) {
     const pass = prompt("Admin passphrase:");
-    // TODO: change this to whatever you want
+    // TODO: change this to something only you know
     if (pass !== "trencher") {
       alert("Nope.");
       return;
@@ -142,35 +166,31 @@ function maybeAdmin(stats) {
     sessionStorage.setItem("tt_admin_ok", "1");
   }
 
-  const milesSeason = prompt("Miles (Season):", String(stats.milesSeason ?? 0));
+  const milesSeason = prompt("Season 1 Miles (0–25000+):", String(stats.milesSeason ?? 0));
   if (milesSeason === null) return;
-  const milesToday = prompt("Miles (Today):", String(stats.milesToday ?? 0));
+  const milesToday = prompt("Miles Today:", String(stats.milesToday ?? 0));
   if (milesToday === null) return;
-  const streak = prompt("Weekday Streak:", String(stats.streak ?? 0));
-  if (streak === null) return;
 
   const next = {
     ...stats,
-    milesSeason: Math.max(0, parseInt(milesSeason, 10) || 0),
-    milesToday: Math.max(0, parseInt(milesToday, 10) || 0),
-    streak: Math.max(0, parseInt(streak, 10) || 0),
+    milesSeason: clampInt(milesSeason),
+    milesToday: clampInt(milesToday),
     updatedAtISO: new Date().toISOString(),
   };
 
   saveStats(next);
   renderStats(next);
-  alert("Saved (locally, on this device/browser).");
+  alert("Saved locally (this device/browser).");
 }
 
 /**
  * OVERLAY MODE
- * If ?overlay=1, we hide the full site and show only the overlay widget.
+ * If ?overlay=1, hide the full site and show only the overlay widget.
  */
 function applyOverlayMode() {
   const overlay = getParam("overlay") === "1";
   if (!overlay) return;
 
-  // hide normal content
   const main = document.querySelector("main");
   const header = document.querySelector("header");
   if (main) main.style.display = "none";
@@ -182,7 +202,7 @@ function applyOverlayMode() {
     overlayRoot.setAttribute("aria-hidden", "false");
   }
 
-  // Transparent page background can help OBS/Prism chroma workflows
+  // Useful for capture workflows
   document.body.style.background = "transparent";
 }
 
@@ -195,6 +215,5 @@ function applyOverlayMode() {
   const stats = loadStats();
   renderStats(stats);
 
-  // Optional local admin edit
   maybeAdmin(stats);
 })();
