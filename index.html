@@ -2,218 +2,353 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Trencher Traffic — Drive-to-earn livestream. Road to 50,000 miles." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Trencher Traffic</title>
+  <meta name="description" content="Driving every weekday until AI replaces me. Turning my route into a meme coin." />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Trencher Traffic" />
+  <meta property="og:description" content="Driving every weekday until AI replaces me. Turning my route into a meme coin." />
+  <meta property="og:type" content="website" />
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=20" />
 </head>
 
 <body>
+  <!-- Top bar -->
+  <header class="topbar" id="top">
+    <div class="container topbar__inner">
+      <a class="brand" href="#top" aria-label="Trencher Traffic home">
+        <span class="brand__dot" aria-hidden="true"></span>
+        <span class="brand__name">Trencher Traffic</span>
+      </a>
 
-<header class="topbar">
-  <div class="container topbar__inner">
- <div class="brand">
-  <div class="brand__dot"></div>
-  <div>
-    <div class="brand__name">
-      Trencher Traffic
-      <span id="liveBadge" class="live-badge">LIVE</span>
-    </div>
-    <div class="brand__tag">Drive-to-Earn • Road to 50,000 Miles</div>
-  </div>
-</div>
+      <nav class="nav">
+        <a href="#thesis">Thesis</a>
+        <a href="#roadmap">Roadmap</a>
+        <a href="#starlink">Starlink</a>
+        <a href="#links">Links</a>
+      </nav>
 
-    <nav class="nav">
-      <a href="#live">Live</a>
-      <a href="#miles">Miles</a>
-      <a href="#how">How It Works</a>
-      <a href="#links">Links</a>
-    </nav>
-  </div>
-</header>
-
-<main>
-
-<!-- HERO -->
-<section class="hero">
-  <div class="container hero__grid">
-
-    <div>
-      <h1>Drive. Stream. Reach 50,000 Miles.</h1>
-      <p class="lead">
-        A real-world drive-to-earn challenge streamed live from Southwest Florida —
-        including daily runs across the iconic Sunshine Skyway Bridge.
-      </p>
-
-      <div class="cta">
-        <a class="btn btn--primary" href="#live">Watch Live</a>
-        <a class="btn" href="https://x.com/TrencherTraffic" target="_blank">Follow on X</a>
-        <a class="btn btn--ghost" href="#miles">Track Progress</a>
-      </div>
-
-      <div class="pillrow">
-        <span class="pill">Weekdays 3–7 PM</span>
-        <span class="pill">50,000 Mile Goal</span>
-        <span class="pill">25 Milestones</span>
+      <div class="topbar__cta">
+        <span id="liveBadge" class="live-badge" title="Manual toggle in app.js">OFFLINE</span>
+        <a id="watchBtn" class="btn btn--primary" href="#" target="_blank" rel="noreferrer">Watch Live</a>
       </div>
     </div>
+  </header>
 
-    <div class="card">
-      <div class="card__head">
-        <div class="card__title">Project Overview</div>
+  <!-- HERO -->
+  <main class="container">
+    <section class="hero" aria-label="Hero">
+      <div class="hero__left">
+        <div class="kicker">DRIVE-TO-EARN • WEEKDAY RITUAL • MEME-REALISM</div>
+
+        <h1 class="h1">
+          Driving every weekday until <span class="accent">AI replaces me</span>.
+        </h1>
+
+        <p class="lead">
+          Turning my route into a meme coin — not pretending there’s “utility.”
+          The product is the stream. The proof is the miles. The meme is the route.
+        </p>
+
+        <div class="hero__actions">
+          <a id="watchBtn2" class="btn btn--primary" href="#" target="_blank" rel="noreferrer">Watch Live</a>
+          <a class="btn btn--ghost" href="#thesis">Read the thesis</a>
+          <a class="btn btn--ghost" href="?overlay=1">Overlay Mode</a>
+        </div>
+
+        <div class="fineprint">
+          No real-time location. No doxxing map. Just the ritual.
+        </div>
       </div>
-      <div class="card__body">
-        <div class="info"><span>Platform</span><b>pump.fun</b></div>
-        <div class="info"><span>Route</span><b>Southwest Florida</b></div>
-        <div class="info"><span>Highlight</span><b>Sunshine Skyway Bridge</b></div>
-        <p class="small">
-          A long-form livestream challenge designed to bring real engagement and consistency to pump.fun streaming.
+
+      <aside class="hero__right">
+        <div class="panel">
+          <div class="panel__top">
+            <div class="panel__title">Live Metrics</div>
+            <div class="panel__sub" id="updatedAt">Updated: —</div>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <div class="stat__label">Miles (Season)</div>
+              <div class="stat__value"><span id="milesSeason">0</span><span class="unit">mi</span></div>
+            </div>
+            <div class="stat">
+              <div class="stat__label">Miles (Today)</div>
+              <div class="stat__value"><span id="milesToday">0</span><span class="unit">mi</span></div>
+            </div>
+            <div class="stat">
+              <div class="stat__label">Weekday Streak</div>
+              <div class="stat__value"><span id="streak">0</span><span class="unit">days</span></div>
+            </div>
+            <div class="stat">
+              <div class="stat__label">Next Upgrade Target</div>
+              <div class="stat__value small" id="nextTarget">—</div>
+            </div>
+          </div>
+
+          <div class="panel__row">
+            <div class="pill">
+              <span class="dot" id="liveDot" aria-hidden="true"></span>
+              <span id="liveText">Offline</span>
+            </div>
+
+            <a class="mini-link" href="#roadmap">See roadmap →</a>
+          </div>
+
+          <div class="panel__note">
+            <strong>Overlay friendly:</strong> use <code>?overlay=1</code> for a clean Prism widget view.
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- THESIS -->
+    <section class="section" id="thesis">
+      <div class="section__head">
+        <h2 class="h2">The Thesis</h2>
+        <p class="muted">
+          Most coins pretend to be useful. This one is honest. The stream is the utility.
         </p>
       </div>
-    </div>
 
-  </div>
-</section>
-
-<!-- LIVE -->
-<section id="live" class="section">
-  <div class="container">
-    <h2>Live Stream</h2>
-    <p>Paste your pump.fun stream link below to activate the stream.</p>
-
-    <div class="livegrid">
-      <div class="card">
-        <div class="card__head">
-          <div class="card__title">Stream Player</div>
+      <div class="grid4">
+        <div class="card">
+          <div class="card__title">The product</div>
+          <div class="card__text">A consistent weekday drive, streamed. Showing up is the feature.</div>
         </div>
-        <div class="card__body">
-          <div class="embedwrap">
-            <iframe id="streamFrame" src="" allowfullscreen></iframe>
-          </div>
+        <div class="card">
+          <div class="card__title">The proof</div>
+          <div class="card__text">Miles are the scoreboard. The audience verifies the ritual.</div>
+        </div>
+        <div class="card">
+          <div class="card__title">The meme</div>
+          <div class="card__text">Turning my route into a narrative — routine becomes content.</div>
+        </div>
+        <div class="card">
+          <div class="card__title">The honesty</div>
+          <div class="card__text">No fake whitepaper. No “revolution.” Just measurable creation.</div>
         </div>
       </div>
 
-      <div class="card">
-        <div class="card__head">
-          <div class="card__title">Stream Setup</div>
-        </div>
-        <div class="card__body">
-          <label class="field">
-            <span>pump.fun stream URL</span>
-            <input id="streamUrl" placeholder="https://pump.fun/..." />
-          </label>
+      <div class="divider"></div>
 
-          <button class="btn btn--primary" id="saveStream">Save Stream</button>
-
-          <p class="small">
-            Your stream link is stored locally in your browser.
+      <div class="twoCol">
+        <div>
+          <h3 class="h3">Turning my route into a meme coin</h3>
+          <p class="muted">
+            The point isn’t to cosplay as “tech.” The point is to convert a replaceable job into a public ritual:
+            routine → attention → community → upgrades you can actually see.
           </p>
+          <ul class="bullets">
+            <li>No real-time location display.</li>
+            <li>Weekdays only: consistency beats chaos.</li>
+            <li>Progress is tangible: audio, camera, uptime, rig upgrades.</li>
+          </ul>
+        </div>
+
+        <div class="quote">
+          <div class="quote__mark">“</div>
+          <div class="quote__text">
+            Driving every day until AI replaces me — then I’ll narrate while the car does it.
+          </div>
+          <div class="quote__by">— Trencher Traffic</div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- MILES -->
-<section id="miles" class="section section--alt">
-  <div class="container">
-    <h2>Mile Tracker</h2>
+    <!-- VALUES / CREATOR FEES -->
+    <section class="section" id="values">
+      <div class="section__head">
+        <h2 class="h2">Creators should get paid for creating</h2>
+        <p class="muted">
+          If there are fees, they should translate into output — not empty promises.
+        </p>
+      </div>
 
-    <div class="milegrid">
-      <div class="card">
-        <div class="card__body">
-          <div class="progress">
-            <div class="progress__meta">
-              <div><b id="currentMilesText">0</b> / 50,000 miles</div>
-              <div id="percentText">0%</div>
+      <div class="grid3">
+        <div class="card">
+          <div class="card__title">Visible upgrades</div>
+          <div class="card__text">Better audio, better night clarity, fewer drops, cleaner overlays.</div>
+        </div>
+        <div class="card">
+          <div class="card__title">Accountability</div>
+          <div class="card__text">Targets and receipts. Not “soon.” Not “trust me.”</div>
+        </div>
+        <div class="card">
+          <div class="card__title">Culture & consistency</div>
+          <div class="card__text">The ritual is the brand. The stream is the product.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROADMAP -->
+    <section class="section" id="roadmap">
+      <div class="section__head">
+        <h2 class="h2">Roadmap: Tesla → FSD</h2>
+        <p class="muted">
+          Concrete, observable goals. Targets, not promises.
+        </p>
+      </div>
+
+      <ol class="timeline">
+        <li class="step">
+          <div class="step__num">0</div>
+          <div class="step__body">
+            <div class="step__title">Baseline rig (now)</div>
+            <div class="step__text">Phone streaming + overlays + consistent weekday cadence.</div>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step__num">1</div>
+          <div class="step__body">
+            <div class="step__title">Audio & stability</div>
+            <div class="step__text">Mic / mounting / vibration fixes so it feels cinematic, not shaky.</div>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step__num">2</div>
+          <div class="step__body">
+            <div class="step__title">Night clarity upgrade</div>
+            <div class="step__text">Camera improvements for dark roads + reflections without blowing highlights.</div>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step__num">3</div>
+          <div class="step__body">
+            <div class="step__title">Uptime reliability</div>
+            <div class="step__text">Reduce drops and dead zones with a better connectivity strategy.</div>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step__num">4</div>
+          <div class="step__body">
+            <div class="step__title">Tesla fund (down payment)</div>
+            <div class="step__text">The “route becomes rig” moment. Work becomes machine.</div>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step__num">5</div>
+          <div class="step__body">
+            <div class="step__title">FSD fund</div>
+            <div class="step__text">When AI drives, the story flips: I become the narrator of replacement.</div>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step__num">6</div>
+          <div class="step__body">
+            <div class="step__title">Route expansion</div>
+            <div class="step__text">Break the loop. Leave the circuit. Take the stream anywhere.</div>
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <!-- STARLINK -->
+    <section class="section" id="starlink">
+      <div class="section__head">
+        <h2 class="h2">Powered by Starlink Mini (Roam Unlimited)</h2>
+        <p class="muted">
+          Streaming from the road only works if connectivity is independent and consistent.
+        </p>
+      </div>
+
+      <div class="twoCol">
+        <div class="card">
+          <div class="card__title">Why it matters</div>
+          <div class="card__text">
+            The ritual dies if the stream drops. Starlink Mini is the backbone: mobility + uptime + independence.
+          </div>
+          <ul class="bullets">
+            <li>Mobile streaming without relying on one carrier.</li>
+            <li>Better chance at consistent weekday uptime.</li>
+            <li>Lets the rig evolve as the stream grows.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card__title">What I’m showcasing</div>
+          <div class="card__text">
+            Real-world “drive + stream” performance: stability, drop frequency, and what it takes to make it work daily.
+          </div>
+          <div class="mini-metrics">
+            <div class="mini-metric">
+              <div class="mini-metric__k">Mode</div>
+              <div class="mini-metric__v">Roam Unlimited</div>
             </div>
-
-            <div class="bar">
-              <div class="bar__fill" id="barFill"></div>
+            <div class="mini-metric">
+              <div class="mini-metric__k">Use case</div>
+              <div class="mini-metric__v">Mobile live streaming</div>
             </div>
-
-            <label class="field">
-              <span>Update miles</span>
-              <input id="currentMiles" type="number" placeholder="Enter miles" />
-            </label>
-
-            <button class="btn btn--primary" id="saveMiles">Save</button>
+            <div class="mini-metric">
+              <div class="mini-metric__k">Goal</div>
+              <div class="mini-metric__v">Weekday consistency</div>
+            </div>
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="card">
-        <div class="card__body">
-          <h3>Milestones</h3>
-          <ol id="milestoneList"></ol>
+    <!-- LINKS -->
+    <section class="section" id="links">
+      <div class="section__head">
+        <h2 class="h2">Links</h2>
+        <p class="muted">Plug your stream + X + token page here.</p>
+      </div>
+
+      <div class="grid3">
+        <a class="linkCard" id="xLink" href="#" target="_blank" rel="noreferrer">
+          <div class="linkCard__title">X (Updates)</div>
+          <div class="linkCard__text">Daily posts, clips, and schedule.</div>
+        </a>
+        <a class="linkCard" id="streamLink" href="#" target="_blank" rel="noreferrer">
+          <div class="linkCard__title">Live Stream</div>
+          <div class="linkCard__text">Watch the drive (weekdays).</div>
+        </a>
+        <a class="linkCard" id="tokenLink" href="#" target="_blank" rel="noreferrer">
+          <div class="linkCard__title">Token / Coin</div>
+          <div class="linkCard__text">Optional link (Dex / pump / etc.).</div>
+        </a>
+      </div>
+
+      <footer class="footer">
+        <div class="footer__left">
+          <div class="tiny">© <span id="year"></span> Trencher Traffic</div>
+          <div class="tiny muted">Entertainment only. Not financial advice.</div>
         </div>
+
+        <div class="footer__right tiny">
+          <a class="mini-link" href="?overlay=1">Overlay Mode</a>
+          <span class="sep">•</span>
+          <a class="mini-link" href="#top">Back to top</a>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <!-- OVERLAY ROOT (hidden unless ?overlay=1) -->
+  <div id="overlayRoot" class="overlay" aria-hidden="true">
+    <div class="overlay__box">
+      <div class="overlay__brand">
+        <span class="brand__dot"></span>
+        <span>Trencher Traffic</span>
+        <span id="overlayLive" class="overlay__live">OFFLINE</span>
+      </div>
+
+      <div class="overlay__big">
+        <span id="overlayMiles">0</span>
+        <span class="unit">mi</span>
+      </div>
+
+      <div class="overlay__row">
+        <div class="overlay__chip">Today: <strong id="overlayToday">0</strong> mi</div>
+        <div class="overlay__chip">Streak: <strong id="overlayStreak">0</strong></div>
       </div>
     </div>
   </div>
-</section>
 
-<!-- HOW IT WORKS -->
-<section id="how" class="section">
-  <div class="container">
-    <h2>How It Works</h2>
-
-    <div class="howgrid">
-      <div class="card">
-        <div class="card__body">
-          <h3>1. Drive</h3>
-          <p>Daily weekday driving through Southwest Florida.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card__body">
-          <h3>2. Stream</h3>
-          <p>Every mile streamed live for transparency and entertainment.</p>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card__body">
-          <h3>3. Claim</h3>
-          <p>Every 2,000 miles unlocks a milestone claim.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- LINKS -->
-<section id="links" class="section section--alt">
-  <div class="container">
-    <h2>Links</h2>
-
-    <div class="linkgrid">
-      <a class="linkcard" href="https://x.com/TrencherTraffic" target="_blank">
-        <b>X / Twitter</b>
-        <p>Updates & announcements</p>
-      </a>
-
-      <a class="linkcard" href="#live">
-        <b>Live Stream</b>
-        <p>Watch the journey</p>
-      </a>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<footer class="footer">
-  <div class="container footer__inner">
-    <div>© <span id="year"></span> Trencher Traffic</div>
-  </div>
-</footer>
-
-<script src="app.js"></script>
+  <script src="app.js?v=20"></script>
 </body>
 </html>
