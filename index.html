@@ -10,8 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- cache bust so iPhone doesn't hold onto broken files -->
-  <link rel="stylesheet" href="style.css?v=30" />
+  <!-- Cache bust -->
+  <link rel="stylesheet" href="style.css?v=41" />
 </head>
 
 <body>
@@ -34,6 +34,7 @@
       <a href="#live">Live</a>
       <a href="#miles">Miles</a>
       <a href="#how">How It Works</a>
+      <a href="#fomo">FOMO</a>
       <a href="#links">Links</a>
     </nav>
 
@@ -194,6 +195,51 @@
     </div>
   </section>
 
+  <!-- FOMO -->
+  <section id="fomo" class="section">
+    <div class="container">
+
+      <div class="card fomo">
+        <div class="card__body fomo__body">
+
+          <div class="fomo__left">
+            <div class="fomo__tag">LIVE TRADING</div>
+
+            <h2 class="fomo__title">
+              Trade With Me Live on <span class="fomo__brand">FOMO</span>
+            </h2>
+
+            <p class="fomo__desc">
+              I trade live while driving the weekday route — real entries, real exits, no fake “soon”.
+              If you’re going to trade, trade with a discount and watch it happen in real time.
+            </p>
+
+            <div class="fomo__cta">
+              <a class="btn btn--primary" href="https://fomo.family/r/TrafficTrencher" target="_blank" rel="noopener">
+                Trade on FOMO
+              </a>
+
+              <a class="btn" href="https://fomo.family/r/TrafficTrencher" target="_blank" rel="noopener">
+                Get 10% Off Fees
+              </a>
+            </div>
+
+            <p class="small">
+              Trade with me on FOMO and get 10% off fees!
+            </p>
+          </div>
+
+          <div class="fomo__right">
+            <!-- FIXED: uses your existing image file -->
+            <img class="fomo__logo" src="images/fomo.jpg" alt="FOMO logo" />
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
   <!-- LINKS -->
   <section id="links" class="section section--alt">
     <div class="container">
@@ -221,7 +267,6 @@
   </div>
 </footer>
 
-<!-- cache bust -->
-<script src="app.js?v=30"></script>
+<script src="app.js?v=41"></script>
 </body>
 </html>
