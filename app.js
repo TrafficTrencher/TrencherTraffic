@@ -124,6 +124,7 @@ function attachStreamUI(){
   });
 }
 
+
 (function init(){
   setYear();
   setLiveBadge();
