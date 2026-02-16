@@ -1,16 +1,16 @@
 /**
- * Trencher Traffic — v23
+ * Trencher Traffic — v24 (dramatic UI)
  * - Season 1: 25,000 miles
- * - Friday claim cadence: clock + countdown (auto)
- * - Launchpad dashboard (progress fill, remaining)
+ * - Friday claim cadence: clock + countdown
+ * - Progress bar + remaining miles
  * - Overlay mode: ?overlay=1
  * - Local admin edit: ?admin=1 (device-only)
  */
 
 const CONFIG = {
-  watchUrl: "https://x.com",   // TODO replace
-  xUrl: "https://x.com",       // TODO replace
-  tokenUrl: "#",               // TODO replace
+  watchUrl: "https://x.com",   // TODO replace with your live stream link
+  xUrl: "https://x.com",       // TODO replace with your X profile
+  tokenUrl: "#",               // TODO replace with token link (optional)
   isLive: false,               // manual toggle
   seasonGoalMiles: 25000,
   nextTarget: "Rear camera",
@@ -25,14 +25,15 @@ const DEFAULT_STATS = {
   updatedAtISO: null,
 };
 
-// helpers
 function qs(sel){ return document.querySelector(sel); }
 function getParam(name){ return new URLSearchParams(location.search).get(name); }
+
 function clampInt(n){
   const v = parseInt(n, 10);
   if(Number.isNaN(v) || !Number.isFinite(v)) return 0;
   return Math.max(0, v);
 }
+
 function fmtUpdated(iso){
   if(!iso) return "—";
   try{
@@ -43,10 +44,9 @@ function fmtUpdated(iso){
   }
 }
 
-// storage
 function loadStats(){
   try{
-    const raw = localStorage.getItem("tt_stats_v4");
+    const raw = localStorage.getItem("tt_stats_v5");
     if(!raw) return { ...DEFAULT_STATS };
     const parsed = JSON.parse(raw);
     return { ...DEFAULT_STATS, ...parsed };
@@ -54,11 +54,11 @@ function loadStats(){
     return { ...DEFAULT_STATS };
   }
 }
+
 function saveStats(stats){
-  localStorage.setItem("tt_stats_v4", JSON.stringify(stats));
+  localStorage.setItem("tt_stats_v5", JSON.stringify(stats));
 }
 
-// links
 function setLinks(){
   const watchBtn = qs("#watchBtn");
   const watchBtn2 = qs("#watchBtn2");
@@ -71,14 +71,6 @@ function setLinks(){
   if(xLink) xLink.href = CONFIG.xUrl;
   if(streamLink) streamLink.href = CONFIG.watchUrl;
   if(tokenLink) tokenLink.href = CONFIG.tokenUrl;
-
-  // receipts placeholders are optional; keep inert unless set
-  const lastClaimLink = qs("#lastClaimLink");
-  const rigLink = qs("#rigLink");
-  const carLink = qs("#carLink");
-  if(lastClaimLink) lastClaimLink.href = "#";
-  if(rigLink) rigLink.href = "#";
-  if(carLink) carLink.href = "#";
 }
 
 function setYear(){
@@ -111,7 +103,6 @@ function setLiveUI(){
   }
 }
 
-// claim clock
 function nextFridayAt(hour, minute){
   const now = new Date();
   const d = new Date(now);
@@ -119,7 +110,7 @@ function nextFridayAt(hour, minute){
   d.setHours(hour, minute, 0, 0);
 
   const day = now.getDay(); // Sun=0..Fri=5
-  let addDays = (5 - day + 7) % 7; // to Friday
+  let addDays = (5 - day + 7) % 7;
   if(addDays === 0 && now >= d) addDays = 7;
   if(addDays !== 0) d.setDate(now.getDate() + addDays);
 
@@ -144,11 +135,10 @@ function startClaimClock(){
     const target = nextFridayAt(CONFIG.claimHourLocal, CONFIG.claimMinuteLocal);
     const now = new Date();
     const ms = target.getTime() - now.getTime();
-
     const date = target.toLocaleDateString(undefined, { month:"short", day:"2-digit" });
     const time = target.toLocaleTimeString(undefined, { hour:"2-digit", minute:"2-digit" });
-
     const line = `Fri ${date} @ ${time} • ${formatCountdown(ms)}`;
+
     if(claimClock) claimClock.textContent = line;
     if(nextClaimText) nextClaimText.textContent = line;
   }
@@ -157,7 +147,6 @@ function startClaimClock(){
   setInterval(tick, 30_000);
 }
 
-// render
 function render(stats){
   const milesSeason = clampInt(stats.milesSeason);
   const milesToday = clampInt(stats.milesToday);
@@ -166,21 +155,22 @@ function render(stats){
   const pct = goal > 0 ? Math.min(100, Math.floor((milesSeason / goal) * 100)) : 0;
   const remaining = Math.max(0, goal - milesSeason);
 
-  // console + chips
+  // “Next” text locations
   const nextTop = qs("#nextTargetTop");
   const nextConsole = qs("#nextTargetConsole");
   if(nextTop) nextTop.textContent = CONFIG.nextTarget;
   if(nextConsole) nextConsole.textContent = CONFIG.nextTarget;
 
+  // mission meta
   const updatedAtEl = qs("#updatedAt");
   if(updatedAtEl) updatedAtEl.textContent = `Updated: ${fmtUpdated(stats.updatedAtISO)}`;
 
-  // dashboard
+  // flight panel
   const milesSeasonEl = qs("#milesSeason");
   const milesTodayEl = qs("#milesToday");
   const progressPctEl = qs("#progressPct");
   const remainingEl = qs("#remainingMiles");
-  const progressFill = qs("#progressFill");
+  const fill = qs("#progressFill");
   const metaLeft = qs("#progressMetaLeft");
   const metaRight = qs("#progressMetaRight");
   const seasonGoalEl = qs("#seasonGoal");
@@ -190,7 +180,7 @@ function render(stats){
   if(milesTodayEl) milesTodayEl.textContent = String(milesToday);
   if(progressPctEl) progressPctEl.textContent = String(pct);
   if(remainingEl) remainingEl.textContent = String(remaining);
-  if(progressFill) progressFill.style.width = `${pct}%`;
+  if(fill) fill.style.width = `${pct}%`;
   if(metaLeft) metaLeft.textContent = `${pct}%`;
   if(metaRight) metaRight.textContent = `${goal.toLocaleString()} mi`;
 
@@ -203,7 +193,6 @@ function render(stats){
   if(overlayNext) overlayNext.textContent = "Rear cam";
 }
 
-// admin
 function maybeAdmin(stats){
   const admin = getParam("admin");
   if(admin !== "1") return;
@@ -234,7 +223,6 @@ function maybeAdmin(stats){
   alert("Saved locally (this device/browser).");
 }
 
-// overlay
 function applyOverlayMode(){
   const overlay = getParam("overlay") === "1";
   if(!overlay) return;
