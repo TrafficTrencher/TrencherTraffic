@@ -1,32 +1,12 @@
-/**
- * Trencher Traffic — v24 (dramatic UI)
- * - Season 1: 25,000 miles
- * - Friday claim cadence: clock + countdown
- * - Progress bar + remaining miles
- * - Overlay mode: ?overlay=1
- * - Local admin edit: ?admin=1 (device-only)
- */
-
 const CONFIG = {
-  watchUrl: "https://x.com",   // TODO replace with your live stream link
-  xUrl: "https://x.com",       // TODO replace with your X profile
-  tokenUrl: "#",               // TODO replace with token link (optional)
-  isLive: false,               // manual toggle
   seasonGoalMiles: 25000,
   nextTarget: "Rear camera",
-  adminPassphrase: "trencher", // TODO change
-  claimHourLocal: 17,
-  claimMinuteLocal: 0,
+  isLive: false,
+  dispatchUrl: "dispatch.json"
 };
 
-const DEFAULT_STATS = {
-  milesSeason: 0,
-  milesToday: 0,
-  updatedAtISO: null,
-};
-
-function qs(sel){ return document.querySelector(sel); }
-function getParam(name){ return new URLSearchParams(location.search).get(name); }
+const DEFAULT_STATS = { milesSeason: 0, milesToday: 0, updatedAtISO: null };
+const qs = (s) => document.querySelector(s);
 
 function clampInt(n){
   const v = parseInt(n, 10);
@@ -39,112 +19,18 @@ function fmtUpdated(iso){
   try{
     const d = new Date(iso);
     return d.toLocaleString(undefined, { year:"numeric", month:"short", day:"2-digit", hour:"2-digit", minute:"2-digit" });
-  }catch{
-    return "—";
-  }
+  }catch{ return "—"; }
 }
 
 function loadStats(){
   try{
-    const raw = localStorage.getItem("tt_stats_v5");
+    const raw = localStorage.getItem("tt_stats_v7");
     if(!raw) return { ...DEFAULT_STATS };
     const parsed = JSON.parse(raw);
     return { ...DEFAULT_STATS, ...parsed };
   }catch{
     return { ...DEFAULT_STATS };
   }
-}
-
-function saveStats(stats){
-  localStorage.setItem("tt_stats_v5", JSON.stringify(stats));
-}
-
-function setLinks(){
-  const watchBtn = qs("#watchBtn");
-  const watchBtn2 = qs("#watchBtn2");
-  const xLink = qs("#xLink");
-  const streamLink = qs("#streamLink");
-  const tokenLink = qs("#tokenLink");
-
-  if(watchBtn) watchBtn.href = CONFIG.watchUrl;
-  if(watchBtn2) watchBtn2.href = CONFIG.watchUrl;
-  if(xLink) xLink.href = CONFIG.xUrl;
-  if(streamLink) streamLink.href = CONFIG.watchUrl;
-  if(tokenLink) tokenLink.href = CONFIG.tokenUrl;
-}
-
-function setYear(){
-  const y = qs("#year");
-  if(y) y.textContent = String(new Date().getFullYear());
-}
-
-function setLiveUI(){
-  const liveBadge = qs("#liveBadge");
-  const liveDot = qs("#liveDot");
-  const liveText = qs("#liveText");
-  const overlayLive = qs("#overlayLive");
-
-  if(CONFIG.isLive){
-    if(liveBadge) liveBadge.textContent = "LIVE";
-    if(liveDot){
-      liveDot.style.background = "rgba(154,252,255,.95)";
-      liveDot.style.boxShadow = "0 0 16px rgba(154,252,255,.65)";
-    }
-    if(liveText) liveText.textContent = "Live";
-    if(overlayLive) overlayLive.textContent = "LIVE";
-  }else{
-    if(liveBadge) liveBadge.textContent = "OFFLINE";
-    if(liveDot){
-      liveDot.style.background = "rgba(255,255,255,.35)";
-      liveDot.style.boxShadow = "none";
-    }
-    if(liveText) liveText.textContent = "Offline";
-    if(overlayLive) overlayLive.textContent = "OFFLINE";
-  }
-}
-
-function nextFridayAt(hour, minute){
-  const now = new Date();
-  const d = new Date(now);
-  d.setSeconds(0,0);
-  d.setHours(hour, minute, 0, 0);
-
-  const day = now.getDay(); // Sun=0..Fri=5
-  let addDays = (5 - day + 7) % 7;
-  if(addDays === 0 && now >= d) addDays = 7;
-  if(addDays !== 0) d.setDate(now.getDate() + addDays);
-
-  return d;
-}
-
-function formatCountdown(ms){
-  const total = Math.max(0, ms);
-  const sec = Math.floor(total / 1000);
-  const days = Math.floor(sec / 86400);
-  const hrs = Math.floor((sec % 86400) / 3600);
-  const mins = Math.floor((sec % 3600) / 60);
-  return `${days}d ${hrs}h ${mins}m`;
-}
-
-function startClaimClock(){
-  const claimClock = qs("#claimClock");
-  const nextClaimText = qs("#nextClaimText");
-  if(!claimClock && !nextClaimText) return;
-
-  function tick(){
-    const target = nextFridayAt(CONFIG.claimHourLocal, CONFIG.claimMinuteLocal);
-    const now = new Date();
-    const ms = target.getTime() - now.getTime();
-    const date = target.toLocaleDateString(undefined, { month:"short", day:"2-digit" });
-    const time = target.toLocaleTimeString(undefined, { hour:"2-digit", minute:"2-digit" });
-    const line = `Fri ${date} @ ${time} • ${formatCountdown(ms)}`;
-
-    if(claimClock) claimClock.textContent = line;
-    if(nextClaimText) nextClaimText.textContent = line;
-  }
-
-  tick();
-  setInterval(tick, 30_000);
 }
 
 function render(stats){
@@ -155,99 +41,91 @@ function render(stats){
   const pct = goal > 0 ? Math.min(100, Math.floor((milesSeason / goal) * 100)) : 0;
   const remaining = Math.max(0, goal - milesSeason);
 
-  // “Next” text locations
-  const nextTop = qs("#nextTargetTop");
-  const nextConsole = qs("#nextTargetConsole");
-  if(nextTop) nextTop.textContent = CONFIG.nextTarget;
-  if(nextConsole) nextConsole.textContent = CONFIG.nextTarget;
-
-  // mission meta
   const updatedAtEl = qs("#updatedAt");
   if(updatedAtEl) updatedAtEl.textContent = `Updated: ${fmtUpdated(stats.updatedAtISO)}`;
 
-  // flight panel
-  const milesSeasonEl = qs("#milesSeason");
-  const milesTodayEl = qs("#milesToday");
-  const progressPctEl = qs("#progressPct");
-  const remainingEl = qs("#remainingMiles");
+  if(qs("#seasonGoal")) qs("#seasonGoal").textContent = String(goal);
+  if(qs("#milesSeason")) qs("#milesSeason").textContent = String(milesSeason);
+  if(qs("#milesToday")) qs("#milesToday").textContent = String(milesToday);
+  if(qs("#progressPct")) qs("#progressPct").textContent = String(pct);
+  if(qs("#remainingMiles")) qs("#remainingMiles").textContent = String(remaining);
+
   const fill = qs("#progressFill");
-  const metaLeft = qs("#progressMetaLeft");
-  const metaRight = qs("#progressMetaRight");
-  const seasonGoalEl = qs("#seasonGoal");
-
-  if(seasonGoalEl) seasonGoalEl.textContent = String(goal);
-  if(milesSeasonEl) milesSeasonEl.textContent = String(milesSeason);
-  if(milesTodayEl) milesTodayEl.textContent = String(milesToday);
-  if(progressPctEl) progressPctEl.textContent = String(pct);
-  if(remainingEl) remainingEl.textContent = String(remaining);
   if(fill) fill.style.width = `${pct}%`;
-  if(metaLeft) metaLeft.textContent = `${pct}%`;
-  if(metaRight) metaRight.textContent = `${goal.toLocaleString()} mi`;
 
-  // overlay
-  const overlayMiles = qs("#overlayMiles");
-  const overlayToday = qs("#overlayToday");
-  const overlayNext = qs("#overlayNext");
-  if(overlayMiles) overlayMiles.textContent = String(milesSeason);
-  if(overlayToday) overlayToday.textContent = String(milesToday);
-  if(overlayNext) overlayNext.textContent = "Rear cam";
-}
+  if(qs("#progressMetaLeft")) qs("#progressMetaLeft").textContent = `${pct}%`;
+  if(qs("#progressMetaRight")) qs("#progressMetaRight").textContent = `${goal.toLocaleString()} mi`;
+  if(qs("#nextTargetConsole")) qs("#nextTargetConsole").textContent = CONFIG.nextTarget;
 
-function maybeAdmin(stats){
-  const admin = getParam("admin");
-  if(admin !== "1") return;
-
-  const ok = sessionStorage.getItem("tt_admin_ok") === "1";
-  if(!ok){
-    const pass = prompt("Admin passphrase:");
-    if(pass !== CONFIG.adminPassphrase){
-      alert("Nope.");
-      return;
+  const liveText = qs("#liveText");
+  const liveDot = qs("#liveDot");
+  if(CONFIG.isLive){
+    if(liveText) liveText.textContent = "Live";
+    if(liveDot){
+      liveDot.style.background = "rgba(154,252,255,.95)";
+      liveDot.style.boxShadow = "0 0 16px rgba(154,252,255,.65)";
     }
-    sessionStorage.setItem("tt_admin_ok","1");
+  }else{
+    if(liveText) liveText.textContent = "Offline";
+    if(liveDot){
+      liveDot.style.background = "rgba(255,255,255,.35)";
+      liveDot.style.boxShadow = "none";
+    }
   }
-
-  const milesSeason = prompt("Season 1 Miles:", String(stats.milesSeason ?? 0));
-  if(milesSeason === null) return;
-  const milesToday = prompt("Miles Today:", String(stats.milesToday ?? 0));
-  if(milesToday === null) return;
-
-  const next = {
-    ...stats,
-    milesSeason: clampInt(milesSeason),
-    milesToday: clampInt(milesToday),
-    updatedAtISO: new Date().toISOString(),
-  };
-  saveStats(next);
-  render(next);
-  alert("Saved locally (this device/browser).");
 }
 
-function applyOverlayMode(){
-  const overlay = getParam("overlay") === "1";
-  if(!overlay) return;
+function safeText(str){
+  return String(str ?? "").replace(/[<>]/g, "");
+}
 
-  const main = document.querySelector("main");
-  const header = document.querySelector("header");
-  if(main) main.style.display = "none";
-  if(header) header.style.display = "none";
+function renderMissionLog(data){
+  const log = qs("#missionLog");
+  const meta = qs("#logUpdated");
+  if(!log) return;
 
-  const overlayRoot = qs("#overlayRoot");
-  if(overlayRoot){
-    overlayRoot.style.display = "flex";
-    overlayRoot.setAttribute("aria-hidden","false");
+  if(meta) meta.textContent = data?.updatedAt ? fmtUpdated(data.updatedAt) : "—";
+
+  const entries = Array.isArray(data?.entries) ? data.entries : [];
+  if(entries.length === 0){
+    log.innerHTML = `<div class="log__empty">No dispatch entries yet.</div>`;
+    return;
   }
-  document.body.style.background = "transparent";
+
+  const sorted = [...entries].sort((a,b)=> String(b.ts||"").localeCompare(String(a.ts||"")));
+  log.innerHTML = sorted.slice(0, 12).map(e => {
+    const ts = safeText(e.ts || "");
+    const title = safeText(e.title || "Dispatch");
+    const text = safeText(e.text || "");
+    return `
+      <div class="logItem">
+        <div class="logTop">
+          <div class="logTitle">${title}</div>
+          <div class="logTs">${ts}</div>
+        </div>
+        <div class="logText">${text}</div>
+      </div>
+    `;
+  }).join("");
+}
+
+async function loadMissionLog(){
+  const log = qs("#missionLog");
+  if(!log) return;
+
+  const url = `${CONFIG.dispatchUrl}?v=${Date.now()}`;
+  try{
+    const res = await fetch(url, { cache: "no-store" });
+    if(!res.ok) throw new Error("dispatch fetch failed");
+    const data = await res.json();
+    renderMissionLog(data);
+  }catch{
+    log.innerHTML = `<div class="log__empty">Dispatch unavailable. Add <code>dispatch.json</code> in the repo root.</div>`;
+    const meta = qs("#logUpdated");
+    if(meta) meta.textContent = "—";
+  }
 }
 
 (function init(){
-  setLinks();
-  setYear();
-  setLiveUI();
-  applyOverlayMode();
-
-  const stats = loadStats();
-  render(stats);
-  startClaimClock();
-  maybeAdmin(stats);
+  render(loadStats());
+  loadMissionLog();
 })();
