@@ -1,200 +1,141 @@
-/**
- * Trencher Traffic — revamp v20
- * - Overlay mode: ?overlay=1
- * - Minimal live metrics + links
- * - NOTE: No backend. If you want secure “only I can edit miles” we’ll need a backend or GitHub Actions.
- *   This file provides a simple local "admin unlock" so random visitors can’t casually change numbers.
- */
+// Trencher Traffic — app.js (matches your current index.html)
 
 const CONFIG = {
-  watchUrl: "https://x.com",     // TODO: replace with your actual live stream URL
-  xUrl: "https://x.com",         // TODO: replace with your X profile
-  tokenUrl: "#",                 // TODO: replace with token page (optional)
-  // “Live” is manual for now (safe + simple). Change to true when streaming.
-  isLive: false,
-  // Next upgrade target text displayed on hero panel
-  nextTarget: "Tesla down payment → FSD fund",
+  goalMiles: 50000,
+  milestoneCount: 25,
+  milesStorageKey: "tt_miles_v1",
+  streamStorageKey: "tt_stream_v1",
+  isLive: false // flip true when live
 };
 
-// --- Simple stored stats (edit locally, persists in your browser)
-const DEFAULT_STATS = {
-  milesSeason: 0,
-  milesToday: 0,
-  streak: 0,
-  updatedAtISO: null,
-};
+const qs = (s) => document.querySelector(s);
 
-function qs(sel) { return document.querySelector(sel); }
-function getParam(name) { return new URLSearchParams(location.search).get(name); }
-
-function loadStats() {
-  try {
-    const raw = localStorage.getItem("tt_stats_v1");
-    if (!raw) return { ...DEFAULT_STATS };
-    const parsed = JSON.parse(raw);
-    return { ...DEFAULT_STATS, ...parsed };
-  } catch {
-    return { ...DEFAULT_STATS };
-  }
+function clampInt(n){
+  const v = parseInt(n, 10);
+  if (Number.isNaN(v) || !Number.isFinite(v)) return 0;
+  return Math.max(0, v);
 }
 
-function saveStats(stats) {
-  localStorage.setItem("tt_stats_v1", JSON.stringify(stats));
-}
-
-function fmtUpdated(iso) {
-  if (!iso) return "—";
-  try {
-    const d = new Date(iso);
-    return d.toLocaleString(undefined, { year:"numeric", month:"short", day:"2-digit", hour:"2-digit", minute:"2-digit" });
-  } catch {
-    return "—";
-  }
-}
-
-function setLinks() {
-  const watchBtn = qs("#watchBtn");
-  const watchBtn2 = qs("#watchBtn2");
-  const xLink = qs("#xLink");
-  const streamLink = qs("#streamLink");
-  const tokenLink = qs("#tokenLink");
-
-  if (watchBtn) watchBtn.href = CONFIG.watchUrl;
-  if (watchBtn2) watchBtn2.href = CONFIG.watchUrl;
-
-  if (xLink) xLink.href = CONFIG.xUrl;
-  if (streamLink) streamLink.href = CONFIG.watchUrl;
-  if (tokenLink) tokenLink.href = CONFIG.tokenUrl;
-}
-
-function setLiveUI() {
-  const liveBadge = qs("#liveBadge");
-  const liveDot = qs("#liveDot");
-  const liveText = qs("#liveText");
-
-  const overlayLive = qs("#overlayLive");
-
-  if (CONFIG.isLive) {
-    if (liveBadge) liveBadge.textContent = "LIVE";
-    if (liveDot) {
-      liveDot.style.background = "rgba(154,252,255,.95)";
-      liveDot.style.boxShadow = "0 0 16px rgba(154,252,255,.65)";
-    }
-    if (liveText) liveText.textContent = "Live";
-    if (overlayLive) overlayLive.textContent = "LIVE";
-  } else {
-    if (liveBadge) liveBadge.textContent = "OFFLINE";
-    if (liveDot) {
-      liveDot.style.background = "rgba(255,255,255,.35)";
-      liveDot.style.boxShadow = "none";
-    }
-    if (liveText) liveText.textContent = "Offline";
-    if (overlayLive) overlayLive.textContent = "OFFLINE";
-  }
-}
-
-function renderStats(stats) {
-  const milesSeason = qs("#milesSeason");
-  const milesToday = qs("#milesToday");
-  const streak = qs("#streak");
-  const updatedAt = qs("#updatedAt");
-  const nextTarget = qs("#nextTarget");
-
-  const overlayMiles = qs("#overlayMiles");
-  const overlayToday = qs("#overlayToday");
-  const overlayStreak = qs("#overlayStreak");
-
-  if (milesSeason) milesSeason.textContent = String(stats.milesSeason ?? 0);
-  if (milesToday) milesToday.textContent = String(stats.milesToday ?? 0);
-  if (streak) streak.textContent = String(stats.streak ?? 0);
-  if (updatedAt) updatedAt.textContent = `Updated: ${fmtUpdated(stats.updatedAtISO)}`;
-  if (nextTarget) nextTarget.textContent = CONFIG.nextTarget;
-
-  if (overlayMiles) overlayMiles.textContent = String(stats.milesSeason ?? 0);
-  if (overlayToday) overlayToday.textContent = String(stats.milesToday ?? 0);
-  if (overlayStreak) overlayStreak.textContent = String(stats.streak ?? 0);
-}
-
-function setYear() {
+function setYear(){
   const y = qs("#year");
   if (y) y.textContent = String(new Date().getFullYear());
 }
 
-/**
- * ADMIN UNLOCK (local only)
- * Visit: yoursite.com/?admin=1
- * Then it prompts for a passphrase.
- * - This is NOT secure against determined users (front-end only),
- *   but it prevents casual messing with your numbers.
- */
-function maybeAdmin(stats) {
-  const admin = getParam("admin");
-  if (admin !== "1") return;
+function setLiveBadge(){
+  const badge = qs("#liveBadge");
+  if (!badge) return;
 
-  const ok = sessionStorage.getItem("tt_admin_ok") === "1";
-  if (!ok) {
-    const pass = prompt("Admin passphrase:");
-    // TODO: change this to whatever you want
-    if (pass !== "trencher") {
-      alert("Nope.");
-      return;
-    }
-    sessionStorage.setItem("tt_admin_ok", "1");
+  if (CONFIG.isLive){
+    badge.textContent = "LIVE";
+    badge.classList.add("is-live");
+  }else{
+    badge.textContent = "OFFLINE";
+    badge.classList.remove("is-live");
   }
-
-  const milesSeason = prompt("Miles (Season):", String(stats.milesSeason ?? 0));
-  if (milesSeason === null) return;
-  const milesToday = prompt("Miles (Today):", String(stats.milesToday ?? 0));
-  if (milesToday === null) return;
-  const streak = prompt("Weekday Streak:", String(stats.streak ?? 0));
-  if (streak === null) return;
-
-  const next = {
-    ...stats,
-    milesSeason: Math.max(0, parseInt(milesSeason, 10) || 0),
-    milesToday: Math.max(0, parseInt(milesToday, 10) || 0),
-    streak: Math.max(0, parseInt(streak, 10) || 0),
-    updatedAtISO: new Date().toISOString(),
-  };
-
-  saveStats(next);
-  renderStats(next);
-  alert("Saved (locally, on this device/browser).");
 }
 
-/**
- * OVERLAY MODE
- * If ?overlay=1, we hide the full site and show only the overlay widget.
- */
-function applyOverlayMode() {
-  const overlay = getParam("overlay") === "1";
-  if (!overlay) return;
+function loadMiles(){
+  try{
+    const raw = localStorage.getItem(CONFIG.milesStorageKey);
+    return clampInt(raw ?? 0);
+  }catch{
+    return 0;
+  }
+}
 
-  // hide normal content
-  const main = document.querySelector("main");
-  const header = document.querySelector("header");
-  if (main) main.style.display = "none";
-  if (header) header.style.display = "none";
+function saveMiles(miles){
+  localStorage.setItem(CONFIG.milesStorageKey, String(clampInt(miles)));
+}
 
-  const overlayRoot = qs("#overlayRoot");
-  if (overlayRoot) {
-    overlayRoot.style.display = "flex";
-    overlayRoot.setAttribute("aria-hidden", "false");
+function renderMiles(miles){
+  const currentMilesText = qs("#currentMilesText");
+  const percentText = qs("#percentText");
+  const barFill = qs("#barFill");
+
+  const pct = CONFIG.goalMiles > 0 ? Math.min(100, Math.floor((miles / CONFIG.goalMiles) * 100)) : 0;
+
+  if (currentMilesText) currentMilesText.textContent = String(miles);
+  if (percentText) percentText.textContent = `${pct}%`;
+  if (barFill) barFill.style.width = `${pct}%`;
+}
+
+function renderMilestones(miles){
+  const list = qs("#milestoneList");
+  if (!list) return;
+
+  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount); // 2000 for 50k/25
+  const items = [];
+
+  for (let i = 1; i <= CONFIG.milestoneCount; i++){
+    const at = i * step;
+    const done = miles >= at;
+    items.push(`
+      <li style="margin:8px 0; color:${done ? "rgba(233,238,251,.95)" : "rgba(168,179,209,.85)"}">
+        <b>${done ? "✓" : "•"}</b> ${at.toLocaleString()} miles
+      </li>
+    `);
   }
 
-  // Transparent page background can help OBS/Prism chroma workflows
-  document.body.style.background = "transparent";
+  list.innerHTML = items.join("");
+}
+
+function attachMilesUI(){
+  const input = qs("#currentMiles");
+  const btn = qs("#saveMiles");
+
+  if (!input || !btn) return;
+
+  btn.addEventListener("click", () => {
+    const miles = clampInt(input.value);
+    saveMiles(miles);
+    renderMiles(miles);
+    renderMilestones(miles);
+    input.value = "";
+  });
+}
+
+function loadStream(){
+  try{
+    return localStorage.getItem(CONFIG.streamStorageKey) || "";
+  }catch{
+    return "";
+  }
+}
+
+function saveStream(url){
+  localStorage.setItem(CONFIG.streamStorageKey, url);
+}
+
+function renderStream(url){
+  const frame = qs("#streamFrame");
+  if (!frame) return;
+  frame.src = url || "";
+}
+
+function attachStreamUI(){
+  const input = qs("#streamUrl");
+  const btn = qs("#saveStream");
+  if (!input || !btn) return;
+
+  btn.addEventListener("click", () => {
+    const url = String(input.value || "").trim();
+    saveStream(url);
+    renderStream(url);
+  });
 }
 
 (function init(){
-  setLinks();
-  setLiveUI();
   setYear();
-  applyOverlayMode();
+  setLiveBadge();
 
-  const stats = loadStats();
-  renderStats(stats);
+  const miles = loadMiles();
+  renderMiles(miles);
+  renderMilestones(miles);
+  attachMilesUI();
 
-  // Optional local admin edit
-  maybeAdmin(stats);
+  const stream = loadStream();
+  renderStream(stream);
+  const streamInput = qs("#streamUrl");
+  if (streamInput) streamInput.value = stream;
+  attachStreamUI();
 })();
