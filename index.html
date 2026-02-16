@@ -7,347 +7,250 @@
   <meta name="description" content="Wage Maxxing on a week day route. Season 1: 25,000 miles. Friday claim cadence. Starlink-powered." />
 
   <meta property="og:title" content="Trencher Traffic" />
-  <meta property="og:description" content="Season 1: 25,000 miles. Friday claim cadence. Turn a route into a system." />
+  <meta property="og:description" content="Season 1: 25,000 miles. Friday claim cadence. A route becomes a system." />
   <meta property="og:type" content="website" />
 
-  <link rel="stylesheet" href="style.css?v=23" />
+  <link rel="stylesheet" href="style.css?v=24" />
 </head>
 
 <body>
   <header class="topbar" id="top">
-    <div class="container topbar__inner">
+    <div class="wrap topbar__inner">
       <a class="brand" href="#top" aria-label="Trencher Traffic home">
-        <span class="brand__dot" aria-hidden="true"></span>
+        <span class="brand__sig" aria-hidden="true"></span>
         <span class="brand__name">Trencher Traffic</span>
       </a>
 
       <nav class="nav">
-        <a href="#dashboard">Dashboard</a>
-        <a href="#system">System</a>
-        <a href="#roadmap">Roadmap</a>
+        <a href="#flight">Flight</a>
+        <a href="#protocol">Protocol</a>
+        <a href="#roadmap">Upgrades</a>
         <a href="#starlink">Starlink</a>
         <a href="#links">Links</a>
       </nav>
 
       <div class="topbar__cta">
-        <span id="liveBadge" class="live-badge">OFFLINE</span>
-        <a id="watchBtn" class="btn btn--primary" href="#" target="_blank" rel="noreferrer">Watch Live</a>
+        <span id="liveBadge" class="live">OFFLINE</span>
+        <a id="watchBtn" class="btn btn--hot" href="#" target="_blank" rel="noreferrer">WATCH</a>
       </div>
     </div>
   </header>
 
-  <main class="container">
-    <!-- HERO -->
+  <main class="wrap">
+    <!-- HERO / MANIFEST -->
     <section class="hero" aria-label="Hero">
       <div class="hero__left">
-        <div class="kicker">WAGE MAXXING • WEEK DAY ROUTE • S1 / 25,000</div>
+        <div class="stamp">
+          <span class="stamp__pill">WAGE MAXXING</span>
+          <span class="stamp__pill">WEEK DAY ROUTE</span>
+          <span class="stamp__pill">S1 / 25,000</span>
+        </div>
 
-        <h1 class="h1">
-          Turn a route into a system.
+        <h1 class="title">
+          The route becomes a machine.
         </h1>
 
-        <p class="lead">
-          I drive the week day route until <span class="accent">AI replaces me</span>.
-          Season 1 is 25,000 miles. Creator-fee claim cadence: Friday.
+        <p class="sub">
+          I drive the week day route until <span class="glow">AI replaces me</span>.
+          Season 1 is <strong>25,000 miles</strong>.
+          Creator-fee claim cadence: <strong>Friday</strong>.
         </p>
 
         <div class="hero__actions">
-          <a id="watchBtn2" class="btn btn--primary" href="#" target="_blank" rel="noreferrer">Watch Live</a>
-          <a class="btn btn--ghost" href="#dashboard">Open Dashboard</a>
-          <a class="btn btn--ghost" href="?overlay=1">Overlay Mode</a>
+          <a id="watchBtn2" class="btn btn--hot" href="#" target="_blank" rel="noreferrer">WATCH LIVE</a>
+          <a class="btn btn--ghost" href="#flight">OPEN FLIGHT PANEL</a>
+          <a class="btn btn--ghost" href="?overlay=1">OVERLAY</a>
         </div>
 
-        <div class="chips">
-          <span class="chip">S1 goal: <strong>25,000</strong> miles</span>
-          <span class="chip">Claim: <strong>Friday cadence</strong></span>
-          <span class="chip">Next: <strong id="nextTargetTop">Rear camera</strong></span>
+        <div class="whisper">
+          Turning my route into a meme coin.
+          <span class="whisper__dot">•</span>
+          Next upgrade: <strong id="nextTargetTop">Rear camera</strong>.
         </div>
       </div>
 
       <aside class="hero__right">
-        <div class="panel panel--glow">
-          <div class="panel__top">
-            <div class="panel__title">Mission Console</div>
-            <div class="panel__sub" id="updatedAt">Updated: —</div>
+        <div class="monolith">
+          <div class="monolith__head">
+            <div class="monolith__title">MISSION STATUS</div>
+            <div class="monolith__meta" id="updatedAt">Updated: —</div>
           </div>
 
-          <div class="console">
-            <div class="console__row">
-              <div class="console__k">STATUS</div>
-              <div class="console__v"><span class="dot" id="liveDot"></span> <span id="liveText">Offline</span></div>
+          <div class="monolith__body">
+            <div class="kv">
+              <div class="kv__k">STATUS</div>
+              <div class="kv__v"><span id="liveDot" class="dot"></span><span id="liveText">Offline</span></div>
             </div>
-            <div class="console__row">
-              <div class="console__k">SEASON</div>
-              <div class="console__v">S1 / <span id="seasonGoal">25000</span> mi</div>
+            <div class="kv">
+              <div class="kv__k">SEASON</div>
+              <div class="kv__v">S1 / <span id="seasonGoal">25000</span> mi</div>
             </div>
-            <div class="console__row">
-              <div class="console__k">CLAIM</div>
-              <div class="console__v"><span id="nextClaimText">—</span></div>
+            <div class="kv">
+              <div class="kv__k">CLAIM</div>
+              <div class="kv__v"><span id="nextClaimText">—</span></div>
             </div>
-            <div class="console__row">
-              <div class="console__k">NEXT</div>
-              <div class="console__v"><span id="nextTargetConsole">Rear camera</span></div>
+            <div class="kv">
+              <div class="kv__k">NEXT</div>
+              <div class="kv__v"><span id="nextTargetConsole">Rear camera</span></div>
             </div>
           </div>
 
-          <div class="panel__footer">
-            <a class="mini-link" href="#system">Read the system →</a>
+          <div class="monolith__foot">
+            <a class="link" href="#protocol">READ PROTOCOL →</a>
           </div>
         </div>
       </aside>
     </section>
 
-    <!-- DASHBOARD -->
-    <section class="section" id="dashboard">
+    <!-- FLIGHT PANEL -->
+    <section class="section" id="flight">
       <div class="section__head">
-        <h2 class="h2">Season Dashboard</h2>
-        <p class="muted">High signal. No fluff.</p>
+        <h2 class="h2">Flight Panel</h2>
+        <div class="micro">High-signal telemetry. Nothing else.</div>
       </div>
 
-      <div class="dash">
-        <div class="dash__main">
-          <div class="terminal">
-            <div class="terminal__head">
-              <div class="terminal__title">S1_PROGRESS</div>
-              <div class="terminal__meta">
-                <span class="tag">week day route</span>
-                <span class="tag">Wage Maxxing</span>
-                <span class="tag">Starlink</span>
-              </div>
+      <div class="flight">
+        <div class="flight__core">
+          <div class="telemetry">
+            <div class="telemetry__row">
+              <div class="telemetry__k">S1 MILES</div>
+              <div class="telemetry__v"><span id="milesSeason">0</span><span class="u"> mi</span></div>
+              <div class="telemetry__s"><span id="remainingMiles">25000</span> remaining</div>
             </div>
 
-            <div class="statsGrid">
-              <div class="statCard">
-                <div class="statCard__k">Miles (Season 1)</div>
-                <div class="statCard__v"><span id="milesSeason">0</span><span class="unit"> mi</span></div>
-                <div class="statCard__sub"><span id="remainingMiles">25000</span> mi remaining</div>
-              </div>
-
-              <div class="statCard">
-                <div class="statCard__k">Progress</div>
-                <div class="statCard__v"><span id="progressPct">0</span><span class="unit"> %</span></div>
-                <div class="statCard__sub">Goal: 25,000 miles</div>
-              </div>
-
-              <div class="statCard">
-                <div class="statCard__k">Miles (Today)</div>
-                <div class="statCard__v"><span id="milesToday">0</span><span class="unit"> mi</span></div>
-                <div class="statCard__sub">week day route</div>
-              </div>
-
-              <div class="statCard">
-                <div class="statCard__k">Claim clock</div>
-                <div class="statCard__v small"><span id="claimClock">—</span></div>
-                <div class="statCard__sub">Friday cadence</div>
-              </div>
+            <div class="telemetry__row">
+              <div class="telemetry__k">PROGRESS</div>
+              <div class="telemetry__v"><span id="progressPct">0</span><span class="u">%</span></div>
+              <div class="telemetry__s">Target: 25,000</div>
             </div>
 
-            <div class="progressWrap">
-              <div class="progressBar">
-                <div class="progressBar__fill" id="progressFill" style="width:0%"></div>
-              </div>
-              <div class="progressMeta">
-                <span id="progressMetaLeft">0%</span>
-                <span id="progressMetaRight">25,000 mi</span>
-              </div>
+            <div class="telemetry__row">
+              <div class="telemetry__k">TODAY</div>
+              <div class="telemetry__v"><span id="milesToday">0</span><span class="u"> mi</span></div>
+              <div class="telemetry__s">week day route</div>
+            </div>
+
+            <div class="telemetry__row">
+              <div class="telemetry__k">CLAIM CLOCK</div>
+              <div class="telemetry__v small"><span id="claimClock">—</span></div>
+              <div class="telemetry__s">Friday cadence</div>
             </div>
           </div>
 
-          <div class="terminal terminal--alt">
-            <div class="terminal__head">
-              <div class="terminal__title">FEE_ROUTER</div>
-              <div class="terminal__meta">
-                <span class="tag tag--mint">car health</span>
-                <span class="tag tag--violet">rig upgrades</span>
-                <span class="tag tag--mint">uptime</span>
-              </div>
+          <div class="bar">
+            <div class="bar__track">
+              <div class="bar__fill" id="progressFill" style="width:0%"></div>
             </div>
-
-            <div class="router">
-              <div class="router__row">
-                <div class="router__k">Priority</div>
-                <div class="router__v">Car expenses to keep the stream alive and healthy (fuel, maintenance, tires).</div>
-              </div>
-              <div class="router__row">
-                <div class="router__k">Upgrades</div>
-                <div class="router__v">Rear camera → Side cameras → Microphone → Mobile streaming laptop.</div>
-              </div>
-              <div class="router__row">
-                <div class="router__k">End game</div>
-                <div class="router__v">Acquire a Tesla with FSD mode.</div>
-              </div>
-            </div>
-
-            <div class="router__note">
-              This page tracks cadence + progress. Claims happen externally.
-            </div>
-          </div>
-
-          <div class="terminal terminal--alt2">
-            <div class="terminal__head">
-              <div class="terminal__title">RECEIPTS</div>
-              <div class="terminal__meta">
-                <span class="tag">optional</span>
-                <span class="tag">links</span>
-              </div>
-            </div>
-
-            <div class="receipts">
-              <div class="receipt">
-                <div class="receipt__k">Last claim</div>
-                <div class="receipt__v"><a id="lastClaimLink" href="#" target="_blank" rel="noreferrer">Add link</a></div>
-              </div>
-              <div class="receipt">
-                <div class="receipt__k">Rig upgrade</div>
-                <div class="receipt__v"><a id="rigLink" href="#" target="_blank" rel="noreferrer">Add link</a></div>
-              </div>
-              <div class="receipt">
-                <div class="receipt__k">Car expense</div>
-                <div class="receipt__v"><a id="carLink" href="#" target="_blank" rel="noreferrer">Add link</a></div>
-              </div>
-            </div>
-
-            <div class="router__note">
-              Receipts make the system legible.
+            <div class="bar__meta">
+              <span id="progressMetaLeft">0%</span>
+              <span id="progressMetaRight">25,000 mi</span>
             </div>
           </div>
         </div>
 
-        <aside class="dash__side">
-          <div class="feed">
-            <div class="feed__head">
-              <div class="feed__title">Dispatch</div>
-              <div class="feed__sub">Ship updates like a launchpad.</div>
+        <aside class="flight__side">
+          <div class="module">
+            <div class="module__title">FEE ROUTER</div>
+            <div class="module__line">
+              <span class="module__k">Priority</span>
+              <span class="module__v">Car expenses to keep the stream alive and healthy.</span>
             </div>
-
-            <div class="feedItem">
-              <div class="feedItem__k">S1</div>
-              <div class="feedItem__v">25,000 mile season target</div>
+            <div class="module__line">
+              <span class="module__k">Upgrades</span>
+              <span class="module__v">Rear cam → Side cams → Mic → Mobile laptop.</span>
             </div>
-            <div class="feedItem">
-              <div class="feedItem__k">CLAIM</div>
-              <div class="feedItem__v">Friday cadence (clock runs continuously)</div>
-            </div>
-            <div class="feedItem">
-              <div class="feedItem__k">NEXT</div>
-              <div class="feedItem__v">Rear camera → side cameras</div>
-            </div>
-            <div class="feedItem">
-              <div class="feedItem__k">STACK</div>
-              <div class="feedItem__v">Starlink Mini + mobile streaming upgrades</div>
-            </div>
-
-            <div class="feed__footer">
-              <a class="mini-link" href="?overlay=1">Overlay Mode →</a>
+            <div class="module__line">
+              <span class="module__k">End game</span>
+              <span class="module__v">Acquire a Tesla with FSD mode.</span>
             </div>
           </div>
 
-          <div class="panel miniPanel">
-            <div class="panel__top">
-              <div class="panel__title">Controls</div>
-              <div class="panel__sub">Local edits (device-only)</div>
-            </div>
-            <div class="miniPanel__body">
-              <div class="miniLine"><span class="miniKey">Edit stats</span><span class="miniVal"><code>?admin=1</code></span></div>
-              <div class="miniLine"><span class="miniKey">Overlay view</span><span class="miniVal"><code>?overlay=1</code></span></div>
+          <div class="module module--thin">
+            <div class="module__title">LOCAL CONTROLS</div>
+            <div class="mini">
+              <div class="mini__row"><span>Edit stats</span><code>?admin=1</code></div>
+              <div class="mini__row"><span>Overlay</span><code>?overlay=1</code></div>
             </div>
           </div>
         </aside>
       </div>
     </section>
 
-    <!-- SYSTEM -->
-    <section class="section" id="system">
+    <!-- PROTOCOL -->
+    <section class="section" id="protocol">
       <div class="section__head">
-        <h2 class="h2">System</h2>
-        <p class="muted">A route is noise. A system compounds.</p>
+        <h2 class="h2">Protocol</h2>
+        <div class="micro">How Season 1 composes itself.</div>
       </div>
 
-      <div class="systemGrid">
-        <div class="systemCard">
-          <div class="systemCard__title">Inputs</div>
-          <div class="systemCard__text">Week day route + time + signal + discipline.</div>
-        </div>
-        <div class="systemCard">
-          <div class="systemCard__title">Mechanism</div>
-          <div class="systemCard__text">Miles become a scoreboard. Cadence becomes a culture.</div>
-        </div>
-        <div class="systemCard">
-          <div class="systemCard__title">Outputs</div>
-          <div class="systemCard__text">Uptime, upgrades, receipts, and an end game (Tesla/FSD).</div>
-        </div>
-        <div class="systemCard">
-          <div class="systemCard__title">Constraint</div>
-          <div class="systemCard__text">Season 1 is finite. 25,000 miles. Finish the mission.</div>
-        </div>
-      </div>
-
-      <div class="divider"></div>
-
-      <div class="twoCol">
-        <div>
-          <h3 class="h3">Turning my route into a meme coin</h3>
-          <p class="muted">
-            The meme is the wrapper. The system is the product. The scoreboard is the proof.
-          </p>
-          <ul class="bullets">
-            <li>Season target is explicit.</li>
-            <li>Claim cadence is scheduled.</li>
-            <li>Fees route to survival + upgrades.</li>
-          </ul>
-        </div>
-
-        <div class="quote">
-          <div class="quote__mark">“</div>
-          <div class="quote__text">
-            If it can be measured, it can be respected.
+      <div class="protocol">
+        <div class="pillars">
+          <div class="pillar">
+            <div class="pillar__k">INPUT</div>
+            <div class="pillar__v">Week day route + time + signal + discipline.</div>
           </div>
-          <div class="quote__by">— Trencher Traffic</div>
+          <div class="pillar">
+            <div class="pillar__k">ENGINE</div>
+            <div class="pillar__v">Miles become the scoreboard. Cadence becomes the culture.</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar__k">RULE</div>
+            <div class="pillar__v">Friday claim cadence. System stays legible.</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar__k">OUTPUT</div>
+            <div class="pillar__v">Uptime → upgrades → receipts → Tesla/FSD end game.</div>
+          </div>
+        </div>
+
+        <div class="protocol__note">
+          Turning my route into a meme coin is the wrapper.
+          The mission is consistency at scale.
         </div>
       </div>
     </section>
 
-    <!-- ROADMAP -->
+    <!-- UPGRADES -->
     <section class="section" id="roadmap">
       <div class="section__head">
-        <h2 class="h2">Roadmap</h2>
-        <p class="muted">Rig upgrades first. End game: Tesla with FSD.</p>
+        <h2 class="h2">Upgrades</h2>
+        <div class="micro">Build the rig. Expand the frame.</div>
       </div>
 
-      <ol class="timeline">
+      <ol class="steps">
         <li class="step">
-          <div class="step__num">1</div>
-          <div class="step__body">
-            <div class="step__title">Rear camera</div>
-            <div class="step__text">Add rear view. Expand context. Sharpen the stream.</div>
+          <div class="step__n">01</div>
+          <div class="step__b">
+            <div class="step__t">Rear camera</div>
+            <div class="step__d">Wider context. Better coverage. More cinematic driving.</div>
           </div>
         </li>
         <li class="step">
-          <div class="step__num">2</div>
-          <div class="step__body">
-            <div class="step__title">Side cameras</div>
-            <div class="step__text">Multiple angles. More immersion. Better clips.</div>
+          <div class="step__n">02</div>
+          <div class="step__b">
+            <div class="step__t">Side cameras</div>
+            <div class="step__d">Multi-angle immersion and sharper clips.</div>
           </div>
         </li>
         <li class="step">
-          <div class="step__num">3</div>
-          <div class="step__body">
-            <div class="step__title">Microphone</div>
-            <div class="step__text">Clear voice. Less noise. Longer watchability.</div>
+          <div class="step__n">03</div>
+          <div class="step__b">
+            <div class="step__t">Microphone</div>
+            <div class="step__d">Clean voice. Less road noise. Longer watchability.</div>
           </div>
         </li>
         <li class="step">
-          <div class="step__num">4</div>
-          <div class="step__body">
-            <div class="step__title">Mobile streaming laptop</div>
-            <div class="step__text">Scene control + stability + multi-cam switching.</div>
+          <div class="step__n">04</div>
+          <div class="step__b">
+            <div class="step__t">Mobile streaming laptop</div>
+            <div class="step__d">Scene control, stability, and multi-cam switching.</div>
           </div>
         </li>
         <li class="step step--end">
-          <div class="step__num">∞</div>
-          <div class="step__body">
-            <div class="step__title">Tesla with FSD</div>
-            <div class="step__text">Autonomy arc. The system upgrades itself.</div>
+          <div class="step__n">∞</div>
+          <div class="step__b">
+            <div class="step__t">Tesla with FSD</div>
+            <div class="step__d">Autonomy arc. The machine upgrades itself.</div>
           </div>
         </li>
       </ol>
@@ -356,41 +259,32 @@
     <!-- STARLINK -->
     <section class="section" id="starlink">
       <div class="section__head">
-        <h2 class="h2">Starlink Mini • Space Stack</h2>
-        <p class="muted">Signal is the spine.</p>
+        <h2 class="h2">Starlink</h2>
+        <div class="micro">Signal is the spine.</div>
       </div>
 
-      <div class="twoCol">
-        <div class="card cosmic">
-          <div class="card__title">Uptime mindset</div>
-          <div class="card__text">
-            The stream dies without signal. Starlink Mini is the mobile backbone: independence, stability, and motion-first design.
+      <div class="grid2">
+        <div class="card">
+          <div class="card__t">Space internet on wheels</div>
+          <div class="card__p">
+            The stream dies without signal. Starlink Mini is the mobile backbone: independence, stability, motion-first design.
           </div>
-          <ul class="bullets">
+          <ul class="list">
             <li>Mobile-first connectivity</li>
-            <li>Reduces dependence on one carrier</li>
+            <li>Less dependence on one carrier</li>
             <li>Fits the Tesla/FSD end game</li>
           </ul>
         </div>
 
-        <div class="card">
-          <div class="card__title">What I’m showcasing</div>
-          <div class="card__text">
-            Real-world mobile streaming performance: stability, drop rate, and what it takes to ship daily.
+        <div class="card card--glow">
+          <div class="card__t">What gets showcased</div>
+          <div class="card__p">
+            Real-world mobile streaming performance: stability, drop rate, and what it takes to ship every week day.
           </div>
-          <div class="mini-metrics">
-            <div class="mini-metric">
-              <div class="mini-metric__k">Season</div>
-              <div class="mini-metric__v">S1 / 25,000</div>
-            </div>
-            <div class="mini-metric">
-              <div class="mini-metric__k">Cadence</div>
-              <div class="mini-metric__v">Friday claim</div>
-            </div>
-            <div class="mini-metric">
-              <div class="mini-metric__k">Next</div>
-              <div class="mini-metric__v">Rear camera</div>
-            </div>
+          <div class="statsMini">
+            <div class="statsMini__row"><span>Season</span><strong>S1 / 25,000</strong></div>
+            <div class="statsMini__row"><span>Cadence</span><strong>Friday claim</strong></div>
+            <div class="statsMini__row"><span>Next</span><strong>Rear camera</strong></div>
           </div>
         </div>
       </div>
@@ -400,33 +294,30 @@
     <section class="section" id="links">
       <div class="section__head">
         <h2 class="h2">Links</h2>
-        <p class="muted">Wire the system to the outside world.</p>
+        <div class="micro">Wire it outward.</div>
       </div>
 
-      <div class="grid3">
+      <div class="links">
         <a class="linkCard" id="xLink" href="#" target="_blank" rel="noreferrer">
-          <div class="linkCard__title">X</div>
-          <div class="linkCard__text">Updates + clips.</div>
+          <div class="linkCard__k">X</div>
+          <div class="linkCard__v">Updates + clips</div>
         </a>
         <a class="linkCard" id="streamLink" href="#" target="_blank" rel="noreferrer">
-          <div class="linkCard__title">Live</div>
-          <div class="linkCard__text">Watch the week day route.</div>
+          <div class="linkCard__k">Live</div>
+          <div class="linkCard__v">Watch the week day route</div>
         </a>
         <a class="linkCard" id="tokenLink" href="#" target="_blank" rel="noreferrer">
-          <div class="linkCard__title">Coin</div>
-          <div class="linkCard__text">Optional link.</div>
+          <div class="linkCard__k">Coin</div>
+          <div class="linkCard__v">Optional link</div>
         </a>
       </div>
 
-      <footer class="footer">
-        <div class="footer__left">
-          <div class="tiny">© <span id="year"></span> Trencher Traffic</div>
-          <div class="tiny muted">Entertainment only. Not financial advice.</div>
+      <footer class="foot">
+        <div class="foot__left">
+          <div class="fine">© <span id="year"></span> Trencher Traffic</div>
+          <div class="fine fine--muted">Entertainment only. Not financial advice.</div>
         </div>
-
-        <div class="footer__right tiny">
-          <a class="mini-link" href="#top">Back to top</a>
-        </div>
+        <a class="link" href="#top">BACK TO TOP ↑</a>
       </footer>
     </section>
   </main>
@@ -434,16 +325,15 @@
   <!-- OVERLAY -->
   <div id="overlayRoot" class="overlay" aria-hidden="true">
     <div class="overlay__box">
-      <div class="overlay__brand">
-        <span class="brand__dot"></span>
-        <span>Trencher Traffic</span>
-        <span class="overlay__pill">S1: 25,000</span>
+      <div class="overlay__head">
+        <span class="brand__sig"></span>
+        <span class="overlay__name">Trencher Traffic</span>
+        <span class="overlay__tag">S1 / 25,000</span>
         <span id="overlayLive" class="overlay__live">OFFLINE</span>
       </div>
 
       <div class="overlay__big">
-        <span id="overlayMiles">0</span>
-        <span class="unit">mi</span>
+        <span id="overlayMiles">0</span><span class="u"> mi</span>
       </div>
 
       <div class="overlay__row">
@@ -454,6 +344,6 @@
     </div>
   </div>
 
-  <script src="app.js?v=23"></script>
+  <script src="app.js?v=24"></script>
 </body>
 </html>
