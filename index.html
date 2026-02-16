@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Trencher Traffic — Drive-to-earn livestream. Road to 50,000 miles." />
+  <meta name="description" content="Trencher Traffic — Drive-to-earn livestream. Road to 25,000 miles." />
   <title>Trencher Traffic</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Cache bust -->
-  <link rel="stylesheet" href="style.css?v=41" />
+  <link rel="stylesheet" href="style.css?v=42" />
 </head>
 
 <body>
@@ -20,17 +20,19 @@
   <div class="container topbar__inner">
 
     <div class="brand">
-      <div class="brand__dot"></div>
-      <div>
-        <div class="brand__name">
-          Trencher Traffic
+      <div class="brand__dot" aria-hidden="true"></div>
+
+      <div class="brand__stack">
+        <div class="brand__nameRow">
+          <div class="brand__name">Trencher Traffic</div>
           <span id="liveBadge" class="live-badge">OFFLINE</span>
         </div>
-        <div class="brand__tag">Drive-to-Earn • Road to 50,000 Miles</div>
+
+        <div class="brand__tag">Drive-to-Earn • Road to 25,000 Miles</div>
       </div>
     </div>
 
-    <nav class="nav">
+    <nav class="nav" aria-label="Primary">
       <a href="#live">Live</a>
       <a href="#miles">Miles</a>
       <a href="#how">How It Works</a>
@@ -48,10 +50,13 @@
     <div class="container hero__grid">
 
       <div>
-        <h1>Drive. Stream. Reach 50,000 Miles.</h1>
+        <h1>Drive. Stream. Claim Fees every 1k miles.</h1>
+
         <p class="lead">
-          A real-world drive-to-earn challenge streamed live from Southwest Florida —
-          including daily runs across the iconic Sunshine Skyway Bridge.
+          Welcome to the real world wage maxxing CCM meta. We’ll be taking CCM on the road by
+          Tokenizing my Medical Courier route in South West Florida on Pump.fun - I’ll be live on Pump.fun using a Elon Musk Technology
+          (star link mini) I travel showcasing my route. Clipping road rage and embarking on my Trade with FOMO journey.
+          The end goal of this experiment is to drive until AI replaces me. (I’m going to buy a Tesla with FSD with the safu funds)
         </p>
 
         <div class="cta">
@@ -61,9 +66,9 @@
         </div>
 
         <div class="pillrow">
-          <span class="pill">Weekdays 3–7 PM</span>
-          <span class="pill">50,000 Mile Goal</span>
-          <span class="pill">25 Milestones</span>
+          <span class="pill">Weekday Route</span>
+          <span class="pill">25,000 Mile Goal</span>
+          <span class="pill">1,000-mile Claims</span>
         </div>
       </div>
 
@@ -76,7 +81,7 @@
           <div class="info"><span>Route</span><b>Southwest Florida</b></div>
           <div class="info"><span>Highlight</span><b>Sunshine Skyway Bridge</b></div>
           <p class="small">
-            A long-form livestream challenge designed to bring real engagement and consistency to pump.fun streaming.
+            Road-logged creator capital. The stream is the proof.
           </p>
         </div>
       </div>
@@ -133,7 +138,7 @@
           <div class="card__body">
             <div class="progress">
               <div class="progress__meta">
-                <div><b id="currentMilesText">0</b> / 50,000 miles</div>
+                <div><b id="currentMilesText">0</b> / 25,000 miles</div>
                 <div id="percentText">0%</div>
               </div>
 
@@ -157,7 +162,7 @@
 
         <div class="card">
           <div class="card__body">
-            <h3>Milestones</h3>
+            <h3>Claims (Every 1,000 Miles)</h3>
             <ol id="milestoneList"></ol>
           </div>
         </div>
@@ -174,21 +179,21 @@
         <div class="card">
           <div class="card__body">
             <h3>1. Drive</h3>
-            <p>Daily weekday driving through Southwest Florida.</p>
+            <p>Weekday route. Same roads. Same grind. Logged miles.</p>
           </div>
         </div>
 
         <div class="card">
           <div class="card__body">
             <h3>2. Stream</h3>
-            <p>Every mile streamed live for transparency and entertainment.</p>
+            <p>Starlink Mini + pump.fun live. Real world signal. Real world chaos.</p>
           </div>
         </div>
 
         <div class="card">
           <div class="card__body">
             <h3>3. Claim</h3>
-            <p>Every 2,000 miles unlocks a milestone claim.</p>
+            <p>Every 1,000 miles = a claim checkpoint. Fees keep the rig alive.</p>
           </div>
         </div>
       </div>
@@ -206,12 +211,11 @@
             <div class="fomo__tag">LIVE TRADING</div>
 
             <h2 class="fomo__title">
-              Trade With Me Live on <span class="fomo__brand">FOMO</span>
+              Trade With Me on <span class="fomo__brand">FOMO</span> — Get 10% Off Fees
             </h2>
 
             <p class="fomo__desc">
-              I trade live while driving the weekday route — real entries, real exits, no fake “soon”.
-              If you’re going to trade, trade with a discount and watch it happen in real time.
+              Trade with me on FOMO and get 10% off fees. If you’re going to trade, take the discount.
             </p>
 
             <div class="fomo__cta">
@@ -220,17 +224,16 @@
               </a>
 
               <a class="btn" href="https://fomo.family/r/TrafficTrencher" target="_blank" rel="noopener">
-                Get 10% Off Fees
+                Claim 10% Off
               </a>
             </div>
 
             <p class="small">
-              Trade with me on FOMO and get 10% off fees!
+              Link: https://fomo.family/r/TrafficTrencher
             </p>
           </div>
 
           <div class="fomo__right">
-            <!-- FIXED: uses your existing image file -->
             <img class="fomo__logo" src="images/fomo.jpg" alt="FOMO logo" />
           </div>
 
@@ -255,6 +258,16 @@
           <b>Live Stream</b>
           <p>Watch the journey</p>
         </a>
+
+        <a class="linkcard" href="https://fomo.family/r/TrafficTrencher" target="_blank" rel="noopener">
+          <b>Trade on FOMO</b>
+          <p>Get 10% off fees</p>
+        </a>
+
+        <a class="linkcard" href="#miles">
+          <b>Claims</b>
+          <p>Track the 1,000-mile checkpoints</p>
+        </a>
       </div>
     </div>
   </section>
@@ -267,6 +280,6 @@
   </div>
 </footer>
 
-<script src="app.js?v=41"></script>
+<script src="app.js?v=42"></script>
 </body>
 </html>
