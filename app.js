@@ -1,4 +1,4 @@
-// Trencher Traffic — app.js (matches your current index.html)
+// Trencher Traffic — app.js (matches the current index.html)
 
 const CONFIG = {
   goalMiles: 50000,
