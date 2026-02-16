@@ -1,349 +1,561 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Trencher Traffic</title>
-  <meta name="description" content="Wage Maxxing on a week day route. Season 1: 25,000 miles. Friday claim cadence. Starlink-powered." />
+:root{
+  --bg:#05060a;
+  --bg2:#070a12;
+  --ink:rgba(255,255,255,.92);
+  --muted:rgba(255,255,255,.68);
+  --line:rgba(255,255,255,.09);
 
-  <meta property="og:title" content="Trencher Traffic" />
-  <meta property="og:description" content="Season 1: 25,000 miles. Friday claim cadence. A route becomes a system." />
-  <meta property="og:type" content="website" />
+  --cyan:#9afcff;
+  --mint:#b8ffdf;
+  --violet:#7c6bff;
 
-  <link rel="stylesheet" href="style.css?v=24" />
-</head>
+  --r:18px;
+  --shadow:0 20px 70px rgba(0,0,0,.62);
+}
 
-<body>
-  <header class="topbar" id="top">
-    <div class="wrap topbar__inner">
-      <a class="brand" href="#top" aria-label="Trencher Traffic home">
-        <span class="brand__sig" aria-hidden="true"></span>
-        <span class="brand__name">Trencher Traffic</span>
-      </a>
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+  color:var(--ink);
+  letter-spacing:.2px;
+  background:
+    radial-gradient(1000px 600px at 18% 0%, rgba(154,252,255,.14), transparent 60%),
+    radial-gradient(900px 600px at 88% 6%, rgba(124,107,255,.12), transparent 60%),
+    radial-gradient(800px 700px at 60% 120%, rgba(184,255,223,.10), transparent 55%),
+    linear-gradient(180deg, var(--bg), var(--bg2));
+  overflow-x:hidden;
+}
 
-      <nav class="nav">
-        <a href="#flight">Flight</a>
-        <a href="#protocol">Protocol</a>
-        <a href="#roadmap">Upgrades</a>
-        <a href="#starlink">Starlink</a>
-        <a href="#links">Links</a>
-      </nav>
+/* starfield */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.18;
+  background-image:
+    radial-gradient(1px 1px at 12% 22%, rgba(255,255,255,.85), transparent 60%),
+    radial-gradient(1px 1px at 38% 48%, rgba(255,255,255,.70), transparent 60%),
+    radial-gradient(1px 1px at 72% 16%, rgba(255,255,255,.65), transparent 60%),
+    radial-gradient(1px 1px at 84% 58%, rgba(255,255,255,.60), transparent 60%),
+    radial-gradient(1px 1px at 26% 78%, rgba(255,255,255,.60), transparent 60%),
+    radial-gradient(1px 1px at 64% 86%, rgba(255,255,255,.55), transparent 60%);
+}
 
-      <div class="topbar__cta">
-        <span id="liveBadge" class="live">OFFLINE</span>
-        <a id="watchBtn" class="btn btn--hot" href="#" target="_blank" rel="noreferrer">WATCH</a>
-      </div>
-    </div>
-  </header>
+/* horizon grid */
+body::after{
+  content:"";
+  position:fixed;
+  left:-10%;
+  right:-10%;
+  bottom:-35%;
+  height:70%;
+  pointer-events:none;
+  opacity:.07;
+  background:
+    linear-gradient(rgba(154,252,255,.25) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(154,252,255,.25) 1px, transparent 1px);
+  background-size: 58px 58px;
+  transform: perspective(700px) rotateX(65deg);
+}
 
-  <main class="wrap">
-    <!-- HERO / MANIFEST -->
-    <section class="hero" aria-label="Hero">
-      <div class="hero__left">
-        <div class="stamp">
-          <span class="stamp__pill">WAGE MAXXING</span>
-          <span class="stamp__pill">WEEK DAY ROUTE</span>
-          <span class="stamp__pill">S1 / 25,000</span>
-        </div>
+a{color:inherit; text-decoration:none}
+code{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+  font-size:.92em;
+  background: rgba(255,255,255,.06);
+  border:1px solid var(--line);
+  padding: 2px 6px;
+  border-radius: 10px;
+}
 
-        <h1 class="title">
-          The route becomes a machine.
-        </h1>
+.wrap{width:min(1140px, calc(100% - 32px)); margin:0 auto}
 
-        <p class="sub">
-          I drive the week day route until <span class="glow">AI replaces me</span>.
-          Season 1 is <strong>25,000 miles</strong>.
-          Creator-fee claim cadence: <strong>Friday</strong>.
-        </p>
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:30;
+  backdrop-filter: blur(16px);
+  background: rgba(5,6,10,.58);
+  border-bottom:1px solid var(--line);
+}
+.topbar__inner{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  padding: 14px 0;
+}
 
-        <div class="hero__actions">
-          <a id="watchBtn2" class="btn btn--hot" href="#" target="_blank" rel="noreferrer">WATCH LIVE</a>
-          <a class="btn btn--ghost" href="#flight">OPEN FLIGHT PANEL</a>
-          <a class="btn btn--ghost" href="?overlay=1">OVERLAY</a>
-        </div>
+.brand{display:flex; align-items:center; gap:10px; font-weight:950; letter-spacing:.3px}
+.brand__sig{
+  width:12px; height:12px; border-radius:999px;
+  background: var(--cyan);
+  box-shadow: 0 0 22px rgba(154,252,255,.70);
+}
+.brand__name{opacity:.96}
 
-        <div class="whisper">
-          Turning my route into a meme coin.
-          <span class="whisper__dot">•</span>
-          Next upgrade: <strong id="nextTargetTop">Rear camera</strong>.
-        </div>
-      </div>
+.nav{display:flex; gap:16px; opacity:.88}
+.nav a{padding:8px 10px; border-radius:12px}
+.nav a:hover{background: rgba(255,255,255,.06)}
 
-      <aside class="hero__right">
-        <div class="monolith">
-          <div class="monolith__head">
-            <div class="monolith__title">MISSION STATUS</div>
-            <div class="monolith__meta" id="updatedAt">Updated: —</div>
-          </div>
+.topbar__cta{display:flex; align-items:center; gap:10px}
+.live{
+  font-size:12px;
+  padding:7px 10px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.04);
+  letter-spacing:1px;
+}
 
-          <div class="monolith__body">
-            <div class="kv">
-              <div class="kv__k">STATUS</div>
-              <div class="kv__v"><span id="liveDot" class="dot"></span><span id="liveText">Offline</span></div>
-            </div>
-            <div class="kv">
-              <div class="kv__k">SEASON</div>
-              <div class="kv__v">S1 / <span id="seasonGoal">25000</span> mi</div>
-            </div>
-            <div class="kv">
-              <div class="kv__k">CLAIM</div>
-              <div class="kv__v"><span id="nextClaimText">—</span></div>
-            </div>
-            <div class="kv">
-              <div class="kv__k">NEXT</div>
-              <div class="kv__v"><span id="nextTargetConsole">Rear camera</span></div>
-            </div>
-          </div>
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  padding: 11px 14px;
+  border-radius: 14px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.04);
+  color: var(--ink);
+  transition: transform .12s ease, background .12s ease, border-color .12s ease;
+  font-weight:900;
+  letter-spacing:.6px;
+}
+.btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.07)}
+.btn--ghost{background: rgba(255,255,255,.02)}
+.btn--hot{
+  border-color: rgba(154,252,255,.26);
+  background: linear-gradient(180deg, rgba(154,252,255,.14), rgba(154,252,255,.06));
+  box-shadow: 0 12px 40px rgba(154,252,255,.12);
+}
 
-          <div class="monolith__foot">
-            <a class="link" href="#protocol">READ PROTOCOL →</a>
-          </div>
-        </div>
-      </aside>
-    </section>
+.hero{
+  padding: 54px 0 26px;
+  display:grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 18px;
+  align-items:start;
+}
 
-    <!-- FLIGHT PANEL -->
-    <section class="section" id="flight">
-      <div class="section__head">
-        <h2 class="h2">Flight Panel</h2>
-        <div class="micro">High-signal telemetry. Nothing else.</div>
-      </div>
+.stamp{display:flex; gap:10px; flex-wrap:wrap}
+.stamp__pill{
+  font-size:11px;
+  padding: 7px 10px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.03);
+  opacity:.92;
+  letter-spacing:1px;
+}
 
-      <div class="flight">
-        <div class="flight__core">
-          <div class="telemetry">
-            <div class="telemetry__row">
-              <div class="telemetry__k">S1 MILES</div>
-              <div class="telemetry__v"><span id="milesSeason">0</span><span class="u"> mi</span></div>
-              <div class="telemetry__s"><span id="remainingMiles">25000</span> remaining</div>
-            </div>
+.title{
+  margin: 14px 0 10px;
+  font-size: clamp(42px, 5vw, 74px);
+  line-height: 0.98;
+  letter-spacing:-.6px;
+}
+.sub{
+  margin:0;
+  font-size: 17px;
+  line-height: 1.65;
+  opacity:.86;
+  max-width: 64ch;
+}
+.glow{
+  color: var(--cyan);
+  text-shadow: 0 0 28px rgba(154,252,255,.22);
+}
 
-            <div class="telemetry__row">
-              <div class="telemetry__k">PROGRESS</div>
-              <div class="telemetry__v"><span id="progressPct">0</span><span class="u">%</span></div>
-              <div class="telemetry__s">Target: 25,000</div>
-            </div>
+.hero__actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px}
 
-            <div class="telemetry__row">
-              <div class="telemetry__k">TODAY</div>
-              <div class="telemetry__v"><span id="milesToday">0</span><span class="u"> mi</span></div>
-              <div class="telemetry__s">week day route</div>
-            </div>
+.whisper{
+  margin-top: 14px;
+  font-size: 13px;
+  opacity:.76;
+}
+.whisper__dot{opacity:.55; margin: 0 8px}
 
-            <div class="telemetry__row">
-              <div class="telemetry__k">CLAIM CLOCK</div>
-              <div class="telemetry__v small"><span id="claimClock">—</span></div>
-              <div class="telemetry__s">Friday cadence</div>
-            </div>
-          </div>
+.monolith{
+  border:1px solid var(--line);
+  background: linear-gradient(180deg, rgba(12,16,32,.88), rgba(10,15,28,.76));
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  overflow:hidden;
+}
+.monolith__head{
+  padding: 16px 16px 12px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  align-items:flex-end;
+}
+.monolith__title{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+  font-weight:950;
+  letter-spacing:1.4px;
+  font-size:12px;
+  opacity:.92;
+}
+.monolith__meta{font-size:12px; opacity:.62}
+.monolith__body{padding: 10px 16px}
+.kv{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding: 12px 0;
+  border-bottom:1px dashed rgba(255,255,255,.10);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+  font-size:12px;
+}
+.kv:last-child{border-bottom:none}
+.kv__k{opacity:.62}
+.kv__v{opacity:.92}
+.monolith__foot{
+  padding: 12px 16px 16px;
+  border-top:1px solid var(--line);
+}
 
-          <div class="bar">
-            <div class="bar__track">
-              <div class="bar__fill" id="progressFill" style="width:0%"></div>
-            </div>
-            <div class="bar__meta">
-              <span id="progressMetaLeft">0%</span>
-              <span id="progressMetaRight">25,000 mi</span>
-            </div>
-          </div>
-        </div>
+.dot{
+  width:8px; height:8px; border-radius:999px;
+  background: rgba(255,255,255,.35);
+  display:inline-block;
+  margin-right:8px;
+}
 
-        <aside class="flight__side">
-          <div class="module">
-            <div class="module__title">FEE ROUTER</div>
-            <div class="module__line">
-              <span class="module__k">Priority</span>
-              <span class="module__v">Car expenses to keep the stream alive and healthy.</span>
-            </div>
-            <div class="module__line">
-              <span class="module__k">Upgrades</span>
-              <span class="module__v">Rear cam → Side cams → Mic → Mobile laptop.</span>
-            </div>
-            <div class="module__line">
-              <span class="module__k">End game</span>
-              <span class="module__v">Acquire a Tesla with FSD mode.</span>
-            </div>
-          </div>
+.section{padding: 44px 0 10px}
+.section__head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom: 14px;
+}
+.h2{
+  margin:0;
+  font-size: 26px;
+  letter-spacing:.2px;
+}
+.micro{
+  font-size: 12px;
+  opacity:.70;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+}
 
-          <div class="module module--thin">
-            <div class="module__title">LOCAL CONTROLS</div>
-            <div class="mini">
-              <div class="mini__row"><span>Edit stats</span><code>?admin=1</code></div>
-              <div class="mini__row"><span>Overlay</span><code>?overlay=1</code></div>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </section>
+.flight{
+  display:grid;
+  grid-template-columns: 1fr .44fr;
+  gap: 12px;
+  align-items:start;
+}
+.flight__core{
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.03);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  padding: 14px;
+}
+.telemetry{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+.telemetry__row{
+  border:1px solid var(--line);
+  background: rgba(0,0,0,.14);
+  border-radius: 16px;
+  padding: 14px;
+}
+.telemetry__k{
+  font-size:12px;
+  opacity:.70;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+  letter-spacing:1px;
+}
+.telemetry__v{
+  margin-top:8px;
+  font-size: 28px;
+  font-weight: 980;
+  letter-spacing:.2px;
+}
+.telemetry__v.small{font-size: 13px; font-weight: 950; line-height: 1.35}
+.telemetry__s{margin-top:8px; font-size:12px; opacity:.70}
+.u{font-size:.62em; opacity:.70}
 
-    <!-- PROTOCOL -->
-    <section class="section" id="protocol">
-      <div class="section__head">
-        <h2 class="h2">Protocol</h2>
-        <div class="micro">How Season 1 composes itself.</div>
-      </div>
+.bar{margin-top: 12px}
+.bar__track{
+  height: 12px;
+  border-radius: 999px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.04);
+  overflow:hidden;
+}
+.bar__fill{
+  height:100%;
+  width:0%;
+  background: linear-gradient(90deg, rgba(154,252,255,.80), rgba(184,255,223,.70));
+  box-shadow: 0 0 18px rgba(154,252,255,.18);
+}
+.bar__meta{
+  margin-top: 8px;
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  opacity:.72;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+}
 
-      <div class="protocol">
-        <div class="pillars">
-          <div class="pillar">
-            <div class="pillar__k">INPUT</div>
-            <div class="pillar__v">Week day route + time + signal + discipline.</div>
-          </div>
-          <div class="pillar">
-            <div class="pillar__k">ENGINE</div>
-            <div class="pillar__v">Miles become the scoreboard. Cadence becomes the culture.</div>
-          </div>
-          <div class="pillar">
-            <div class="pillar__k">RULE</div>
-            <div class="pillar__v">Friday claim cadence. System stays legible.</div>
-          </div>
-          <div class="pillar">
-            <div class="pillar__k">OUTPUT</div>
-            <div class="pillar__v">Uptime → upgrades → receipts → Tesla/FSD end game.</div>
-          </div>
-        </div>
+.module{
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.03);
+  border-radius: var(--r);
+  padding: 14px;
+  box-shadow: var(--shadow);
+}
+.module--thin{margin-top: 12px}
+.module__title{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+  font-size:12px;
+  font-weight:950;
+  letter-spacing:1.4px;
+  opacity:.90;
+  padding-bottom: 12px;
+  border-bottom:1px solid var(--line);
+  margin-bottom: 12px;
+}
+.module__line{display:flex; gap:10px; margin: 10px 0}
+.module__k{width:74px; font-size:12px; opacity:.68}
+.module__v{font-size:13px; line-height:1.5; opacity:.88}
 
-        <div class="protocol__note">
-          Turning my route into a meme coin is the wrapper.
-          The mission is consistency at scale.
-        </div>
-      </div>
-    </section>
+.mini__row{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding: 10px 0;
+  border-bottom:1px dashed rgba(255,255,255,.10);
+  font-size:12px;
+  opacity:.86;
+}
+.mini__row:last-child{border-bottom:none}
 
-    <!-- UPGRADES -->
-    <section class="section" id="roadmap">
-      <div class="section__head">
-        <h2 class="h2">Upgrades</h2>
-        <div class="micro">Build the rig. Expand the frame.</div>
-      </div>
+.protocol{
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.03);
+  border-radius: var(--r);
+  box-shadow: var(--shadow);
+  padding: 14px;
+}
+.pillars{
+  display:grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.pillar{
+  border:1px solid var(--line);
+  background: rgba(0,0,0,.14);
+  border-radius: 16px;
+  padding: 14px;
+}
+.pillar__k{
+  font-size:12px;
+  opacity:.70;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+  letter-spacing:1px;
+}
+.pillar__v{
+  margin-top:8px;
+  font-size: 14px;
+  line-height:1.5;
+  opacity:.88;
+}
+.protocol__note{
+  margin-top: 12px;
+  font-size: 13px;
+  opacity:.74;
+  border-top:1px solid var(--line);
+  padding-top: 12px;
+}
 
-      <ol class="steps">
-        <li class="step">
-          <div class="step__n">01</div>
-          <div class="step__b">
-            <div class="step__t">Rear camera</div>
-            <div class="step__d">Wider context. Better coverage. More cinematic driving.</div>
-          </div>
-        </li>
-        <li class="step">
-          <div class="step__n">02</div>
-          <div class="step__b">
-            <div class="step__t">Side cameras</div>
-            <div class="step__d">Multi-angle immersion and sharper clips.</div>
-          </div>
-        </li>
-        <li class="step">
-          <div class="step__n">03</div>
-          <div class="step__b">
-            <div class="step__t">Microphone</div>
-            <div class="step__d">Clean voice. Less road noise. Longer watchability.</div>
-          </div>
-        </li>
-        <li class="step">
-          <div class="step__n">04</div>
-          <div class="step__b">
-            <div class="step__t">Mobile streaming laptop</div>
-            <div class="step__d">Scene control, stability, and multi-cam switching.</div>
-          </div>
-        </li>
-        <li class="step step--end">
-          <div class="step__n">∞</div>
-          <div class="step__b">
-            <div class="step__t">Tesla with FSD</div>
-            <div class="step__d">Autonomy arc. The machine upgrades itself.</div>
-          </div>
-        </li>
-      </ol>
-    </section>
+.steps{list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap: 10px}
+.step{
+  display:flex;
+  gap: 14px;
+  align-items:flex-start;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.03);
+  border-radius: var(--r);
+  padding: 14px;
+  box-shadow: var(--shadow);
+}
+.step--end{
+  border-color: rgba(124,107,255,.28);
+  background:
+    radial-gradient(700px 220px at 15% 0%, rgba(124,107,255,.18), transparent 55%),
+    rgba(255,255,255,.03);
+}
+.step__n{
+  width: 48px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+  font-weight:950;
+  letter-spacing:1px;
+  opacity:.86;
+}
+.step__t{font-weight:980; letter-spacing:.2px}
+.step__d{margin-top:6px; font-size: 14px; opacity:.80; line-height: 1.5}
 
-    <!-- STARLINK -->
-    <section class="section" id="starlink">
-      <div class="section__head">
-        <h2 class="h2">Starlink</h2>
-        <div class="micro">Signal is the spine.</div>
-      </div>
+.grid2{display:grid; grid-template-columns: 1fr 1fr; gap: 12px}
+.card{
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.03);
+  border-radius: var(--r);
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+.card--glow{
+  border-color: rgba(154,252,255,.16);
+  box-shadow: 0 18px 80px rgba(154,252,255,.10), var(--shadow);
+}
+.card__t{font-weight:980; margin-bottom: 10px}
+.card__p{font-size: 14px; line-height:1.6; opacity:.84}
+.list{margin: 12px 0 0; padding-left: 18px; opacity:.84}
+.list li{margin: 8px 0}
 
-      <div class="grid2">
-        <div class="card">
-          <div class="card__t">Space internet on wheels</div>
-          <div class="card__p">
-            The stream dies without signal. Starlink Mini is the mobile backbone: independence, stability, motion-first design.
-          </div>
-          <ul class="list">
-            <li>Mobile-first connectivity</li>
-            <li>Less dependence on one carrier</li>
-            <li>Fits the Tesla/FSD end game</li>
-          </ul>
-        </div>
+.statsMini{
+  margin-top: 12px;
+  border:1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(0,0,0,.14);
+  overflow:hidden;
+}
+.statsMini__row{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding: 12px 12px;
+  border-bottom:1px dashed rgba(255,255,255,.10);
+  font-size:12px;
+}
+.statsMini__row:last-child{border-bottom:none}
+.statsMini__row span{opacity:.70}
+.statsMini__row strong{font-weight:980}
 
-        <div class="card card--glow">
-          <div class="card__t">What gets showcased</div>
-          <div class="card__p">
-            Real-world mobile streaming performance: stability, drop rate, and what it takes to ship every week day.
-          </div>
-          <div class="statsMini">
-            <div class="statsMini__row"><span>Season</span><strong>S1 / 25,000</strong></div>
-            <div class="statsMini__row"><span>Cadence</span><strong>Friday claim</strong></div>
-            <div class="statsMini__row"><span>Next</span><strong>Rear camera</strong></div>
-          </div>
-        </div>
-      </div>
-    </section>
+.links{
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.linkCard{
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.03);
+  border-radius: var(--r);
+  padding: 16px;
+  box-shadow: var(--shadow);
+  transition: transform .12s ease, background .12s ease;
+}
+.linkCard:hover{transform: translateY(-1px); background: rgba(255,255,255,.05)}
+.linkCard__k{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+  opacity:.72;
+  letter-spacing:1px;
+}
+.linkCard__v{margin-top: 8px; font-weight:950; opacity:.92}
 
-    <!-- LINKS -->
-    <section class="section" id="links">
-      <div class="section__head">
-        <h2 class="h2">Links</h2>
-        <div class="micro">Wire it outward.</div>
-      </div>
+.foot{
+  margin-top: 18px;
+  padding: 18px 0 44px;
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  gap: 12px;
+  align-items:flex-start;
+}
+.fine{font-size: 12px}
+.fine--muted{opacity:.70}
+.link{
+  font-size:12px;
+  opacity:.86;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
+}
+.link:hover{opacity:1}
 
-      <div class="links">
-        <a class="linkCard" id="xLink" href="#" target="_blank" rel="noreferrer">
-          <div class="linkCard__k">X</div>
-          <div class="linkCard__v">Updates + clips</div>
-        </a>
-        <a class="linkCard" id="streamLink" href="#" target="_blank" rel="noreferrer">
-          <div class="linkCard__k">Live</div>
-          <div class="linkCard__v">Watch the week day route</div>
-        </a>
-        <a class="linkCard" id="tokenLink" href="#" target="_blank" rel="noreferrer">
-          <div class="linkCard__k">Coin</div>
-          <div class="linkCard__v">Optional link</div>
-        </a>
-      </div>
+/* Overlay mode */
+.overlay{
+  position: fixed;
+  inset: 0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding: 18px;
+  background: transparent;
+  pointer-events:none;
+}
+.overlay__box{
+  pointer-events:auto;
+  min-width: 340px;
+  max-width: 520px;
+  border:1px solid rgba(154,252,255,.26);
+  background: rgba(6,7,10,.30);
+  backdrop-filter: blur(18px);
+  border-radius: 22px;
+  padding: 14px 14px 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.55);
+}
+.overlay__head{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size: 12px;
+  opacity:.92;
+}
+.overlay__name{font-weight:950}
+.overlay__tag{
+  font-size: 11px;
+  padding: 5px 8px;
+  border-radius: 999px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.05);
+  opacity:.88;
+}
+.overlay__live{
+  margin-left:auto;
+  font-weight: 980;
+  letter-spacing: 1px;
+  opacity:.80;
+}
+.overlay__big{
+  margin-top: 10px;
+  font-size: 54px;
+  font-weight: 990;
+  letter-spacing: .4px;
+}
+.overlay__row{
+  display:flex;
+  gap:10px;
+  margin-top: 8px;
+  flex-wrap:wrap;
+}
+.overlay__chip{
+  font-size: 12px;
+  padding: 8px 10px;
+  border-radius: 999px;
+  border:1px solid var(--line);
+  background: rgba(255,255,255,.05);
+}
 
-      <footer class="foot">
-        <div class="foot__left">
-          <div class="fine">© <span id="year"></span> Trencher Traffic</div>
-          <div class="fine fine--muted">Entertainment only. Not financial advice.</div>
-        </div>
-        <a class="link" href="#top">BACK TO TOP ↑</a>
-      </footer>
-    </section>
-  </main>
-
-  <!-- OVERLAY -->
-  <div id="overlayRoot" class="overlay" aria-hidden="true">
-    <div class="overlay__box">
-      <div class="overlay__head">
-        <span class="brand__sig"></span>
-        <span class="overlay__name">Trencher Traffic</span>
-        <span class="overlay__tag">S1 / 25,000</span>
-        <span id="overlayLive" class="overlay__live">OFFLINE</span>
-      </div>
-
-      <div class="overlay__big">
-        <span id="overlayMiles">0</span><span class="u"> mi</span>
-      </div>
-
-      <div class="overlay__row">
-        <div class="overlay__chip">Today: <strong id="overlayToday">0</strong></div>
-        <div class="overlay__chip">Claim: <strong>Fri</strong></div>
-        <div class="overlay__chip">Next: <strong id="overlayNext">Rear cam</strong></div>
-      </div>
-    </div>
-  </div>
-
-  <script src="app.js?v=24"></script>
-</body>
-</html>
+/* Responsive */
+@media (max-width: 980px){
+  .hero{grid-template-columns: 1fr; padding-top: 36px}
+  .flight{grid-template-columns: 1fr}
+  .telemetry{grid-template-columns: 1fr}
+  .pillars{grid-template-columns: 1fr 1fr}
+  .grid2{grid-template-columns: 1fr}
+  .links{grid-template-columns: 1fr}
+  .nav{display:none}
+}
+@media (max-width: 560px){
+  .pillars{grid-template-columns: 1fr}
+}
