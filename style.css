@@ -1,600 +1,349 @@
-:root{
-  --bg:#05060a;
-  --bg2:#070a12;
-  --card:#0c1020;
-  --card2:#0a0f1c;
-  --border:rgba(255,255,255,.085);
-  --muted:rgba(255,255,255,.66);
-  --text:rgba(255,255,255,.92);
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Trencher Traffic</title>
+  <meta name="description" content="Wage Maxxing on a week day route. Season 1: 25,000 miles. Friday claim cadence. Starlink-powered." />
 
-  --accent:#9afcff;       /* icy cyan */
-  --mint:#b8ffdf;         /* soft mint */
-  --violet:#7c6bff;       /* nebula */
-  --shadow:0 18px 58px rgba(0,0,0,.60);
-  --radius:18px;
-}
+  <meta property="og:title" content="Trencher Traffic" />
+  <meta property="og:description" content="Season 1: 25,000 miles. Friday claim cadence. A route becomes a system." />
+  <meta property="og:type" content="website" />
 
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-  color:var(--text);
-  letter-spacing:.2px;
-  background:
-    radial-gradient(920px 520px at 18% 0%, rgba(154,252,255,.14), transparent 60%),
-    radial-gradient(820px 540px at 84% 8%, rgba(124,107,255,.11), transparent 62%),
-    radial-gradient(720px 620px at 60% 115%, rgba(184,255,223,.09), transparent 56%),
-    linear-gradient(180deg, var(--bg), var(--bg2));
-  overflow-x:hidden;
-}
+  <link rel="stylesheet" href="style.css?v=24" />
+</head>
 
-/* starfield */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  opacity:.20;
-  background-image:
-    radial-gradient(1px 1px at 15% 20%, rgba(255,255,255,.85), transparent 60%),
-    radial-gradient(1px 1px at 45% 40%, rgba(255,255,255,.70), transparent 60%),
-    radial-gradient(1px 1px at 70% 18%, rgba(255,255,255,.65), transparent 60%),
-    radial-gradient(1px 1px at 82% 55%, rgba(255,255,255,.60), transparent 60%),
-    radial-gradient(1px 1px at 30% 78%, rgba(255,255,255,.60), transparent 60%),
-    radial-gradient(1px 1px at 62% 86%, rgba(255,255,255,.55), transparent 60%),
-    radial-gradient(1px 1px at 90% 85%, rgba(255,255,255,.60), transparent 60%);
-}
+<body>
+  <header class="topbar" id="top">
+    <div class="wrap topbar__inner">
+      <a class="brand" href="#top" aria-label="Trencher Traffic home">
+        <span class="brand__sig" aria-hidden="true"></span>
+        <span class="brand__name">Trencher Traffic</span>
+      </a>
 
-/* faint horizon grid */
-body::after{
-  content:"";
-  position:fixed;
-  left:-10%;
-  right:-10%;
-  bottom:-35%;
-  height:70%;
-  pointer-events:none;
-  opacity:.08;
-  background:
-    linear-gradient(rgba(154,252,255,.25) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(154,252,255,.25) 1px, transparent 1px);
-  background-size: 58px 58px;
-  transform: perspective(700px) rotateX(65deg);
-}
+      <nav class="nav">
+        <a href="#flight">Flight</a>
+        <a href="#protocol">Protocol</a>
+        <a href="#roadmap">Upgrades</a>
+        <a href="#starlink">Starlink</a>
+        <a href="#links">Links</a>
+      </nav>
 
-a{color:inherit; text-decoration:none}
-code{
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
-  font-size:.95em;
-  background: rgba(255,255,255,.06);
-  border:1px solid var(--border);
-  padding: 2px 6px;
-  border-radius: 10px;
-}
+      <div class="topbar__cta">
+        <span id="liveBadge" class="live">OFFLINE</span>
+        <a id="watchBtn" class="btn btn--hot" href="#" target="_blank" rel="noreferrer">WATCH</a>
+      </div>
+    </div>
+  </header>
 
-.container{
-  width: min(1120px, calc(100% - 32px));
-  margin:0 auto;
-}
+  <main class="wrap">
+    <!-- HERO / MANIFEST -->
+    <section class="hero" aria-label="Hero">
+      <div class="hero__left">
+        <div class="stamp">
+          <span class="stamp__pill">WAGE MAXXING</span>
+          <span class="stamp__pill">WEEK DAY ROUTE</span>
+          <span class="stamp__pill">S1 / 25,000</span>
+        </div>
 
-.topbar{
-  position:sticky;
-  top:0;
-  z-index:20;
-  backdrop-filter: blur(16px);
-  background: rgba(5,6,10,.58);
-  border-bottom:1px solid var(--border);
-}
+        <h1 class="title">
+          The route becomes a machine.
+        </h1>
 
-.topbar__inner{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:14px;
-  padding: 14px 0;
-}
+        <p class="sub">
+          I drive the week day route until <span class="glow">AI replaces me</span>.
+          Season 1 is <strong>25,000 miles</strong>.
+          Creator-fee claim cadence: <strong>Friday</strong>.
+        </p>
 
-.brand{
-  display:flex; align-items:center; gap:10px;
-  font-weight:900;
-  letter-spacing:.3px;
-}
-.brand__dot{
-  width:10px; height:10px; border-radius:999px;
-  background: var(--accent);
-  box-shadow: 0 0 18px rgba(154,252,255,.74);
-}
-.brand__name{opacity:.96}
+        <div class="hero__actions">
+          <a id="watchBtn2" class="btn btn--hot" href="#" target="_blank" rel="noreferrer">WATCH LIVE</a>
+          <a class="btn btn--ghost" href="#flight">OPEN FLIGHT PANEL</a>
+          <a class="btn btn--ghost" href="?overlay=1">OVERLAY</a>
+        </div>
 
-.nav{display:flex; gap:16px; opacity:.88}
-.nav a{padding:8px 10px; border-radius:12px}
-.nav a:hover{background: rgba(255,255,255,.06)}
+        <div class="whisper">
+          Turning my route into a meme coin.
+          <span class="whisper__dot">•</span>
+          Next upgrade: <strong id="nextTargetTop">Rear camera</strong>.
+        </div>
+      </div>
 
-.topbar__cta{display:flex; align-items:center; gap:10px}
+      <aside class="hero__right">
+        <div class="monolith">
+          <div class="monolith__head">
+            <div class="monolith__title">MISSION STATUS</div>
+            <div class="monolith__meta" id="updatedAt">Updated: —</div>
+          </div>
 
-.live-badge{
-  font-size:12px;
-  padding:7px 10px;
-  border-radius:999px;
-  border:1px solid var(--border);
-  background: rgba(255,255,255,.04);
-  letter-spacing:.8px;
-}
+          <div class="monolith__body">
+            <div class="kv">
+              <div class="kv__k">STATUS</div>
+              <div class="kv__v"><span id="liveDot" class="dot"></span><span id="liveText">Offline</span></div>
+            </div>
+            <div class="kv">
+              <div class="kv__k">SEASON</div>
+              <div class="kv__v">S1 / <span id="seasonGoal">25000</span> mi</div>
+            </div>
+            <div class="kv">
+              <div class="kv__k">CLAIM</div>
+              <div class="kv__v"><span id="nextClaimText">—</span></div>
+            </div>
+            <div class="kv">
+              <div class="kv__k">NEXT</div>
+              <div class="kv__v"><span id="nextTargetConsole">Rear camera</span></div>
+            </div>
+          </div>
 
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  padding: 11px 14px;
-  border-radius: 14px;
-  border:1px solid var(--border);
-  background: rgba(255,255,255,.04);
-  color: var(--text);
-  transition: transform .12s ease, background .12s ease, border-color .12s ease;
-}
-.btn:hover{transform: translateY(-1px); background: rgba(255,255,255,.07)}
-.btn--primary{
-  border-color: rgba(154,252,255,.26);
-  background: rgba(154,252,255,.10);
-  box-shadow: 0 10px 32px rgba(154,252,255,.14);
-}
-.btn--ghost{background: rgba(255,255,255,.02)}
+          <div class="monolith__foot">
+            <a class="link" href="#protocol">READ PROTOCOL →</a>
+          </div>
+        </div>
+      </aside>
+    </section>
 
-.kicker{
-  font-size:12px;
-  letter-spacing:1.4px;
-  opacity:.74;
-}
+    <!-- FLIGHT PANEL -->
+    <section class="section" id="flight">
+      <div class="section__head">
+        <h2 class="h2">Flight Panel</h2>
+        <div class="micro">High-signal telemetry. Nothing else.</div>
+      </div>
 
-.hero{
-  padding: 46px 0 24px;
-  display:grid;
-  grid-template-columns: 1.1fr .9fr;
-  gap: 22px;
-  align-items: start;
-}
+      <div class="flight">
+        <div class="flight__core">
+          <div class="telemetry">
+            <div class="telemetry__row">
+              <div class="telemetry__k">S1 MILES</div>
+              <div class="telemetry__v"><span id="milesSeason">0</span><span class="u"> mi</span></div>
+              <div class="telemetry__s"><span id="remainingMiles">25000</span> remaining</div>
+            </div>
 
-.h1{
-  margin: 10px 0 12px;
-  font-size: clamp(36px, 4.2vw, 56px);
-  line-height: 1.02;
-}
-.lead{
-  margin:0;
-  font-size: 17px;
-  line-height: 1.6;
-  opacity:.86;
-  max-width: 62ch;
-}
-.accent{
-  color: var(--accent);
-  text-shadow: 0 0 22px rgba(154,252,255,.22);
-}
+            <div class="telemetry__row">
+              <div class="telemetry__k">PROGRESS</div>
+              <div class="telemetry__v"><span id="progressPct">0</span><span class="u">%</span></div>
+              <div class="telemetry__s">Target: 25,000</div>
+            </div>
 
-.hero__actions{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  margin-top:18px;
-}
+            <div class="telemetry__row">
+              <div class="telemetry__k">TODAY</div>
+              <div class="telemetry__v"><span id="milesToday">0</span><span class="u"> mi</span></div>
+              <div class="telemetry__s">week day route</div>
+            </div>
 
-.chips{
-  margin-top:14px;
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-}
-.chip{
-  font-size:12px;
-  padding:8px 10px;
-  border-radius:999px;
-  border:1px solid var(--border);
-  background: rgba(255,255,255,.04);
-  opacity:.92;
-}
+            <div class="telemetry__row">
+              <div class="telemetry__k">CLAIM CLOCK</div>
+              <div class="telemetry__v small"><span id="claimClock">—</span></div>
+              <div class="telemetry__s">Friday cadence</div>
+            </div>
+          </div>
 
-.panel{
-  border: 1px solid var(--border);
-  background: linear-gradient(180deg, rgba(12,16,32,.86), rgba(10,15,28,.74));
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  overflow:hidden;
-}
-.panel--glow{
-  border-color: rgba(154,252,255,.17);
-  box-shadow: 0 18px 80px rgba(154,252,255,.09), var(--shadow);
-}
+          <div class="bar">
+            <div class="bar__track">
+              <div class="bar__fill" id="progressFill" style="width:0%"></div>
+            </div>
+            <div class="bar__meta">
+              <span id="progressMetaLeft">0%</span>
+              <span id="progressMetaRight">25,000 mi</span>
+            </div>
+          </div>
+        </div>
 
-.panel__top{
-  padding: 16px 16px 10px;
-  border-bottom:1px solid var(--border);
-}
-.panel__title{font-weight:950}
-.panel__sub{font-size:12px; opacity:.65; margin-top:6px}
-.panel__footer{padding: 12px 14px 16px; border-top:1px solid var(--border)}
+        <aside class="flight__side">
+          <div class="module">
+            <div class="module__title">FEE ROUTER</div>
+            <div class="module__line">
+              <span class="module__k">Priority</span>
+              <span class="module__v">Car expenses to keep the stream alive and healthy.</span>
+            </div>
+            <div class="module__line">
+              <span class="module__k">Upgrades</span>
+              <span class="module__v">Rear cam → Side cams → Mic → Mobile laptop.</span>
+            </div>
+            <div class="module__line">
+              <span class="module__k">End game</span>
+              <span class="module__v">Acquire a Tesla with FSD mode.</span>
+            </div>
+          </div>
 
-.mini-link{font-size:12px; opacity:.84}
-.mini-link:hover{opacity:1}
+          <div class="module module--thin">
+            <div class="module__title">LOCAL CONTROLS</div>
+            <div class="mini">
+              <div class="mini__row"><span>Edit stats</span><code>?admin=1</code></div>
+              <div class="mini__row"><span>Overlay</span><code>?overlay=1</code></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
 
-.dot{
-  width:8px; height:8px; border-radius:999px;
-  background: rgba(255,255,255,.35);
-  display:inline-block;
-}
+    <!-- PROTOCOL -->
+    <section class="section" id="protocol">
+      <div class="section__head">
+        <h2 class="h2">Protocol</h2>
+        <div class="micro">How Season 1 composes itself.</div>
+      </div>
 
-.console{
-  padding: 14px 14px 10px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
-  font-size: 12px;
-}
-.console__row{
-  display:flex;
-  justify-content:space-between;
-  gap:10px;
-  padding: 9px 0;
-  border-bottom:1px dashed rgba(255,255,255,.09);
-}
-.console__row:last-child{border-bottom:none}
-.console__k{opacity:.66}
-.console__v{opacity:.94}
-.console__v .dot{margin-right:8px}
+      <div class="protocol">
+        <div class="pillars">
+          <div class="pillar">
+            <div class="pillar__k">INPUT</div>
+            <div class="pillar__v">Week day route + time + signal + discipline.</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar__k">ENGINE</div>
+            <div class="pillar__v">Miles become the scoreboard. Cadence becomes the culture.</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar__k">RULE</div>
+            <div class="pillar__v">Friday claim cadence. System stays legible.</div>
+          </div>
+          <div class="pillar">
+            <div class="pillar__k">OUTPUT</div>
+            <div class="pillar__v">Uptime → upgrades → receipts → Tesla/FSD end game.</div>
+          </div>
+        </div>
 
-.section{padding: 40px 0 8px}
-.section__head{
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  gap:16px;
-  margin-bottom: 16px;
-}
-.h2{margin:0; font-size: 26px}
-.h3{margin:0 0 10px; font-size: 18px}
-.muted{opacity:.72}
+        <div class="protocol__note">
+          Turning my route into a meme coin is the wrapper.
+          The mission is consistency at scale.
+        </div>
+      </div>
+    </section>
 
-.dash{
-  display:grid;
-  grid-template-columns: 1fr .42fr;
-  gap: 12px;
-  align-items:start;
-}
+    <!-- UPGRADES -->
+    <section class="section" id="roadmap">
+      <div class="section__head">
+        <h2 class="h2">Upgrades</h2>
+        <div class="micro">Build the rig. Expand the frame.</div>
+      </div>
 
-.terminal{
-  border:1px solid var(--border);
-  background: rgba(255,255,255,.03);
-  border-radius: var(--radius);
-  padding: 14px;
-  box-shadow: var(--shadow);
-}
-.terminal--alt{
-  margin-top: 12px;
-  border-color: rgba(154,252,255,.12);
-  background:
-    radial-gradient(720px 240px at 20% 0%, rgba(154,252,255,.10), transparent 60%),
-    rgba(255,255,255,.03);
-}
-.terminal--alt2{
-  margin-top: 12px;
-  border-color: rgba(124,107,255,.16);
-  background:
-    radial-gradient(720px 240px at 20% 0%, rgba(124,107,255,.14), transparent 60%),
-    rgba(255,255,255,.03);
-}
+      <ol class="steps">
+        <li class="step">
+          <div class="step__n">01</div>
+          <div class="step__b">
+            <div class="step__t">Rear camera</div>
+            <div class="step__d">Wider context. Better coverage. More cinematic driving.</div>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step__n">02</div>
+          <div class="step__b">
+            <div class="step__t">Side cameras</div>
+            <div class="step__d">Multi-angle immersion and sharper clips.</div>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step__n">03</div>
+          <div class="step__b">
+            <div class="step__t">Microphone</div>
+            <div class="step__d">Clean voice. Less road noise. Longer watchability.</div>
+          </div>
+        </li>
+        <li class="step">
+          <div class="step__n">04</div>
+          <div class="step__b">
+            <div class="step__t">Mobile streaming laptop</div>
+            <div class="step__d">Scene control, stability, and multi-cam switching.</div>
+          </div>
+        </li>
+        <li class="step step--end">
+          <div class="step__n">∞</div>
+          <div class="step__b">
+            <div class="step__t">Tesla with FSD</div>
+            <div class="step__d">Autonomy arc. The machine upgrades itself.</div>
+          </div>
+        </li>
+      </ol>
+    </section>
 
-.terminal__head{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  padding-bottom: 12px;
-  border-bottom:1px solid var(--border);
-}
-.terminal__title{
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
-  font-weight: 950;
-  letter-spacing: 1px;
-  opacity:.92;
-}
-.terminal__meta{display:flex; gap:8px; flex-wrap:wrap}
-.tag{
-  font-size:11px;
-  padding: 5px 8px;
-  border-radius: 999px;
-  border:1px solid var(--border);
-  background: rgba(255,255,255,.04);
-  opacity:.92;
-}
-.tag--mint{border-color: rgba(184,255,223,.18); background: rgba(184,255,223,.06)}
-.tag--violet{border-color: rgba(124,107,255,.20); background: rgba(124,107,255,.08)}
+    <!-- STARLINK -->
+    <section class="section" id="starlink">
+      <div class="section__head">
+        <h2 class="h2">Starlink</h2>
+        <div class="micro">Signal is the spine.</div>
+      </div>
 
-.statsGrid{
-  margin-top: 12px;
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-.statCard{
-  border:1px solid var(--border);
-  background: rgba(0,0,0,.14);
-  border-radius: 16px;
-  padding: 14px;
-}
-.statCard__k{font-size:12px; opacity:.72}
-.statCard__v{
-  margin-top:8px;
-  font-size: 26px;
-  font-weight: 980;
-  letter-spacing:.2px;
-}
-.statCard__v.small{font-size: 13px; font-weight: 950; line-height: 1.35}
-.statCard__sub{margin-top:8px; font-size:12px; opacity:.70}
-.unit{font-size:.6em; opacity:.72}
+      <div class="grid2">
+        <div class="card">
+          <div class="card__t">Space internet on wheels</div>
+          <div class="card__p">
+            The stream dies without signal. Starlink Mini is the mobile backbone: independence, stability, motion-first design.
+          </div>
+          <ul class="list">
+            <li>Mobile-first connectivity</li>
+            <li>Less dependence on one carrier</li>
+            <li>Fits the Tesla/FSD end game</li>
+          </ul>
+        </div>
 
-.progressWrap{margin-top: 12px}
-.progressBar{
-  height: 12px;
-  border-radius: 999px;
-  border:1px solid var(--border);
-  background: rgba(255,255,255,.04);
-  overflow:hidden;
-}
-.progressBar__fill{
-  height:100%;
-  width:0%;
-  background: linear-gradient(90deg, rgba(154,252,255,.78), rgba(184,255,223,.70));
-  box-shadow: 0 0 18px rgba(154,252,255,.18);
-}
-.progressMeta{
-  margin-top: 8px;
-  display:flex;
-  justify-content:space-between;
-  font-size:12px;
-  opacity:.72;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
-}
+        <div class="card card--glow">
+          <div class="card__t">What gets showcased</div>
+          <div class="card__p">
+            Real-world mobile streaming performance: stability, drop rate, and what it takes to ship every week day.
+          </div>
+          <div class="statsMini">
+            <div class="statsMini__row"><span>Season</span><strong>S1 / 25,000</strong></div>
+            <div class="statsMini__row"><span>Cadence</span><strong>Friday claim</strong></div>
+            <div class="statsMini__row"><span>Next</span><strong>Rear camera</strong></div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-.router{
-  margin-top: 12px;
-  display:flex;
-  flex-direction:column;
-  gap: 10px;
-}
-.router__row{
-  border:1px solid var(--border);
-  border-radius: 16px;
-  padding: 12px;
-  background: rgba(0,0,0,.12);
-}
-.router__k{font-size:12px; opacity:.70; margin-bottom:6px}
-.router__v{font-size:13px; line-height:1.5; opacity:.90}
-.router__note{margin-top: 10px; font-size: 12px; opacity:.68}
+    <!-- LINKS -->
+    <section class="section" id="links">
+      <div class="section__head">
+        <h2 class="h2">Links</h2>
+        <div class="micro">Wire it outward.</div>
+      </div>
 
-.receipts{
-  margin-top: 12px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.receipt{
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  padding: 12px;
-  border-radius: 16px;
-  border:1px solid var(--border);
-  background: rgba(0,0,0,.12);
-}
-.receipt__k{font-size:12px; opacity:.72}
-.receipt__v{font-size:12px; font-weight:900}
-.receipt__v a{opacity:.92}
-.receipt__v a:hover{opacity:1; text-decoration:underline}
+      <div class="links">
+        <a class="linkCard" id="xLink" href="#" target="_blank" rel="noreferrer">
+          <div class="linkCard__k">X</div>
+          <div class="linkCard__v">Updates + clips</div>
+        </a>
+        <a class="linkCard" id="streamLink" href="#" target="_blank" rel="noreferrer">
+          <div class="linkCard__k">Live</div>
+          <div class="linkCard__v">Watch the week day route</div>
+        </a>
+        <a class="linkCard" id="tokenLink" href="#" target="_blank" rel="noreferrer">
+          <div class="linkCard__k">Coin</div>
+          <div class="linkCard__v">Optional link</div>
+        </a>
+      </div>
 
-.feed{
-  border:1px solid var(--border);
-  background: rgba(255,255,255,.03);
-  border-radius: var(--radius);
-  overflow:hidden;
-}
-.feed__head{padding: 14px; border-bottom:1px solid var(--border)}
-.feed__title{font-weight:980}
-.feed__sub{font-size:12px; opacity:.68; margin-top:6px}
-.feedItem{
-  padding: 12px 14px;
-  border-bottom:1px solid rgba(255,255,255,.06);
-  display:flex;
-  gap:10px;
-}
-.feedItem:last-child{border-bottom:none}
-.feedItem__k{
-  width:64px;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono","Courier New", monospace;
-  opacity:.68;
-}
-.feedItem__v{opacity:.88; font-size: 13px; line-height:1.4}
-.feed__footer{padding: 12px 14px}
+      <footer class="foot">
+        <div class="foot__left">
+          <div class="fine">© <span id="year"></span> Trencher Traffic</div>
+          <div class="fine fine--muted">Entertainment only. Not financial advice.</div>
+        </div>
+        <a class="link" href="#top">BACK TO TOP ↑</a>
+      </footer>
+    </section>
+  </main>
 
-.miniPanel{margin-top: 12px}
-.miniPanel__body{padding: 12px 14px 14px}
-.miniLine{
-  display:flex; justify-content:space-between; gap:10px;
-  padding: 8px 0;
-  border-bottom:1px dashed rgba(255,255,255,.08);
-}
-.miniLine:last-child{border-bottom:none}
-.miniKey{font-size:12px; opacity:.70}
-.miniVal{font-size:12px; opacity:.86}
+  <!-- OVERLAY -->
+  <div id="overlayRoot" class="overlay" aria-hidden="true">
+    <div class="overlay__box">
+      <div class="overlay__head">
+        <span class="brand__sig"></span>
+        <span class="overlay__name">Trencher Traffic</span>
+        <span class="overlay__tag">S1 / 25,000</span>
+        <span id="overlayLive" class="overlay__live">OFFLINE</span>
+      </div>
 
-.systemGrid{
-  display:grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap:12px;
-}
-.systemCard{
-  border:1px solid var(--border);
-  background: rgba(255,255,255,.03);
-  border-radius: var(--radius);
-  padding: 16px;
-}
-.systemCard__title{font-weight:980; margin-bottom:8px}
-.systemCard__text{font-size: 14px; line-height: 1.55; opacity:.84}
+      <div class="overlay__big">
+        <span id="overlayMiles">0</span><span class="u"> mi</span>
+      </div>
 
-.grid3{
-  display:grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
+      <div class="overlay__row">
+        <div class="overlay__chip">Today: <strong id="overlayToday">0</strong></div>
+        <div class="overlay__chip">Claim: <strong>Fri</strong></div>
+        <div class="overlay__chip">Next: <strong id="overlayNext">Rear cam</strong></div>
+      </div>
+    </div>
+  </div>
 
-.linkCard{
-  border:1px solid var(--border);
-  background: rgba(255,255,255,.03);
-  border-radius: var(--radius);
-  padding: 16px;
-  transition: transform .12s ease, background .12s ease;
-}
-.linkCard:hover{transform: translateY(-1px); background: rgba(255,255,255,.05)}
-.linkCard__title{font-weight:980; margin-bottom:8px}
-.linkCard__text{font-size: 13px; opacity:.75; line-height:1.5}
-
-.footer{
-  margin-top: 18px;
-  padding: 18px 0 40px;
-  border-top:1px solid var(--border);
-  display:flex;
-  justify-content:space-between;
-  gap: 12px;
-  align-items:flex-start;
-}
-.tiny{font-size: 12px}
-
-.divider{height:1px; background: var(--border); margin: 18px 0}
-.twoCol{display:grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items:start}
-.bullets{margin: 12px 0 0; padding-left: 18px; opacity:.84}
-.bullets li{margin: 8px 0}
-
-.quote{
-  border:1px solid rgba(154,252,255,.20);
-  background: rgba(154,252,255,.06);
-  border-radius: var(--radius);
-  padding: 18px 18px 16px;
-  position:relative;
-  box-shadow: 0 16px 40px rgba(154,252,255,.08);
-}
-.quote__mark{position:absolute; top: 6px; left: 12px; font-size: 44px; opacity:.35}
-.quote__text{font-size: 16px; line-height: 1.6; font-weight: 980; margin-top: 10px}
-.quote__by{margin-top: 10px; font-size: 12px; opacity:.74}
-
-.timeline{
-  list-style:none; padding:0; margin: 12px 0 0;
-  display:flex; flex-direction:column; gap: 10px;
-}
-.step{
-  display:flex; gap: 12px; align-items:flex-start;
-  border:1px solid var(--border);
-  background: rgba(255,255,255,.03);
-  border-radius: var(--radius);
-  padding: 14px;
-}
-.step--end{
-  border-color: rgba(124,107,255,.28);
-  background:
-    radial-gradient(700px 220px at 15% 0%, rgba(124,107,255,.18), transparent 55%),
-    rgba(255,255,255,.03);
-}
-.step__num{
-  width: 34px; height: 34px; border-radius: 12px;
-  display:flex; align-items:center; justify-content:center;
-  font-weight: 990;
-  background: rgba(154,252,255,.10);
-  border:1px solid rgba(154,252,255,.22);
-}
-.step__title{font-weight: 990}
-.step__text{margin-top:6px; font-size: 14px; opacity:.80; line-height: 1.5}
-
-.cosmic{
-  border-color: rgba(124,107,255,.22);
-  background:
-    radial-gradient(700px 200px at 20% 0%, rgba(124,107,255,.16), transparent 60%),
-    radial-gradient(700px 240px at 70% 20%, rgba(154,252,255,.10), transparent 60%),
-    rgba(255,255,255,.03);
-}
-
-.mini-metrics{margin-top: 12px; display:grid; grid-template-columns: 1fr; gap: 8px}
-.mini-metric{
-  display:flex; justify-content:space-between; gap:12px;
-  padding: 10px 12px; border-radius: 14px;
-  border:1px solid var(--border); background: rgba(0,0,0,.12);
-}
-.mini-metric__k{font-size:12px; opacity:.70}
-.mini-metric__v{font-size:12px; font-weight:980; opacity:.92}
-
-/* Overlay mode */
-.overlay{
-  position: fixed;
-  inset: 0;
-  display:none;
-  align-items:center;
-  justify-content:center;
-  padding: 18px;
-  background: transparent;
-  pointer-events:none;
-}
-.overlay__box{
-  pointer-events:auto;
-  min-width: 340px;
-  max-width: 520px;
-  border:1px solid rgba(154,252,255,.26);
-  background: rgba(6,7,10,.30);
-  backdrop-filter: blur(18px);
-  border-radius: 22px;
-  padding: 14px 14px 12px;
-  box-shadow: 0 20px 60px rgba(0,0,0,.55);
-}
-.overlay__brand{
-  display:flex; align-items:center; gap:10px;
-  font-size: 12px; opacity:.9;
-}
-.overlay__pill{
-  font-size: 11px;
-  padding: 5px 8px;
-  border-radius: 999px;
-  border:1px solid var(--border);
-  background: rgba(255,255,255,.05);
-  opacity:.88;
-}
-.overlay__live{
-  margin-left:auto;
-  font-weight: 990;
-  letter-spacing: 1px;
-  opacity:.80;
-}
-.overlay__big{
-  margin-top: 10px;
-  font-size: 54px;
-  font-weight: 990;
-  letter-spacing: .4px;
-}
-.overlay__row{
-  display:flex; gap:10px; margin-top: 8px; flex-wrap:wrap;
-}
-.overlay__chip{
-  font-size: 12px;
-  padding: 8px 10px;
-  border-radius: 999px;
-  border:1px solid var(--border);
-  background: rgba(255,255,255,.05);
-}
-
-/* Responsive */
-@media (max-width: 980px){
-  .hero{grid-template-columns: 1fr; padding-top: 34px}
-  .dash{grid-template-columns: 1fr}
-  .statsGrid{grid-template-columns: 1fr}
-  .systemGrid{grid-template-columns: 1fr 1fr}
-  .grid3{grid-template-columns: 1fr}
-  .twoCol{grid-template-columns: 1fr}
-  .nav{display:none}
-}
-@media (max-width: 560px){
-  .systemGrid{grid-template-columns: 1fr}
-}
+  <script src="app.js?v=24"></script>
+</body>
+</html>
