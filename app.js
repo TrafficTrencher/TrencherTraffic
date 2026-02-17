@@ -1,12 +1,11 @@
-// Trencher Traffic — app.js (Season 1: 25,000 miles, 1,000-mile claims)
-// Stores miles + stream URL locally in the viewer's browser (no backend).
+// Trencher Traffic — app.js (matches the current index.html)
 
 const CONFIG = {
   goalMiles: 25000,
-  milestoneStep: 1000,             // claim every 1,000 miles
-  milesStorageKey: "tt_miles_v2",
-  streamStorageKey: "tt_stream_v2",
-  isLive: false                    // flip true when you're live
+  milestoneCount: 25, // 25k / 25 = 1,000-mile claims
+  milesStorageKey: "tt_miles_v1",
+  streamStorageKey: "tt_stream_v1",
+  isLive: false // flip true when live
 };
 
 const qs = (s) => document.querySelector(s);
@@ -29,7 +28,7 @@ function setLiveBadge(){
   if (CONFIG.isLive){
     badge.textContent = "LIVE";
     badge.classList.add("is-live");
-  } else {
+  }else{
     badge.textContent = "OFFLINE";
     badge.classList.remove("is-live");
   }
@@ -39,7 +38,7 @@ function loadMiles(){
   try{
     const raw = localStorage.getItem(CONFIG.milesStorageKey);
     return clampInt(raw ?? 0);
-  } catch {
+  }catch{
     return 0;
   }
 }
@@ -52,13 +51,8 @@ function renderMiles(miles){
   const currentMilesText = qs("#currentMilesText");
   const percentText = qs("#percentText");
   const barFill = qs("#barFill");
-  const goalMilesText = qs("#goalMilesText");
 
-  if (goalMilesText) goalMilesText.textContent = CONFIG.goalMiles.toLocaleString();
-
-  const pct = CONFIG.goalMiles > 0
-    ? Math.min(100, Math.floor((miles / CONFIG.goalMiles) * 100))
-    : 0;
+  const pct = CONFIG.goalMiles > 0 ? Math.min(100, Math.floor((miles / CONFIG.goalMiles) * 100)) : 0;
 
   if (currentMilesText) currentMilesText.textContent = String(miles);
   if (percentText) percentText.textContent = `${pct}%`;
@@ -69,13 +63,12 @@ function renderMilestones(miles){
   const list = qs("#milestoneList");
   if (!list) return;
 
-  const count = Math.floor(CONFIG.goalMiles / CONFIG.milestoneStep); // 25 for 25k / 1k
+  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount); // 1000 for 25k/25
   const items = [];
 
-  for (let i = 1; i <= count; i++){
-    const at = i * CONFIG.milestoneStep;
+  for (let i = 1; i <= CONFIG.milestoneCount; i++){
+    const at = i * step;
     const done = miles >= at;
-
     items.push(`
       <li style="margin:8px 0; color:${done ? "rgba(233,238,251,.95)" : "rgba(168,179,209,.85)"}">
         <b>${done ? "✓" : "•"}</b> ${at.toLocaleString()} miles
@@ -104,7 +97,7 @@ function attachMilesUI(){
 function loadStream(){
   try{
     return localStorage.getItem(CONFIG.streamStorageKey) || "";
-  } catch {
+  }catch{
     return "";
   }
 }
@@ -135,13 +128,11 @@ function attachStreamUI(){
   setYear();
   setLiveBadge();
 
-  // Miles
   const miles = loadMiles();
   renderMiles(miles);
   renderMilestones(miles);
   attachMilesUI();
 
-  // Stream URL
   const stream = loadStream();
   renderStream(stream);
   const streamInput = qs("#streamUrl");
