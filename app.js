@@ -1,14 +1,150 @@
-// app.js
-// Main application file for TrencherTraffic
+// Trencher Traffic — app.js (Season 1: 25,000 miles, 1,000-mile claims)
+// Stores miles + stream URL locally in the viewer's browser (no backend).
 
-const express = require('express');
-const app = express();
-const port = process.env.PORT || 3000;
+const CONFIG = {
+  goalMiles: 25000,
+  milestoneStep: 1000,             // claim every 1,000 miles
+  milesStorageKey: "tt_miles_v2",
+  streamStorageKey: "tt_stream_v2",
+  isLive: false                    // flip true when you're live
+};
 
-app.get('/', (req, res) => {
-    res.send('Welcome to TrencherTraffic!');
-});
+const qs = (s) => document.querySelector(s);
 
-app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
-});
+function clampInt(n){
+  const v = parseInt(n, 10);
+  if (Number.isNaN(v) || !Number.isFinite(v)) return 0;
+  return Math.max(0, v);
+}
+
+function setYear(){
+  const y = qs("#year");
+  if (y) y.textContent = String(new Date().getFullYear());
+}
+
+function setLiveBadge(){
+  const badge = qs("#liveBadge");
+  if (!badge) return;
+
+  if (CONFIG.isLive){
+    badge.textContent = "LIVE";
+    badge.classList.add("is-live");
+  } else {
+    badge.textContent = "OFFLINE";
+    badge.classList.remove("is-live");
+  }
+}
+
+function loadMiles(){
+  try{
+    const raw = localStorage.getItem(CONFIG.milesStorageKey);
+    return clampInt(raw ?? 0);
+  } catch {
+    return 0;
+  }
+}
+
+function saveMiles(miles){
+  localStorage.setItem(CONFIG.milesStorageKey, String(clampInt(miles)));
+}
+
+function renderMiles(miles){
+  const currentMilesText = qs("#currentMilesText");
+  const percentText = qs("#percentText");
+  const barFill = qs("#barFill");
+  const goalMilesText = qs("#goalMilesText");
+
+  if (goalMilesText) goalMilesText.textContent = CONFIG.goalMiles.toLocaleString();
+
+  const pct = CONFIG.goalMiles > 0
+    ? Math.min(100, Math.floor((miles / CONFIG.goalMiles) * 100))
+    : 0;
+
+  if (currentMilesText) currentMilesText.textContent = String(miles);
+  if (percentText) percentText.textContent = `${pct}%`;
+  if (barFill) barFill.style.width = `${pct}%`;
+}
+
+function renderMilestones(miles){
+  const list = qs("#milestoneList");
+  if (!list) return;
+
+  const count = Math.floor(CONFIG.goalMiles / CONFIG.milestoneStep); // 25 for 25k / 1k
+  const items = [];
+
+  for (let i = 1; i <= count; i++){
+    const at = i * CONFIG.milestoneStep;
+    const done = miles >= at;
+
+    items.push(`
+      <li style="margin:8px 0; color:${done ? "rgba(233,238,251,.95)" : "rgba(168,179,209,.85)"}">
+        <b>${done ? "✓" : "•"}</b> ${at.toLocaleString()} miles
+      </li>
+    `);
+  }
+
+  list.innerHTML = items.join("");
+}
+
+function attachMilesUI(){
+  const input = qs("#currentMiles");
+  const btn = qs("#saveMiles");
+
+  if (!input || !btn) return;
+
+  btn.addEventListener("click", () => {
+    const miles = clampInt(input.value);
+    saveMiles(miles);
+    renderMiles(miles);
+    renderMilestones(miles);
+    input.value = "";
+  });
+}
+
+function loadStream(){
+  try{
+    return localStorage.getItem(CONFIG.streamStorageKey) || "";
+  } catch {
+    return "";
+  }
+}
+
+function saveStream(url){
+  localStorage.setItem(CONFIG.streamStorageKey, url);
+}
+
+function renderStream(url){
+  const frame = qs("#streamFrame");
+  if (!frame) return;
+  frame.src = url || "";
+}
+
+function attachStreamUI(){
+  const input = qs("#streamUrl");
+  const btn = qs("#saveStream");
+  if (!input || !btn) return;
+
+  btn.addEventListener("click", () => {
+    const url = String(input.value || "").trim();
+    saveStream(url);
+    renderStream(url);
+  });
+}
+
+(function init(){
+  setYear();
+  setLiveBadge();
+
+  // Miles
+  const miles = loadMiles();
+  renderMiles(miles);
+  renderMilestones(miles);
+  attachMilesUI();
+
+  // Stream URL
+  const stream = loadStream();
+  renderStream(stream);
+  const streamInput = qs("#streamUrl");
+  if (streamInput) streamInput.value = stream;
+  attachStreamUI();
+})();
