@@ -1,11 +1,11 @@
-// Trencher Traffic — app.js (matches the current index.html)
+// Trencher Traffic — app.js (v42)
 
 const CONFIG = {
   goalMiles: 25000,
-  milestoneCount: 25,
+  milestoneCount: 25,              // 25 claims
   milesStorageKey: "tt_miles_v1",
   streamStorageKey: "tt_stream_v1",
-  isLive: false // flip true when live
+  isLive: false                    // flip true when live
 };
 
 const qs = (s) => document.querySelector(s);
@@ -63,7 +63,8 @@ function renderMilestones(miles){
   const list = qs("#milestoneList");
   if (!list) return;
 
-  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount); // 1000 for 25k/25
+  // 25,000 / 25 = 1,000 per claim
+  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount);
   const items = [];
 
   for (let i = 1; i <= CONFIG.milestoneCount; i++){
