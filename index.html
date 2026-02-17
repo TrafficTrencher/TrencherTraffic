@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Trencher Traffic — wage maxxing CCM meta. Road to 25,000 miles." />
+  <meta name="description" content="Trencher Traffic — Drive-to-earn livestream. Road to 25,000 miles." />
   <title>Trencher Traffic</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Cache bust -->
-  <link rel="stylesheet" href="style.css?v=60" />
+  <link rel="stylesheet" href="style.css?v=52" />
 </head>
 
 <body>
@@ -21,7 +21,7 @@
 
     <div class="brand">
       <div class="brand__dot"></div>
-      <div class="brand__stack">
+      <div>
         <div class="brand__name">
           Trencher Traffic
           <span id="liveBadge" class="live-badge">OFFLINE</span>
@@ -30,24 +30,14 @@
       </div>
     </div>
 
-    <!-- Desktop nav -->
     <nav class="nav">
       <a href="#live">Live</a>
       <a href="#miles">Miles</a>
-      <a href="#how">How</a>
+      <a href="#how">How It Works</a>
       <a href="#fomo">FOMO</a>
       <a href="#links">Links</a>
     </nav>
 
-  </div>
-
-  <!-- Mobile chips: evenly spaced + centered -->
-  <div class="container navrow">
-    <a class="chip" href="#live">Live</a>
-    <a class="chip" href="#miles">Miles</a>
-    <a class="chip" href="#how">How It Works</a>
-    <a class="chip" href="#fomo">FOMO</a>
-    <a class="chip" href="#links">Links</a>
   </div>
 </header>
 
@@ -61,52 +51,65 @@
         <h1>Drive. Stream. Claim Fees every 1k miles.</h1>
 
         <p class="lead">
-          Welcome to the real world wage maxxing CCM meta. We’ll be taking CCM on the road by Tokenizing my Medical
-          Courier route in South West Florida on Pump.fun - I’ll be live on Pump.fun using a Elon Musk Technology
-          (star link mini) I travel showcasing my route. Clipping road rage and embarking on my Trade with FOMO journey.
-          The end goal of this experiment is to drive until AI replaces me. (I’m going to buy a Tesla with FSD with the safu funds)
+          Welcome to the real world wage maxxing CCM meta. We’ll be taking CCM on the road by Tokenizing my Medical Courier
+          route in South West Florida on Pump.fun — I’ll be live on Pump.fun using a Elon Musk Technology (star link mini)
+          I travel showcasing my route. Clipping road rage and embarking on my Trade with FOMO journey. The end goal of this
+          experiment is to drive until AI replaces me. (I’m going to buy a Tesla with FSD with the safu funds)
         </p>
 
-        <!-- ONE LINE buttons on mobile, Watch Live centered -->
-        <div class="cta cta--tri">
+        <!-- CTA row: 3 in one line, Watch Live in the middle on mobile too -->
+        <div class="cta cta--center">
           <a class="btn" href="https://x.com/TrencherTraffic" target="_blank" rel="noopener">Follow on X</a>
           <a class="btn btn--primary" href="#live">Watch Live</a>
-          <a class="btn" href="#miles">Track Progress</a>
+          <a class="btn btn--ghost" href="#miles">Track Progress</a>
         </div>
-
-        <!-- REMOVED the pills row -->
       </div>
 
-      <div class="card">
-        <div class="card__head">
-          <div class="card__title">Project Overview</div>
+      <!-- POPPING OVERVIEW CARD -->
+      <div class="card overview overview--pop">
+        <div class="overview__top">
+          <div>
+            <div class="overview__kicker">PROJECT OVERVIEW</div>
+            <div class="overview__title">Driving every week day until AI takes my job.</div>
+          </div>
+          <div class="overview__badge">Road to 25,000</div>
         </div>
 
-        <div class="card__body">
-          <p class="small strongline">Driving every week day until AI takes my job.</p>
-
-          <div class="info"><span>Platform</span><b>pump.fun</b></div>
-          <div class="info"><span>Route</span><b>Southwest Florida</b></div>
-          <div class="info"><span>Highlight</span><b>Sunshine Skyway Bridge</b></div>
-
-          <!-- Roadmap inserted under overview -->
-          <div class="roadmap">
-            <div class="roadmap__head">
-              <b>Roadmap: Tesla → FSD</b>
-              <span class="small">Concrete, observable goals.</span>
-            </div>
-
-            <ol class="roadmap__list">
-              <li><b>Baseline rig (now)</b><span>Phone streaming + overlays + consistent week day cadence.</span></li>
-              <li><b>Rear camera</b><span>Next upgrade target. Better story, better proof.</span></li>
-              <li><b>Side cameras</b><span>Coverage + context for clips.</span></li>
-              <li><b>Audio & stability</b><span>Mic / mounting / vibration fixes so it feels cinematic, not shaky.</span></li>
-              <li><b>Uptime reliability</b><span>Reduce drops and dead zones with better connectivity strategy.</span></li>
-              <li><b>Tesla fund (down payment)</b><span>The “route becomes rig” moment.</span></li>
-              <li><b>FSD fund</b><span>When AI drives, the story flips.</span></li>
-            </ol>
+        <div class="overview__grid">
+          <div class="overview__item">
+            <div class="overview__label">Platform</div>
+            <div class="overview__value">pump.fun</div>
           </div>
 
+          <div class="overview__item">
+            <div class="overview__label">Route</div>
+            <div class="overview__value">Southwest Florida</div>
+          </div>
+
+          <div class="overview__item">
+            <div class="overview__label">Highlight</div>
+            <div class="overview__value">Sunshine Skyway Bridge</div>
+          </div>
+        </div>
+
+        <div class="overview__divider"></div>
+
+        <div class="roadmap">
+          <div class="roadmap__head">
+            <div class="roadmap__title">Roadmap: Tesla → FSD</div>
+            <div class="roadmap__sub">Concrete, observable goals.</div>
+          </div>
+
+          <ol class="roadmap__list">
+            <li><b>Baseline rig (now)</b><span>Phone streaming + overlays + consistent weekday cadence.</span></li>
+            <li><b>Rear camera</b><span>Next upgrade target. Better story, better proof.</span></li>
+            <li><b>Side cameras</b><span>Coverage + context for clips.</span></li>
+            <li><b>Audio & stability</b><span>Mic / mounting / vibration fixes so it feels cinematic, not shaky.</span></li>
+            <li><b>Uptime reliability</b><span>Reduce drops and dead zones with better connectivity strategy.</span></li>
+            <li><b>Tesla fund (down payment)</b><span>The “route becomes rig” moment. Work becomes machine.</span></li>
+            <li><b>FSD fund</b><span>When AI drives, the story flips: I become the narrator of replacement.</span></li>
+            <li><b>Route expansion</b><span>Break the loop. Leave the circuit. Take the stream anywhere.</span></li>
+          </ol>
         </div>
       </div>
 
@@ -117,7 +120,7 @@
   <section id="live" class="section">
     <div class="container">
       <h2>Live Stream</h2>
-      <p class="small">Paste your pump.fun stream link below to activate the stream.</p>
+      <p>Paste your pump.fun stream link below to activate the stream.</p>
 
       <div class="livegrid">
         <div class="card">
@@ -141,7 +144,7 @@
               <input id="streamUrl" placeholder="https://pump.fun/..." />
             </label>
 
-            <button class="btn btn--primary" id="saveStream" type="button">Save Stream</button>
+            <button class="btn btn--primary" id="saveStream">Save Stream</button>
 
             <p class="small">
               Your stream link is stored locally in your browser.
@@ -162,7 +165,7 @@
           <div class="card__body">
             <div class="progress">
               <div class="progress__meta">
-                <div><b id="currentMilesText">0</b> / <span id="goalMilesText">25,000</span> miles</div>
+                <div><b id="currentMilesText">0</b> / 25,000 miles</div>
                 <div id="percentText">0%</div>
               </div>
 
@@ -175,7 +178,7 @@
                 <input id="currentMiles" type="number" placeholder="Enter miles" />
               </label>
 
-              <button class="btn btn--primary" id="saveMiles" type="button">Save</button>
+              <button class="btn btn--primary" id="saveMiles">Save</button>
 
               <p class="small">
                 Miles are saved locally on this device/browser.
@@ -186,7 +189,8 @@
 
         <div class="card">
           <div class="card__body">
-            <h3>1,000-mile Claims</h3>
+            <h3>Milestones</h3>
+            <p class="small">Claims trigger every 1,000 miles.</p>
             <ol id="milestoneList"></ol>
           </div>
         </div>
@@ -194,7 +198,7 @@
     </div>
   </section>
 
-  <!-- HOW -->
+  <!-- HOW IT WORKS -->
   <section id="how" class="section">
     <div class="container">
       <h2>How It Works</h2>
@@ -203,21 +207,21 @@
         <div class="card">
           <div class="card__body">
             <h3>1. Drive</h3>
-            <p>Week day route. Real-world proof on the road.</p>
+            <p>Daily weekday driving through Southwest Florida.</p>
           </div>
         </div>
 
         <div class="card">
           <div class="card__body">
             <h3>2. Stream</h3>
-            <p>Live from the car. Starlink Mini for uptime.</p>
+            <p>Every mile streamed live for transparency and entertainment.</p>
           </div>
         </div>
 
         <div class="card">
           <div class="card__body">
             <h3>3. Claim</h3>
-            <p>Every 1,000 miles triggers a claim checkpoint.</p>
+            <p>Every 1,000 miles unlocks a milestone claim.</p>
           </div>
         </div>
       </div>
@@ -227,6 +231,7 @@
   <!-- FOMO -->
   <section id="fomo" class="section">
     <div class="container">
+
       <div class="card fomo">
         <div class="card__body fomo__body">
 
@@ -238,16 +243,16 @@
             </h2>
 
             <p class="fomo__desc">
-              Trade with me on FOMO and get 10% off fees!
+              Trade with me on FOMO and get 10% off fees.
             </p>
 
             <div class="fomo__cta">
               <a class="btn btn--primary" href="https://fomo.family/r/TrafficTrencher" target="_blank" rel="noopener">
-                Trade on FOMO (10% off)
+                Trade on FOMO
               </a>
 
               <a class="btn" href="https://fomo.family/r/TrafficTrencher" target="_blank" rel="noopener">
-                Promo Link
+                Get 10% Off Fees
               </a>
             </div>
 
@@ -257,4 +262,42 @@
           </div>
 
           <div class="fomo__right">
-            <img class="fomo__logo" src="images/fomo.jpg" alt="F
+            <img class="fomo__logo" src="images/fomo.jpg" alt="FOMO logo" />
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- LINKS -->
+  <section id="links" class="section section--alt">
+    <div class="container">
+      <h2>Links</h2>
+
+      <div class="linkgrid">
+        <a class="linkcard" href="https://x.com/TrencherTraffic" target="_blank" rel="noopener">
+          <b>X / Twitter</b>
+          <p>Updates & announcements</p>
+        </a>
+
+        <a class="linkcard" href="#live">
+          <b>Live Stream</b>
+          <p>Watch the journey</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div>© <span id="year"></span> Trencher Traffic</div>
+  </div>
+</footer>
+
+<script src="app.js?v=52"></script>
+</body>
+</html>
