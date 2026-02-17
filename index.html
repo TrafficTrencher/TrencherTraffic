@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Trencher Traffic — Drive-to-earn livestream. Road to 25,000 miles." />
+  <meta name="description" content="Trencher Traffic — wage maxxing CCM meta. Road to 25,000 miles." />
   <title>Trencher Traffic</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <!-- Cache bust -->
-  <link rel="stylesheet" href="style.css?v=42" />
+  <link rel="stylesheet" href="style.css?v=60" />
 </head>
 
 <body>
@@ -20,4 +20,241 @@
   <div class="container topbar__inner">
 
     <div class="brand">
-      <div class
+      <div class="brand__dot"></div>
+      <div class="brand__stack">
+        <div class="brand__name">
+          Trencher Traffic
+          <span id="liveBadge" class="live-badge">OFFLINE</span>
+        </div>
+        <div class="brand__tag">Drive-to-Earn • Road to 25,000 Miles</div>
+      </div>
+    </div>
+
+    <!-- Desktop nav -->
+    <nav class="nav">
+      <a href="#live">Live</a>
+      <a href="#miles">Miles</a>
+      <a href="#how">How</a>
+      <a href="#fomo">FOMO</a>
+      <a href="#links">Links</a>
+    </nav>
+
+  </div>
+
+  <!-- Mobile chips: evenly spaced + centered -->
+  <div class="container navrow">
+    <a class="chip" href="#live">Live</a>
+    <a class="chip" href="#miles">Miles</a>
+    <a class="chip" href="#how">How It Works</a>
+    <a class="chip" href="#fomo">FOMO</a>
+    <a class="chip" href="#links">Links</a>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero__grid">
+
+      <div>
+        <h1>Drive. Stream. Claim Fees every 1k miles.</h1>
+
+        <p class="lead">
+          Welcome to the real world wage maxxing CCM meta. We’ll be taking CCM on the road by Tokenizing my Medical
+          Courier route in South West Florida on Pump.fun - I’ll be live on Pump.fun using a Elon Musk Technology
+          (star link mini) I travel showcasing my route. Clipping road rage and embarking on my Trade with FOMO journey.
+          The end goal of this experiment is to drive until AI replaces me. (I’m going to buy a Tesla with FSD with the safu funds)
+        </p>
+
+        <!-- ONE LINE buttons on mobile, Watch Live centered -->
+        <div class="cta cta--tri">
+          <a class="btn" href="https://x.com/TrencherTraffic" target="_blank" rel="noopener">Follow on X</a>
+          <a class="btn btn--primary" href="#live">Watch Live</a>
+          <a class="btn" href="#miles">Track Progress</a>
+        </div>
+
+        <!-- REMOVED the pills row -->
+      </div>
+
+      <div class="card">
+        <div class="card__head">
+          <div class="card__title">Project Overview</div>
+        </div>
+
+        <div class="card__body">
+          <p class="small strongline">Driving every week day until AI takes my job.</p>
+
+          <div class="info"><span>Platform</span><b>pump.fun</b></div>
+          <div class="info"><span>Route</span><b>Southwest Florida</b></div>
+          <div class="info"><span>Highlight</span><b>Sunshine Skyway Bridge</b></div>
+
+          <!-- Roadmap inserted under overview -->
+          <div class="roadmap">
+            <div class="roadmap__head">
+              <b>Roadmap: Tesla → FSD</b>
+              <span class="small">Concrete, observable goals.</span>
+            </div>
+
+            <ol class="roadmap__list">
+              <li><b>Baseline rig (now)</b><span>Phone streaming + overlays + consistent week day cadence.</span></li>
+              <li><b>Rear camera</b><span>Next upgrade target. Better story, better proof.</span></li>
+              <li><b>Side cameras</b><span>Coverage + context for clips.</span></li>
+              <li><b>Audio & stability</b><span>Mic / mounting / vibration fixes so it feels cinematic, not shaky.</span></li>
+              <li><b>Uptime reliability</b><span>Reduce drops and dead zones with better connectivity strategy.</span></li>
+              <li><b>Tesla fund (down payment)</b><span>The “route becomes rig” moment.</span></li>
+              <li><b>FSD fund</b><span>When AI drives, the story flips.</span></li>
+            </ol>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- LIVE -->
+  <section id="live" class="section">
+    <div class="container">
+      <h2>Live Stream</h2>
+      <p class="small">Paste your pump.fun stream link below to activate the stream.</p>
+
+      <div class="livegrid">
+        <div class="card">
+          <div class="card__head">
+            <div class="card__title">Stream Player</div>
+          </div>
+          <div class="card__body">
+            <div class="embedwrap">
+              <iframe id="streamFrame" src="" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__head">
+            <div class="card__title">Stream Setup</div>
+          </div>
+          <div class="card__body">
+            <label class="field">
+              <span>pump.fun stream URL</span>
+              <input id="streamUrl" placeholder="https://pump.fun/..." />
+            </label>
+
+            <button class="btn btn--primary" id="saveStream" type="button">Save Stream</button>
+
+            <p class="small">
+              Your stream link is stored locally in your browser.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MILES -->
+  <section id="miles" class="section section--alt">
+    <div class="container">
+      <h2>Mile Tracker</h2>
+
+      <div class="milegrid">
+        <div class="card">
+          <div class="card__body">
+            <div class="progress">
+              <div class="progress__meta">
+                <div><b id="currentMilesText">0</b> / <span id="goalMilesText">25,000</span> miles</div>
+                <div id="percentText">0%</div>
+              </div>
+
+              <div class="bar">
+                <div class="bar__fill" id="barFill"></div>
+              </div>
+
+              <label class="field">
+                <span>Update miles</span>
+                <input id="currentMiles" type="number" placeholder="Enter miles" />
+              </label>
+
+              <button class="btn btn--primary" id="saveMiles" type="button">Save</button>
+
+              <p class="small">
+                Miles are saved locally on this device/browser.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <h3>1,000-mile Claims</h3>
+            <ol id="milestoneList"></ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW -->
+  <section id="how" class="section">
+    <div class="container">
+      <h2>How It Works</h2>
+
+      <div class="howgrid">
+        <div class="card">
+          <div class="card__body">
+            <h3>1. Drive</h3>
+            <p>Week day route. Real-world proof on the road.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <h3>2. Stream</h3>
+            <p>Live from the car. Starlink Mini for uptime.</p>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card__body">
+            <h3>3. Claim</h3>
+            <p>Every 1,000 miles triggers a claim checkpoint.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOMO -->
+  <section id="fomo" class="section">
+    <div class="container">
+      <div class="card fomo">
+        <div class="card__body fomo__body">
+
+          <div class="fomo__left">
+            <div class="fomo__tag">LIVE TRADING</div>
+
+            <h2 class="fomo__title">
+              Trade With Me Live on <span class="fomo__brand">FOMO</span>
+            </h2>
+
+            <p class="fomo__desc">
+              Trade with me on FOMO and get 10% off fees!
+            </p>
+
+            <div class="fomo__cta">
+              <a class="btn btn--primary" href="https://fomo.family/r/TrafficTrencher" target="_blank" rel="noopener">
+                Trade on FOMO (10% off)
+              </a>
+
+              <a class="btn" href="https://fomo.family/r/TrafficTrencher" target="_blank" rel="noopener">
+                Promo Link
+              </a>
+            </div>
+
+            <p class="small">
+              https://fomo.family/r/TrafficTrencher
+            </p>
+          </div>
+
+          <div class="fomo__right">
+            <img class="fomo__logo" src="images/fomo.jpg" alt="F
