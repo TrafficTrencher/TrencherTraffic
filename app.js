@@ -78,3 +78,82 @@ function renderMiles(miles){
 
 function renderMilestones(miles){
   const list = qs("#milestoneList");
+  if (!list) return;
+
+  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount); // 1000 for 25k/25
+  const items = [];
+
+  for (let i = 1; i <= CONFIG.milestoneCount; i++){
+    const at = i * step;
+    const done = miles >= at;
+    items.push(`
+      <li style="margin:8px 0; color:${done ? "rgba(233,238,251,.95)" : "rgba(168,179,209,.85)"}">
+        <b>${done ? "✓" : "•"}</b> ${at.toLocaleString()} miles
+      </li>
+    `);
+  }
+
+  list.innerHTML = items.join("");
+}
+
+function attachMilesUI(){
+  const input = qs("#currentMiles");
+  const btn = qs("#saveMiles");
+
+  if (!input || !btn) return;
+
+  btn.addEventListener("click", () => {
+    const miles = clampInt(input.value);
+    saveMiles(miles);
+    renderMiles(miles);
+    renderMilestones(miles);
+    input.value = "";
+  });
+}
+
+function loadStream(){
+  try{
+    return localStorage.getItem(CONFIG.streamStorageKey) || "";
+  }catch{
+    return "";
+  }
+}
+
+function saveStream(url){
+  localStorage.setItem(CONFIG.streamStorageKey, url);
+}
+
+function renderStream(url){
+  const frame = qs("#streamFrame");
+  if (!frame) return;
+  frame.src = url || "";
+}
+
+function attachStreamUI(){
+  const input = qs("#streamUrl");
+  const btn = qs("#saveStream");
+  if (!input || !btn) return;
+
+  btn.addEventListener("click", () => {
+    const url = String(input.value || "").trim();
+    saveStream(url);
+    renderStream(url);
+  });
+}
+
+(function init(){
+  setYear();
+  setLiveBadge();
+  setThesisDefault();
+
+  const miles = loadMiles();
+  renderMiles(miles);
+  renderMilestones(miles);
+  attachMilesUI();
+
+  const stream = loadStream();
+  renderStream(stream);
+  const streamInput = qs("#streamUrl");
+  if (streamInput) streamInput.value = stream;
+  attachStreamUI();
+})();
