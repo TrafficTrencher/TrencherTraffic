@@ -1,11 +1,11 @@
-// Trencher Traffic — app.js (matches the current index.html)
+// Trencher Traffic — app.js (dropdown auto-open desktop, closed mobile)
 
 const CONFIG = {
   goalMiles: 25000,
-  milestoneCount: 25, // 25k / 25 = 1,000-mile claims
+  milestoneCount: 25,
   milesStorageKey: "tt_miles_v1",
   streamStorageKey: "tt_stream_v1",
-  isLive: false // flip true when live
+  isLive: false
 };
 
 const qs = (s) => document.querySelector(s);
@@ -63,7 +63,7 @@ function renderMilestones(miles){
   const list = qs("#milestoneList");
   if (!list) return;
 
-  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount); // 1000 for 25k/25
+  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount); // 1000
   const items = [];
 
   for (let i = 1; i <= CONFIG.milestoneCount; i++){
@@ -124,9 +124,29 @@ function attachStreamUI(){
   });
 }
 
+/** Dropdown behavior:
+ * - Desktop: open automatically
+ * - Mobile: collapsed by default
+ */
+function setupThesisDropdown(){
+  const d = qs("#thesisDrop");
+  if (!d) return;
+
+  const isDesktop = window.matchMedia("(min-width: 901px)").matches;
+  // Only auto-open when it’s first load (don’t fight user)
+  if (!sessionStorage.getItem("tt_thesis_seen")){
+    if (isDesktop) d.setAttribute("open", "open");
+    else d.removeAttribute("open");
+    sessionStorage.setItem("tt_thesis_seen", "1");
+  }
+
+  // If they resize, don’t auto-toggle (keeps user control)
+}
+
 (function init(){
   setYear();
   setLiveBadge();
+  setupThesisDropdown();
 
   const miles = loadMiles();
   renderMiles(miles);
