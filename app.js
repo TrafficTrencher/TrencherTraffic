@@ -1,87 +1,141 @@
-/* Trencher Traffic — app.js
-   - Updates progress UI
-   - Set your links + live numbers in CONFIG below
-*/
+// Trencher Traffic — app.js (matches the current index.html)
 
 const CONFIG = {
-  // --- LINKS (set these) ---
-  watchLiveUrl: "https://pump.fun",      // put your live page / stream link
-  followXUrl: "https://x.com/TrencherTraffic",
-  pumpFunTokenUrl: "https://pump.fun",   // put your token link
-  fomoAppUrl: "https://fomo.app",        // replace if you have a specific link
-  youtubeUrl: "https://www.youtube.com", // put your clipping channel link
-
-  // --- PROGRESS SETTINGS ---
-  seasonGoalMiles: 25000,
-  feeClaimEveryMiles: 1000,
-
-  // Set current miles here (manual update)
-  currentMiles: 0,
-
-  // Optional: show a custom status string
-  top25StatusText: "In Progress"
+  goalMiles: 50000,
+  milestoneCount: 25,
+  milesStorageKey: "tt_miles_v1",
+  streamStorageKey: "tt_stream_v1",
+  isLive: false // flip true when live
 };
 
-function fmtNumber(n) {
-  try { return new Intl.NumberFormat("en-US").format(n); }
-  catch { return String(n); }
+const qs = (s) => document.querySelector(s);
+
+function clampInt(n){
+  const v = parseInt(n, 10);
+  if (Number.isNaN(v) || !Number.isFinite(v)) return 0;
+  return Math.max(0, v);
 }
 
-function clamp(n, min, max) {
-  return Math.max(min, Math.min(max, n));
+function setYear(){
+  const y = qs("#year");
+  if (y) y.textContent = String(new Date().getFullYear());
 }
 
-function computeNextClaimMiles(current, step) {
-  if (step <= 0) return 0;
-  const remainder = current % step;
-  const toNext = remainder === 0 ? step : (step - remainder);
-  return current + toNext;
+function setLiveBadge(){
+  const badge = qs("#liveBadge");
+  if (!badge) return;
+
+  if (CONFIG.isLive){
+    badge.textContent = "LIVE";
+    badge.classList.add("is-live");
+  }else{
+    badge.textContent = "OFFLINE";
+    badge.classList.remove("is-live");
+  }
 }
 
-function setHref(id, url) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.href = url || "#";
-  if (!url) el.setAttribute("aria-disabled", "true");
+function loadMiles(){
+  try{
+    const raw = localStorage.getItem(CONFIG.milesStorageKey);
+    return clampInt(raw ?? 0);
+  }catch{
+    return 0;
+  }
 }
 
-function updateUI() {
-  const miles = Number(CONFIG.currentMiles) || 0;
-  const goal = Number(CONFIG.seasonGoalMiles) || 25000;
-  const claimStep = Number(CONFIG.feeClaimEveryMiles) || 1000;
-
-  const nextClaim = computeNextClaimMiles(miles, claimStep);
-  const milesToGoal = Math.max(0, goal - miles);
-  const pct = goal > 0 ? clamp((miles / goal) * 100, 0, 999) : 0;
-
-  const milesEl = document.getElementById("milesValue");
-  const goalEl = document.getElementById("seasonGoalValue");
-  const nextEl = document.getElementById("nextClaimValue");
-  const milesToGoalEl = document.getElementById("milesToGoalValue");
-  const pctEl = document.getElementById("seasonPctLabel");
-  const barEl = document.getElementById("seasonBar");
-  const yearEl = document.getElementById("year");
-  const top25StatusEl = document.getElementById("top25Status");
-
-  if (milesEl) milesEl.textContent = fmtNumber(miles);
-  if (goalEl) goalEl.textContent = fmtNumber(goal);
-  if (nextEl) nextEl.textContent = fmtNumber(nextClaim);
-  if (milesToGoalEl) milesToGoalEl.textContent = fmtNumber(milesToGoal);
-  if (pctEl) pctEl.textContent = `${pct.toFixed(1)}%`;
-  if (barEl) barEl.style.width = `${clamp(pct, 0, 100)}%`;
-  if (yearEl) yearEl.textContent = String(new Date().getFullYear());
-  if (top25StatusEl) top25StatusEl.textContent = CONFIG.top25StatusText || "In Progress";
+function saveMiles(miles){
+  localStorage.setItem(CONFIG.milesStorageKey, String(clampInt(miles)));
 }
 
-function init() {
-  // Wire buttons/links
-  setHref("btnWatchLive", CONFIG.watchLiveUrl);
-  setHref("btnFollowX", CONFIG.followXUrl);
-  setHref("pumpLink", CONFIG.pumpFunTokenUrl);
-  setHref("fomoLink", CONFIG.fomoAppUrl);
-  setHref("ytLink", CONFIG.youtubeUrl);
+function renderMiles(miles){
+  const currentMilesText = qs("#currentMilesText");
+  const percentText = qs("#percentText");
+  const barFill = qs("#barFill");
 
-  updateUI();
+  const pct = CONFIG.goalMiles > 0 ? Math.min(100, Math.floor((miles / CONFIG.goalMiles) * 100)) : 0;
+
+  if (currentMilesText) currentMilesText.textContent = String(miles);
+  if (percentText) percentText.textContent = `${pct}%`;
+  if (barFill) barFill.style.width = `${pct}%`;
 }
 
-document.addEventListener("DOMContentLoaded", init);
+function renderMilestones(miles){
+  const list = qs("#milestoneList");
+  if (!list) return;
+
+  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount); // 2000 for 50k/25
+  const items = [];
+
+  for (let i = 1; i <= CONFIG.milestoneCount; i++){
+    const at = i * step;
+    const done = miles >= at;
+    items.push(`
+      <li style="margin:8px 0; color:${done ? "rgba(233,238,251,.95)" : "rgba(168,179,209,.85)"}">
+        <b>${done ? "✓" : "•"}</b> ${at.toLocaleString()} miles
+      </li>
+    `);
+  }
+
+  list.innerHTML = items.join("");
+}
+
+function attachMilesUI(){
+  const input = qs("#currentMiles");
+  const btn = qs("#saveMiles");
+
+  if (!input || !btn) return;
+
+  btn.addEventListener("click", () => {
+    const miles = clampInt(input.value);
+    saveMiles(miles);
+    renderMiles(miles);
+    renderMilestones(miles);
+    input.value = "";
+  });
+}
+
+function loadStream(){
+  try{
+    return localStorage.getItem(CONFIG.streamStorageKey) || "";
+  }catch{
+    return "";
+  }
+}
+
+function saveStream(url){
+  localStorage.setItem(CONFIG.streamStorageKey, url);
+}
+
+function renderStream(url){
+  const frame = qs("#streamFrame");
+  if (!frame) return;
+  frame.src = url || "";
+}
+
+function attachStreamUI(){
+  const input = qs("#streamUrl");
+  const btn = qs("#saveStream");
+  if (!input || !btn) return;
+
+  btn.addEventListener("click", () => {
+    const url = String(input.value || "").trim();
+    saveStream(url);
+    renderStream(url);
+  });
+}
+
+(function init(){
+  setYear();
+  setLiveBadge();
+
+  const miles = loadMiles();
+  renderMiles(miles);
+  renderMilestones(miles);
+  attachMilesUI();
+
+  const stream = loadStream();
+  renderStream(stream);
+  const streamInput = qs("#streamUrl");
+  if (streamInput) streamInput.value = stream;
+  attachStreamUI();
+})();
