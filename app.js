@@ -1,4 +1,4 @@
-// Trencher Traffic — app.js (matches the current index.html)
+// Trencher Traffic — app.js (matches index.html)
 
 const CONFIG = {
   goalMiles: 25000,
@@ -52,9 +52,7 @@ function renderMiles(miles){
   const percentText = qs("#percentText");
   const barFill = qs("#barFill");
 
-  const pct = CONFIG.goalMiles > 0
-    ? Math.min(100, Math.floor((miles / CONFIG.goalMiles) * 100))
-    : 0;
+  const pct = CONFIG.goalMiles > 0 ? Math.min(100, Math.floor((miles / CONFIG.goalMiles) * 100)) : 0;
 
   if (currentMilesText) currentMilesText.textContent = String(miles);
   if (percentText) percentText.textContent = `${pct}%`;
@@ -71,7 +69,6 @@ function renderMilestones(miles){
   for (let i = 1; i <= CONFIG.milestoneCount; i++){
     const at = i * step;
     const done = miles >= at;
-
     items.push(`
       <li style="margin:8px 0; color:${done ? "rgba(233,238,251,.95)" : "rgba(168,179,209,.85)"}">
         <b>${done ? "✓" : "•"}</b> ${at.toLocaleString()} miles
@@ -127,9 +124,48 @@ function attachStreamUI(){
   });
 }
 
+/* -------- READ MORE: auto-open desktop, collapsed mobile -------- */
+function initReadMore(){
+  const card = qs("#readMoreCard");
+  const toggle = qs("#readMoreToggle");
+  const body = qs("#readMoreBody");
+
+  if (!card || !toggle || !body) return;
+
+  const mqDesktop = window.matchMedia("(min-width: 900px)");
+
+  function setOpen(open){
+    if (open){
+      card.classList.add("is-open");
+      body.hidden = false;
+      toggle.setAttribute("aria-expanded", "true");
+      toggle.querySelector(".readmore__label").textContent = "Read less";
+    }else{
+      card.classList.remove("is-open");
+      body.hidden = true;
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.querySelector(".readmore__label").textContent = "Read more";
+    }
+  }
+
+  // Default behavior: open on desktop, closed on mobile
+  setOpen(mqDesktop.matches);
+
+  // If user resizes: follow rule again (desktop open, mobile closed)
+  mqDesktop.addEventListener?.("change", (e) => {
+    setOpen(e.matches);
+  });
+
+  toggle.addEventListener("click", () => {
+    const isOpen = toggle.getAttribute("aria-expanded") === "true";
+    setOpen(!isOpen);
+  });
+}
+
 (function init(){
   setYear();
   setLiveBadge();
+  initReadMore();
 
   const miles = loadMiles();
   renderMiles(miles);
@@ -138,9 +174,7 @@ function attachStreamUI(){
 
   const stream = loadStream();
   renderStream(stream);
-
   const streamInput = qs("#streamUrl");
   if (streamInput) streamInput.value = stream;
-
   attachStreamUI();
 })();
