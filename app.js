@@ -84,6 +84,7 @@ function renderMilestones(miles){
 function attachMilesUI(){
   const input = qs("#currentMiles");
   const btn = qs("#saveMiles");
+
   if (!input || !btn) return;
 
   btn.addEventListener("click", () => {
