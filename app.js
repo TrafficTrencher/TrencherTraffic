@@ -1,10 +1,10 @@
-// Trencher Traffic — app.js (matches index.html v=1001)
+// Trencher Traffic — app.js (matches the current index.html)
 
 const CONFIG = {
   goalMiles: 25000,
   milestoneCount: 25, // 25k / 25 = 1,000-mile claims
-  milesStorageKey: "tt_miles_v2",
-  streamStorageKey: "tt_stream_v2",
+  milesStorageKey: "tt_miles_v1",
+  streamStorageKey: "tt_stream_v1",
   isLive: false // flip true when live
 };
 
@@ -52,9 +52,7 @@ function renderMiles(miles){
   const percentText = qs("#percentText");
   const barFill = qs("#barFill");
 
-  const pct = CONFIG.goalMiles > 0
-    ? Math.min(100, Math.floor((miles / CONFIG.goalMiles) * 100))
-    : 0;
+  const pct = CONFIG.goalMiles > 0 ? Math.min(100, Math.floor((miles / CONFIG.goalMiles) * 100)) : 0;
 
   if (currentMilesText) currentMilesText.textContent = String(miles);
   if (percentText) percentText.textContent = `${pct}%`;
@@ -65,13 +63,12 @@ function renderMilestones(miles){
   const list = qs("#milestoneList");
   if (!list) return;
 
-  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount); // 1000
+  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount); // 1000 for 25k/25
   const items = [];
 
   for (let i = 1; i <= CONFIG.milestoneCount; i++){
     const at = i * step;
     const done = miles >= at;
-
     items.push(`
       <li style="margin:8px 0; color:${done ? "rgba(233,238,251,.95)" : "rgba(168,179,209,.85)"}">
         <b>${done ? "✓" : "•"}</b> ${at.toLocaleString()} miles
@@ -138,9 +135,7 @@ function attachStreamUI(){
 
   const stream = loadStream();
   renderStream(stream);
-
   const streamInput = qs("#streamUrl");
   if (streamInput) streamInput.value = stream;
-
   attachStreamUI();
 })();
