@@ -1,11 +1,11 @@
-// Trencher Traffic — app.js (dropdown auto-open desktop, closed mobile)
+// Trencher Traffic — app.js (matches the current index.html)
 
 const CONFIG = {
   goalMiles: 25000,
-  milestoneCount: 25,
+  milestoneCount: 25, // 25k / 25 = 1,000-mile claims
   milesStorageKey: "tt_miles_v1",
   streamStorageKey: "tt_stream_v1",
-  isLive: false
+  isLive: false // flip true when live
 };
 
 const qs = (s) => document.querySelector(s);
@@ -31,6 +31,23 @@ function setLiveBadge(){
   }else{
     badge.textContent = "OFFLINE";
     badge.classList.remove("is-live");
+  }
+}
+
+// Desktop opens thesis, mobile keeps it collapsed
+function setThesisDefault(){
+  const d = qs("#thesisDetails");
+  if (!d) return;
+
+  const mq = window.matchMedia("(min-width: 901px)");
+  const apply = () => { d.open = mq.matches; };
+
+  apply();
+  try{
+    mq.addEventListener("change", apply);
+  }catch{
+    // Safari fallback
+    mq.addListener(apply);
   }
 }
 
@@ -61,101 +78,3 @@ function renderMiles(miles){
 
 function renderMilestones(miles){
   const list = qs("#milestoneList");
-  if (!list) return;
-
-  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount); // 1000
-  const items = [];
-
-  for (let i = 1; i <= CONFIG.milestoneCount; i++){
-    const at = i * step;
-    const done = miles >= at;
-    items.push(`
-      <li style="margin:8px 0; color:${done ? "rgba(233,238,251,.95)" : "rgba(168,179,209,.85)"}">
-        <b>${done ? "✓" : "•"}</b> ${at.toLocaleString()} miles
-      </li>
-    `);
-  }
-
-  list.innerHTML = items.join("");
-}
-
-function attachMilesUI(){
-  const input = qs("#currentMiles");
-  const btn = qs("#saveMiles");
-
-  if (!input || !btn) return;
-
-  btn.addEventListener("click", () => {
-    const miles = clampInt(input.value);
-    saveMiles(miles);
-    renderMiles(miles);
-    renderMilestones(miles);
-    input.value = "";
-  });
-}
-
-function loadStream(){
-  try{
-    return localStorage.getItem(CONFIG.streamStorageKey) || "";
-  }catch{
-    return "";
-  }
-}
-
-function saveStream(url){
-  localStorage.setItem(CONFIG.streamStorageKey, url);
-}
-
-function renderStream(url){
-  const frame = qs("#streamFrame");
-  if (!frame) return;
-  frame.src = url || "";
-}
-
-function attachStreamUI(){
-  const input = qs("#streamUrl");
-  const btn = qs("#saveStream");
-  if (!input || !btn) return;
-
-  btn.addEventListener("click", () => {
-    const url = String(input.value || "").trim();
-    saveStream(url);
-    renderStream(url);
-  });
-}
-
-/** Dropdown behavior:
- * - Desktop: open automatically
- * - Mobile: collapsed by default
- */
-function setupThesisDropdown(){
-  const d = qs("#thesisDrop");
-  if (!d) return;
-
-  const isDesktop = window.matchMedia("(min-width: 901px)").matches;
-  // Only auto-open when it’s first load (don’t fight user)
-  if (!sessionStorage.getItem("tt_thesis_seen")){
-    if (isDesktop) d.setAttribute("open", "open");
-    else d.removeAttribute("open");
-    sessionStorage.setItem("tt_thesis_seen", "1");
-  }
-
-  // If they resize, don’t auto-toggle (keeps user control)
-}
-
-(function init(){
-  setYear();
-  setLiveBadge();
-  setupThesisDropdown();
-
-  const miles = loadMiles();
-  renderMiles(miles);
-  renderMilestones(miles);
-  attachMilesUI();
-
-  const stream = loadStream();
-  renderStream(stream);
-  const streamInput = qs("#streamUrl");
-  if (streamInput) streamInput.value = stream;
-  attachStreamUI();
-})();
