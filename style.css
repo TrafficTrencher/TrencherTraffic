@@ -1,4 +1,4 @@
-:root {
+:root{
   --bg:#0b0e14;
   --panel:#101626;
   --panel2:#0f1422;
@@ -259,7 +259,7 @@ input:focus{border-color:rgba(124,92,255,.7)}
   100%{box-shadow:0 0 0 0 rgba(255,59,59,0)}
 }
 
-/* ----------------- POPPING OVERVIEW ----------------- */
+/* ----------------- POPPING OVERVIEW (THE FIX) ----------------- */
 .overview--pop{
   position:relative;
   border: 1px solid rgba(0,212,255,.22);
@@ -334,7 +334,7 @@ input:focus{border-color:rgba(124,92,255,.7)}
 .overview__value{color:rgba(233,238,251,.98);font-weight:900}
 .overview__divider{
   height:1px;
-  background: linear-gradient(90deg, rgba(124,92,255,.0), rgba(124,92,255,.35), rgba(0,212,255,.35), rgba(124,92,255,.0));
+  background: linear-gradient(90deg, rgba(124,92,255,.0), rgba(124,92,255,.35), rgba(0,212,255,.35), rgba(0,212,255,.0));
   margin: 0 18px;
 }
 
@@ -376,23 +376,12 @@ input:focus{border-color:rgba(124,92,255,.7)}
 }
 
 /* ---------------- FOMO SECTION ---------------- */
-.fomo{
-  position: relative;
-  border: 1px solid rgba(0,212,255,.22);
-}
-
-.fomo__body{
-  display:grid;
-  grid-template-columns: 1.2fr .8fr;
-  gap: 18px;
-  align-items:center;
-}
-
+.fomo{ position: relative; border: 1px solid rgba(0,212,255,.22); }
+.fomo__body{ display:grid; grid-template-columns: 1.2fr .8fr; gap: 18px; align-items:center; }
 @media(max-width:900px){
   .fomo__body{grid-template-columns:1fr}
   .fomo__right{justify-content:flex-start}
 }
-
 .fomo__tag{
   display:inline-flex;
   font-size:11px;
@@ -405,38 +394,16 @@ input:focus{border-color:rgba(124,92,255,.7)}
   color: rgba(154,252,255,.95);
   margin-bottom: 10px;
 }
-
-.fomo__title{
-  margin: 0 0 10px;
-  font-size: 28px;
-  line-height: 1.1;
-}
-
+.fomo__title{ margin: 0 0 10px; font-size: 28px; line-height: 1.1; }
 .fomo__brand{
   background: linear-gradient(135deg, var(--accent2), var(--accent));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
-
-.fomo__desc{
-  margin: 0 0 14px;
-  color: var(--muted);
-  max-width: 65ch;
-}
-
-.fomo__cta{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin: 10px 0 8px;
-}
-
-.fomo__right{
-  display:flex;
-  justify-content:flex-end;
-}
-
+.fomo__desc{ margin: 0 0 14px; color: var(--muted); max-width: 65ch; }
+.fomo__cta{ display:flex; gap:10px; flex-wrap:wrap; margin: 10px 0 8px; }
+.fomo__right{ display:flex; justify-content:flex-end; }
 .fomo__logo{
   width: 220px;
   max-width: 100%;
