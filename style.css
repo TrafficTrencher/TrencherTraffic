@@ -85,34 +85,6 @@ h1{font-size:44px;margin:0 0 12px;line-height:1.05}
   h1{font-size:36px}
 }
 
-/* Thesis panel */
-.hero__panel{
-  border-radius: 18px;
-  border: 1px solid rgba(0,212,255,.18);
-  background:
-    radial-gradient(900px 420px at 10% 0%, rgba(124,92,255,.18), transparent 60%),
-    radial-gradient(900px 420px at 90% 0%, rgba(0,212,255,.14), transparent 58%),
-    linear-gradient(180deg, rgba(16,22,38,.86), rgba(9,12,22,.86));
-  padding: 16px 16px 14px;
-  box-shadow:
-    0 24px 80px rgba(0,0,0,.55),
-    0 0 0 1px rgba(124,92,255,.10) inset;
-  margin: 10px 0 14px;
-}
-
-.hero__panelTag{
-  display:inline-flex;
-  font-size:11px;
-  letter-spacing:1px;
-  font-weight:900;
-  padding:6px 10px;
-  border-radius:999px;
-  border:1px solid rgba(0,212,255,.35);
-  background: rgba(0,212,255,.08);
-  color: rgba(154,252,255,.95);
-  margin-bottom: 10px;
-}
-
 .hero__copy{
   margin:0;
   color: rgba(233,238,251,.92);
@@ -126,7 +98,6 @@ h1{font-size:44px;margin:0 0 12px;line-height:1.05}
   gap:10px;
   margin-top:12px;
 }
-
 .hero__pill{
   font-size:12px;
   padding:7px 10px;
@@ -135,6 +106,76 @@ h1{font-size:44px;margin:0 0 12px;line-height:1.05}
   background:rgba(255,255,255,.03);
   color: rgba(168,179,209,.95);
   font-weight:800;
+}
+
+/* Dropdown card */
+.dropcard{
+  border-radius: 18px;
+  border: 1px solid rgba(0,212,255,.18);
+  background:
+    radial-gradient(900px 420px at 10% 0%, rgba(124,92,255,.18), transparent 60%),
+    radial-gradient(900px 420px at 90% 0%, rgba(0,212,255,.14), transparent 58%),
+    linear-gradient(180deg, rgba(16,22,38,.86), rgba(9,12,22,.86));
+  box-shadow:
+    0 24px 80px rgba(0,0,0,.55),
+    0 0 0 1px rgba(124,92,255,.10) inset;
+  margin: 10px 0 14px;
+  overflow:hidden;
+}
+.dropcard[open]{
+  border-color: rgba(0,212,255,.28);
+}
+.dropcard__summary{
+  list-style:none;
+  cursor:pointer;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  padding:14px 14px;
+  user-select:none;
+}
+.dropcard__summary::-webkit-details-marker{display:none}
+.dropcard__left{display:flex;flex-direction:column;gap:4px}
+.dropcard__tag{
+  display:inline-flex;
+  width:fit-content;
+  font-size:11px;
+  letter-spacing:1px;
+  font-weight:900;
+  padding:6px 10px;
+  border-radius:999px;
+  border:1px solid rgba(0,212,255,.35);
+  background: rgba(0,212,255,.08);
+  color: rgba(154,252,255,.95);
+}
+.dropcard__title{
+  font-weight:900;
+  color: rgba(233,238,251,.98);
+}
+.dropcard__chev{
+  width:28px;height:28px;border-radius:10px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.04);
+  position:relative;
+}
+.dropcard__chev:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  margin:auto;
+  width:10px;height:10px;
+  border-right:2px solid rgba(233,238,251,.85);
+  border-bottom:2px solid rgba(233,238,251,.85);
+  transform: rotate(45deg);
+  top:7px;
+}
+.dropcard[open] .dropcard__chev:before{
+  transform: rotate(225deg);
+  top:11px;
+}
+.dropcard__body{
+  padding: 0 14px 14px;
 }
 
 /* CTA row */
@@ -146,15 +187,9 @@ h1{font-size:44px;margin:0 0 12px;line-height:1.05}
   align-items:center;
 }
 @media(max-width:520px){
-  .cta--center{
-    grid-template-columns: 1fr 1fr 1fr;
-  }
+  .cta--center{ grid-template-columns: 1fr 1fr 1fr; }
 }
-.cta--center .btn{
-  width:100%;
-  justify-content:center;
-  text-align:center;
-}
+.cta--center .btn{ width:100%; justify-content:center; text-align:center; }
 
 .btn{
   padding:12px 14px;
@@ -170,10 +205,7 @@ h1{font-size:44px;margin:0 0 12px;line-height:1.05}
   justify-content:center;
   min-height:46px;
 }
-.btn:hover{
-  transform:translateY(-1px);
-  border-color:rgba(255,255,255,.30)
-}
+.btn:hover{ transform:translateY(-1px); border-color:rgba(255,255,255,.30) }
 .btn--primary{
   background:linear-gradient(135deg,var(--accent),var(--accent2));
   border:none;
@@ -311,7 +343,7 @@ input:focus{border-color:rgba(124,92,255,.7)}
   100%{box-shadow:0 0 0 0 rgba(255,59,59,0)}
 }
 
-/* ----------------- ROADMAP CARD (RIGHT SIDE) ----------------- */
+/* Roadmap card */
 .overview--pop{
   position:relative;
   border: 1px solid rgba(0,212,255,.22);
@@ -384,14 +416,9 @@ input:focus{border-color:rgba(124,92,255,.7)}
 }
 .roadmap__title{font-weight:900;font-size:16px}
 .roadmap__sub{color:rgba(168,179,209,.95);font-size:12px;font-weight:800}
-
 .roadmap__list{
-  margin:0;
-  padding:0;
-  list-style:none;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
+  margin:0;padding:0;list-style:none;
+  display:flex;flex-direction:column;gap:10px;
 }
 .roadmap__list li{
   padding:12px 12px;
@@ -399,11 +426,7 @@ input:focus{border-color:rgba(124,92,255,.7)}
   border:1px solid rgba(255,255,255,.10);
   background: rgba(0,0,0,.18);
 }
-.roadmap__list li b{
-  display:block;
-  font-size:14px;
-  letter-spacing:.2px;
-}
+.roadmap__list li b{display:block;font-size:14px;letter-spacing:.2px}
 .roadmap__list li span{
   display:block;
   color: rgba(168,179,209,.95);
@@ -411,7 +434,7 @@ input:focus{border-color:rgba(124,92,255,.7)}
   margin-top:4px;
 }
 
-/* ---------------- FOMO SECTION ---------------- */
+/* FOMO */
 .fomo{ position: relative; border: 1px solid rgba(0,212,255,.22); }
 .fomo__body{ display:grid; grid-template-columns: 1.2fr .8fr; gap: 18px; align-items:center; }
 @media(max-width:900px){
