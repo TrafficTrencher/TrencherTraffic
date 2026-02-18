@@ -52,9 +52,7 @@ function renderMiles(miles){
   const percentText = qs("#percentText");
   const barFill = qs("#barFill");
 
-  const pct = CONFIG.goalMiles > 0
-    ? Math.min(100, Math.floor((miles / CONFIG.goalMiles) * 100))
-    : 0;
+  const pct = CONFIG.goalMiles > 0 ? Math.min(100, Math.floor((miles / CONFIG.goalMiles) * 100)) : 0;
 
   if (currentMilesText) currentMilesText.textContent = String(miles);
   if (percentText) percentText.textContent = `${pct}%`;
@@ -71,7 +69,6 @@ function renderMilestones(miles){
   for (let i = 1; i <= CONFIG.milestoneCount; i++){
     const at = i * step;
     const done = miles >= at;
-
     items.push(`
       <li style="margin:8px 0; color:${done ? "rgba(233,238,251,.95)" : "rgba(168,179,209,.85)"}">
         <b>${done ? "✓" : "•"}</b> ${at.toLocaleString()} miles
