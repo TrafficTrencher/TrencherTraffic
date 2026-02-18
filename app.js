@@ -1,4 +1,4 @@
-// Trencher Traffic — app.js (matches index.html)
+// Trencher Traffic — app.js (matches the current index.html)
 
 const CONFIG = {
   goalMiles: 25000,
@@ -124,48 +124,9 @@ function attachStreamUI(){
   });
 }
 
-/* -------- READ MORE: auto-open desktop, collapsed mobile -------- */
-function initReadMore(){
-  const card = qs("#readMoreCard");
-  const toggle = qs("#readMoreToggle");
-  const body = qs("#readMoreBody");
-
-  if (!card || !toggle || !body) return;
-
-  const mqDesktop = window.matchMedia("(min-width: 900px)");
-
-  function setOpen(open){
-    if (open){
-      card.classList.add("is-open");
-      body.hidden = false;
-      toggle.setAttribute("aria-expanded", "true");
-      toggle.querySelector(".readmore__label").textContent = "Read less";
-    }else{
-      card.classList.remove("is-open");
-      body.hidden = true;
-      toggle.setAttribute("aria-expanded", "false");
-      toggle.querySelector(".readmore__label").textContent = "Read more";
-    }
-  }
-
-  // Default behavior: open on desktop, closed on mobile
-  setOpen(mqDesktop.matches);
-
-  // If user resizes: follow rule again (desktop open, mobile closed)
-  mqDesktop.addEventListener?.("change", (e) => {
-    setOpen(e.matches);
-  });
-
-  toggle.addEventListener("click", () => {
-    const isOpen = toggle.getAttribute("aria-expanded") === "true";
-    setOpen(!isOpen);
-  });
-}
-
 (function init(){
   setYear();
   setLiveBadge();
-  initReadMore();
 
   const miles = loadMiles();
   renderMiles(miles);
