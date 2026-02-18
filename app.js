@@ -1,8 +1,8 @@
 // Trencher Traffic — app.js (matches the current index.html)
 
 const CONFIG = {
-  goalMiles: 50000,
-  milestoneCount: 25,
+  goalMiles: 25000,
+  milestoneCount: 25, // 25k / 25 = 1,000-mile claims
   milesStorageKey: "tt_miles_v1",
   streamStorageKey: "tt_stream_v1",
   isLive: false // flip true when live
@@ -52,7 +52,9 @@ function renderMiles(miles){
   const percentText = qs("#percentText");
   const barFill = qs("#barFill");
 
-  const pct = CONFIG.goalMiles > 0 ? Math.min(100, Math.floor((miles / CONFIG.goalMiles) * 100)) : 0;
+  const pct = CONFIG.goalMiles > 0
+    ? Math.min(100, Math.floor((miles / CONFIG.goalMiles) * 100))
+    : 0;
 
   if (currentMilesText) currentMilesText.textContent = String(miles);
   if (percentText) percentText.textContent = `${pct}%`;
@@ -63,7 +65,7 @@ function renderMilestones(miles){
   const list = qs("#milestoneList");
   if (!list) return;
 
-  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount); // 2000 for 50k/25
+  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount); // 1000 for 25k/25
   const items = [];
 
   for (let i = 1; i <= CONFIG.milestoneCount; i++){
@@ -82,7 +84,6 @@ function renderMilestones(miles){
 function attachMilesUI(){
   const input = qs("#currentMiles");
   const btn = qs("#saveMiles");
-
   if (!input || !btn) return;
 
   btn.addEventListener("click", () => {
