@@ -1,4 +1,4 @@
-:root{
+:root {
   --bg:#0b0e14;
   --panel:#101626;
   --panel2:#0f1422;
@@ -203,13 +203,6 @@ input:focus{border-color:rgba(124,92,255,.7)}
   gap:16px;
 }
 @media(max-width:900px){.milegrid{grid-template-columns:1fr}}
-
-.howgrid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:16px;
-}
-@media(max-width:900px){.howgrid{grid-template-columns:1fr}}
 
 .linkgrid{
   display:grid;
