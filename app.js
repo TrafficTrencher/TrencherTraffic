@@ -1,10 +1,10 @@
-// Trencher Traffic — app.js (matches index.html v=60)
+// Trencher Traffic — app.js (matches the current index.html)
 
 const CONFIG = {
   goalMiles: 25000,
   milestoneCount: 25, // 25k / 25 = 1,000-mile claims
-  milesStorageKey: "tt_miles_v2",
-  streamStorageKey: "tt_stream_v2",
+  milesStorageKey: "tt_miles_v1",
+  streamStorageKey: "tt_stream_v1",
   isLive: false // flip true when live
 };
 
