@@ -11,10 +11,13 @@ l<!doctype html>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <!-- Cache bust -->
-  <link rel="stylesheet" href="style.css?v=60" />
+  <link rel="stylesheet" href="style.css?v=61" />
 </head>
 
 <body>
+
+<!-- Site-wide grain + scanlines overlay -->
+<div class="grain-overlay" aria-hidden="true"></div>
 
 <header class="topbar">
   <div class="container topbar__inner">
@@ -44,6 +47,7 @@ l<!doctype html>
 
   <!-- HERO -->
   <section class="hero">
+    <img class="hero__watermark" src="images/tt-traffic.jpg" alt="" aria-hidden="true" />
     <div class="container hero__grid">
 
       <div>
@@ -173,6 +177,16 @@ l<!doctype html>
         </div>
       </div>
 
+    </div>
+  </section>
+
+  <!-- EVOLUTION DIVIDER -->
+  <section class="evolution-divider" aria-label="Transportation evolution">
+    <div class="evolution-divider__overlay"></div>
+    <div class="container evolution-divider__content">
+      <div class="evolution-divider__label">THE ROAD TO AUTONOMY</div>
+      <h2 class="evolution-divider__title">From Brake Lights to Cyber Cab</h2>
+      <p class="evolution-divider__sub">Human grind → tokenized route → FSD era. Every mile logged on-chain.</p>
     </div>
   </section>
 
