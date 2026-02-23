@@ -176,3 +176,6 @@ img[src="images/IMG_2521.jpg"]::after {
   background: rgba(0,0,0,0.55);
   pointer-events: none;
 }
+.evolution-img {
+  opacity: 0.25;
+}
