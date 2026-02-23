@@ -534,3 +534,36 @@ img[src*="IMG_2521"]::after{
   pointer-events:none;
   background: radial-gradient(120% 90% at 50% 35%, rgba(0,0,0,.18), rgba(0,0,0,.45));
 }
+/* ========================================= */
+/* EVOLUTION IMAGE – GOLD POP EFFECT */
+/* ========================================= */
+img[src*="IMG_2521"]{
+  opacity: .20;  /* keep see-through */
+
+  filter:
+    contrast(1.55)          /* stronger separation */
+    brightness(1.12)        /* brighten icons */
+    saturate(1.35)          /* richer color */
+    sepia(.35)              /* warm gold tone */
+    hue-rotate(-8deg)       /* subtle gold shift */
+    drop-shadow(0 0 8px rgba(255,215,120,.35))
+    drop-shadow(0 0 18px rgba(255,200,80,.25))
+    drop-shadow(0 12px 40px rgba(0,0,0,.6));
+}
+
+/* Desktop: slightly stronger pop */
+@media(min-width:900px){
+  img[src*="IMG_2521"]{
+    opacity:.22;
+
+    filter:
+      contrast(1.65)
+      brightness(1.15)
+      saturate(1.45)
+      sepia(.45)
+      hue-rotate(-6deg)
+      drop-shadow(0 0 10px rgba(255,220,140,.45))
+      drop-shadow(0 0 24px rgba(255,200,90,.30))
+      drop-shadow(0 14px 45px rgba(0,0,0,.65));
+  }
+}
