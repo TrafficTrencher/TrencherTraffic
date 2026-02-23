@@ -1,57 +1,124 @@
-/* ===== Overrides: Glass UI (Evolution + Watch Live) ===== */
+/* ===================================== */
+/* GLOBAL BASE                           */
+/* ===================================== */
 
-.evolution-card {
-  position: relative !important;
-  border-radius: 22px !important;
-  overflow: hidden !important;
-
-  background: rgba(255,255,255,0.04) !important;
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-
-  border: 1px solid rgba(255,255,255,0.10) !important;
+* {
+  box-sizing: border-box;
 }
 
-/* Works if evolution is an <img> */
-.evolution-card img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  object-position: center !important;
-  opacity: 0.14 !important;
-  display: block !important;
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #0d0f14;
+  color: #ffffff;
 }
 
-/* Cinematic blend overlay */
-.evolution-card::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,0.30), rgba(0,0,0,0.65));
-  pointer-events: none;
+/* ===================================== */
+/* CONTAINER LAYOUT                      */
+/* ===================================== */
+
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 20px;
 }
 
-/* Watch Live button – glass */
+/* ===================================== */
+/* HEADINGS                              */
+/* ===================================== */
+
+h1 {
+  font-size: 42px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+/* ===================================== */
+/* WATCH LIVE BUTTON – GLASS             */
+/* ===================================== */
+
 .watch-live-btn {
-  background: rgba(255,255,255,0.08) !important;
+  display: inline-block;
+  padding: 14px 28px;
+
+  background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(18px);
   -webkit-backdrop-filter: blur(18px);
 
-  border: 1px solid rgba(255,255,255,0.18) !important;
-  border-radius: 999px !important;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
 
-  color: #fff !important;
-  font-weight: 700 !important;
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
 
-  box-shadow: 0 10px 30px rgba(0,0,0,0.25) !important;
-  transition: transform 0.2s ease, background 0.2s ease !important;
+  transition: all 0.25s ease;
 }
 
 .watch-live-btn:hover {
-  background: rgba(255,255,255,0.14) !important;
+  background: rgba(255, 255, 255, 0.20);
   transform: translateY(-2px);
 }
 
 .watch-live-btn:active {
-  transform: translateY(0);
+  transform: translateY(0px);
+}
+
+/* ===================================== */
+/* EVOLUTION CARD – TRANSLUCENT          */
+/* ===================================== */
+
+.evolution-card {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  margin: 40px 0;
+}
+
+/* Make image translucent */
+.evolution-card img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  opacity: 0.25; /* Adjust 0.15–0.35 */
+  display: block;
+}
+
+/* Blend overlay */
+.evolution-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.35),
+    rgba(0, 0, 0, 0.65)
+  );
+  pointer-events: none;
+}
+
+/* ===================================== */
+/* ROADMAP CARDS                         */
+/* ===================================== */
+
+.roadmap-card {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 20px;
+  border-radius: 18px;
+  margin-bottom: 20px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* ===================================== */
+/* LINKS                                 */
+/* ===================================== */
+
+a {
+  color: inherit;
 }
