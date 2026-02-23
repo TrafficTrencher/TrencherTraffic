@@ -15,24 +15,12 @@
 html,body{margin:0;padding:0}
 body{
   font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  background:
+    radial-gradient(1200px 900px at 20% -10%, rgba(124,92,255,.25), transparent 60%),
+    radial-gradient(1000px 800px at 90% 10%, rgba(0,212,255,.15), transparent 55%),
+    var(--bg);
   color:var(--text);
   line-height:1.5;
-  background: transparent !important;
-}
-
-.site-bg {
-    position: fixed;
-    inset: 0;
-    z-index: -10;
-    background-image:
-        linear-gradient(180deg, rgba(11,14,20,.70), rgba(11,14,20,.88)),
-        url("images/Traffic.PNG");
-    background-size: cover;
-    background-position: center top;
-    background-repeat: no-repeat;
-    transform: translateZ(0);
-    filter: saturate(1.15) contrast(1.08);
-    opacity: 1;
 }
 
 a{color:inherit;text-decoration:none}
@@ -81,17 +69,7 @@ a{color:inherit;text-decoration:none}
 }
 
 /* Hero */
-.hero{
-  position:relative;
-  background: transparent;
-  min-height:80vh;
-  display:flex;
-  align-items:center;
-}
-.hero > .container{
-  position:relative;
-  z-index:1;
-}
+.hero{padding:44px 0}
 .hero__grid{
   display:grid;
   grid-template-columns:1.15fr .85fr;
@@ -155,7 +133,7 @@ h1{font-size:44px;margin:0 0 12px;line-height:1.05;font-weight:900}
 }
 
 .card{
-  background: linear-gradient(180deg, rgba(18,24,42,.82), rgba(13,18,34,.82)) !important;
+  background:linear-gradient(180deg,#12182a,#0d1222);
   border:1px solid var(--line);
   border-radius:18px;
   box-shadow:var(--shadow);
@@ -379,34 +357,6 @@ input:focus{border-color:rgba(124,92,255,.7)}
   gap:12px;
 }
 
-/* ===================================== */
-/* EVOLUTION SECTION – ULTRA TRANSLUCENT */
-/* ===================================== */
-
-.evolution-section {
-  position: relative;
-  width: 100%;
-  margin: 40px 0;
-  border-radius: 20px;
-  overflow: hidden;
-}
-
-.evolution-section img {
-  width: 100%;
-  display: block;
-  opacity: 0.18; /* 🔥 Almost see-through */
-  filter: brightness(0.9);
-}
-
-/* Optional: glass overlay effect */
-.evolution-section::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(10, 15, 25, 0.35);
-  backdrop-filter: blur(6px);
-}
-
 /* ---------------- FOMO SECTION ---------------- */
 .fomo{ position: relative; border: 1px solid rgba(0,212,255,.22); }
 .fomo__body{ display:grid; grid-template-columns: 1.2fr .8fr; gap: 18px; align-items:center; }
@@ -444,4 +394,4 @@ input:focus{border-color:rgba(124,92,255,.7)}
   border-radius: 16px;
   filter: drop-shadow(0 18px 60px rgba(0,212,255,.20));
   opacity: .95;
-- [ ] }
+}
