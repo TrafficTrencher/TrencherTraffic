@@ -401,6 +401,30 @@ input:focus{border-color:rgba(124,92,255,.7)}
   }
 }
 
+/* ---------------- ROADMAP EVOLUTION IMAGE ---------------- */
+.roadmap-evolution {
+  width: 100%;
+  margin-bottom: 18px;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.roadmap-evolution-image {
+  width: 100%;
+  height: auto;
+  max-height: 180px;        /* Prevents large image scaling */
+  object-fit: cover;        /* Keeps consistent image proportion */
+  display: block;
+  opacity: 0.55;            /* Translucent effect */
+}
+
+@media (max-width: 768px) {
+  .roadmap-evolution-image {
+    max-height: 150px;
+    opacity: 0.60;         /* Slightly higher for smaller screens */
+  }
+}
+
 /* ---------------- FOMO SECTION ---------------- */
 .fomo{ position: relative; border: 1px solid rgba(0,212,255,.22); }
 .fomo__body{ display:grid; grid-template-columns: 1.2fr .8fr; gap: 18px; align-items:center; }
