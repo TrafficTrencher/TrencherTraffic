@@ -17,15 +17,22 @@ body{
   font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
   color:var(--text);
   line-height:1.5;
+  background: transparent !important;
+}
 
-  /* Global Background Image using TT Traffic */
-  background-image:
-    linear-gradient(180deg, rgba(11,14,20,.82), rgba(11,14,20,.92)),
-    url("images/tt-traffic.jpg");
-  background-size: cover;
-  background-position: center top;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+.site-bg {
+    position: fixed;
+    inset: 0;
+    z-index: -10;
+    background-image:
+        linear-gradient(180deg, rgba(11,14,20,.70), rgba(11,14,20,.88)),
+        url("images/Traffic.PNG");
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    transform: translateZ(0);
+    filter: saturate(1.15) contrast(1.08);
+    opacity: 1;
 }
 
 a{color:inherit;text-decoration:none}
@@ -148,7 +155,7 @@ h1{font-size:44px;margin:0 0 12px;line-height:1.05;font-weight:900}
 }
 
 .card{
-  background:linear-gradient(180deg,#12182a,#0d1222);
+  background: linear-gradient(180deg, rgba(18,24,42,.82), rgba(13,18,34,.82)) !important;
   border:1px solid var(--line);
   border-radius:18px;
   box-shadow:var(--shadow);
@@ -374,27 +381,38 @@ input:focus{border-color:rgba(124,92,255,.7)}
 
 /* ---------------- EVOLUTION SECTION ---------------- */
 .evolution {
-  position: relative;
-  min-height: 320px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+    position: relative;
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    border-top: 1px solid rgba(255,255,255,.10);
+    border-bottom: 1px solid rgba(255,255,255,.10);
+}
 
-  background-image:
-    linear-gradient(180deg, rgba(11,14,20,.55), rgba(11,14,20,.85)),
-    url("images/evolution.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+.evolution__img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: .95;
+    filter: saturate(1.05) contrast(1.05);
+}
 
-  border-top: 1px solid rgba(255,255,255,.10);
-  border-bottom: 1px solid rgba(255,255,255,.10);
+.evolution__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(11,14,20,.35), rgba(11,14,20,.78));
 }
 
 .evolution__inner {
-  padding: 54px 18px;
-  max-width: 980px;
+    position: relative;
+    z-index: 2;
+    padding: 54px 18px;
+    max-width: 980px;
 }
 
 .evolution__kicker {
