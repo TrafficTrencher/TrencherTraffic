@@ -463,3 +463,51 @@ input:focus{border-color:rgba(124,92,255,.7)}
   filter: drop-shadow(0 18px 60px rgba(0,212,255,.20));
   opacity: .95;
 }
+/* ===================================== */
+/* FORCE EVOLUTION IMAGE = TRANSLUCENT   */
+/* Put this at the VERY BOTTOM of style.css */
+/* ===================================== */
+
+/* If your wrapper is .evolution-card (ideal) */
+.evolution-card{
+  background: rgba(180, 0, 0, 0.22) !important; /* faint red tint */
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  border-radius: 24px !important;
+  overflow: hidden !important;
+}
+
+/* FORCE the actual image to be see-through (this is what you need) */
+.evolution-card img{
+  opacity: 0.55 !important;              /* <-- main control */
+  filter: saturate(1.05) contrast(1.05) !important;
+  display: block !important;
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* If your HTML is NOT using .evolution-card and is using some other class,
+   these cover the most likely cases and will still make it translucent. */
+.roadmap-evolution-image,
+img.roadmap-evolution-image,
+.roadmap img[alt*="Evolution" i],
+.roadmap img[src*="evolution" i],
+.overview--pop img[alt*="Evolution" i],
+.overview--pop img[src*="evolution" i]{
+  opacity: 0.55 !important;              /* <-- main control */
+  filter: saturate(1.05) contrast(1.05) !important;
+}
+
+/* Mobile: slightly more translucent */
+@media (max-width: 768px){
+  .evolution-card img,
+  .roadmap-evolution-image,
+  img.roadmap-evolution-image,
+  .roadmap img[alt*="Evolution" i],
+  .roadmap img[src*="evolution" i],
+  .overview--pop img[alt*="Evolution" i],
+  .overview--pop img[src*="evolution" i]{
+    opacity: 0.45 !important;
+  }
+}
