@@ -122,3 +122,17 @@ h2 {
 a {
   color: inherit;
 }
+/* ===================================== */
+/* FORCE EVOLUTION IMAGE TRANSLUCENT     */
+/* ===================================== */
+
+img[src="images/IMG_2521.jpg"] {
+  opacity: 0.22;
+  border-radius: 22px;
+  display: block;
+  width: 100%;
+}
+
+img[src="images/IMG_2521.jpg"]::after {
+  content: "";
+}
