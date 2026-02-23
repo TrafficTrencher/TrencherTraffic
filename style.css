@@ -379,28 +379,32 @@ input:focus{border-color:rgba(124,92,255,.7)}
   gap:12px;
 }
 
-/* ---------------- ROADMAP EVOLUTION IMAGE ---------------- */
-.roadmap-evolution {
+/* ===================================== */
+/* EVOLUTION SECTION – ULTRA TRANSLUCENT */
+/* ===================================== */
+
+.evolution-section {
+  position: relative;
   width: 100%;
-  margin-bottom: 18px;
-  border-radius: 14px;
+  margin: 40px 0;
+  border-radius: 20px;
   overflow: hidden;
 }
 
-.roadmap-evolution-image {
+.evolution-section img {
   width: 100%;
-  height: auto;
-  max-height: 180px;
-  object-fit: cover;
   display: block;
-  opacity: 0.45; /* Dark glass background — reduced opacity */
+  opacity: 0.18; /* 🔥 Almost see-through */
+  filter: brightness(0.9);
 }
 
-@media (max-width: 768px) {
-  .roadmap-evolution-image {
-    max-height: 150px;
-    opacity: 0.60;
-  }
+/* Optional: glass overlay effect */
+.evolution-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 15, 25, 0.35);
+  backdrop-filter: blur(6px);
 }
 
 /* ---------------- FOMO SECTION ---------------- */
