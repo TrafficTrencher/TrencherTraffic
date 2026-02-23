@@ -379,21 +379,41 @@ input:focus{border-color:rgba(124,92,255,.7)}
   gap:12px;
 }
 
-/* ---------------- ROADMAP EVOLUTION IMAGE ---------------- */
-.roadmap-evolution {
+/* ===================================== */
+/* EVOLUTION CARD (TRANSLUCENT RED)      */
+/* ===================================== */
+
+.evolution-card {
   width: 100%;
-  margin-bottom: 18px;
-  border-radius: 14px;
-  overflow: hidden;
+  margin: 40px 0;
+  padding: 40px 20px;
+  border-radius: 24px;
+
+  /* Translucent red background */
+  background: rgba(180, 0, 0, 0.45);
+
+  /* Glass blur effect */
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  /* Subtle glow */
+  box-shadow: 
+    0 0 40px rgba(255, 0, 0, 0.25),
+    inset 0 0 60px rgba(255, 0, 0, 0.15);
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.roadmap-evolution-image {
-  width: 100%;
+/* Image inside the card */
+.evolution-card img {
+  max-width: 100%;
   height: auto;
-  max-height: 180px;
-  object-fit: cover;
   display: block;
-  opacity: 0.45; /* Dark glass background — reduced opacity */
+} reduced opacity */
 }
 
 @media (max-width: 768px) {
