@@ -513,3 +513,24 @@ img[src*="IMG_2521"]{
       drop-shadow(0 0 18px rgba(255,210,120,.20));
   }
 }
+/* ========================================= */
+/* EVOLUTION IMAGE: hide pattern, keep icons popping */
+/* ========================================= */
+img[src*="IMG_2521"]{
+  position: relative;
+  opacity: .22; /* enough visibility for icons */
+  filter:
+    contrast(1.25)
+    saturate(1.10)
+    brightness(.95)
+    blur(0.6px); /* blurs the repeating pattern */
+}
+
+/* Add a soft dark veil on top of the image to kill the pattern */
+img[src*="IMG_2521"]::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background: radial-gradient(120% 90% at 50% 35%, rgba(0,0,0,.18), rgba(0,0,0,.45));
+}
