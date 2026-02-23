@@ -381,23 +381,58 @@ input:focus{border-color:rgba(124,92,255,.7)}
 
 /* ---------------- EVOLUTION SECTION ---------------- */
 .evolution-section {
-  padding: 40px 20px;
+  width: 100%;
+  margin: 18px 0 26px;
+  padding: 0 14px;
+}
+
+.evolution-wrap {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  border-radius: 18px;
+  overflow: hidden;          /* Prevents iOS overflow */
 }
 
 .evolution-image {
-  width: 100%;
-  max-width: 1000px;
   display: block;
-  margin: 40px auto;
-  opacity: 0.65; /* Adjust between 0.55–0.75 if needed */
-  mix-blend-mode: lighten; /* Helps traffic show through */
+  width: 100%;
+  height: auto;
+  max-height: 260px;         /* Prevents image from taking over the page */
+  object-fit: cover;         /* Keeps it clean on mobile */
+  opacity: 0.55;             /* True translucency */
+  transform: translateZ(0);  /* iOS rendering stability */
 }
 
-/* Mobile Specific Style */
+/* Cinematic fade overlays */
+.evolution-fade-top,
+.evolution-fade-bottom {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 28%;
+  pointer-events: none;
+}
+
+.evolution-fade-top {
+  top: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.65), rgba(0,0,0,0));
+}
+
+.evolution-fade-bottom {
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.75), rgba(0,0,0,0));
+}
+
 @media (max-width: 768px) {
   .evolution-image {
-    margin: 30px auto;
-    opacity: 0.7;
+    max-height: 210px;
+    opacity: 0.60;
+  }
+  .evolution-fade-top,
+  .evolution-fade-bottom {
+    height: 34%;
   }
 }
 
