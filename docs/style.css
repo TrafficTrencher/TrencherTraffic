@@ -136,3 +136,43 @@ img[src="images/IMG_2521.jpg"] {
 img[src="images/IMG_2521.jpg"]::after {
   content: "";
 }
+.evolution-wrap {
+  margin: 24px auto 10px;
+  max-width: 1000px;
+  padding: 0 16px;
+}
+
+.evolution-card {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+
+  /* matches your dark theme */
+  background: rgba(10, 14, 20, 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  /* glass feel */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+}
+
+.evolution-img {
+  display: block;
+  width: 100%;
+  height: auto;
+
+  /* makes the red stop being a "brick" */
+  opacity: 0.28;
+  filter: saturate(0.85) brightness(0.78) contrast(1.05);
+}
+
+/* this is the key: a dark overlay that "tints" the red */
+.evolution-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  pointer-events: none;
+}
