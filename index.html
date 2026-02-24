@@ -10,7 +10,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=91" />
+  <!-- Cache bust -->
+  <link rel="stylesheet" href="style.css?v=92" />
 </head>
 
 <body>
@@ -43,38 +44,42 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="container">
+    <div class="container hero__grid">
 
+      <!-- LEFT -->
       <div>
         <h1>Live Streaming My Route Every Weekday via Starlink Mini 🛰️</h1>
 
         <div class="cta cta--center">
-          <a class="btn" href="https://x.com/traffictrencher" target="_blank">Follow on X</a>
+          <a class="btn" href="https://x.com/traffictrencher" target="_blank" rel="noopener">Follow on X</a>
           <a class="btn btn--primary" href="#live">Watch Live</a>
           <a class="btn btn--ghost" href="#miles">Track Progress</a>
         </div>
       </div>
 
-      <!-- ROADMAP CARD -->
+      <!-- RIGHT: ROADMAP CARD -->
       <div class="card overview overview--pop">
 
-        <!-- NEW BIG TITLE -->
+        <!-- Title above evolution objects (match H1 sizing + centered) -->
         <div class="roadmap-super-title">
           Driving Until AI 🤖 Replaces Me
         </div>
 
-        <!-- EVOLUTION IMAGE -->
+        <!-- Evolution image -->
         <div class="roadmap-evolution">
-          <img src="images/Evol..PNG"
-               alt="Transportation evolution timeline"
-               class="evolution-img" />
+          <img
+            src="images/Evol..PNG"
+            alt="Transportation evolution timeline"
+            class="evolution-img"
+          />
         </div>
 
-        <!-- NEW SUB TITLE -->
+        <!-- Title below evolution objects (match H1 sizing + centered) -->
         <div class="roadmap-sub-title">
           Claiming Creator Fees Every 1,000 Miles to Fund The Journey
         </div>
 
+        <!-- Roadmap list -->
         <div class="roadmap">
           <div class="roadmap__head">
             <div class="roadmap__title">Roadmap: Honda → Tesla FSD (or Cyber Cab)</div>
@@ -84,11 +89,11 @@
           <ol class="roadmap__list">
             <li>
               <b>Baseline — Proof of Grind</b>
-              <span>Daily weekday streams + miles logged powered by Starlink Mini.</span>
+              <span>Daily weekday streams + miles logged powered by <b>Starlink Mini</b>.</span>
             </li>
             <li>
               <b>1,000 Mile Creator Fee Cycle</b>
-              <span>Every 1,000 miles = transparent live claim.</span>
+              <span>Every <b>1,000 miles</b> = transparent live claim.</span>
             </li>
             <li>
               <b>Rig Upgrade Era</b>
@@ -126,6 +131,7 @@
         </div>
 
       </div>
+
     </div>
   </section>
 
@@ -178,10 +184,10 @@
             </h2>
 
             <div class="fomo__cta">
-              <a class="btn btn--primary" href="https://fomo.family/r/TrafficTrencher" target="_blank">
+              <a class="btn btn--primary" href="https://fomo.family/r/TrafficTrencher" target="_blank" rel="noopener">
                 Trade on FOMO
               </a>
-              <a class="btn" href="https://fomo.family/r/TrafficTrencher" target="_blank">
+              <a class="btn" href="https://fomo.family/r/TrafficTrencher" target="_blank" rel="noopener">
                 Get 10% Off Fees
               </a>
             </div>
@@ -201,7 +207,7 @@
     <div class="container">
       <h2>Links</h2>
       <div class="linkgrid">
-        <a class="linkcard" href="https://x.com/traffictrencher" target="_blank">
+        <a class="linkcard" href="https://x.com/traffictrencher" target="_blank" rel="noopener">
           <b>X / Twitter</b>
           <p>Updates & announcements</p>
         </a>
@@ -220,39 +226,3 @@
 <script src="app.js?v=91"></script>
 </body>
 </html>
-/* ===================================== */
-/* ROADMAP SUPER TITLES — MATCH HERO     */
-/* ===================================== */
-
-/* Make both roadmap titles behave exactly like h1 */
-.roadmap-super-title,
-.roadmap-sub-title{
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  font-size: clamp(32px, 4.4vw, 44px);   /* EXACT same as h1 */
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -0.5px;
-  text-align: center;
-  width: 100%;
-  margin: 0 auto;
-}
-
-/* Spacing control */
-.roadmap-super-title{
-  padding: 26px 20px 14px 20px;
-}
-
-.roadmap-sub-title{
-  padding: 14px 20px 24px 20px;
-}
-
-/* Make sure evolution image is centered cleanly */
-.roadmap-evolution{
-  text-align: center;
-  padding: 6px 0;
-}
-
-.evolution-img{
-  margin: 0 auto;
-  display: block;
-}
