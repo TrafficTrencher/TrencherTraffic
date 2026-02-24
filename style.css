@@ -482,36 +482,37 @@ input:focus{border-color:rgba(124,92,255,.7)}
 }
 
 /* ===================================================== */
-/* ✅ EVOLUTION IMAGE (IMG_2521) – GOLD ICONS, SEE-THRU BG */
+/* ✅ EVOLUTION PNG (Evol..PNG) – CLEAN GOLD ON TRANSPARENT */
 /* ===================================================== */
-/* One clean rule (no duplicates) so it actually works */
-img[src*="IMG_2521"]{
-  /* let TT traffic show through */
-  opacity: .14;
+.evolution-img{
+  display:block;
+  width:100%;
+  height:auto;
 
-  /* keep the image crisp (no blur wash) */
-  mix-blend-mode: normal;
+  /* keep TT visible behind */
+  opacity:.92;
 
-  /* make icons bold + gold */
+  /* make the gold “metallic” pop */
   filter:
-    saturate(1.55)
-    contrast(1.85)
-    brightness(1.06)
-    drop-shadow(0 10px 26px rgba(0,0,0,.55))
-    drop-shadow(0 0 18px rgba(255,205,120,.32));
+    saturate(1.45)
+    contrast(1.25)
+    brightness(1.02)
+    drop-shadow(0 12px 28px rgba(0,0,0,.55))
+    drop-shadow(0 0 26px rgba(255,205,120,.35));
 
+  pointer-events:none;
   transform: translateZ(0);
 }
 
 /* Desktop tweak */
 @media(min-width:900px){
-  img[src*="IMG_2521"]{
-    opacity: .12;
+  .evolution-img{
+    opacity:.90;
     filter:
-      saturate(1.60)
-      contrast(1.95)
-      brightness(1.08)
-      drop-shadow(0 12px 34px rgba(0,0,0,.58))
-      drop-shadow(0 0 22px rgba(255,205,120,.34));
+      saturate(1.50)
+      contrast(1.28)
+      brightness(1.03)
+      drop-shadow(0 14px 34px rgba(0,0,0,.58))
+      drop-shadow(0 0 30px rgba(255,205,120,.36));
   }
 }
