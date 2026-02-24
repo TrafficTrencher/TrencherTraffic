@@ -487,3 +487,60 @@ h1{
   padding-bottom: 8px !important;  /* keep some breathing room before roadmap title */
   margin: 0 !important;
 }
+/* ===================================================== */
+/* ROADMAP SUPER TITLES — MATCH HERO H1 EXACTLY          */
+/* + TIGHT SPACING (PULL TITLES CLOSER TO EVOLUTION)     */
+/* ===================================================== */
+
+.roadmap-super-title,
+.roadmap-sub-title{
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-size: clamp(32px, 4.4vw, 44px);  /* exact same as h1 */
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.5px;
+  text-align: center;
+  width: 100%;
+  margin: 0;
+  color: var(--text);
+  text-wrap: balance;
+}
+
+/* Pull TOP title closer to the evolution objects */
+.roadmap-super-title{
+  padding: 16px 16px 6px;  /* was larger - now tighter */
+}
+
+/* Evolution wrapper tighter */
+.roadmap-evolution{
+  text-align: center;
+  padding: 0 0 2px;        /* tight */
+  margin: 0;
+}
+
+/* Evolution image tighter */
+.evolution-img{
+  display: block;
+  margin: 0 auto;          /* no extra gap */
+  padding: 0;
+}
+
+/* Pull BOTTOM title closer to the evolution objects */
+.roadmap-sub-title{
+  padding: 6px 16px 10px;  /* tight: close to evolution + roadmap */
+}
+
+/* Tighten roadmap content padding so roadmap title sits closer */
+.roadmap{
+  padding: 10px 16px 14px; /* tighter than default */
+}
+
+/* Tighten roadmap header spacing */
+.roadmap__head{
+  margin-bottom: 6px;
+}
+
+/* Optional: slightly tighter gaps between steps */
+.roadmap__list{
+  gap: 8px;
+}
