@@ -151,42 +151,51 @@ h1{font-size:clamp(32px, 4.4vw, 44px);margin:0 0 12px;line-height:1.05;font-weig
 }
 .cta--center .btn{width:100%}
 
-/* Buttons */
+/* ===================================== */
+/* Buttons – CLEAR GLASS (NO BLUR)       */
+/* ===================================== */
 .btn{
   padding:12px 14px;
   border-radius:14px;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.03);
+
+  /* clear glass */
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.20);
+
   color:white;
   font-weight:900;
   letter-spacing:.2px;
-  transition: transform .08s ease, border-color .2s ease, background .2s ease, filter .2s ease;
+  transition: transform .08s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
   display:inline-flex;
   align-items:center;
   justify-content:center;
   min-height:46px;
   text-align:center;
   line-height:1.1;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+
+  /* remove blur */
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
 }
 .btn:hover{
   transform:translateY(-1px);
-  border-color:rgba(255,255,255,.30)
+  background: rgba(255,255,255,.08);
+  border-color:rgba(255,255,255,.40);
+  box-shadow: 0 0 22px rgba(255,0,0,.25);
 }
 
-/* Watch Live: glass */
+/* Watch Live: clear glass */
 .btn--primary{
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(0,212,255,.35);
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(0,212,255,.40);
   color: #ffffff;
 
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  /* remove blur */
+  backdrop-filter:none !important;
+  -webkit-backdrop-filter:none !important;
 
   box-shadow:
-    0 0 0 1px rgba(124,92,255,.15) inset,
-    0 10px 34px rgba(0,0,0,.35);
+    0 0 0 1px rgba(0,212,255,.20) inset;
 }
 .btn--ghost{background:transparent}
 
@@ -473,64 +482,36 @@ input:focus{border-color:rgba(124,92,255,.7)}
 }
 
 /* ===================================================== */
-/* ✅ EVOLUTION IMAGE: MUCH MORE SEE-THROUGH              */
+/* ✅ EVOLUTION IMAGE (IMG_2521) – GOLD ICONS, SEE-THRU BG */
 /* ===================================================== */
+/* One clean rule (no duplicates) so it actually works */
 img[src*="IMG_2521"]{
-  opacity:.08;              /* <-- key change (was .16) */
-  filter:saturate(1.02) contrast(1.02);
-  mix-blend-mode: screen;  /* makes the TT “punch through” */
-}
+  /* let TT traffic show through */
+  opacity: .14;
 
-/* Desktop: make it even clearer */
-@media(min-width:900px){
-  img[src*="IMG_2521"]{
-    opacity:.06;
-  }
-}
-/* ========================================= */
-/* EVOLUTION IMAGE: washed background, POP icons */
-/* ========================================= */
-img[src*="IMG_2521"]{
-  opacity: .10;                  /* keep washed-out */
-  mix-blend-mode: normal;        /* stop screen washout */
+  /* keep the image crisp (no blur wash) */
+  mix-blend-mode: normal;
+
+  /* make icons bold + gold */
   filter:
-    brightness(1.25)             /* makes icons brighter */
-    contrast(1.45)               /* makes icons pop */
-    saturate(1.15)               /* richer gold */
-    drop-shadow(0 10px 28px rgba(0,0,0,.55))
-    drop-shadow(0 0 14px rgba(255,210,120,.18)); /* subtle warm glow */
+    saturate(1.55)
+    contrast(1.85)
+    brightness(1.06)
+    drop-shadow(0 10px 26px rgba(0,0,0,.55))
+    drop-shadow(0 0 18px rgba(255,205,120,.32));
+
+  transform: translateZ(0);
 }
 
-/* Desktop: slightly stronger “pop” */
+/* Desktop tweak */
 @media(min-width:900px){
   img[src*="IMG_2521"]{
-    opacity: .11;
+    opacity: .12;
     filter:
-      brightness(1.28)
-      contrast(1.55)
-      saturate(1.18)
+      saturate(1.60)
+      contrast(1.95)
+      brightness(1.08)
       drop-shadow(0 12px 34px rgba(0,0,0,.58))
-      drop-shadow(0 0 18px rgba(255,210,120,.20));
+      drop-shadow(0 0 22px rgba(255,205,120,.34));
   }
-}
-/* ========================================= */
-/* EVOLUTION IMAGE: hide pattern, keep icons popping */
-/* ========================================= */
-img[src*="IMG_2521"]{
-  position: relative;
-  opacity: .22; /* enough visibility for icons */
-  filter:
-    contrast(1.25)
-    saturate(1.10)
-    brightness(.95)
-    blur(0.6px); /* blurs the repeating pattern */
-}
-
-/* Add a soft dark veil on top of the image to kill the pattern */
-img[src*="IMG_2521"]::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  background: radial-gradient(120% 90% at 50% 35%, rgba(0,0,0,.18), rgba(0,0,0,.45));
 }
