@@ -28,7 +28,7 @@ body{
 }
 
 /* ===================================================== */
-/* ✅ TRAFFIC BACKGROUND (TT)                             */
+/* ✅ TRAFFIC BACKGROUND (TT) — MOVED UP                  */
 /* ===================================================== */
 body::before{
   content:"";
@@ -37,12 +37,19 @@ body::before{
   z-index:-30;
   pointer-events:none;
 
-  /* move TT up a touch so it sits behind the hero area more */
-  background: url("images/Traffic.PNG") center 62% / cover no-repeat;
+  /* move Traffic background UP so TT sits closer to mid-screen */
+  background: url("images/Traffic.PNG") center 48% / cover no-repeat;
 
   opacity:.80; /* a bit stronger so TT pops on desktop */
   filter:saturate(1.08) contrast(1.18);
   transform: translateZ(0);
+}
+
+/* Mobile: push it up a bit more */
+@media(max-width:900px){
+  body::before{
+    background: url("images/Traffic.PNG") center 42% / cover no-repeat;
+  }
 }
 
 /* Dark overlay above traffic (readability) */
