@@ -12,42 +12,35 @@
 }
 
 /* ===================================== */
-/* GLOBAL RESET + RESPONSIVE GUARDS       */
+/* GLOBAL RESET                          */
 /* ===================================== */
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
-html{ -webkit-text-size-adjust:100%; }
+html{-webkit-text-size-adjust:100%}
 
 body{
   font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
   color:var(--text);
   line-height:1.5;
   overflow-x:hidden;
-  background: var(--bg);
+  background:var(--bg);
   position:relative;
 }
 
-/* ===================================================== */
-/* ✅ TRAFFIC BACKGROUND (TT)                             */
-/* ===================================================== */
+/* ===================================== */
+/* TRAFFIC BACKGROUND                    */
+/* ===================================== */
 body::before{
   content:"";
   position:fixed;
   inset:0;
   z-index:-30;
   pointer-events:none;
-  background: url("images/Traffic.PNG") center 48% / cover no-repeat;
-  opacity:.80;
-  filter:saturate(1.08) contrast(1.18);
-  transform: translateZ(0);
-}
-@media(max-width:900px){
-  body::before{
-    background: url("images/Traffic.PNG") center 42% / cover no-repeat;
-  }
+  background:url("images/Traffic.PNG") center 48% / cover no-repeat;
+  opacity:.82;
+  filter:saturate(1.1) contrast(1.2);
 }
 
-/* Dark overlay above traffic (readability) */
 body::after{
   content:"";
   position:fixed;
@@ -57,485 +50,252 @@ body::after{
   background:
     radial-gradient(1200px 900px at 20% -10%, rgba(124,92,255,.16), transparent 60%),
     radial-gradient(1000px 800px at 90% 10%, rgba(0,212,255,.10), transparent 55%),
-    linear-gradient(180deg, rgba(11,14,20,.46), rgba(11,14,20,.72));
+    linear-gradient(180deg, rgba(11,14,20,.55), rgba(11,14,20,.75));
 }
 
-a{color:inherit;text-decoration:none}
-img{max-width:100%;height:auto;display:block}
-iframe{width:100%;height:100%;border:0;display:block}
-
-.card, .linkcard, .roadmap__list li { overflow-wrap:anywhere; }
+img{max-width:100%;display:block}
+a{text-decoration:none;color:inherit}
 
 /* ===================================== */
-/* CONTAINER                              */
+/* CONTAINER                             */
 /* ===================================== */
-.container{max-width:1120px;margin:0 auto;padding:0 18px}
+.container{
+  max-width:1120px;
+  margin:0 auto;
+  padding:0 18px;
+}
 
-/* Top bar */
+/* ===================================== */
+/* TOP BAR                               */
+/* ===================================== */
 .topbar{
-  position:sticky;top:0;z-index:50;
+  position:sticky;
+  top:0;
+  z-index:50;
   background:rgba(11,14,20,.75);
-  backdrop-filter: blur(12px);
+  backdrop-filter:blur(12px);
   border-bottom:1px solid var(--line);
 }
+
 .topbar__inner{
-  display:flex;align-items:center;justify-content:space-between;
-  gap:12px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
   padding:14px 0;
   flex-wrap:wrap;
+  gap:12px;
 }
 
-.brand{display:flex;align-items:center;gap:12px;min-width:220px}
+.brand{display:flex;align-items:center;gap:12px}
 .brand__dot{
   width:14px;height:14px;border-radius:999px;
-  background: linear-gradient(135deg, var(--accent), var(--accent2));
-  box-shadow: 0 0 0 6px rgba(124,92,255,.10);
+  background:linear-gradient(135deg,var(--accent),var(--accent2));
+  box-shadow:0 0 0 6px rgba(124,92,255,.1);
 }
 .brand__name{font-weight:800}
 .brand__tag{font-size:12px;color:var(--muted)}
 
-/* Nav */
 .nav{
   display:flex;
   gap:12px;
   flex-wrap:wrap;
-  justify-content:flex-end;
-  align-items:center;
 }
 .nav a{
-  color:var(--text);
-  font-weight:800;
   padding:10px 14px;
   border-radius:999px;
-  border:1px solid rgba(255,255,255,.10);
+  border:1px solid rgba(255,255,255,.12);
   background:rgba(255,255,255,.03);
-  white-space:nowrap;
+  font-weight:800;
 }
 .nav a:hover{
-  border-color:rgba(255,255,255,.22);
-  background:rgba(255,255,255,.05);
+  background:rgba(255,255,255,.06);
 }
 
-/* Hero */
+/* ===================================== */
+/* HERO                                  */
+/* ===================================== */
 .hero{padding:44px 0}
-.hero__grid{
-  display:grid;
-  grid-template-columns:1.15fr .85fr;
-  gap:20px;
-  align-items:start;
-  min-width:0;
-}
-.hero__grid > *{min-width:0}
-@media(max-width:900px){
-  .hero{padding:34px 0}
-  .hero__grid{grid-template-columns:1fr}
-}
 
 h1{
-  font-size:clamp(32px, 4.4vw, 44px);
-  margin:0 0 12px;
+  font-size:clamp(32px,4.4vw,44px);
+  font-weight:900;
   line-height:1.05;
-  font-weight:900;
+  margin:0 0 14px;
 }
-
-/* CTA */
-.cta{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
-.cta--center{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  align-items:stretch;
-}
-.cta--center .btn{width:100%}
 
 /* ===================================== */
-/* Buttons – CLEAR GLASS (NO BLUR)       */
+/* LORE + THESIS PILL                    */
 /* ===================================== */
-.btn{
-  padding:12px 14px;
-  border-radius:14px;
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(255,255,255,.20);
-  color:white;
-  font-weight:900;
-  letter-spacing:.2px;
-  transition: transform .08s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:46px;
-  text-align:center;
-  line-height:1.1;
-  backdrop-filter:none !important;
-  -webkit-backdrop-filter:none !important;
-}
-.btn:hover{
-  transform:translateY(-1px);
-  background: rgba(255,255,255,.08);
-  border-color:rgba(255,255,255,.40);
-  box-shadow: 0 0 22px rgba(255,0,0,.25);
-}
-.btn--primary{
-  background: rgba(255,255,255,.04);
-  border: 1px solid rgba(0,212,255,.40);
-  color: #ffffff;
-  backdrop-filter:none !important;
-  -webkit-backdrop-filter:none !important;
-  box-shadow: 0 0 0 1px rgba(0,212,255,.20) inset;
-}
-.btn--ghost{background:transparent}
-
-/* Sections */
-.section{padding:50px 0}
-.section--alt{
-  background:rgba(255,255,255,.02);
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
-}
-
-.card{
-  background:linear-gradient(180deg,#12182a,#0d1222);
-  border:1px solid var(--line);
-  border-radius:18px;
-  box-shadow:var(--shadow);
-  overflow:hidden;
-}
-.card__body{padding:16px}
-.small{font-size:12px;color:var(--muted)}
-
-/* LIVE badge */
-.live-badge{
-  margin-left:10px;
-  padding:4px 8px;
-  border-radius:999px;
-  font-size:11px;
-  font-weight:900;
-  letter-spacing:.5px;
-  background:rgba(255,255,255,.12);
-  color:#ddd;
-  border:1px solid rgba(255,255,255,.25);
-}
-.live-badge.is-live{
-  background:#ff3b3b;
-  color:white;
-  border-color:#ff3b3b;
-  animation:pulse 1.5s infinite;
-}
-@keyframes pulse{
-  0%{box-shadow:0 0 0 0 rgba(255,59,59,.7)}
-  70%{box-shadow:0 0 0 8px rgba(255,59,59,0)}
-  100%{box-shadow:0 0 0 0 rgba(255,59,59,0)}
-}
-
-/* ===================================================== */
-/* ✅ LORE + THESIS PILL (MATCH COMPARISON)               */
-/* ===================================================== */
 .thesis{
-  margin: 14px 0 10px;
-  border: 1px solid rgba(0,212,255,.18);
-  border-radius: 18px;
-  overflow: hidden;
-  background:
-    radial-gradient(900px 420px at 10% 0%, rgba(124,92,255,.18), transparent 60%),
-    radial-gradient(900px 420px at 90% 0%, rgba(0,212,255,.14), transparent 58%),
-    linear-gradient(180deg, rgba(16,22,38,.92), rgba(9,12,22,.92));
+  margin:16px 0;
+  border:1px solid rgba(0,212,255,.18);
+  border-radius:18px;
+  overflow:hidden;
+  background:linear-gradient(180deg,#111828,#0c111e);
 }
 
-/* the pill bar itself */
 .thesis__summary{
-  cursor:pointer;
   list-style:none;
+  cursor:pointer;
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  gap:14px;
-
-  /* pill */
-  margin: 10px 12px 12px;
-  padding: 14px 18px;
-  border-radius: 999px;
-
-  border: 1px solid rgba(0,212,255,.22);
-  background: rgba(255,255,255,.04);
-
+  align-items:center;
+  padding:14px 18px;
+  margin:10px 12px;
+  border-radius:999px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(0,212,255,.25);
   font-weight:900;
 }
+
 .thesis__summary::-webkit-details-marker{display:none}
 
 .thesis__tag{
   font-size:12px;
   letter-spacing:1px;
-  color: rgba(154,252,255,.98);
-  font-weight:900;
+  color:#9afcff;
 }
+
 .thesis__hint{
   font-size:12px;
-  color: rgba(233,238,251,.92);
-  font-weight:800;
-  opacity:.9;
+  opacity:.8;
 }
 
 .thesis__body{
-  padding: 14px 16px 16px;
-  color: rgba(168,179,209,.96);
-}
-.thesis__title{
-  margin:0 0 10px;
-  color: rgba(233,238,251,.98);
+  padding:14px 18px 20px;
+  color:var(--muted);
 }
 
-/* ===================================================== */
-/* ✅ ROADMAP CARD (CLEAR GLASS)                          */
-/* ===================================================== */
+/* ===================================== */
+/* BUTTONS                               */
+/* ===================================== */
+.btn{
+  padding:12px 14px;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.04);
+  font-weight:900;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:46px;
+}
+.btn:hover{
+  background:rgba(255,255,255,.08);
+}
+.btn--primary{
+  border-color:rgba(0,212,255,.4);
+}
+
+/* ===================================== */
+/* ROADMAP CARD                          */
+/* ===================================== */
 .overview--pop{
-  position:relative;
-  border: 1px solid rgba(0,212,255,.22);
-  background: rgba(20, 70, 140, .08);
-  box-shadow: 0 24px 80px rgba(0,0,0,.32);
-}
-.overview--pop::before{
-  content:"";
-  position:absolute;
-  inset:-1px;
+  margin-top:26px;
   border-radius:18px;
-  padding:1px;
-  background: linear-gradient(135deg, rgba(124,92,255,.75), rgba(0,212,255,.55));
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-  opacity:.40;
-  pointer-events:none;
+  border:1px solid rgba(0,212,255,.25);
+  background:rgba(20,70,140,.08);
+  box-shadow:var(--shadow);
+  overflow:hidden;
 }
 
-/* ===================================================== */
-/* ✅ ROADMAP TITLES — EXACT H1 + TIGHTER TO EVOL         */
-/* ===================================================== */
+/* ===================================== */
+/* TITLES ABOVE + BELOW EVOLUTION        */
+/* ===================================== */
 .roadmap-super-title,
 .roadmap-sub-title{
-  font-family: Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  font-size: clamp(32px, 4.4vw, 44px);
-  font-weight: 900;
-  line-height: 1.05;
-  letter-spacing: -0.5px;
-  text-align: center;
-  width: 100%;
-  margin: 0;
-  color: var(--text);
-  text-wrap: balance;
+  font-size:clamp(32px,4.4vw,44px);
+  font-weight:900;
+  text-align:center;
+  margin:0;
+  line-height:1.05;
 }
 
-/* Pull titles closer to the image */
 .roadmap-super-title{
-  padding: 12px 18px 4px;   /* tighter */
-}
-.roadmap-sub-title{
-  padding: 4px 18px 8px;    /* tighter */
+  padding:14px 18px 4px;
 }
 
-/* ===================================================== */
-/* ✅ EVOLUTION (SMALLER + LESS GAP)                      */
-/* ===================================================== */
+.roadmap-sub-title{
+  padding:4px 18px 8px;
+}
+
+/* ===================================== */
+/* EVOLUTION IMAGE                       */
+/* ===================================== */
 .roadmap-evolution{
   text-align:center;
-  padding: 0 !important;
-  margin: 0 !important;
-  background: transparent !important;
+  padding:0;
+  margin:0;
 }
+
 .evolution-img{
-  display:block;
-  margin: 0 auto !important;
-  width: 100%;
-  max-width: 88%;           /* smaller = less vertical feel */
-  height: auto;
-
-  opacity:.92;
+  margin:0 auto;
+  width:100%;
+  max-width:88%;
+  mix-blend-mode:multiply;   /* removes white box visually */
   filter:
-    saturate(1.45)
+    saturate(1.5)
     contrast(1.25)
-    brightness(1.02)
-    drop-shadow(0 12px 28px rgba(0,0,0,.55))
-    drop-shadow(0 0 26px rgba(255,205,120,.35));
-
-  pointer-events:none;
-  transform: translateZ(0);
+    drop-shadow(0 12px 28px rgba(0,0,0,.55));
 }
 
-@media(max-width:900px){
-  .evolution-img{ max-width: 90%; }
-  .roadmap-super-title{ padding: 10px 16px 3px; }
-  .roadmap-sub-title{ padding: 3px 16px 7px; }
-}
-
-/* ===================================================== */
-/* ROADMAP LIST                                            */
-/* ===================================================== */
+/* ===================================== */
+/* ROADMAP LIST                          */
+/* ===================================== */
 .roadmap{
-  padding: 10px 16px 14px;
+  padding:10px 16px 16px;
 }
+
 .roadmap__head{
   display:flex;
   justify-content:space-between;
-  align-items:baseline;
-  gap:12px;
-  margin-bottom:6px;
   flex-wrap:wrap;
+  margin-bottom:8px;
 }
-.roadmap__title{font-weight:900;font-size:16px}
-.roadmap__sub{color:rgba(168,179,209,.95);font-size:12px;font-weight:800}
+
+.roadmap__title{
+  font-weight:900;
+  font-size:16px;
+}
+
+.roadmap__sub{
+  font-size:12px;
+  color:var(--muted);
+}
 
 .roadmap__list{
-  margin:0;
-  padding:0;
   list-style:none;
+  padding:0;
+  margin:0;
   display:flex;
   flex-direction:column;
   gap:8px;
 }
+
 .roadmap__list li{
-  padding:12px 12px;
+  padding:12px;
   border-radius:14px;
   border:1px solid rgba(255,255,255,.14);
-  background: rgba(10, 30, 70, .08);
+  background:rgba(10,30,70,.08);
 }
+
 .roadmap__list li b{
   display:block;
   font-size:14px;
-  letter-spacing:.2px;
 }
+
 .roadmap__list li span{
-  display:block;
-  color: rgba(168,179,209,.95);
   font-size:12px;
+  color:var(--muted);
   margin-top:4px;
+  display:block;
 }
 
-/* Live */
-.livegrid{
-  display:grid;
-  grid-template-columns:1.2fr .8fr;
-  gap:16px;
-  min-width:0;
-}
-.livegrid > *{min-width:0}
-@media(max-width:900px){.livegrid{grid-template-columns:1fr}}
-.embedwrap{
-  aspect-ratio:16/9;
-  background:#000;
-  border-radius:12px;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.10);
-}
-
-.field{display:flex;flex-direction:column;gap:6px;margin:10px 0}
-.field span{font-size:12px;color:var(--muted)}
-input{
-  padding:10px 12px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.14);
-  background:#0b0e18;
-  color:white;
-  outline:none;
-  width:100%;
-  max-width:100%;
-}
-input:focus{border-color:rgba(124,92,255,.7)}
-
-/* Miles */
-.progress{margin-top:10px}
-.progress__meta{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap}
-.bar{
-  height:14px;
-  background:#111;
-  border-radius:999px;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.10);
-  margin:8px 0;
-}
-.bar__fill{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  transition:width .25s ease;
-}
-.milegrid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-  min-width:0;
-}
-.milegrid > *{min-width:0}
-@media(max-width:900px){.milegrid{grid-template-columns:1fr}}
-
-/* Links */
-.linkgrid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:16px;
-  min-width:0;
-}
-.linkgrid > *{min-width:0}
-@media(max-width:900px){.linkgrid{grid-template-columns:1fr}}
-.linkcard{
-  padding:16px;
-  border:1px solid var(--line);
-  border-radius:14px;
-  background:#0f1422;
-  transition: transform .08s ease, border-color .2s ease, background .2s ease;
-}
-.linkcard:hover{
-  transform:translateY(-1px);
-  border-color:rgba(255,255,255,.25)
-}
-
-/* Footer */
+/* ===================================== */
+/* FOOTER                                */
+/* ===================================== */
 .footer{
   border-top:1px solid var(--line);
   padding:18px 0;
   color:var(--muted);
-}
-.footer__inner{
-  display:flex;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:12px;
-}
-
-/* FOMO */
-.fomo{ position: relative; border: 1px solid rgba(0,212,255,.22); }
-.fomo__body{ display:grid; grid-template-columns: 1.2fr .8fr; gap: 18px; align-items:center; min-width:0; }
-.fomo__body > *{min-width:0}
-@media(max-width:900px){
-  .fomo__body{grid-template-columns:1fr}
-  .fomo__right{justify-content:flex-start}
-}
-.fomo__tag{
-  display:inline-flex;
-  font-size:11px;
-  letter-spacing:.9px;
-  font-weight:900;
-  padding:6px 10px;
-  border-radius:999px;
-  border:1px solid rgba(0,212,255,.35);
-  background: rgba(0,212,255,.08);
-  color: rgba(154,252,255,.95);
-  margin-bottom: 10px;
-}
-.fomo__title{ margin: 0 0 10px; font-size: 28px; line-height: 1.1; font-weight:900; }
-.fomo__brand{
-  background: linear-gradient(135deg, var(--accent2), var(--accent));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-.fomo__cta{ display:flex; gap:10px; flex-wrap:wrap; margin: 10px 0 8px; }
-.fomo__logo{
-  width: 220px;
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-  border-radius: 16px;
-  filter: drop-shadow(0 18px 60px rgba(0,212,255,.20));
-  opacity: .95;
 }
