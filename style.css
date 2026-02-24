@@ -549,3 +549,59 @@ input:focus{border-color:rgba(124,92,255,.7)}
 .roadmap-evolution{
   background: transparent !important;
 }
+/* ===================================================== */
+/* ✅ ROADMAP CONDENSE + CLEAR BLUE GLASS OVERRIDES       */
+/*    (ADD THIS WHOLE BLOCK AT THE VERY BOTTOM)          */
+/* ===================================================== */
+
+/* Make the whole Roadmap card almost clear (slight blue hue) */
+.overview--pop{
+  background: rgba(20, 70, 140, .08) !important;  /* lighter + clearer */
+  border: 1px solid rgba(0, 212, 255, .22) !important;
+  box-shadow: 0 24px 80px rgba(0,0,0,.32) !important;
+}
+
+/* Keep the gradient border but softer */
+.overview--pop::before{
+  opacity: .40 !important;
+}
+
+/* ✅ CONDENSE: bring top border + evolution + title closer */
+.roadmap-evolution{
+  padding-top: 6px !important;     /* less space above the image */
+  padding-bottom: 6px !important;  /* less space below the image */
+  margin: 0 !important;
+}
+
+/* Pull the evolution objects upward slightly inside the card */
+.evolution-img{
+  margin: 0 auto 8px auto !important;   /* less gap below image */
+  padding: 0 !important;
+  display:block;
+}
+
+/* Tighten roadmap content padding so title is closer to evolution */
+.roadmap{
+  padding: 10px 16px 14px !important;   /* was 16px 16px 18px */
+}
+
+/* Tighten space under title/subtitle */
+.roadmap__head{
+  margin-bottom: 6px !important;        /* was 10px */
+}
+
+/* Slightly tighten subtitle line */
+.roadmap__sub{
+  margin-top: 2px !important;
+}
+
+/* Roadmap step boxes — more see-through */
+.roadmap__list li{
+  background: rgba(10, 30, 70, .08) !important; /* faint blue glass */
+  border: 1px solid rgba(255,255,255,.14) !important;
+}
+
+/* Optional: tighten spacing between steps a bit */
+.roadmap__list{
+  gap: 8px !important;  /* was 10px */
+}
