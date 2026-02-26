@@ -72,14 +72,24 @@ iframe{width:100%;height:100%;border:0;display:block}
 .container{max-width:1120px;margin:0 auto;padding:0 18px}
 
 /* ===================================== */
-/* TOPBAR                                 */
+/* TOPBAR (MATCH LORE + THESIS BLUE)      */
 /* ===================================== */
 .topbar{
   position:sticky;top:0;z-index:50;
-  background:rgba(11,14,20,.75);
+
+  /* match lore+thesis gradient language */
+  background:
+    radial-gradient(900px 260px at 10% 0%, rgba(124,92,255,.22), transparent 60%),
+    radial-gradient(900px 260px at 90% 0%, rgba(0,212,255,.18), transparent 58%),
+    linear-gradient(180deg, rgba(16,22,38,.92), rgba(9,12,22,.92));
+
+  border-bottom: 1px solid rgba(0,212,255,.18);
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+
   backdrop-filter: blur(12px);
-  border-bottom:1px solid var(--line);
+  -webkit-backdrop-filter: blur(12px);
 }
+
 .topbar__inner{
   display:flex;align-items:center;justify-content:space-between;
   gap:12px;
@@ -555,11 +565,9 @@ input:focus{border-color:rgba(124,92,255,.7)}
   flex-wrap:wrap;
   gap:12px;
 }
-.profile-pic {
-  margin-left: 8px;   /* pushes it slightly right */
-}
+
 /* ===================================================== */
-/* ✅ TOP LEFT PROFILE IMAGE ALIGNMENT FIX               */
+/* ✅ TOP LEFT PROFILE IMAGE ALIGNMENT FIX                */
 /* ===================================================== */
 
 /* Reduce left padding inside topbar only */
@@ -571,3 +579,7 @@ input:focus{border-color:rgba(124,92,255,.7)}
 .brand__logo{
   margin-left: -4px;   /* fine tune if needed */
 }
+
+/* ===================================================== */
+/* NOTE: Removed unused .profile-pic (logo uses .brand__logo) */
+/* ===================================================== */
