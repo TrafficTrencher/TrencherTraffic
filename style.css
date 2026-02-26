@@ -583,3 +583,47 @@ input:focus{border-color:rgba(124,92,255,.7)}
 /* ===================================================== */
 /* NOTE: Removed unused .profile-pic (logo uses .brand__logo) */
 /* ===================================================== */
+/* ===================================================== */
+/* ✅ HEADER ROW LAYOUT (Name left, Status right)        */
+/* ===================================================== */
+
+.brand__text{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  min-width:0;
+}
+
+/* Row containing name + badge */
+.brand__row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  width:100%;
+}
+
+/* Remove old margin-left behavior from badge */
+.brand__row .live-badge{
+  margin-left:0 !important;
+  white-space:nowrap;
+}
+
+/* Tagline below */
+.brand__tag{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.2;
+}
+
+/* Mobile behavior */
+@media(max-width:520px){
+  .brand__row{
+    flex-wrap:wrap;
+    gap:6px 10px;
+  }
+
+  .brand__tag{
+    white-space:normal;
+  }
+}
