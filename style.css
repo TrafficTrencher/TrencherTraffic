@@ -558,3 +558,16 @@ input:focus{border-color:rgba(124,92,255,.7)}
 .profile-pic {
   margin-left: 8px;   /* pushes it slightly right */
 }
+/* ===================================================== */
+/* ✅ TOP LEFT PROFILE IMAGE ALIGNMENT FIX               */
+/* ===================================================== */
+
+/* Reduce left padding inside topbar only */
+.topbar .container{
+  padding-left: 8px;   /* was 18px */
+}
+
+/* Optional micro-adjust for logo itself */
+.brand__logo{
+  margin-left: -4px;   /* fine tune if needed */
+}
