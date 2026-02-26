@@ -75,7 +75,12 @@ iframe{width:100%;height:100%;border:0;display:block}
 /* TOPBAR (MATCH LORE + THESIS BLUE)      */
 /* ===================================== */
 .topbar{
-  position:sticky;top:0;z-index:50;
+  position:sticky;
+  top:0;
+  z-index:50;
+
+  /* ✅ allow absolute child image */
+  overflow: visible;
 
   /* match lore+thesis gradient language */
   background:
@@ -90,11 +95,23 @@ iframe{width:100%;height:100%;border:0;display:block}
   -webkit-backdrop-filter: blur(12px);
 }
 
+/* ✅ Header layout row */
 .topbar__inner{
-  display:flex;align-items:center;justify-content:space-between;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
   gap:12px;
   padding:14px 0;
   flex-wrap:wrap;
+
+  /* ✅ reserve space so the top-right image never overlaps nav */
+  padding-right: 86px;
+}
+@media(max-width:900px){
+  .topbar__inner{ padding-right: 70px; }
+}
+@media(max-width:520px){
+  .topbar__inner{ padding-right: 62px; }
 }
 
 /* ✅ BRAND: REPLACE DOT WITH PNG LOGO */
@@ -108,12 +125,47 @@ iframe{width:100%;height:100%;border:0;display:block}
   height:32px;
   object-fit:contain;
   display:block;
-  /* optional subtle pop */
   filter: drop-shadow(0 8px 18px rgba(0,0,0,.45));
+  margin-left: -4px;   /* fine tune */
 }
 
 .brand__name{font-weight:800}
 .brand__tag{font-size:12px;color:var(--muted)}
+
+/* ===================================== */
+/* ✅ HEADER ROW LAYOUT (Name left, Status right) */
+/* ===================================== */
+.brand__text{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  min-width:0;
+}
+.brand__row{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  width:100%;
+}
+.brand__row .live-badge{
+  margin-left:0 !important;
+  white-space:nowrap;
+}
+.brand__tag{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.2;
+}
+@media(max-width:520px){
+  .brand__row{
+    flex-wrap:wrap;
+    gap:6px 10px;
+  }
+  .brand__tag{
+    white-space:normal;
+  }
+}
 
 /* Nav */
 .nav{
@@ -135,6 +187,44 @@ iframe{width:100%;height:100%;border:0;display:block}
 .nav a:hover{
   border-color:rgba(255,255,255,.22);
   background:rgba(255,255,255,.05);
+}
+
+/* ===================================== */
+/* ✅ TOP RIGHT HEADER IMAGE (CIRCLED SPOT) */
+/* ===================================== */
+/* IMPORTANT: image is a direct child of .topbar in your index */
+.top-right-img{
+  position:absolute;
+
+  /* right side inside blue bar */
+  right: 16px;
+
+  /* place it in the empty upper band (above nav pills) */
+  top: 18px;
+
+  width: 62px;
+  height: auto;
+
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 80;
+
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,.55));
+}
+
+@media(max-width:900px){
+  .top-right-img{
+    right: 12px;
+    top: 16px;
+    width: 54px;
+  }
+}
+@media(max-width:520px){
+  .top-right-img{
+    right: 10px;
+    top: 14px;
+    width: 48px;
+  }
 }
 
 /* ===================================== */
@@ -222,7 +312,6 @@ h1{
 
 /* LIVE badge */
 .live-badge{
-  margin-left:10px;
   padding:4px 8px;
   border-radius:999px;
   font-size:11px;
@@ -245,7 +334,7 @@ h1{
 }
 
 /* ===================================================== */
-/* ✅ LORE + THESIS — PILL (MATCH COMPARISON)             */
+/* ✅ LORE + THESIS — PILL                                 */
 /* ===================================================== */
 .thesis{
   margin: 14px 0 10px;
@@ -265,17 +354,13 @@ h1{
   align-items:center;
   justify-content:space-between;
   gap:14px;
-
-  /* pill */
   margin: 10px 12px 12px;
   padding: 14px 18px;
   border-radius: 999px;
-
   border: 1px solid rgba(0,212,255,.22);
   background:
     linear-gradient(135deg, rgba(124,92,255,.28), rgba(0,212,255,.18)),
     rgba(255,255,255,.03);
-
   font-weight: 900;
 }
 .thesis__summary::-webkit-details-marker{display:none}
@@ -331,7 +416,7 @@ h1{
 }
 
 /* ===================================================== */
-/* ✅ ROADMAP TITLES — MATCH H1 EXACTLY + TIGHT            */
+/* ✅ ROADMAP TITLES                                       */
 /* ===================================================== */
 .roadmap-super-title,
 .roadmap-sub-title{
@@ -346,13 +431,11 @@ h1{
   padding-left: 18px;
   padding-right: 18px;
 }
-
-/* Pull titles closer to the image */
 .roadmap-super-title{ padding-top: 12px; padding-bottom: 4px; }
 .roadmap-sub-title{ padding-top: 4px;  padding-bottom: 8px; }
 
 /* ===================================================== */
-/* ✅ EVOLUTION IMAGE — TIGHT + NO WHITE BOX               */
+/* ✅ EVOLUTION IMAGE                                      */
 /* ===================================================== */
 .roadmap-evolution{
   text-align:center;
@@ -569,118 +652,6 @@ input:focus{border-color:rgba(124,92,255,.7)}
 /* ===================================================== */
 /* ✅ TOP LEFT PROFILE IMAGE ALIGNMENT FIX                */
 /* ===================================================== */
-
-/* Reduce left padding inside topbar only */
 .topbar .container{
   padding-left: 8px;   /* was 18px */
-}
-
-/* Optional micro-adjust for logo itself */
-.brand__logo{
-  margin-left: -4px;   /* fine tune if needed */
-}
-
-/* ===================================================== */
-/* NOTE: Removed unused .profile-pic (logo uses .brand__logo) */
-/* ===================================================== */
-/* ===================================================== */
-/* ✅ HEADER ROW LAYOUT (Name left, Status right)        */
-/* ===================================================== */
-
-.brand__text{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-  min-width:0;
-}
-
-/* Row containing name + badge */
-.brand__row{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:12px;
-  width:100%;
-}
-
-/* Remove old margin-left behavior from badge */
-.brand__row .live-badge{
-  margin-left:0 !important;
-  white-space:nowrap;
-}
-
-/* Tagline below */
-.brand__tag{
-  font-size:12px;
-  color:var(--muted);
-  line-height:1.2;
-}
-
-/* Mobile behavior */
-@media(max-width:520px){
-  .brand__row{
-    flex-wrap:wrap;
-    gap:6px 10px;
-  }
-
-  .brand__tag{
-    white-space:normal;
-  }
-}
-/* ===================================== */
-/* TOP RIGHT IMAGE (anchored to nav)     */
-/* ===================================== */
-
-.nav--wrap{
-  position: relative;
-}
-
-.top-right-img{
-  position:absolute;
-  top:-18px;
-  right:-6px;
-  width:56px;
-  height:auto;
-  z-index:80;
-  pointer-events:none;
-  filter: drop-shadow(0 10px 20px rgba(0,0,0,.55));
-}
-
-@media(max-width:900px){
-  .top-right-img{
-    top:-16px;
-    right:-4px;
-    width:48px;
-  }
-}
-/* ===================================== */
-/* TOP RIGHT HEADER IMAGE (FINAL)       */
-/* ===================================== */
-
-.topbar{
-  position: relative;
-  overflow: visible;
-}
-
-.top-right-img{
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  
-  height: 70px;   /* adjust size here */
-  width: auto;
-
-  object-fit: contain;
-  pointer-events: none;
-  z-index: 60;
-
-  filter: drop-shadow(0 10px 20px rgba(0,0,0,.5));
-}
-
-@media(max-width:900px){
-  .top-right-img{
-    height: 55px;
-    right: 14px;
-  }
 }
