@@ -653,3 +653,34 @@ input:focus{border-color:rgba(124,92,255,.7)}
     width:48px;
   }
 }
+/* ===================================== */
+/* TOP RIGHT HEADER IMAGE (FINAL)       */
+/* ===================================== */
+
+.topbar{
+  position: relative;
+  overflow: visible;
+}
+
+.top-right-img{
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  
+  height: 70px;   /* adjust size here */
+  width: auto;
+
+  object-fit: contain;
+  pointer-events: none;
+  z-index: 60;
+
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,.5));
+}
+
+@media(max-width:900px){
+  .top-right-img{
+    height: 55px;
+    right: 14px;
+  }
+}
