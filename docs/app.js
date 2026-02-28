@@ -3,6 +3,7 @@ const CONFIG = {
   milestoneCount: 25,
   milesStorageKey: "tt_miles_v1",
   streamStorageKey: "tt_stream_v1",
+  liveStorageKey: "tt_live_v1",
   fomoReferralUrl: "https://fomo.family/r/TrafficTrencher"
 };
 
@@ -19,6 +20,20 @@ function setYear(){
   if (y) y.textContent = String(new Date().getFullYear());
 }
 
+/* ===== LIVE (manual) ===== */
+function loadLiveFlag(){
+  try{
+    return localStorage.getItem(CONFIG.liveStorageKey) === "1";
+  }catch{
+    return false;
+  }
+}
+function saveLiveFlag(on){
+  try{
+    localStorage.setItem(CONFIG.liveStorageKey, on ? "1" : "0");
+  }catch{}
+}
+
 function setLiveBadge(isLive){
   const badge = qs("#liveBadge");
   if (!badge) return;
@@ -26,38 +41,28 @@ function setLiveBadge(isLive){
   if (isLive){
     badge.textContent = "LIVE";
     badge.classList.add("is-live");
-  } else {
+  }else{
     badge.textContent = "OFFLINE";
     badge.classList.remove("is-live");
   }
 
-  document.documentElement.classList.toggle("tt-live", !!isLive);
-
+  // banner
   const nowLive = qs("#nowLive");
   if (nowLive) nowLive.hidden = !isLive;
 }
 
-// Desktop opens thesis, mobile keeps it collapsed
-function setThesisDefault(){
-  const d = qs("#thesisDetails");
-  if (!d) return;
-
-  const mq = window.matchMedia("(min-width: 901px)");
-  const apply = () => { d.open = mq.matches; };
-
-  apply();
-  try{ mq.addEventListener("change", apply); }
-  catch{ mq.addListener(apply); }
+function computeIsLive(streamUrl, liveFlag){
+  // ✅ LIVE only when YOU toggle it on AND a stream URL exists
+  return !!(liveFlag && streamUrl && String(streamUrl).trim());
 }
 
-/* Reveal on scroll */
+/* ===== Reveal ===== */
 function setupReveal(){
   const els = Array.from(document.querySelectorAll(".reveal"));
   if (!("IntersectionObserver" in window) || els.length === 0){
     els.forEach(el => el.classList.add("is-visible"));
     return;
   }
-
   const io = new IntersectionObserver((entries) => {
     for (const e of entries){
       if (e.isIntersecting){
@@ -66,11 +71,10 @@ function setupReveal(){
       }
     }
   }, { threshold: 0.10, rootMargin: "60px 0px" });
-
   els.forEach(el => io.observe(el));
 }
 
-/* Miles */
+/* ===== Miles ===== */
 function loadMiles(){
   try{
     const raw = localStorage.getItem(CONFIG.milesStorageKey);
@@ -79,7 +83,6 @@ function loadMiles(){
     return 0;
   }
 }
-
 function saveMiles(miles){
   localStorage.setItem(CONFIG.milesStorageKey, String(clampInt(miles)));
 }
@@ -91,7 +94,7 @@ function renderClaimsHUD(miles){
   const claimsTotalEl = qs("#claimsTotal");
   const claimFillEl = qs("#claimFill");
 
-  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount); // 1000
+  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount);
   const totalClaims = CONFIG.milestoneCount;
 
   const done = Math.min(totalClaims, Math.floor(miles / step));
@@ -158,7 +161,7 @@ function attachMilesUI(){
   });
 }
 
-/* Stream */
+/* ===== Stream ===== */
 function loadStream(){
   try{
     return localStorage.getItem(CONFIG.streamStorageKey) || "";
@@ -172,33 +175,62 @@ function saveStream(url){
 function clearStream(){
   try{ localStorage.removeItem(CONFIG.streamStorageKey); }catch{}
 }
+
 function renderStream(url){
   const frame = qs("#streamFrame");
   if (frame) frame.src = url || "";
-  setLiveBadge(!!(url && url.trim()));
 }
+
+function syncLiveUI(streamUrl, liveFlag){
+  const toggle = qs("#liveToggle");
+  if (toggle) toggle.checked = !!liveFlag;
+
+  const isLive = computeIsLive(streamUrl, liveFlag);
+  setLiveBadge(isLive);
+}
+
 function attachStreamUI(){
   const input = qs("#streamUrl");
   const saveBtn = qs("#saveStream");
   const clearBtn = qs("#clearStream");
+  const liveToggle = qs("#liveToggle");
+
   if (!input || !saveBtn) return;
 
   saveBtn.addEventListener("click", () => {
     const url = String(input.value || "").trim();
     saveStream(url);
     renderStream(url);
+    const liveFlag = loadLiveFlag();
+    syncLiveUI(url, liveFlag);
   });
 
   if (clearBtn){
     clearBtn.addEventListener("click", () => {
       clearStream();
       input.value = "";
+
+      // ✅ If stream cleared, force LIVE off too
+      saveLiveFlag(false);
+      if (liveToggle) liveToggle.checked = false;
+
       renderStream("");
+      syncLiveUI("", false);
+    });
+  }
+
+  if (liveToggle){
+    liveToggle.addEventListener("change", () => {
+      const on = !!liveToggle.checked;
+      saveLiveFlag(on);
+
+      const url = loadStream();
+      syncLiveUI(url, on);
     });
   }
 }
 
-/* Copy FOMO */
+/* ===== Copy FOMO ===== */
 async function copyToClipboard(text){
   if (navigator.clipboard && navigator.clipboard.writeText){
     await navigator.clipboard.writeText(text);
@@ -219,6 +251,47 @@ async function copyToClipboard(text){
 function attachCopyFomo(){
   const btn = qs("#copyFomo");
   const toast = qs("#copyToast");
+
+  // ✅ Force-hide toast on every load
+  if (toast) toast.hidden = true;
+
   if (!btn) return;
 
-  btn.add
+  btn.addEventListener("click", async () => {
+    try{
+      await copyToClipboard(CONFIG.fomoReferralUrl);
+      if (toast){
+        toast.hidden = false;
+        clearTimeout(attachCopyFomo._t);
+        attachCopyFomo._t = setTimeout(() => { toast.hidden = true; }, 1400);
+      }
+    }catch{
+      window.open(CONFIG.fomoReferralUrl, "_blank", "noopener");
+    }
+  });
+}
+
+(function init(){
+  setYear();
+  setupReveal();
+
+  // Miles
+  const miles = loadMiles();
+  renderMiles(miles);
+  renderMilestones(miles);
+  attachMilesUI();
+
+  // Stream + Live
+  const stream = loadStream();
+  const liveFlag = loadLiveFlag();
+  renderStream(stream);
+
+  const streamInput = qs("#streamUrl");
+  if (streamInput) streamInput.value = stream;
+
+  syncLiveUI(stream, liveFlag);
+  attachStreamUI();
+
+  // Copy
+  attachCopyFomo();
+})();
