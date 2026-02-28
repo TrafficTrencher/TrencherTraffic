@@ -1,169 +1,224 @@
-(() => {
-  // =========================
-  // CONFIG
-  // =========================
-  const GOAL = 50000;
-  const CLAIM_COUNT = 25;
-  const STEP = 2000; // every 2,000 miles
+const CONFIG = {
+  goalMiles: 25000,
+  milestoneCount: 25,
+  milesStorageKey: "tt_miles_v1",
+  streamStorageKey: "tt_stream_v1",
+  fomoReferralUrl: "https://fomo.family/r/TrafficTrencher"
+};
 
-  // =========================
-  // DOM
-  // =========================
-  const yearEl = document.getElementById("year");
-  const liveBadge = document.getElementById("liveBadge");
-  const streamFrame = document.getElementById("streamFrame");
-  const streamUrlInput = document.getElementById("streamUrl");
-  const saveStreamBtn = document.getElementById("saveStream");
+const qs = (s) => document.querySelector(s);
 
-  const currentMilesText = document.getElementById("currentMilesText");
-  const percentText = document.getElementById("percentText");
-  const barFill = document.getElementById("barFill");
+function clampInt(n){
+  const v = parseInt(n, 10);
+  if (Number.isNaN(v) || !Number.isFinite(v)) return 0;
+  return Math.max(0, v);
+}
 
-  const milesInput = document.getElementById("currentMiles");
-  const saveMilesBtn = document.getElementById("saveMiles");
-  const milestoneList = document.getElementById("milestoneList");
+function setYear(){
+  const y = qs("#year");
+  if (y) y.textContent = String(new Date().getFullYear());
+}
 
-  // =========================
-  // BASIC HELPERS
-  // =========================
-  const comma = (n) => Number(n).toLocaleString();
-  const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
+function setLiveBadge(isLive){
+  const badge = qs("#liveBadge");
+  if (!badge) return;
 
-  function setLiveBadge() {
-    // Show LIVE badge only when on /#live (simple rule you can change)
-    if (!liveBadge) return;
-    const isLive = location.hash === "#live" || location.hash === "#live/";
-    liveBadge.style.display = isLive ? "inline-flex" : "none";
+  if (isLive){
+    badge.textContent = "LIVE";
+    badge.classList.add("is-live");
+  } else {
+    badge.textContent = "OFFLINE";
+    badge.classList.remove("is-live");
   }
 
-  // =========================
-  // STREAM (local to viewer is fine)
-  // =========================
-  function loadStream() {
-    const saved = localStorage.getItem("tt_stream_url") || "";
-    if (streamUrlInput) streamUrlInput.value = saved;
+  document.documentElement.classList.toggle("tt-live", !!isLive);
 
-    if (streamFrame) {
-      streamFrame.src = saved; // put your embed URL here
+  const nowLive = qs("#nowLive");
+  if (nowLive) nowLive.hidden = !isLive;
+}
+
+// Desktop opens thesis, mobile keeps it collapsed
+function setThesisDefault(){
+  const d = qs("#thesisDetails");
+  if (!d) return;
+
+  const mq = window.matchMedia("(min-width: 901px)");
+  const apply = () => { d.open = mq.matches; };
+
+  apply();
+  try{ mq.addEventListener("change", apply); }
+  catch{ mq.addListener(apply); }
+}
+
+/* Reveal on scroll */
+function setupReveal(){
+  const els = Array.from(document.querySelectorAll(".reveal"));
+  if (!("IntersectionObserver" in window) || els.length === 0){
+    els.forEach(el => el.classList.add("is-visible"));
+    return;
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries){
+      if (e.isIntersecting){
+        e.target.classList.add("is-visible");
+        io.unobserve(e.target);
+      }
     }
+  }, { threshold: 0.10, rootMargin: "60px 0px" });
+
+  els.forEach(el => io.observe(el));
+}
+
+/* Miles */
+function loadMiles(){
+  try{
+    const raw = localStorage.getItem(CONFIG.milesStorageKey);
+    return clampInt(raw ?? 0);
+  }catch{
+    return 0;
+  }
+}
+
+function saveMiles(miles){
+  localStorage.setItem(CONFIG.milesStorageKey, String(clampInt(miles)));
+}
+
+function renderClaimsHUD(miles){
+  const nextClaimAtEl = qs("#nextClaimAt");
+  const milesToNextEl = qs("#milesToNext");
+  const claimsDoneEl = qs("#claimsDone");
+  const claimsTotalEl = qs("#claimsTotal");
+  const claimFillEl = qs("#claimFill");
+
+  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount); // 1000
+  const totalClaims = CONFIG.milestoneCount;
+
+  const done = Math.min(totalClaims, Math.floor(miles / step));
+  const nextAt = Math.min(CONFIG.goalMiles, (done + 1) * step);
+  const milesToNext = Math.max(0, nextAt - miles);
+
+  const withinStep = miles % step;
+  const stepPct = step > 0 ? Math.min(100, Math.floor((withinStep / step) * 100)) : 0;
+
+  if (nextClaimAtEl) nextClaimAtEl.textContent = nextAt.toLocaleString();
+  if (milesToNextEl) milesToNextEl.textContent = milesToNext.toLocaleString();
+  if (claimsDoneEl) claimsDoneEl.textContent = String(done);
+  if (claimsTotalEl) claimsTotalEl.textContent = String(totalClaims);
+  if (claimFillEl) claimFillEl.style.width = `${stepPct}%`;
+}
+
+function renderMiles(miles){
+  const currentMilesText = qs("#currentMilesText");
+  const percentText = qs("#percentText");
+  const barFill = qs("#barFill");
+
+  const pct = CONFIG.goalMiles > 0
+    ? Math.min(100, Math.floor((miles / CONFIG.goalMiles) * 100))
+    : 0;
+
+  if (currentMilesText) currentMilesText.textContent = String(miles);
+  if (percentText) percentText.textContent = `${pct}%`;
+  if (barFill) barFill.style.width = `${pct}%`;
+
+  renderClaimsHUD(miles);
+}
+
+function renderMilestones(miles){
+  const list = qs("#milestoneList");
+  if (!list) return;
+
+  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount);
+  const items = [];
+
+  for (let i = 1; i <= CONFIG.milestoneCount; i++){
+    const at = i * step;
+    const done = miles >= at;
+    items.push(`
+      <li style="margin:6px 0; color:${done ? "rgba(233,238,251,.95)" : "rgba(168,179,209,.85)"}">
+        <b>${done ? "✓" : "•"}</b> ${at.toLocaleString()} miles
+      </li>
+    `);
   }
 
-  function saveStream() {
-    const url = (streamUrlInput?.value || "").trim();
-    localStorage.setItem("tt_stream_url", url);
-    if (streamFrame) streamFrame.src = url;
-  }
+  list.innerHTML = items.join("");
+}
 
-  // =========================
-  // MILES (OFFICIAL / READ-ONLY)
-  // =========================
-  async function loadOfficialMiles() {
-    // cache-bust so commits show up quickly
-    const res = await fetch(`./data/progress.json?v=${Date.now()}`, { cache: "no-store" });
-    if (!res.ok) throw new Error("Missing data/progress.json");
-    const data = await res.json();
-    return Number(data.miles) || 0;
-  }
+function attachMilesUI(){
+  const input = qs("#currentMiles");
+  const btn = qs("#saveMiles");
+  if (!input || !btn) return;
 
-  function renderMiles(miles) {
-    if (currentMilesText) currentMilesText.textContent = comma(miles);
-
-    const pct = clamp((miles / GOAL) * 100, 0, 100);
-    if (percentText) percentText.textContent = `${pct.toFixed(1)}%`;
-    if (barFill) barFill.style.width = `${pct}%`;
-
+  btn.addEventListener("click", () => {
+    const miles = clampInt(input.value);
+    saveMiles(miles);
+    renderMiles(miles);
     renderMilestones(miles);
+    input.value = "";
+  });
+}
+
+/* Stream */
+function loadStream(){
+  try{
+    return localStorage.getItem(CONFIG.streamStorageKey) || "";
+  }catch{
+    return "";
   }
+}
+function saveStream(url){
+  localStorage.setItem(CONFIG.streamStorageKey, url);
+}
+function clearStream(){
+  try{ localStorage.removeItem(CONFIG.streamStorageKey); }catch{}
+}
+function renderStream(url){
+  const frame = qs("#streamFrame");
+  if (frame) frame.src = url || "";
+  setLiveBadge(!!(url && url.trim()));
+}
+function attachStreamUI(){
+  const input = qs("#streamUrl");
+  const saveBtn = qs("#saveStream");
+  const clearBtn = qs("#clearStream");
+  if (!input || !saveBtn) return;
 
-  function renderMilestones(miles) {
-    if (!milestoneList) return;
-    milestoneList.innerHTML = "";
+  saveBtn.addEventListener("click", () => {
+    const url = String(input.value || "").trim();
+    saveStream(url);
+    renderStream(url);
+  });
 
-    for (let i = 1; i <= CLAIM_COUNT; i++) {
-      const target = i * STEP; // 2000, 4000, ... 50000
-      const unlocked = miles >= target;
-
-      const li = document.createElement("li");
-      li.style.display = "flex";
-      li.style.justifyContent = "space-between";
-      li.style.alignItems = "center";
-      li.style.padding = "10px 0";
-      li.style.borderBottom = "1px solid rgba(255,255,255,0.08)";
-
-      const left = document.createElement("div");
-      left.innerHTML = `
-        <div style="font-weight:700">${i}) ${comma(target)} miles</div>
-        <div class="small" style="opacity:.85">Claim milestone</div>
-      `;
-
-      const right = document.createElement("div");
-      right.className = "pill"; // uses your existing styling
-      right.textContent = unlocked ? "Unlocked" : "Locked";
-      right.style.opacity = unlocked ? "1" : ".65";
-
-      li.appendChild(left);
-      li.appendChild(right);
-      milestoneList.appendChild(li);
-    }
+  if (clearBtn){
+    clearBtn.addEventListener("click", () => {
+      clearStream();
+      input.value = "";
+      renderStream("");
+    });
   }
+}
 
-  function lockMilesEditorUI() {
-    // This is what prevents public editing.
-    if (milesInput) {
-      milesInput.disabled = true;
-      milesInput.placeholder = "Owner-only (repo controlled)";
-      milesInput.style.opacity = "0.6";
-      milesInput.style.cursor = "not-allowed";
-    }
-    if (saveMilesBtn) {
-      saveMilesBtn.disabled = true;
-      saveMilesBtn.style.opacity = "0.6";
-      saveMilesBtn.style.cursor = "not-allowed";
-      saveMilesBtn.title = "Owner-only (edit data/progress.json in GitHub)";
-    }
+/* Copy FOMO */
+async function copyToClipboard(text){
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    await navigator.clipboard.writeText(text);
+    return true;
   }
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.setAttribute("readonly", "");
+  ta.style.position = "absolute";
+  ta.style.left = "-9999px";
+  document.body.appendChild(ta);
+  ta.select();
+  const ok = document.execCommand("copy");
+  document.body.removeChild(ta);
+  return ok;
+}
 
-  // =========================
-  // COUNTDOWN (optional placeholder)
-  // =========================
-  function initCountdown() {
-    const el = document.getElementById("countdown");
-    if (!el) return;
-    // Keep your existing countdown logic if you already had one.
-    // This just keeps it from saying "Loading…" forever.
-    el.textContent = "Weekdays • 3:00–7:00 PM EST";
-  }
+function attachCopyFomo(){
+  const btn = qs("#copyFomo");
+  const toast = qs("#copyToast");
+  if (!btn) return;
 
-  // =========================
-  // INIT
-  // =========================
-  async function init() {
-    if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-    setLiveBadge();
-    window.addEventListener("hashchange", setLiveBadge);
-
-    initCountdown();
-
-    // stream UI (local)
-    loadStream();
-    saveStreamBtn?.addEventListener("click", saveStream);
-
-    // miles UI (official + read-only)
-    lockMilesEditorUI();
-
-    try {
-      const miles = await loadOfficialMiles();
-      renderMiles(miles);
-      console.log("Official miles loaded:", miles);
-    } catch (e) {
-      console.error(e);
-      // Fallback display if file missing
-      renderMiles(0);
-    }
-  }
-
-  init();
-})();
-
-
+  btn.add
