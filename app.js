@@ -146,23 +146,37 @@ function saveStream(url){
   localStorage.setItem(CONFIG.streamStorageKey, url);
 }
 
+function clearStream(){
+  try{
+    localStorage.removeItem(CONFIG.streamStorageKey);
+  }catch{}
+}
+
 function renderStream(url){
   const frame = qs("#streamFrame");
-  if (!frame) return;
-  frame.src = url || "";
+  if (frame) frame.src = url || "";
   setLiveBadge(!!(url && url.trim()));
 }
 
 function attachStreamUI(){
   const input = qs("#streamUrl");
-  const btn = qs("#saveStream");
-  if (!input || !btn) return;
+  const saveBtn = qs("#saveStream");
+  const clearBtn = qs("#clearStream");
+  if (!input || !saveBtn) return;
 
-  btn.addEventListener("click", () => {
+  saveBtn.addEventListener("click", () => {
     const url = String(input.value || "").trim();
     saveStream(url);
     renderStream(url);
   });
+
+  if (clearBtn){
+    clearBtn.addEventListener("click", () => {
+      clearStream();
+      input.value = "";
+      renderStream("");
+    });
+  }
 }
 
 (function init(){
