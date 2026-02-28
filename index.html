@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=520" />
+  <link rel="stylesheet" href="style.css?v=530" />
 </head>
 
 <body>
@@ -20,7 +20,9 @@
   <div class="container topbar__inner">
 
     <div class="brand">
-      <img class="brand__logo" src="images/PNG%20image.png" alt="Traffic Trencher" />
+      <div class="brand__avatar">
+        <img class="brand__logo" src="images/PNG%20image.png" alt="Traffic Trencher" />
+      </div>
 
       <div class="brand__text">
         <div class="brand__row">
@@ -147,6 +149,17 @@
   <!-- LIVE -->
   <section id="live" class="section live--condensed reveal">
     <div class="container">
+
+      <!-- ✅ NOW LIVE banner (JS toggles hidden/visible) -->
+      <div id="nowLive" class="nowlive" hidden>
+        <div class="nowlive__dot"></div>
+        <div class="nowlive__text">
+          <b>Now Live</b>
+          <span>Stream is active</span>
+        </div>
+        <a class="nowlive__btn" href="#live">Open Player</a>
+      </div>
+
       <div class="livehead">
         <div>
           <h2 class="livehead__title">Live Stream</h2>
@@ -285,14 +298,14 @@
                 Trade on FOMO
               </a>
 
-              <a class="btn" href="https://fomo.family/r/TrafficTrencher" target="_blank" rel="noopener">
-                Get 10% Off Fees
-              </a>
+              <button class="btn" id="copyFomo" type="button">
+                Copy FOMO Link
+              </button>
             </div>
 
             <p class="small">
-              Trade with me on FOMO and get 10% off fees!<br/>
               https://fomo.family/r/TrafficTrencher
+              <span id="copyToast" class="toast" hidden>Copied ✓</span>
             </p>
           </div>
 
@@ -333,6 +346,6 @@
   </div>
 </footer>
 
-<script src="app.js?v=520"></script>
+<script src="app.js?v=530"></script>
 </body>
 </html>
