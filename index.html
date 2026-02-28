@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=510" />
+  <link rel="stylesheet" href="style.css?v=520" />
 </head>
 
 <body>
@@ -51,15 +51,15 @@
 <main>
 
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero reveal">
     <div class="container">
 
       <div class="hero__grid">
 
-        <div>
+        <div class="reveal">
           <h1>Documenting the Last Human-Driven Miles — Live</h1>
 
-          <details id="thesisDetails" class="thesis card">
+          <details id="thesisDetails" class="thesis card reveal">
             <summary class="thesis__summary">
               <span class="thesis__tag">LORE + THESIS</span>
               <span class="thesis__hint">Tap to expand</span>
@@ -92,14 +92,14 @@
             </div>
           </details>
 
-          <div class="cta cta--center">
+          <div class="cta cta--center reveal">
             <a class="btn" href="https://x.com/traffictrencher" target="_blank" rel="noopener">Follow on X</a>
             <a class="btn btn--primary" href="#live">Watch Live</a>
             <a class="btn btn--ghost" href="#miles">Track Progress</a>
           </div>
         </div>
 
-        <div class="card overview overview--pop">
+        <div class="card overview overview--pop reveal">
 
           <div class="roadmap-super-title">
             Replace the Job. Keep the Work. Own the Output.
@@ -144,8 +144,8 @@
     </div>
   </section>
 
-  <!-- LIVE (condensed + translucent) -->
-  <section id="live" class="section live--condensed">
+  <!-- LIVE -->
+  <section id="live" class="section live--condensed reveal">
     <div class="container">
       <div class="livehead">
         <div>
@@ -156,7 +156,7 @@
       </div>
 
       <div class="livegrid">
-        <div class="card livecard">
+        <div class="card livecard reveal">
           <div class="card__head livecard__head">
             <div class="card__title">Stream Player</div>
             <div class="small">Auto-fills when a URL is saved</div>
@@ -168,7 +168,7 @@
           </div>
         </div>
 
-        <div class="card livecard livecard--setup">
+        <div class="card livecard livecard--setup reveal">
           <div class="card__head livecard__head">
             <div class="card__title">Stream Setup</div>
           </div>
@@ -192,13 +192,13 @@
   </section>
 
   <!-- MILES -->
-  <section id="miles" class="section section--alt miles--condensed">
+  <section id="miles" class="section section--alt miles--condensed reveal">
     <div class="container">
       <h2>Mile Tracker</h2>
 
       <div class="milegrid">
 
-        <div class="card">
+        <div class="card reveal">
           <div class="card__body">
             <div class="progress">
               <div class="progress__meta">
@@ -222,7 +222,7 @@
           </div>
         </div>
 
-        <div class="card claims">
+        <div class="card claims reveal">
           <div class="card__body">
 
             <div class="claims__top">
@@ -262,10 +262,10 @@
   </section>
 
   <!-- FOMO -->
-  <section id="fomo" class="section">
+  <section id="fomo" class="section reveal">
     <div class="container">
 
-      <div class="card fomo">
+      <div class="card fomo reveal">
         <div class="card__body fomo__body">
 
           <div class="fomo__left">
@@ -307,17 +307,17 @@
   </section>
 
   <!-- LINKS -->
-  <section id="links" class="section section--alt">
+  <section id="links" class="section section--alt reveal">
     <div class="container">
       <h2>Links</h2>
 
       <div class="linkgrid">
-        <a class="linkcard" href="https://x.com/traffictrencher" target="_blank" rel="noopener">
+        <a class="linkcard reveal" href="https://x.com/traffictrencher" target="_blank" rel="noopener">
           <b>X / Twitter</b>
           <p>Updates & announcements</p>
         </a>
 
-        <a class="linkcard" href="#live">
+        <a class="linkcard reveal" href="#live">
           <b>Live Stream</b>
           <p>Watch the journey</p>
         </a>
@@ -333,6 +333,6 @@
   </div>
 </footer>
 
-<script src="app.js?v=510"></script>
+<script src="app.js?v=520"></script>
 </body>
 </html>
