@@ -1,54 +1,370 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Trencher Traffic</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Traffic Trencher — Drive-to-earn livestream. Road to 25,000 miles." />
+  <title>Traffic Trencher</title>
 
-  <!-- FORCE CACHE REFRESH -->
-  <link rel="stylesheet" href="style.css?v=300">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css?v=900" />
 </head>
 
 <body>
 
-  <main>
+<header class="topbar">
+  <div class="container topbar__inner">
 
-    <!-- HERO -->
-    <section class="hero">
-      <h1>Trencher Traffic</h1>
-
-      <a href="#"
-         class="btn btn--primary watch-live-btn">
-         Watch Live
-      </a>
-    </section>
-
-    <!-- EVOLUTION -->
-    <section class="evolution-section">
-      <div class="evolution-card">
-        <img src="images/IMG_2419.JPG" class="evolution-img">
-             alt="Evolution Timeline">
-      </div>
-    </section>
-
-    <!-- ROADMAP -->
-    <section class="roadmap">
-      <h2>Roadmap</h2>
-
-      <div class="roadmap-card">
-        Phase 1 — Human Driving Era
+    <div class="brand">
+      <div class="brand__avatar">
+        <img class="brand__logo" src="images/PNG%20image.png" alt="Traffic Trencher" />
       </div>
 
-      <div class="roadmap-card">
-        Phase 2 — Tesla FSD Transition
+      <div class="brand__text">
+        <div class="brand__row">
+          <div class="brand__name">Traffic Trencher</div>
+          <span id="liveBadge" class="live-badge">OFFLINE</span>
+        </div>
+        <div class="brand__tag">Drive-to-Earn • Road to 25,000 Miles</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a href="#live">Live</a>
+      <a href="#miles">Miles</a>
+      <a href="#fomo">FOMO</a>
+      <a href="#links">Links</a>
+    </nav>
+
+  </div>
+
+  <img
+    src="images/69322D1E-E63C-4AAD-AB15-42949634CA04.PNG"
+    alt="Header Graphic"
+    class="top-right-img"
+  />
+</header>
+
+<main>
+
+  <!-- ✅ MISSION CONTROL HERO (fixes “blank page”) -->
+  <section class="mission reveal">
+    <div class="container mission__inner">
+
+      <div class="mission__status">
+        <div class="mission__dot"></div>
+        HUMAN DRIVER ERA — ACTIVE
       </div>
 
-      <div class="roadmap-card">
-        Phase 3 — Cyber Cab Deployment
+      <h1 class="mission__title">
+        Replacing My Job<br>
+        <span>Before AI Replaces Me</span>
+      </h1>
+
+      <p class="mission__desc">
+        Independent medical courier documenting the transition from human labor →
+        autonomous vehicles → fleet ownership.
+      </p>
+
+      <div class="mission__actions">
+        <a class="btn btn--primary" href="#live">Watch Live</a>
+        <a class="btn" href="#miles">Track Miles</a>
       </div>
-    </section>
 
-  </main>
+      <div class="mission__micro">
+        <span>CCM • IRL • Starlink</span>
+        <span>•</span>
+        <span>Ticker: <b>TRAFFIC</b></span>
+        <span>•</span>
+        <span>Season 1: <b>25,000 miles</b></span>
+      </div>
 
+    </div>
+  </section>
+
+  <!-- HERO + THESIS + ROADMAP -->
+  <section class="hero reveal">
+    <div class="container">
+
+      <div class="hero__grid">
+
+        <div class="reveal">
+          <details id="thesisDetails" class="thesis card reveal">
+            <summary class="thesis__summary">
+              <span class="thesis__tag">LORE + THESIS</span>
+              <span class="thesis__hint">Tap to expand</span>
+            </summary>
+
+            <div class="thesis__body">
+              <p class="thesis__title"><b>TRAFFIC TRENCHER • Road to 25,000 Miles</b></p>
+              <p><b>Ticker:</b> <b>TRAFFIC</b></p>
+              <p>Real-world <b>CCM (Courier Content Maxxing)</b>. Real routes. Logged in public.</p>
+
+              <hr style="border:0;border-top:1px solid rgba(255,255,255,.10);margin:12px 0">
+
+              <p class="thesis__title"><b>The core move</b></p>
+              <p>Driving jobs like mine are getting automated.</p>
+              <p><b>I’m not waiting for the replacement notice.</b></p>
+              <p>I’m building the system that replaces my own driving role — and documenting the transition from <b>labor → autonomy → ownership</b>.</p>
+
+              <hr style="border:0;border-top:1px solid rgba(255,255,255,.10);margin:12px 0">
+
+              <p class="thesis__title"><b>The setup</b></p>
+              <p>I run real pharmacy / medical courier routes in Southwest Florida.</p>
+              <p>Every weekday I stream the loop live via <b>Starlink Mini</b>.</p>
+              <p><b>Operating Window (EST):</b> Monday–Friday • <b>3:00 PM – ~7:30 PM</b></p>
+
+              <hr style="border:0;border-top:1px solid rgba(255,255,255,.10);margin:12px 0">
+
+              <p class="thesis__title"><b>The rule</b></p>
+              <p>Creator fees are claimed transparently every <b>1,000 miles</b> and routed into the mission.</p>
+              <p><b>Season 1:</b> Road to <b>25,000 miles</b>.</p>
+            </div>
+          </details>
+
+          <div class="cta cta--center reveal">
+            <a class="btn" href="https://x.com/traffictrencher" target="_blank" rel="noopener">Follow on X</a>
+            <a class="btn btn--primary" href="#live">Watch Live</a>
+            <a class="btn btn--ghost" href="#miles">Track Progress</a>
+          </div>
+        </div>
+
+        <div class="card overview overview--pop reveal">
+          <div class="roadmap-super-title">Replace the Job. Keep the Work. Own the Output.</div>
+
+          <div class="roadmap-evolution">
+            <img src="images/IMG_2590.png" alt="Transportation evolution timeline" class="evolution-img" />
+          </div>
+
+          <div class="roadmap-sub-title">Every 1,000 Miles = A Transparent Claim + A Step Forward</div>
+
+          <div class="roadmap">
+            <div class="roadmap__head">
+              <div class="roadmap__title">Timeline: Human Driver → Tesla FSD → Autonomous Fleet</div>
+              <div class="roadmap__sub">Simple steps. Real upgrades. Logged in public.</div>
+            </div>
+
+            <ol class="roadmap__list">
+              <li><b>Baseline</b><span>Weekday streams. Real routes. Real constraints.</span></li>
+              <li><b>Creator Fee System</b><span>Every 1,000 miles = transparent claim.</span></li>
+              <li><b>Rig Upgrade Pack</b><span>Audio + cameras + overlays get sharper.</span></li>
+              <li><b>Clip Machine</b><span>Turn traffic into constant output.</span></li>
+              <li><b>Autonomy Fund</b><span>Portion of claims allocated to the switch.</span></li>
+              <li><b>The Grind</b><span>Drive until the job starts changing.</span></li>
+              <li><b>Autonomy Milestone</b><span>Tesla + FSD (or Cyber Cab) secured.</span></li>
+              <li><b>Hands-Off Era</b><span>AI drives. I operate + narrate.</span></li>
+              <li><b>FOMO Quest</b><span>Top 25 traders all-time.</span></li>
+              <li><b>Break the Loop</b><span>Out-of-state missions + fleet expansion.</span></li>
+            </ol>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- LIVE -->
+  <section id="live" class="section live--condensed reveal">
+    <div class="container">
+
+      <div id="nowLive" class="nowlive" hidden>
+        <div class="nowlive__dot"></div>
+        <div class="nowlive__text">
+          <b>Now Live</b>
+          <span>Stream is active</span>
+        </div>
+        <a class="nowlive__btn" href="#live">Open Player</a>
+      </div>
+
+      <div class="livehead">
+        <div>
+          <h2 class="livehead__title">Live Stream</h2>
+          <p class="livehead__sub">Paste your stream link once — it stays saved in your browser.</p>
+        </div>
+      </div>
+
+      <div class="livegrid">
+        <div class="card livecard reveal">
+          <div class="card__head livecard__head">
+            <div class="card__title">Stream Player</div>
+            <div class="small">Auto-fills when a URL is saved</div>
+          </div>
+          <div class="card__body livecard__body">
+            <div class="embedwrap embedwrap--glass">
+              <iframe id="streamFrame" src="" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+
+        <div class="card livecard livecard--setup reveal">
+          <div class="card__head livecard__head">
+            <div class="card__title">Stream Setup</div>
+          </div>
+          <div class="card__body livecard__body">
+            <label class="field field--tight">
+              <span>Stream URL</span>
+              <input id="streamUrl" placeholder="https://..." />
+            </label>
+
+            <div class="liveactions">
+              <button class="btn btn--primary" id="saveStream">Save</button>
+              <button class="btn" id="clearStream" type="button">Clear</button>
+            </div>
+
+            <p class="small">Tip: When a URL is saved, the badge up top flips to LIVE.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MILES -->
+  <section id="miles" class="section section--alt miles--condensed reveal">
+    <div class="container">
+      <h2>Mile Tracker</h2>
+
+      <div class="milegrid">
+
+        <div class="card reveal">
+          <div class="card__body">
+            <div class="progress">
+              <div class="progress__meta">
+                <div><b id="currentMilesText">0</b> / 25,000 miles</div>
+                <div id="percentText">0%</div>
+              </div>
+
+              <div class="bar">
+                <div class="bar__fill" id="barFill"></div>
+              </div>
+
+              <label class="field">
+                <span>Update miles</span>
+                <input id="currentMiles" type="number" placeholder="Enter miles" />
+              </label>
+
+              <button class="btn btn--primary" id="saveMiles">Save</button>
+
+              <p class="small">Miles are saved locally on this device/browser.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card claims reveal">
+          <div class="card__body">
+
+            <div class="claims__top">
+              <div>
+                <h3 class="claims__title">Claims</h3>
+                <div class="small">Every 1,000 miles</div>
+              </div>
+
+              <div class="claims__next">
+                <div class="claims__nextLabel">Next</div>
+                <div class="claims__nextValue"><span id="nextClaimAt">1,000</span> mi</div>
+              </div>
+            </div>
+
+            <div class="claims__barWrap">
+              <div class="claims__bar">
+                <div class="claims__fill" id="claimFill"></div>
+              </div>
+
+              <div class="claims__meta">
+                <span><b id="milesToNext">1,000</b> miles to next claim</span>
+                <span><b id="claimsDone">0</b>/<span id="claimsTotal">25</span> done</span>
+              </div>
+            </div>
+
+            <details class="claims__details">
+              <summary class="claims__summary">View all claim checkpoints</summary>
+              <ol id="milestoneList" class="claims__list"></ol>
+            </details>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOMO -->
+  <section id="fomo" class="section reveal">
+    <div class="container">
+
+      <div class="card fomo reveal">
+        <div class="card__body fomo__body">
+
+          <div class="fomo__left">
+            <div class="fomo__tag">LIVE TRADING</div>
+
+            <h2 class="fomo__title">
+              Trade With Me Live on <span class="fomo__brand">FOMO</span>
+            </h2>
+
+            <p class="fomo__desc">
+              Real entries, real exits, live on stream.
+              If you’re going to trade, trade with a discount and watch it happen in real time.
+            </p>
+
+            <div class="fomo__cta">
+              <a class="btn btn--primary" href="https://fomo.family/r/TrafficTrencher" target="_blank" rel="noopener">
+                Trade on FOMO
+              </a>
+
+              <button class="btn" id="copyFomo" type="button">
+                Copy FOMO Link
+              </button>
+            </div>
+
+            <p class="small">
+              https://fomo.family/r/TrafficTrencher
+              <span id="copyToast" class="toast" hidden>Copied ✓</span>
+            </p>
+          </div>
+
+          <div class="fomo__right">
+            <img class="fomo__logo" src="images/fomo.jpg" alt="FOMO logo" />
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- LINKS -->
+  <section id="links" class="section section--alt reveal">
+    <div class="container">
+      <h2>Links</h2>
+
+      <div class="linkgrid">
+        <a class="linkcard reveal" href="https://x.com/traffictrencher" target="_blank" rel="noopener">
+          <b>X / Twitter</b>
+          <p>Updates & announcements</p>
+        </a>
+
+        <a class="linkcard reveal" href="#live">
+          <b>Live Stream</b>
+          <p>Watch the journey</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div>© <span id="year"></span> Traffic Trencher</div>
+  </div>
+</footer>
+
+<script src="app.js?v=900"></script>
 </body>
 </html>
