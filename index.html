@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=900" />
+  <link rel="stylesheet" href="style.css?v=1103" />
 </head>
 
 <body>
@@ -50,7 +50,7 @@
 
 <main>
 
-  <!-- ✅ MISSION CONTROL HERO (fixes “blank page”) -->
+  <!-- MISSION -->
   <section class="mission reveal">
     <div class="container mission__inner">
 
@@ -85,92 +85,11 @@
     </div>
   </section>
 
-  <!-- HERO + THESIS + ROADMAP -->
-  <section class="hero reveal">
-    <div class="container">
-
-      <div class="hero__grid">
-
-        <div class="reveal">
-          <details id="thesisDetails" class="thesis card reveal">
-            <summary class="thesis__summary">
-              <span class="thesis__tag">LORE + THESIS</span>
-              <span class="thesis__hint">Tap to expand</span>
-            </summary>
-
-            <div class="thesis__body">
-              <p class="thesis__title"><b>TRAFFIC TRENCHER • Road to 25,000 Miles</b></p>
-              <p><b>Ticker:</b> <b>TRAFFIC</b></p>
-              <p>Real-world <b>CCM (Courier Content Maxxing)</b>. Real routes. Logged in public.</p>
-
-              <hr style="border:0;border-top:1px solid rgba(255,255,255,.10);margin:12px 0">
-
-              <p class="thesis__title"><b>The core move</b></p>
-              <p>Driving jobs like mine are getting automated.</p>
-              <p><b>I’m not waiting for the replacement notice.</b></p>
-              <p>I’m building the system that replaces my own driving role — and documenting the transition from <b>labor → autonomy → ownership</b>.</p>
-
-              <hr style="border:0;border-top:1px solid rgba(255,255,255,.10);margin:12px 0">
-
-              <p class="thesis__title"><b>The setup</b></p>
-              <p>I run real pharmacy / medical courier routes in Southwest Florida.</p>
-              <p>Every weekday I stream the loop live via <b>Starlink Mini</b>.</p>
-              <p><b>Operating Window (EST):</b> Monday–Friday • <b>3:00 PM – ~7:30 PM</b></p>
-
-              <hr style="border:0;border-top:1px solid rgba(255,255,255,.10);margin:12px 0">
-
-              <p class="thesis__title"><b>The rule</b></p>
-              <p>Creator fees are claimed transparently every <b>1,000 miles</b> and routed into the mission.</p>
-              <p><b>Season 1:</b> Road to <b>25,000 miles</b>.</p>
-            </div>
-          </details>
-
-          <div class="cta cta--center reveal">
-            <a class="btn" href="https://x.com/traffictrencher" target="_blank" rel="noopener">Follow on X</a>
-            <a class="btn btn--primary" href="#live">Watch Live</a>
-            <a class="btn btn--ghost" href="#miles">Track Progress</a>
-          </div>
-        </div>
-
-        <div class="card overview overview--pop reveal">
-          <div class="roadmap-super-title">Replace the Job. Keep the Work. Own the Output.</div>
-
-          <div class="roadmap-evolution">
-            <img src="images/IMG_2590.png" alt="Transportation evolution timeline" class="evolution-img" />
-          </div>
-
-          <div class="roadmap-sub-title">Every 1,000 Miles = A Transparent Claim + A Step Forward</div>
-
-          <div class="roadmap">
-            <div class="roadmap__head">
-              <div class="roadmap__title">Timeline: Human Driver → Tesla FSD → Autonomous Fleet</div>
-              <div class="roadmap__sub">Simple steps. Real upgrades. Logged in public.</div>
-            </div>
-
-            <ol class="roadmap__list">
-              <li><b>Baseline</b><span>Weekday streams. Real routes. Real constraints.</span></li>
-              <li><b>Creator Fee System</b><span>Every 1,000 miles = transparent claim.</span></li>
-              <li><b>Rig Upgrade Pack</b><span>Audio + cameras + overlays get sharper.</span></li>
-              <li><b>Clip Machine</b><span>Turn traffic into constant output.</span></li>
-              <li><b>Autonomy Fund</b><span>Portion of claims allocated to the switch.</span></li>
-              <li><b>The Grind</b><span>Drive until the job starts changing.</span></li>
-              <li><b>Autonomy Milestone</b><span>Tesla + FSD (or Cyber Cab) secured.</span></li>
-              <li><b>Hands-Off Era</b><span>AI drives. I operate + narrate.</span></li>
-              <li><b>FOMO Quest</b><span>Top 25 traders all-time.</span></li>
-              <li><b>Break the Loop</b><span>Out-of-state missions + fleet expansion.</span></li>
-            </ol>
-          </div>
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
   <!-- LIVE -->
   <section id="live" class="section live--condensed reveal">
     <div class="container">
 
+      <!-- ✅ Only shows when LIVE toggle is ON -->
       <div id="nowLive" class="nowlive" hidden>
         <div class="nowlive__dot"></div>
         <div class="nowlive__text">
@@ -183,7 +102,7 @@
       <div class="livehead">
         <div>
           <h2 class="livehead__title">Live Stream</h2>
-          <p class="livehead__sub">Paste your stream link once — it stays saved in your browser.</p>
+          <p class="livehead__sub">Save your stream URL. Flip LIVE on only when you’re actually live.</p>
         </div>
       </div>
 
@@ -191,7 +110,7 @@
         <div class="card livecard reveal">
           <div class="card__head livecard__head">
             <div class="card__title">Stream Player</div>
-            <div class="small">Auto-fills when a URL is saved</div>
+            <div class="small">Loads when a URL is saved</div>
           </div>
           <div class="card__body livecard__body">
             <div class="embedwrap embedwrap--glass">
@@ -204,10 +123,20 @@
           <div class="card__head livecard__head">
             <div class="card__title">Stream Setup</div>
           </div>
+
           <div class="card__body livecard__body">
             <label class="field field--tight">
               <span>Stream URL</span>
               <input id="streamUrl" placeholder="https://..." />
+            </label>
+
+            <!-- ✅ Manual LIVE toggle -->
+            <label class="toggle">
+              <input id="liveToggle" type="checkbox" />
+              <span class="toggle__ui" aria-hidden="true"></span>
+              <span class="toggle__text">
+                Set status to <b>LIVE</b> (only when you’re actually streaming)
+              </span>
             </label>
 
             <div class="liveactions">
@@ -215,7 +144,9 @@
               <button class="btn" id="clearStream" type="button">Clear</button>
             </div>
 
-            <p class="small">Tip: When a URL is saved, the badge up top flips to LIVE.</p>
+            <p class="small">
+              LIVE is manual now — saving a URL does <b>not</b> automatically mark you live.
+            </p>
           </div>
         </div>
       </div>
@@ -289,7 +220,6 @@
         </div>
 
       </div>
-
     </div>
   </section>
 
@@ -365,6 +295,6 @@
   </div>
 </footer>
 
-<script src="app.js?v=900"></script>
+<script src="app.js?v=1103"></script>
 </body>
 </html>
