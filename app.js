@@ -102,4 +102,160 @@ function renderClaimsHUD(miles){
   const milesToNext = Math.max(0, nextAt - miles);
 
   const withinStep = miles % step;
-  const stepPct = step > 0 ? Math.min(100, Math.floor((withinStep / step) * 100
+  const stepPct = step > 0 ? Math.min(100, Math.floor((withinStep / step) * 100)) : 0;
+
+  if (nextClaimAtEl) nextClaimAtEl.textContent = nextAt.toLocaleString();
+  if (milesToNextEl) milesToNextEl.textContent = milesToNext.toLocaleString();
+  if (claimsDoneEl) claimsDoneEl.textContent = String(done);
+  if (claimsTotalEl) claimsTotalEl.textContent = String(totalClaims);
+  if (claimFillEl) claimFillEl.style.width = `${stepPct}%`;
+}
+
+function renderMiles(miles){
+  const currentMilesText = qs("#currentMilesText");
+  const percentText = qs("#percentText");
+  const barFill = qs("#barFill");
+
+  const pct = CONFIG.goalMiles > 0
+    ? Math.min(100, Math.floor((miles / CONFIG.goalMiles) * 100))
+    : 0;
+
+  if (currentMilesText) currentMilesText.textContent = String(miles);
+  if (percentText) percentText.textContent = `${pct}%`;
+  if (barFill) barFill.style.width = `${pct}%`;
+
+  renderClaimsHUD(miles);
+}
+
+function renderMilestones(miles){
+  const list = qs("#milestoneList");
+  if (!list) return;
+
+  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount);
+  const items = [];
+
+  for (let i = 1; i <= CONFIG.milestoneCount; i++){
+    const at = i * step;
+    const done = miles >= at;
+    items.push(`
+      <li style="margin:6px 0; color:${done ? "rgba(233,238,251,.95)" : "rgba(168,179,209,.85)"}">
+        <b>${done ? "✓" : "•"}</b> ${at.toLocaleString()} miles
+      </li>
+    `);
+  }
+
+  list.innerHTML = items.join("");
+}
+
+function attachMilesUI(){
+  const input = qs("#currentMiles");
+  const btn = qs("#saveMiles");
+  if (!input || !btn) return;
+
+  btn.addEventListener("click", () => {
+    const miles = clampInt(input.value);
+    saveMiles(miles);
+    renderMiles(miles);
+    renderMilestones(miles);
+    input.value = "";
+  });
+}
+
+/* Stream */
+function loadStream(){
+  try{
+    return localStorage.getItem(CONFIG.streamStorageKey) || "";
+  }catch{
+    return "";
+  }
+}
+function saveStream(url){
+  localStorage.setItem(CONFIG.streamStorageKey, url);
+}
+function clearStream(){
+  try{ localStorage.removeItem(CONFIG.streamStorageKey); }catch{}
+}
+function renderStream(url){
+  const frame = qs("#streamFrame");
+  if (frame) frame.src = url || "";
+  setLiveBadge(!!(url && url.trim()));
+}
+function attachStreamUI(){
+  const input = qs("#streamUrl");
+  const saveBtn = qs("#saveStream");
+  const clearBtn = qs("#clearStream");
+  if (!input || !saveBtn) return;
+
+  saveBtn.addEventListener("click", () => {
+    const url = String(input.value || "").trim();
+    saveStream(url);
+    renderStream(url);
+  });
+
+  if (clearBtn){
+    clearBtn.addEventListener("click", () => {
+      clearStream();
+      input.value = "";
+      renderStream("");
+    });
+  }
+}
+
+/* Copy FOMO */
+async function copyToClipboard(text){
+  // Modern clipboard
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    await navigator.clipboard.writeText(text);
+    return true;
+  }
+  // Fallback
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.setAttribute("readonly", "");
+  ta.style.position = "absolute";
+  ta.style.left = "-9999px";
+  document.body.appendChild(ta);
+  ta.select();
+  const ok = document.execCommand("copy");
+  document.body.removeChild(ta);
+  return ok;
+}
+
+function attachCopyFomo(){
+  const btn = qs("#copyFomo");
+  const toast = qs("#copyToast");
+  if (!btn) return;
+
+  btn.addEventListener("click", async () => {
+    try{
+      await copyToClipboard(CONFIG.fomoReferralUrl);
+      if (toast){
+        toast.hidden = false;
+        clearTimeout(attachCopyFomo._t);
+        attachCopyFomo._t = setTimeout(() => { toast.hidden = true; }, 1600);
+      }
+    }catch{
+      // If copy fails, just open the link
+      window.open(CONFIG.fomoReferralUrl, "_blank", "noopener");
+    }
+  });
+}
+
+(function init(){
+  setYear();
+  setThesisDefault();
+  setupReveal();
+
+  const miles = loadMiles();
+  renderMiles(miles);
+  renderMilestones(miles);
+  attachMilesUI();
+
+  const stream = loadStream();
+  renderStream(stream);
+  const streamInput = qs("#streamUrl");
+  if (streamInput) streamInput.value = stream;
+  attachStreamUI();
+
+  attachCopyFomo();
+})();
