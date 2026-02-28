@@ -3,20 +3,19 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Traffic Trencher — documenting the last human-driven miles and the path to autonomous courier ownership." />
+  <meta name="description" content="Traffic Trencher — Drive-to-earn livestream. Road to 25,000 miles." />
   <title>Traffic Trencher</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=530" />
+  <link rel="stylesheet" href="style.css?v=900" />
 </head>
 
 <body>
 
 <header class="topbar">
-
   <div class="container topbar__inner">
 
     <div class="brand">
@@ -47,20 +46,52 @@
     alt="Header Graphic"
     class="top-right-img"
   />
-
 </header>
 
 <main>
 
-  <!-- HERO -->
+  <!-- ✅ MISSION CONTROL HERO (fixes “blank page”) -->
+  <section class="mission reveal">
+    <div class="container mission__inner">
+
+      <div class="mission__status">
+        <div class="mission__dot"></div>
+        HUMAN DRIVER ERA — ACTIVE
+      </div>
+
+      <h1 class="mission__title">
+        Replacing My Job<br>
+        <span>Before AI Replaces Me</span>
+      </h1>
+
+      <p class="mission__desc">
+        Independent medical courier documenting the transition from human labor →
+        autonomous vehicles → fleet ownership.
+      </p>
+
+      <div class="mission__actions">
+        <a class="btn btn--primary" href="#live">Watch Live</a>
+        <a class="btn" href="#miles">Track Miles</a>
+      </div>
+
+      <div class="mission__micro">
+        <span>CCM • IRL • Starlink</span>
+        <span>•</span>
+        <span>Ticker: <b>TRAFFIC</b></span>
+        <span>•</span>
+        <span>Season 1: <b>25,000 miles</b></span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- HERO + THESIS + ROADMAP -->
   <section class="hero reveal">
     <div class="container">
 
       <div class="hero__grid">
 
         <div class="reveal">
-          <h1>Documenting the Last Human-Driven Miles — Live</h1>
-
           <details id="thesisDetails" class="thesis card reveal">
             <summary class="thesis__summary">
               <span class="thesis__tag">LORE + THESIS</span>
@@ -70,26 +101,26 @@
             <div class="thesis__body">
               <p class="thesis__title"><b>TRAFFIC TRENCHER • Road to 25,000 Miles</b></p>
               <p><b>Ticker:</b> <b>TRAFFIC</b></p>
-              <p>Real-world <b>CCM (Courier Content Maxxing)</b>. No cosplay. Real routes.</p>
+              <p>Real-world <b>CCM (Courier Content Maxxing)</b>. Real routes. Logged in public.</p>
 
               <hr style="border:0;border-top:1px solid rgba(255,255,255,.10);margin:12px 0">
 
               <p class="thesis__title"><b>The core move</b></p>
               <p>Driving jobs like mine are getting automated.</p>
               <p><b>I’m not waiting for the replacement notice.</b></p>
-              <p>I’m building the system that replaces my own driving role — and documenting the transition from <b>labor → autonomy → ownership</b> in public.</p>
+              <p>I’m building the system that replaces my own driving role — and documenting the transition from <b>labor → autonomy → ownership</b>.</p>
 
               <hr style="border:0;border-top:1px solid rgba(255,255,255,.10);margin:12px 0">
 
               <p class="thesis__title"><b>The setup</b></p>
-              <p>I run real pharmacy/medical courier routes in Southwest Florida.</p>
-              <p>Every weekday I stream the loop via <b>Starlink Mini</b> — the same miles, the same traffic, the same grind.</p>
+              <p>I run real pharmacy / medical courier routes in Southwest Florida.</p>
+              <p>Every weekday I stream the loop live via <b>Starlink Mini</b>.</p>
               <p><b>Operating Window (EST):</b> Monday–Friday • <b>3:00 PM – ~7:30 PM</b></p>
 
               <hr style="border:0;border-top:1px solid rgba(255,255,255,.10);margin:12px 0">
 
               <p class="thesis__title"><b>The rule</b></p>
-              <p>Creator fees are claimed transparently every <b>1,000 miles</b> and routed into the mission: stream upgrades, route costs, and the autonomy fund.</p>
+              <p>Creator fees are claimed transparently every <b>1,000 miles</b> and routed into the mission.</p>
               <p><b>Season 1:</b> Road to <b>25,000 miles</b>.</p>
             </div>
           </details>
@@ -102,22 +133,13 @@
         </div>
 
         <div class="card overview overview--pop reveal">
-
-          <div class="roadmap-super-title">
-            Replace the Job. Keep the Work. Own the Output.
-          </div>
+          <div class="roadmap-super-title">Replace the Job. Keep the Work. Own the Output.</div>
 
           <div class="roadmap-evolution">
-            <img
-              src="images/IMG_2590.png"
-              alt="Transportation evolution timeline"
-              class="evolution-img"
-            />
+            <img src="images/IMG_2590.png" alt="Transportation evolution timeline" class="evolution-img" />
           </div>
 
-          <div class="roadmap-sub-title">
-            Every 1,000 Miles = A Transparent Claim + A Step Forward
-          </div>
+          <div class="roadmap-sub-title">Every 1,000 Miles = A Transparent Claim + A Step Forward</div>
 
           <div class="roadmap">
             <div class="roadmap__head">
@@ -138,7 +160,6 @@
               <li><b>Break the Loop</b><span>Out-of-state missions + fleet expansion.</span></li>
             </ol>
           </div>
-
         </div>
 
       </div>
@@ -150,7 +171,6 @@
   <section id="live" class="section live--condensed reveal">
     <div class="container">
 
-      <!-- ✅ NOW LIVE banner (JS toggles hidden/visible) -->
       <div id="nowLive" class="nowlive" hidden>
         <div class="nowlive__dot"></div>
         <div class="nowlive__text">
@@ -165,7 +185,6 @@
           <h2 class="livehead__title">Live Stream</h2>
           <p class="livehead__sub">Paste your stream link once — it stays saved in your browser.</p>
         </div>
-        <a class="btn btn--ghost livehead__jump" href="#miles">Skip to Miles →</a>
       </div>
 
       <div class="livegrid">
@@ -346,6 +365,6 @@
   </div>
 </footer>
 
-<script src="app.js?v=530"></script>
+<script src="app.js?v=900"></script>
 </body>
 </html>
