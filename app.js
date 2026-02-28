@@ -1,10 +1,11 @@
-// Traffic Trencher — app.js
+// Traffic Trencher — app.js (Polish Pass 3)
 
 const CONFIG = {
   goalMiles: 25000,
-  milestoneCount: 25, // 25k / 25 = 1,000-mile claims
+  milestoneCount: 25,
   milesStorageKey: "tt_miles_v1",
-  streamStorageKey: "tt_stream_v1"
+  streamStorageKey: "tt_stream_v1",
+  fomoReferralUrl: "https://fomo.family/r/TrafficTrencher"
 };
 
 const qs = (s) => document.querySelector(s);
@@ -31,9 +32,16 @@ function setLiveBadge(isLive){
     badge.textContent = "OFFLINE";
     badge.classList.remove("is-live");
   }
+
+  document.documentElement.classList.toggle("tt-live", !!isLive);
+
+  // Now Live banner
+  const nowLive = qs("#nowLive");
+  if (nowLive){
+    nowLive.hidden = !isLive;
+  }
 }
 
-// Desktop opens thesis, mobile keeps it collapsed
 function setThesisDefault(){
   const d = qs("#thesisDetails");
   if (!d) return;
@@ -43,9 +51,30 @@ function setThesisDefault(){
 
   apply();
   try{ mq.addEventListener("change", apply); }
-  catch{ mq.addListener(apply); } // Safari fallback
+  catch{ mq.addListener(apply); }
 }
 
+/* Reveal on scroll */
+function setupReveal(){
+  const els = Array.from(document.querySelectorAll(".reveal"));
+  if (!("IntersectionObserver" in window) || els.length === 0){
+    els.forEach(el => el.classList.add("is-visible"));
+    return;
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries){
+      if (e.isIntersecting){
+        e.target.classList.add("is-visible");
+        io.unobserve(e.target);
+      }
+    }
+  }, { threshold: 0.10, rootMargin: "60px 0px" });
+
+  els.forEach(el => io.observe(el));
+}
+
+/* Miles */
 function loadMiles(){
   try{
     const raw = localStorage.getItem(CONFIG.milesStorageKey);
@@ -54,7 +83,6 @@ function loadMiles(){
     return 0;
   }
 }
-
 function saveMiles(miles){
   localStorage.setItem(CONFIG.milesStorageKey, String(clampInt(miles)));
 }
@@ -66,7 +94,7 @@ function renderClaimsHUD(miles){
   const claimsTotalEl = qs("#claimsTotal");
   const claimFillEl = qs("#claimFill");
 
-  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount); // 1000
+  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount);
   const totalClaims = CONFIG.milestoneCount;
 
   const done = Math.min(totalClaims, Math.floor(miles / step));
@@ -74,123 +102,4 @@ function renderClaimsHUD(miles){
   const milesToNext = Math.max(0, nextAt - miles);
 
   const withinStep = miles % step;
-  const stepPct = step > 0 ? Math.min(100, Math.floor((withinStep / step) * 100)) : 0;
-
-  if (nextClaimAtEl) nextClaimAtEl.textContent = nextAt.toLocaleString();
-  if (milesToNextEl) milesToNextEl.textContent = milesToNext.toLocaleString();
-  if (claimsDoneEl) claimsDoneEl.textContent = String(done);
-  if (claimsTotalEl) claimsTotalEl.textContent = String(totalClaims);
-  if (claimFillEl) claimFillEl.style.width = `${stepPct}%`;
-}
-
-function renderMiles(miles){
-  const currentMilesText = qs("#currentMilesText");
-  const percentText = qs("#percentText");
-  const barFill = qs("#barFill");
-
-  const pct = CONFIG.goalMiles > 0
-    ? Math.min(100, Math.floor((miles / CONFIG.goalMiles) * 100))
-    : 0;
-
-  if (currentMilesText) currentMilesText.textContent = String(miles);
-  if (percentText) percentText.textContent = `${pct}%`;
-  if (barFill) barFill.style.width = `${pct}%`;
-
-  renderClaimsHUD(miles);
-}
-
-function renderMilestones(miles){
-  const list = qs("#milestoneList");
-  if (!list) return;
-
-  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount); // 1000
-  const items = [];
-
-  for (let i = 1; i <= CONFIG.milestoneCount; i++){
-    const at = i * step;
-    const done = miles >= at;
-    items.push(`
-      <li style="margin:6px 0; color:${done ? "rgba(233,238,251,.95)" : "rgba(168,179,209,.85)"}">
-        <b>${done ? "✓" : "•"}</b> ${at.toLocaleString()} miles
-      </li>
-    `);
-  }
-
-  list.innerHTML = items.join("");
-}
-
-function attachMilesUI(){
-  const input = qs("#currentMiles");
-  const btn = qs("#saveMiles");
-
-  if (!input || !btn) return;
-
-  btn.addEventListener("click", () => {
-    const miles = clampInt(input.value);
-    saveMiles(miles);
-    renderMiles(miles);
-    renderMilestones(miles);
-    input.value = "";
-  });
-}
-
-function loadStream(){
-  try{
-    return localStorage.getItem(CONFIG.streamStorageKey) || "";
-  }catch{
-    return "";
-  }
-}
-
-function saveStream(url){
-  localStorage.setItem(CONFIG.streamStorageKey, url);
-}
-
-function clearStream(){
-  try{
-    localStorage.removeItem(CONFIG.streamStorageKey);
-  }catch{}
-}
-
-function renderStream(url){
-  const frame = qs("#streamFrame");
-  if (frame) frame.src = url || "";
-  setLiveBadge(!!(url && url.trim()));
-}
-
-function attachStreamUI(){
-  const input = qs("#streamUrl");
-  const saveBtn = qs("#saveStream");
-  const clearBtn = qs("#clearStream");
-  if (!input || !saveBtn) return;
-
-  saveBtn.addEventListener("click", () => {
-    const url = String(input.value || "").trim();
-    saveStream(url);
-    renderStream(url);
-  });
-
-  if (clearBtn){
-    clearBtn.addEventListener("click", () => {
-      clearStream();
-      input.value = "";
-      renderStream("");
-    });
-  }
-}
-
-(function init(){
-  setYear();
-  setThesisDefault();
-
-  const miles = loadMiles();
-  renderMiles(miles);
-  renderMilestones(miles);
-  attachMilesUI();
-
-  const stream = loadStream();
-  renderStream(stream);
-  const streamInput = qs("#streamUrl");
-  if (streamInput) streamInput.value = stream;
-  attachStreamUI();
-})();
+  const stepPct = step > 0 ? Math.min(100, Math.floor((withinStep / step) * 100
