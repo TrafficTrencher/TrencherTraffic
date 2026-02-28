@@ -59,6 +59,30 @@ function saveMiles(miles){
   localStorage.setItem(CONFIG.milesStorageKey, String(clampInt(miles)));
 }
 
+function renderClaimsHUD(miles){
+  const nextClaimAtEl = qs("#nextClaimAt");
+  const milesToNextEl = qs("#milesToNext");
+  const claimsDoneEl = qs("#claimsDone");
+  const claimsTotalEl = qs("#claimsTotal");
+  const claimFillEl = qs("#claimFill");
+
+  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount); // 1000
+  const totalClaims = CONFIG.milestoneCount;
+
+  const done = Math.min(totalClaims, Math.floor(miles / step));
+  const nextAt = Math.min(CONFIG.goalMiles, (done + 1) * step);
+  const milesToNext = Math.max(0, nextAt - miles);
+
+  const withinStep = miles % step;
+  const stepPct = step > 0 ? Math.min(100, Math.floor((withinStep / step) * 100)) : 0;
+
+  if (nextClaimAtEl) nextClaimAtEl.textContent = nextAt.toLocaleString();
+  if (milesToNextEl) milesToNextEl.textContent = milesToNext.toLocaleString();
+  if (claimsDoneEl) claimsDoneEl.textContent = String(done);
+  if (claimsTotalEl) claimsTotalEl.textContent = String(totalClaims);
+  if (claimFillEl) claimFillEl.style.width = `${stepPct}%`;
+}
+
 function renderMiles(miles){
   const currentMilesText = qs("#currentMilesText");
   const percentText = qs("#percentText");
@@ -71,6 +95,8 @@ function renderMiles(miles){
   if (currentMilesText) currentMilesText.textContent = String(miles);
   if (percentText) percentText.textContent = `${pct}%`;
   if (barFill) barFill.style.width = `${pct}%`;
+
+  renderClaimsHUD(miles);
 }
 
 function renderMilestones(miles){
@@ -84,7 +110,7 @@ function renderMilestones(miles){
     const at = i * step;
     const done = miles >= at;
     items.push(`
-      <li style="margin:8px 0; color:${done ? "rgba(233,238,251,.95)" : "rgba(168,179,209,.85)"}">
+      <li style="margin:6px 0; color:${done ? "rgba(233,238,251,.95)" : "rgba(168,179,209,.85)"}">
         <b>${done ? "✓" : "•"}</b> ${at.toLocaleString()} miles
       </li>
     `);
