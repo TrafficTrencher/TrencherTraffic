@@ -377,12 +377,28 @@ input:focus{border-color:rgba(124,92,255,.7)}
 
 /* FOMO */
 .fomo{ position: relative; border: 1px solid rgba(0,212,255,.22); }
-.fomo__body{ display:grid; grid-template-columns: 1.2fr .8fr; gap: 18px; align-items:center; min-width:0; }
+
+.fomo__body{
+  display:grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: 18px;
+  align-items:center;
+  min-width:0;
+}
 .fomo__body > *{min-width:0}
-@media(max-width:900px){ .fomo__body{grid-template-columns:1fr} .fomo__right{justify-content:flex-start} }
+
+@media(max-width:900px){
+  .fomo__body{ grid-template-columns:1fr; }
+}
+
+/* left side stays normal */
 .fomo__tag{
-  display:inline-flex; font-size:11px; letter-spacing:.9px; font-weight:900;
-  padding:6px 10px; border-radius:999px;
+  display:inline-flex;
+  font-size:11px;
+  letter-spacing:.9px;
+  font-weight:900;
+  padding:6px 10px;
+  border-radius:999px;
   border:1px solid rgba(0,212,255,.35);
   background: rgba(0,212,255,.08);
   color: rgba(154,252,255,.95);
@@ -397,12 +413,31 @@ input:focus{border-color:rgba(124,92,255,.7)}
 }
 .fomo__desc{ margin: 0 0 14px; color: var(--muted); max-width: 65ch; }
 .fomo__cta{ display:flex; gap:10px; flex-wrap:wrap; margin: 10px 0 8px; }
-.fomo__right{ display:flex; justify-content:flex-end; }
+
+/* ✅ CENTER the logo on desktop AND mobile */
+.fomo__right{
+  display:flex;
+  justify-content:center;   /* was flex-end */
+  align-items:center;
+}
+
+/* ✅ Center the image itself and keep it nicely sized */
 .fomo__logo{
-  width: 220px; max-width: 100%; height: auto; object-fit: contain;
+  width: 220px;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
   border-radius: 16px;
   filter: drop-shadow(0 18px 60px rgba(0,212,255,.20));
   opacity: .95;
+  margin: 0 auto;
+}
+
+/* Optional: give mobile a touch more breathing room */
+@media(max-width:900px){
+  .fomo__right{ padding-top: 6px; }
+  .fomo__logo{ width: min(240px, 80vw); }
+}
 }
 
 /* Footer */
