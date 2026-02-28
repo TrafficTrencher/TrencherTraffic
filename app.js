@@ -19,6 +19,12 @@ function setStatus(isLive){
   }
 }
 
+function setMode(hasStream){
+  const mode = $("modeText");
+  if(!mode) return;
+  mode.textContent = hasStream ? "OPERATIONAL" : "HUMAN-REQUIRED";
+}
+
 function setPlayer(url){
   const frame = $("streamFrame");
   const empty = $("playerEmpty");
@@ -27,10 +33,12 @@ function setPlayer(url){
     frame.src = url.trim();
     empty.style.display = "none";
     setStatus(true);
+    setMode(true);
   } else {
     frame.src = "";
     empty.style.display = "grid";
     setStatus(false);
+    setMode(false);
   }
 }
 
@@ -74,7 +82,6 @@ function clearStream(){
 function init(){
   $("year").textContent = new Date().getFullYear();
 
-  // Stream
   const savedStream = localStorage.getItem(LS_STREAM) || "";
   $("streamUrl").value = savedStream;
   setPlayer(savedStream);
@@ -82,7 +89,6 @@ function init(){
   $("saveStream").addEventListener("click", saveStream);
   $("clearStream").addEventListener("click", clearStream);
 
-  // Miles
   const savedMilesRaw = localStorage.getItem(LS_MILES);
   const savedMiles = savedMilesRaw ? parseInt(savedMilesRaw, 10) : 0;
   renderMiles(Number.isFinite(savedMiles) ? savedMiles : 0);
