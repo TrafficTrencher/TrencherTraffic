@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=1103" />
+  <link rel="stylesheet" href="style.css?v=1200" />
 </head>
 
 <body>
@@ -19,9 +19,7 @@
   <div class="container topbar__inner">
 
     <div class="brand">
-      <div class="brand__avatar">
-        <img class="brand__logo" src="images/PNG%20image.png" alt="Traffic Trencher" />
-      </div>
+      <img class="brand__logo" src="images/PNG%20image.png" alt="Traffic Trencher" />
 
       <div class="brand__text">
         <div class="brand__row">
@@ -50,103 +48,167 @@
 
 <main>
 
-  <!-- MISSION -->
-  <section class="mission reveal">
-    <div class="container mission__inner">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
 
-      <div class="mission__status">
-        <div class="mission__dot"></div>
-        HUMAN DRIVER ERA — ACTIVE
-      </div>
+      <div class="hero__grid">
 
-      <h1 class="mission__title">
-        Replacing My Job<br>
-        <span>Before AI Replaces Me</span>
-      </h1>
+        <!-- LEFT -->
+        <div>
 
-      <p class="mission__desc">
-        Independent medical courier documenting the transition from human labor →
-        autonomous vehicles → fleet ownership.
-      </p>
+          <div class="chip">
+            <span class="chip__dot"></span>
+            HUMAN DRIVER ERA — ACTIVE
+          </div>
 
-      <div class="mission__actions">
-        <a class="btn btn--primary" href="#live">Watch Live</a>
-        <a class="btn" href="#miles">Track Miles</a>
-      </div>
+          <h1 class="title">
+            Replacing My Job<br/>
+            <span>With AI</span><br/>
+            <span class="title__alt">Before AI Replaces Me</span>
+          </h1>
 
-      <div class="mission__micro">
-        <span>CCM • IRL • Starlink</span>
-        <span>•</span>
-        <span>Ticker: <b>TRAFFIC</b></span>
-        <span>•</span>
-        <span>Season 1: <b>25,000 miles</b></span>
-      </div>
+          <p class="lead">
+            Independent medical courier documenting the transition from human labor → autonomous vehicles → fleet ownership.
+          </p>
+
+          <!-- LORE + THESIS -->
+          <details id="thesisDetails" class="thesis card glass">
+            <summary class="thesis__summary">
+              <span class="thesis__tag">LORE + THESIS</span>
+              <span class="thesis__hint">Tap to expand</span>
+            </summary>
+
+            <div class="thesis__body">
+              <p class="thesis__title"><b>TRAFFIC TRENCHER: Drive-to-Earn • Road to 25,000 Miles</b></p>
+              <p><b>Ticker:</b> <b>TRAFFIC</b></p>
+              <p>Welcome to the real-world wage maxxing <b>CCM (Courier Content Maxxing)</b> meta.</p>
+
+              <hr class="hr" />
+
+              <p class="thesis__title"><b>The Origin Lore</b></p>
+              <p>In 2016, Elon Musk was sitting in Los Angeles traffic and publicly vented that it was driving him insane. That frustration became The Boring Company.</p>
+              <p>Ten years later, I’m sitting in traffic on my daily medical courier route.</p>
+              <p>Different city. Same brake lights. Same wasted time.</p>
+              <p>The route is fixed. The miles are guaranteed. The time is already being spent.</p>
+              <p>So I made a decision: <b>tokenize it</b>.</p>
+              <p>Don’t escape traffic. <b>Own it.</b></p>
+              <p>That’s where <b>TRAFFIC TRENCHER</b> was born.</p>
+
+              <hr class="hr" />
+
+              <p class="thesis__title"><b>The Thesis</b></p>
+              <p>I’m tokenizing my daily medical courier route in Southwest Florida — turning the grind into a live, community-driven experiment.</p>
+              <p>Every weekday, I’m behind the wheel streaming the loop live via <b>Starlink Mini Roam Unlimited</b>.</p>
+              <p><b>Operating Commitment (EST):</b> Monday–Friday • <b>3:00 PM – ~7:30 PM</b></p>
+              <p>Creator fees from the token get claimed transparently every <b>1,000 miles</b>.</p>
+              <p><b>Season 1:</b> Road to <b>25,000 Miles</b></p>
+            </div>
+          </details>
+
+          <div class="cta cta--center">
+            <a class="btn" href="https://x.com/traffictrencher" target="_blank" rel="noopener">Follow on X</a>
+            <a class="btn btn--primary" href="#live">Watch Live</a>
+            <a class="btn btn--ghost" href="#miles">Track Progress</a>
+          </div>
+
+          <div class="micro">
+            <span>CCM • IRL • Starlink</span>
+            <span>•</span>
+            <span>Ticker: <b>TRAFFIC</b></span>
+            <span>•</span>
+            <span>Season 1: <b>25,000 miles</b></span>
+          </div>
+
+        </div>
+
+        <!-- RIGHT: ROADMAP -->
+        <div class="card overview overview--pop glass">
+
+          <div class="roadmap-super-title">
+            Driving Until Autonomy
+          </div>
+
+          <div class="roadmap-evolution">
+            <img
+              src="images/IMG_2590.png"
+              alt="Transportation evolution timeline"
+              class="evolution-img"
+            />
+          </div>
+
+          <div class="roadmap-sub-title">
+            Claiming Creator Fees Every 1,000 Miles to Fund The Journey
+          </div>
+
+          <div class="roadmap">
+            <div class="roadmap__head">
+              <div class="roadmap__title">Roadmap: Honda → Tesla FSD (or Cyber Cab)</div>
+              <div class="roadmap__sub">10 steps. Real upgrades. No fake “soon”.</div>
+            </div>
+
+            <ol class="roadmap__list">
+              <li><b>Baseline — Proof of Grind</b><span>Weekday route streams powered by Starlink Mini.</span></li>
+              <li><b>Creator Fee System</b><span>Every 1,000 miles = transparent claim.</span></li>
+              <li><b>Rig Upgrade Pack</b><span>Audio + cameras + overlays.</span></li>
+              <li><b>Clip Machine</b><span>Constant content output.</span></li>
+              <li><b>Tesla Fund Begins</b><span>Portion of claims allocated.</span></li>
+              <li><b>The Grind</b><span>Drive until autonomy.</span></li>
+              <li><b>Autonomy Milestone</b><span>Tesla FSD or Cyber Cab secured.</span></li>
+              <li><b>Hands-Off Era</b><span>AI drives. I narrate.</span></li>
+              <li><b>FOMO Quest</b><span>Top 25 traders all-time.</span></li>
+              <li><b>Break the Loop</b><span>Out-of-state missions.</span></li>
+            </ol>
+          </div>
+
+        </div>
+
+      </div><!-- /hero__grid -->
 
     </div>
   </section>
 
   <!-- LIVE -->
-  <section id="live" class="section live--condensed reveal">
+  <section id="live" class="section">
     <div class="container">
-
-      <!-- ✅ Only shows when LIVE toggle is ON -->
-      <div id="nowLive" class="nowlive" hidden>
-        <div class="nowlive__dot"></div>
-        <div class="nowlive__text">
-          <b>Now Live</b>
-          <span>Stream is active</span>
-        </div>
-        <a class="nowlive__btn" href="#live">Open Player</a>
-      </div>
-
-      <div class="livehead">
-        <div>
-          <h2 class="livehead__title">Live Stream</h2>
-          <p class="livehead__sub">Save your stream URL. Flip LIVE on only when you’re actually live.</p>
-        </div>
-      </div>
+      <h2>Live Stream</h2>
+      <p class="muted">Save your stream URL. Flip LIVE on only when you’re actually live.</p>
 
       <div class="livegrid">
-        <div class="card livecard reveal">
-          <div class="card__head livecard__head">
+        <div class="card glass">
+          <div class="card__head">
             <div class="card__title">Stream Player</div>
-            <div class="small">Loads when a URL is saved</div>
           </div>
-          <div class="card__body livecard__body">
+          <div class="card__body">
             <div class="embedwrap embedwrap--glass">
               <iframe id="streamFrame" src="" allowfullscreen></iframe>
             </div>
           </div>
         </div>
 
-        <div class="card livecard livecard--setup reveal">
-          <div class="card__head livecard__head">
+        <div class="card glass">
+          <div class="card__head">
             <div class="card__title">Stream Setup</div>
           </div>
+          <div class="card__body">
 
-          <div class="card__body livecard__body">
-            <label class="field field--tight">
+            <label class="field">
               <span>Stream URL</span>
               <input id="streamUrl" placeholder="https://..." />
             </label>
 
-            <!-- ✅ Manual LIVE toggle -->
             <label class="toggle">
               <input id="liveToggle" type="checkbox" />
-              <span class="toggle__ui" aria-hidden="true"></span>
-              <span class="toggle__text">
-                Set status to <b>LIVE</b> (only when you’re actually streaming)
-              </span>
+              <span class="toggle__text">Set status to <b>LIVE</b> (manual)</span>
             </label>
 
-            <div class="liveactions">
+            <div class="row">
               <button class="btn btn--primary" id="saveStream">Save</button>
               <button class="btn" id="clearStream" type="button">Clear</button>
             </div>
 
-            <p class="small">
-              LIVE is manual now — saving a URL does <b>not</b> automatically mark you live.
-            </p>
+            <p class="small">Stream link is stored locally in your browser.</p>
+
           </div>
         </div>
       </div>
@@ -155,13 +217,12 @@
   </section>
 
   <!-- MILES -->
-  <section id="miles" class="section section--alt miles--condensed reveal">
+  <section id="miles" class="section section--alt">
     <div class="container">
       <h2>Mile Tracker</h2>
 
       <div class="milegrid">
-
-        <div class="card reveal">
+        <div class="card glass">
           <div class="card__body">
             <div class="progress">
               <div class="progress__meta">
@@ -169,7 +230,7 @@
                 <div id="percentText">0%</div>
               </div>
 
-              <div class="bar">
+              <div class="bar bar--glass">
                 <div class="bar__fill" id="barFill"></div>
               </div>
 
@@ -185,49 +246,26 @@
           </div>
         </div>
 
-        <div class="card claims reveal">
+        <div class="card glass">
           <div class="card__body">
-
-            <div class="claims__top">
-              <div>
-                <h3 class="claims__title">Claims</h3>
-                <div class="small">Every 1,000 miles</div>
-              </div>
-
-              <div class="claims__next">
-                <div class="claims__nextLabel">Next</div>
-                <div class="claims__nextValue"><span id="nextClaimAt">1,000</span> mi</div>
-              </div>
+            <div class="milestones__head">
+              <h3 class="milestones__title">Milestones</h3>
+              <div class="milestones__pill">Every 1,000 miles</div>
             </div>
-
-            <div class="claims__barWrap">
-              <div class="claims__bar">
-                <div class="claims__fill" id="claimFill"></div>
-              </div>
-
-              <div class="claims__meta">
-                <span><b id="milesToNext">1,000</b> miles to next claim</span>
-                <span><b id="claimsDone">0</b>/<span id="claimsTotal">25</span> done</span>
-              </div>
-            </div>
-
-            <details class="claims__details">
-              <summary class="claims__summary">View all claim checkpoints</summary>
-              <ol id="milestoneList" class="claims__list"></ol>
-            </details>
-
+            <p class="small">Claims trigger every 1,000 miles.</p>
+            <ol id="milestoneList" class="milestones__list"></ol>
           </div>
         </div>
-
       </div>
+
     </div>
   </section>
 
   <!-- FOMO -->
-  <section id="fomo" class="section reveal">
+  <section id="fomo" class="section">
     <div class="container">
 
-      <div class="card fomo reveal">
+      <div class="card fomo fomo--glow glass">
         <div class="card__body fomo__body">
 
           <div class="fomo__left">
@@ -269,17 +307,17 @@
   </section>
 
   <!-- LINKS -->
-  <section id="links" class="section section--alt reveal">
+  <section id="links" class="section section--alt">
     <div class="container">
       <h2>Links</h2>
 
       <div class="linkgrid">
-        <a class="linkcard reveal" href="https://x.com/traffictrencher" target="_blank" rel="noopener">
+        <a class="linkcard glass" href="https://x.com/traffictrencher" target="_blank" rel="noopener">
           <b>X / Twitter</b>
           <p>Updates & announcements</p>
         </a>
 
-        <a class="linkcard reveal" href="#live">
+        <a class="linkcard glass" href="#live">
           <b>Live Stream</b>
           <p>Watch the journey</p>
         </a>
@@ -295,6 +333,6 @@
   </div>
 </footer>
 
-<script src="app.js?v=1103"></script>
+<script src="app.js?v=1200"></script>
 </body>
 </html>
