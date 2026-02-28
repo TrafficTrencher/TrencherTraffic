@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=451" />
+  <link rel="stylesheet" href="style.css?v=501" />
 </head>
 
 <body>
@@ -40,7 +40,7 @@
 
   </div>
 
-  <!-- Top right image -->
+  <!-- TOP RIGHT IMAGE -->
   <img
     src="images/69322D1E-E63C-4AAD-AB15-42949634CA04.PNG"
     alt="Header Graphic"
@@ -191,6 +191,8 @@
       <h2>Mile Tracker</h2>
 
       <div class="milegrid">
+
+        <!-- Progress card -->
         <div class="card">
           <div class="card__body">
             <div class="progress">
@@ -215,13 +217,41 @@
           </div>
         </div>
 
-        <div class="card">
+        <!-- Claims HUD card -->
+        <div class="card claims">
           <div class="card__body">
-            <h3>Claims (every 1,000 miles)</h3>
-            <p class="small">The scoreboard is real mileage. The claims are the checkpoints.</p>
-            <ol id="milestoneList"></ol>
+
+            <div class="claims__top">
+              <div>
+                <h3 class="claims__title">Claims</h3>
+                <div class="small">Every 1,000 miles</div>
+              </div>
+
+              <div class="claims__next">
+                <div class="claims__nextLabel">Next</div>
+                <div class="claims__nextValue"><span id="nextClaimAt">1,000</span> mi</div>
+              </div>
+            </div>
+
+            <div class="claims__barWrap">
+              <div class="claims__bar">
+                <div class="claims__fill" id="claimFill"></div>
+              </div>
+
+              <div class="claims__meta">
+                <span><b id="milesToNext">1,000</b> miles to next claim</span>
+                <span><b id="claimsDone">0</b>/<span id="claimsTotal">25</span> done</span>
+              </div>
+            </div>
+
+            <details class="claims__details">
+              <summary class="claims__summary">View all claim checkpoints</summary>
+              <ol id="milestoneList" class="claims__list"></ol>
+            </details>
+
           </div>
         </div>
+
       </div>
 
     </div>
@@ -299,6 +329,6 @@
   </div>
 </footer>
 
-<script src="app.js?v=451"></script>
+<script src="app.js?v=501"></script>
 </body>
 </html>
