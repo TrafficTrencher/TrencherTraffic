@@ -3,25 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Traffic Trencher — documenting the last human-driven miles and the transition into autonomous courier ownership." />
-  <title>Traffic Trencher</title>
+  <meta name="description" content="Traffic Trencher — Mission Control. Documenting the last human-driven miles and the transition into autonomous courier ownership." />
+  <title>Traffic Trencher — Mission Control</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=300" />
+  <link rel="stylesheet" href="style.css?v=400" />
 </head>
 
 <body>
   <div class="bg" aria-hidden="true"></div>
 
   <header class="topbar">
-    <a class="brand" href="#top" aria-label="Traffic Trencher Home">
+    <a class="brand" href="#top" aria-label="Traffic Trencher Mission Control">
       <div class="mark">TT</div>
       <div class="brandText">
         <div class="name">Traffic Trencher</div>
-        <div class="tag">Independent pharmacy courier → autonomous fleet owner (in progress)</div>
+        <div class="tag">MISSION CONTROL • independent pharmacy courier → autonomous fleet owner</div>
       </div>
     </a>
 
@@ -31,69 +31,95 @@
       <a href="#timeline">Timeline</a>
     </nav>
 
-    <div class="pill" id="statusPill" title="Set your stream URL below to show LIVE">
+    <div class="pill" id="statusPill" title="Set your stream URL to show LIVE">
       <span class="dot"></span><span id="statusText">OFFLINE</span>
     </div>
   </header>
 
   <main class="wrap" id="top">
 
-    <!-- HERO (ONE SCREEN, ONE IDEA) -->
-    <section class="hero">
-      <div class="heroText">
-        <div class="eyebrow">IRL • CCM • AI • AUTONOMY</div>
+    <!-- MISSION HEADER -->
+    <section class="mission">
+      <div class="missionLeft">
+        <div class="chip">IRL • CCM • AI • AUTONOMY</div>
         <h1>Documenting the Last Human-Driven Miles</h1>
+
         <p class="sub">
-          I run real medical/pharmacy courier routes. Instead of waiting for AI or an employer to replace my driving job,
-          I’m building the path to replace it myself — and transition into ownership of an autonomous courier operation.
+          I run real medical and pharmacy courier routes.
+          Autonomy is coming for driving jobs like mine.
+          <b>Instead of waiting to be replaced, I’m replacing my own role first — in public —</b>
+          and building the path from human labor to autonomous ownership.
         </p>
 
         <div class="cta">
-          <a class="btn primary" href="#live">Watch Live</a>
+          <a class="btn primary" href="#live">▶ Watch Live</a>
           <a class="btn ghost" href="#miles">Track Miles</a>
           <a class="btn ghost" href="#timeline">See Timeline</a>
         </div>
+      </div>
 
-        <div class="quick">
-          <div class="q">
-            <div class="ql">What is this?</div>
-            <div class="qv">A live courier route + autonomy transition log.</div>
+      <div class="missionRight">
+        <div class="console">
+          <div class="consoleTitle">Status Board</div>
+
+          <div class="kv">
+            <div class="k">Mode</div>
+            <div class="v" id="modeText">HUMAN-REQUIRED</div>
           </div>
-          <div class="q">
-            <div class="ql">Why does it matter?</div>
-            <div class="qv">It shows labor → autonomy → ownership in real time.</div>
+
+          <div class="kv">
+            <div class="k">Today</div>
+            <div class="v">Courier routes • Pharmacy logistics</div>
           </div>
-          <div class="q">
-            <div class="ql">What should I do?</div>
-            <div class="qv">Watch live + follow the miles.</div>
+
+          <div class="kv">
+            <div class="k">Objective</div>
+            <div class="v">Driver → Supervisor → Fleet Owner</div>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="consoleTitle">Autonomy Clock (calm)</div>
+          <div class="muted">
+            Not a prediction. A direction. This site exists to log the human-required era while it still exists.
+          </div>
+
+          <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80">
+            <div class="fill" style="width:80%"></div>
+          </div>
+          <div class="mini muted">Illustrative: “approaching mainstream autonomy.”</div>
+
+          <div class="divider"></div>
+
+          <div class="consoleTitle">One-liner</div>
+          <div class="quote">
+            Independent pharmacy courier transforming his own job into autonomous fleet ownership — documented live.
           </div>
         </div>
       </div>
+    </section>
 
-      <div class="heroCard">
-        <div class="cardTitle">Autonomy Clock (simple)</div>
-        <p class="muted">
-          Autonomy is approaching fleet-scale maturity. This project exists to document the “human-required” era while it still exists.
-        </p>
-        <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80">
-          <div class="fill" style="width:80%"></div>
-        </div>
-        <div class="mini muted">Illustrative: ~8/10 toward “mainstream autonomy.” No predictions.</div>
-
-        <div class="divider"></div>
-
-        <div class="cardTitle">One-liner</div>
-        <div class="quote">
-          Independent pharmacy courier transforming his own job into autonomous fleet ownership — documented live.
-        </div>
+    <!-- QUICK ORIENTATION (ONE GLANCE) -->
+    <section class="strip">
+      <div class="stripItem">
+        <div class="stripK">What is this?</div>
+        <div class="stripV">A live courier route + autonomy transition log.</div>
+      </div>
+      <div class="stripItem">
+        <div class="stripK">What makes it different?</div>
+        <div class="stripV">I’m replacing my own job before it’s replaced for me.</div>
+      </div>
+      <div class="stripItem">
+        <div class="stripK">How do I follow?</div>
+        <div class="stripV">Watch live + track the miles.</div>
       </div>
     </section>
 
     <!-- LIVE -->
     <section class="section" id="live">
       <div class="head">
-        <h2>Live</h2>
-        <p class="muted">Paste your stream URL once. It saves locally on your device/browser.</p>
+        <h2>Live Feed</h2>
+        <p class="muted">Paste your stream URL once. Saves locally on your device/browser.</p>
       </div>
 
       <div class="grid2">
@@ -109,7 +135,7 @@
         </div>
 
         <div class="card">
-          <div class="cardTitle">Stream URL</div>
+          <div class="cardTitle">Stream Control</div>
           <label class="label" for="streamUrl">Stream URL</label>
           <input class="input" id="streamUrl" placeholder="https://..." />
           <div class="row">
@@ -123,8 +149,8 @@
           <div class="cardTitle">What you’re watching</div>
           <ul class="list">
             <li>Real pharmacy/medical courier routes</li>
-            <li>Real miles + real constraints</li>
-            <li>A documented transition toward autonomy</li>
+            <li>Real constraints (human attention required)</li>
+            <li>Transition documented over time</li>
           </ul>
         </div>
       </div>
@@ -133,8 +159,8 @@
     <!-- MILES -->
     <section class="section" id="miles">
       <div class="head">
-        <h2>Miles</h2>
-        <p class="muted">Proof-of-work. Simple. Visible. (Local to your device/browser.)</p>
+        <h2>Progress (Miles)</h2>
+        <p class="muted">Miles are the scoreboard while humans still have to drive.</p>
       </div>
 
       <div class="grid2">
@@ -143,13 +169,18 @@
             <div class="num" id="mileNumber">0</div>
             <div class="muted">/ 25,000 miles</div>
           </div>
-          <div class="bar" aria-hidden="true"><div class="fill" id="mileFill" style="width:0%"></div></div>
+
+          <div class="bar" aria-hidden="true">
+            <div class="fill" id="mileFill" style="width:0%"></div>
+          </div>
+
           <div class="mini muted" id="milePct">0%</div>
 
           <div class="divider"></div>
 
-          <div class="mini muted">
-            Key concept: miles are the scoreboard while humans still have to drive.
+          <div class="kv">
+            <div class="k">Proof</div>
+            <div class="v">Real routes. Real time. Logged continuously.</div>
           </div>
         </div>
 
@@ -170,34 +201,34 @@
     <section class="section" id="timeline">
       <div class="head">
         <h2>Timeline</h2>
-        <p class="muted">Four steps. No essays.</p>
+        <p class="muted">Four steps. One direction.</p>
       </div>
 
       <div class="timeline">
         <div class="step">
           <div class="badge">NOW</div>
           <div class="title">Human Courier Era</div>
-          <div class="text muted">Real pharmacy routes. Full attention required. Miles logged.</div>
+          <div class="text muted">Full attention required. Human labor still necessary.</div>
         </div>
         <div class="step">
           <div class="badge">NEXT</div>
           <div class="title">Tesla + FSD Entry</div>
-          <div class="text muted">Begin supervised autonomy. Compare routes. Document limits.</div>
+          <div class="text muted">First moments where the car begins sharing the work.</div>
         </div>
         <div class="step">
           <div class="badge">THEN</div>
           <div class="title">AI Supervisor Era</div>
-          <div class="text muted">Driving burden drops. Attention becomes available. Operations scale.</div>
+          <div class="text muted">Driving stops being the job. Oversight becomes the job.</div>
         </div>
         <div class="step">
           <div class="badge">END</div>
           <div class="title">Autonomous Fleet Ownership</div>
-          <div class="text muted">Work detaches from human driving and reconnects to ownership.</div>
+          <div class="text muted">Work continues without the driver. Ownership replaces labor.</div>
         </div>
       </div>
 
       <div class="card slim">
-        <div class="cardTitle">The whole thesis (10 seconds)</div>
+        <div class="cardTitle">Thesis (10 seconds)</div>
         <div class="muted">
           I’m an independent pharmacy courier documenting the transition from human driving labor to autonomous delivery ownership — by replacing my own job before it gets replaced for me.
         </div>
@@ -205,11 +236,11 @@
     </section>
 
     <footer class="footer">
-      <div class="mini muted">© <span id="year"></span> Traffic Trencher</div>
+      <div class="mini muted">© <span id="year"></span> Traffic Trencher • Mission Control</div>
     </footer>
 
   </main>
 
-  <script src="app.js?v=300"></script>
+  <script src="app.js?v=400"></script>
 </body>
 </html>
