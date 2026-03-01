@@ -609,3 +609,27 @@ input:focus{border-color:rgba(124,92,255,.7)}
   flex-wrap:wrap;
   gap:12px;
 }
+/* ===================================== */
+/* ✅ HEADER NUKE PATCH (kills the extra line) */
+/* ===================================== */
+
+/* If that text is inside any element in the header, hide it */
+.topbar .operator,
+.topbar .subtitle,
+.topbar .tagline,
+.topbar .sub,
+.topbar .meta,
+.topbar p,
+.topbar small {
+  display: none !important;
+}
+
+/* If it’s a stray span/div inside the center area, hide everything except the title */
+.topbar__center > *:not(.brand-title) {
+  display: none !important;
+}
+
+/* Ensure header row can’t overlap itself */
+.topbar__inner{
+  align-items: center !important;
+}
