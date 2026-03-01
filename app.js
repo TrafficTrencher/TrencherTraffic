@@ -1,4 +1,5 @@
-// docs/app.js
+// /docs/app.js ✅ FULL REPLACEMENT (uses your v2 base)
+
 const CONFIG = {
   goalMiles: 25000,
   milestoneCount: 25,            // 25k / 25 = 1,000-mile checkpoints
@@ -44,7 +45,7 @@ function clearStream(){
 }
 
 function computeIsLive(streamUrl, liveFlag){
-  // Live only when toggle is ON AND there is a stream URL saved
+  // Live only when toggle ON and a stream URL exists
   return !!(liveFlag && streamUrl && String(streamUrl).trim().length > 0);
 }
 
@@ -102,7 +103,7 @@ function attachStreamUI(){
       clearStream();
       renderStream("");
 
-      // Clearing stream also forces LIVE OFF
+      // Clearing stream forces LIVE off
       saveLiveFlag(false);
       if (liveToggle) liveToggle.checked = false;
       syncLiveUI("", false);
