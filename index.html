@@ -1,4 +1,3 @@
-<!-- docs/index.html -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,28 +10,42 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <!-- bump if needed -->
-  <link rel="stylesheet" href="style.css?v=1301" />
+  <link rel="stylesheet" href="style.css?v=1401" />
 </head>
 
 <body>
 
 <header class="topbar">
-  <div class="container topbar__inner">
 
-    <div class="brand">
-      <img class="brand__logo" src="images/PNG%20image.png" alt="Traffic Trencher" />
+  <div class="container">
 
-      <div class="brand__text">
-        <div class="brand__row">
-          <div class="brand__name">Traffic Trencher</div>
+    <!-- ROW 1: PROFILE + BADGE + TITLE (LEFT) | CHUD (RIGHT) -->
+    <div class="topbar__row">
+
+      <div class="topbar__left">
+        <div class="avatarstack">
+          <!-- Profile (left) -->
+          <img class="avatar" src="images/PNG%20image.png" alt="Traffic Trencher profile" />
+          <!-- Offline/Live badge adjacent to profile -->
           <span id="liveBadge" class="live-badge">OFFLINE</span>
         </div>
-        <div class="brand__tag">From independent courier → autonomous fleet operator</div>
+
+        <div class="brandtext">
+          <div class="brandtext__name">Traffic Trencher</div>
+          <div class="brandtext__tag">From independent courier → autonomous fleet operator</div>
+        </div>
       </div>
+
+      <!-- Chud (right) aligned with profile -->
+      <img
+        src="images/69322D1E-E63C-4AAD-AB15-42949634CA04.PNG"
+        alt="Header Graphic"
+        class="chud"
+      />
     </div>
 
-    <nav class="nav">
+    <!-- ROW 2: NAV -->
+    <nav class="nav nav--row2">
       <a href="#live">Live</a>
       <a href="#miles">Miles</a>
       <a href="#fomo">FOMO</a>
@@ -40,12 +53,6 @@
     </nav>
 
   </div>
-
-  <img
-    src="images/69322D1E-E63C-4AAD-AB15-42949634CA04.PNG"
-    alt="Header Graphic"
-    class="top-right-img"
-  />
 </header>
 
 <main>
@@ -345,6 +352,6 @@
   </div>
 </footer>
 
-<script src="app.js?v=1301"></script>
+<script src="app.js?v=1401"></script>
 </body>
 </html>
