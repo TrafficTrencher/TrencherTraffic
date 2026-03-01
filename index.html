@@ -1,332 +1,135 @@
-<!-- /docs/index.html  ✅ FULL REPLACEMENT -->
+<!-- docs/index.html (FULL REPLACEMENT) -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Traffic Trencher — documenting the transition to autonomous delivery." />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="description" content="Traffic Trencher — Drive-to-earn livestream. Road to 25,000 miles." />
   <title>Traffic Trencher</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=1300" />
+  <!-- ✅ cache bust (change number if Safari shows old) -->
+  <link rel="stylesheet" href="style.css?v=1201" />
 </head>
 
 <body>
+  <!-- BG -->
+  <div class="site-bg" aria-hidden="true"></div>
 
-<header class="topbar">
-  <div class="container topbar__inner">
+  <!-- ============================= -->
+  <!-- ✅ FIXED HEADER -->
+  <!-- ============================= -->
+  <header class="topbar" role="banner">
+    <div class="topbar__row">
 
-    <!-- LEFT: profile + OFFLINE (adjacent) -->
-    <div class="topbar__left">
-      <img class="pfp" src="images/PNG%20image.png" alt="Traffic Trencher profile" />
-      <span id="liveBadge" class="live-badge">OFFLINE</span>
-    </div>
-
-    <!-- CENTER: name + short subtitle (no "operator" word in header) -->
-    <div class="topbar__center">
-      <div class="topbar__name">Traffic Trencher</div>
-      <div class="topbar__tag">From independent courier → autonomous fleet</div>
-    </div>
-
-    <!-- RIGHT: chud (parallel to profile) -->
-    <div class="topbar__right">
-      <img
-        src="images/69322D1E-E63C-4AAD-AB15-42949634CA04.PNG"
-        alt="Header Graphic"
-        class="chud"
-      />
-    </div>
-
-  </div>
-
-  <!-- NAV row (pills) -->
-  <nav class="nav nav--row2">
-    <a href="#live">Live</a>
-    <a href="#miles">Miles</a>
-    <a href="#fomo">FOMO</a>
-    <a href="#links">Links</a>
-  </nav>
-</header>
-
-<main>
-
-  <!-- HERO -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero__grid">
-
-        <!-- LEFT -->
-        <div>
-          <div class="chip">
-            <span class="chip__dot"></span>
-            HUMAN DRIVER ERA — ACTIVE
-          </div>
-
-          <h1 class="title">
-            From Independent<br/>
-            Medical Courier<br/>
-            to <span>Autonomous</span><br/>
-            <span>Delivery Fleet</span><br/>
-            <span class="title__alt">Operator — Documented Live</span>
-          </h1>
-
-          <p class="lead">
-            A real pharmacy delivery job streamed daily using Starlink — turning labor into visibility,
-            and visibility into capital for automation.
-          </p>
-
-          <!-- THE OPERATION (replaces Lore+Thesis) -->
-          <details id="thesisDetails" class="thesis card glass">
-            <summary class="thesis__summary">
-              <span class="thesis__tag">THE OPERATION</span>
-              <span class="thesis__hint">Tap to expand</span>
-            </summary>
-
-            <div class="thesis__body">
-              <p class="thesis__title"><b>TRAFFIC TRENCHER</b></p>
-              <p><b>Ticker:</b> <b>TRAFFIC</b></p>
-
-              <hr class="hr" />
-
-              <p class="thesis__title"><b>What I’m doing</b></p>
-              <p>Today, a real pharmacy delivery route is streamed daily as an independent contractor.</p>
-              <p>I’m building in public because autonomous driving is moving from testing into real-world deployment.</p>
-              <p>Rather than waiting for automation to replace my job, I’m aligning with the transition as it unfolds — and using it to scale.</p>
-
-              <hr class="hr" />
-
-              <p class="thesis__title"><b>Why this exists</b></p>
-              <p>Streaming turns labor into visibility.</p>
-              <p>Visibility becomes capital for automation.</p>
-
-              <hr class="hr" />
-
-              <p class="thesis__title"><b>The mission</b></p>
-              <p>Use creator fees + social revenue to acquire autonomy hardware and move from:</p>
-              <p><b>independent courier → autonomous vehicle → multi-vehicle fleet operator</b></p>
-              <p>…servicing pharmacy partners with an autonomous medical delivery fleet.</p>
-
-              <hr class="hr" />
-
-              <p class="thesis__title"><b>Season 1</b></p>
-              <p><b>25,000 miles</b> documented.</p>
-              <p>Claims / checkpoints every <b>1,000 miles</b>.</p>
-            </div>
-          </details>
-
-          <div class="cta cta--center">
-            <a class="btn" href="https://x.com/traffictrencher" target="_blank" rel="noopener">Follow on X</a>
-            <a class="btn btn--primary" href="#live">Watch Live</a>
-            <a class="btn btn--ghost" href="#miles">Track Progress</a>
-          </div>
-
-          <div class="micro">
-            <span>CCM • IRL • Starlink</span>
-            <span>•</span>
-            <span>Ticker: <b>TRAFFIC</b></span>
-            <span>•</span>
-            <span>Season 1: <b>25,000 miles</b></span>
-          </div>
-        </div>
-
-        <!-- RIGHT -->
-        <div class="card overview overview--pop glass">
-          <div class="roadmap-super-title">
-            Driving Until Autonomy
-          </div>
-
-          <div class="roadmap-evolution">
-            <img src="images/IMG_2590.png" alt="Transportation evolution timeline" class="evolution-img" />
-          </div>
-
-          <div class="roadmap-sub-title">
-            Creator checkpoints every 1,000 miles
-          </div>
-
-          <div class="roadmap">
-            <div class="roadmap__head">
-              <div class="roadmap__title">Roadmap: Contractor → Fleet Operator</div>
-              <div class="roadmap__sub">Simple. Observable. Built in public.</div>
-            </div>
-
-            <ol class="roadmap__list">
-              <li><b>Stream the route</b><span>Daily proof-of-work on a real pharmacy job.</span></li>
-              <li><b>1,000-mile checkpoints</b><span>Claims / upgrades / receipts logged.</span></li>
-              <li><b>Upgrade the rig</b><span>Audio + cameras + overlays.</span></li>
-              <li><b>Acquire autonomy hardware</b><span>First autonomous-capable vehicle.</span></li>
-              <li><b>Run route comparisons</b><span>Human vs assisted vs autonomous performance.</span></li>
-              <li><b>Scale to multi-route ops</b><span>Operator mindset replaces contractor grind.</span></li>
-              <li><b>Deploy fleet</b><span>Autonomous medical delivery service for pharmacy partners.</span></li>
-            </ol>
-          </div>
-        </div>
-
+      <!-- LEFT: profile + OFFLINE -->
+      <div class="topbar__left">
+        <img class="pfp" src="img/profile.jpg" alt="Profile" />
+        <span class="status-pill">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span id="statusText">OFFLINE</span>
+        </span>
       </div>
-    </div>
-  </section>
 
-  <!-- LIVE -->
-  <section id="live" class="section">
-    <div class="container">
-      <h2>Live Stream</h2>
-      <p class="muted">Save your stream URL. Flip LIVE on only when you’re actually live.</p>
+      <!-- CENTER: ALWAYS VISIBLE TITLE -->
+      <div class="topbar__center">
+        <div class="tt-title">Traffic Trencher</div>
+        <!-- ✅ subtitle intentionally removed so it can't overlap -->
+      </div>
 
-      <div class="livegrid">
-        <div class="card glass">
-          <div class="card__head">
-            <div class="card__title">Stream Player</div>
-          </div>
-          <div class="card__body">
-            <div class="embedwrap embedwrap--glass">
-              <iframe id="streamFrame" src="" allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
-
-        <div class="card glass">
-          <div class="card__head">
-            <div class="card__title">Stream Setup</div>
-          </div>
-          <div class="card__body">
-            <label class="field">
-              <span>Stream URL</span>
-              <input id="streamUrl" placeholder="https://..." />
-            </label>
-
-            <label class="toggle">
-              <input id="liveToggle" type="checkbox" />
-              <span class="toggle__text">Set status to <b>LIVE</b> (manual)</span>
-            </label>
-
-            <div class="row">
-              <button class="btn btn--primary" id="saveStream" type="button">Save</button>
-              <button class="btn" id="clearStream" type="button">Clear</button>
-            </div>
-
-            <p class="small">Stream link is stored locally in your browser.</p>
-          </div>
-        </div>
+      <!-- RIGHT: icon -->
+      <div class="topbar__right">
+        <img class="chud" src="img/chud.png" alt="" />
       </div>
 
     </div>
-  </section>
 
-  <!-- MILES -->
-  <section id="miles" class="section section--alt">
-    <div class="container">
-      <h2>Mile Tracker</h2>
+    <!-- NAV BUTTONS -->
+    <nav class="topnav" aria-label="Primary">
+      <a class="navbtn" href="#live">Live</a>
+      <a class="navbtn" href="#miles">Miles</a>
+      <a class="navbtn" href="#fomo">FOMO</a>
+      <a class="navbtn" href="#links">Links</a>
+    </nav>
+  </header>
 
-      <div class="milegrid">
-        <div class="card glass">
-          <div class="card__body">
-            <div class="progress">
-              <div class="progress__meta">
-                <div><b id="currentMilesText">0</b> / 25,000 miles</div>
-                <div id="percentText">0%</div>
-              </div>
+  <!-- ============================= -->
+  <!-- PAGE -->
+  <!-- ============================= -->
+  <main class="page">
 
-              <div class="bar bar--glass">
-                <div class="bar__fill" id="barFill"></div>
-              </div>
-
-              <label class="field">
-                <span>Update miles</span>
-                <input id="currentMiles" type="number" placeholder="Enter miles" />
-              </label>
-
-              <button class="btn btn--primary" id="saveMiles" type="button">Save</button>
-
-              <p class="small">Miles are saved locally on this device/browser.</p>
-            </div>
-          </div>
+    <!-- HERO -->
+    <section class="hero" id="live">
+      <div class="hero__inner">
+        <div class="era-pill">
+          <span class="era-dot" aria-hidden="true"></span>
+          <span>HUMAN DRIVER ERA — ACTIVE</span>
         </div>
 
-        <div class="card glass">
-          <div class="card__body">
-            <div class="milestones__head">
-              <h3 class="milestones__title">Milestones</h3>
-              <div class="milestones__pill">Every 1,000 miles</div>
-            </div>
-            <p class="small">Claims trigger every 1,000 miles.</p>
-            <ol id="milestoneList" class="milestones__list"></ol>
-          </div>
-        </div>
-      </div>
+        <h1 class="hero__title">
+          From Independent Medical Courier<br>
+          to <span class="accent">Autonomous</span><br>
+          <span class="accent2">Delivery Fleet Operator</span> —<br>
+          Documented Live
+        </h1>
 
-    </div>
-  </section>
+        <p class="hero__sub">
+          A real pharmacy delivery job streamed daily using Starlink —
+          turning labor into visibility, and visibility into capital for automation.
+        </p>
 
-  <!-- FOMO -->
-  <section id="fomo" class="section">
-    <div class="container">
-      <div class="card fomo fomo--glow glass">
-        <div class="card__body fomo__body">
-
-          <div class="fomo__left">
-            <div class="fomo__tag">LIVE TRADING</div>
-
-            <h2 class="fomo__title">
-              Trade With Me Live on <span class="fomo__brand">FOMO</span>
-            </h2>
-
-            <p class="fomo__desc">
-              Real entries, real exits, live on stream.
-              If you’re going to trade, trade with a discount and watch it happen in real time.
-            </p>
-
-            <div class="fomo__cta">
-              <a class="btn btn--primary" href="https://fomo.family/r/TrafficTrencher" target="_blank" rel="noopener">
-                Trade on FOMO
-              </a>
-
-              <button class="btn" id="copyFomo" type="button">Copy FOMO Link</button>
-            </div>
-
-            <p class="small">
-              https://fomo.family/r/TrafficTrencher
-              <span id="copyToast" class="toast" hidden>Copied ✓</span>
-            </p>
-          </div>
-
-          <div class="fomo__right">
-            <img class="fomo__logo" src="images/fomo.jpg" alt="FOMO logo" />
-          </div>
-
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- LINKS -->
-  <section id="links" class="section section--alt">
-    <div class="container">
-      <h2>Links</h2>
-
-      <div class="linkgrid">
-        <a class="linkcard glass" href="https://x.com/traffictrencher" target="_blank" rel="noopener">
-          <b>X / Twitter</b>
-          <p>Updates & announcements</p>
+        <a class="btn btn--primary" href="#operation">
+          <span>THE OPERATION</span>
+          <span class="btn__hint">Tap to expand</span>
         </a>
 
-        <a class="linkcard glass" href="#live">
-          <b>Live Stream</b>
-          <p>Watch the journey</p>
-        </a>
+        <a class="btn btn--ghost" href="#links">Follow on X</a>
+        <a class="btn btn--ghost" href="#links">Watch Live</a>
       </div>
-    </div>
-  </section>
+    </section>
 
-</main>
+    <!-- PLACEHOLDER SECTIONS -->
+    <section class="section" id="miles">
+      <div class="section__inner">
+        <h2>Miles</h2>
+        <p class="muted">Your miles content goes here.</p>
+      </div>
+    </section>
 
-<footer class="footer">
-  <div class="container footer__inner">
-    <div>© <span id="year"></span> Traffic Trencher</div>
-  </div>
-</footer>
+    <section class="section" id="fomo">
+      <div class="section__inner">
+        <h2>FOMO</h2>
+        <p class="muted">Your FOMO content goes here.</p>
+      </div>
+    </section>
 
-<script src="app.js?v=1300"></script>
+    <section class="section" id="operation">
+      <div class="section__inner">
+        <h2>The Operation</h2>
+        <p class="muted">Your operation content goes here.</p>
+      </div>
+    </section>
+
+    <section class="section" id="links">
+      <div class="section__inner">
+        <h2>Links</h2>
+        <p class="muted">Your links go here.</p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer__inner">
+        <span class="muted">© <span id="year"></span> Traffic Trencher</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
 </body>
 </html>
