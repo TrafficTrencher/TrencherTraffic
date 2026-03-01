@@ -1,4 +1,4 @@
-<!-- docs/index.html (FULL REPLACEMENT) -->
+<!-- docs/index.html (FULL REPLACEMENT - HEADER WILL NOT BREAK) -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,43 +11,50 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <!-- ✅ cache bust (change number if Safari shows old) -->
-  <link rel="stylesheet" href="style.css?v=1201" />
+  <!-- cache bust -->
+  <link rel="stylesheet" href="style.css?v=5001" />
 </head>
 
 <body>
-  <!-- BG -->
   <div class="site-bg" aria-hidden="true"></div>
 
   <!-- ============================= -->
-  <!-- ✅ FIXED HEADER -->
+  <!-- ✅ FIXED HEADER (NO IMAGE DEPENDENCIES) -->
   <!-- ============================= -->
   <header class="topbar" role="banner">
-    <div class="topbar__row">
+    <div class="topbar__inner">
+      <!-- left: icon + status -->
+      <div class="topbar__slot topbar__slot--left">
+        <span class="iconchip" aria-hidden="true">
+          <!-- profile-ish icon -->
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+            <path d="M12 12c2.76 0 5-2.24 5-5S14.76 2 12 2 7 4.24 7 7s2.24 5 5 5Z" stroke="rgba(233,238,251,.9)" stroke-width="2"/>
+            <path d="M4 22c0-4.42 3.58-8 8-8s8 3.58 8 8" stroke="rgba(233,238,251,.9)" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
 
-      <!-- LEFT: profile + OFFLINE -->
-      <div class="topbar__left">
-        <img class="pfp" src="img/profile.jpg" alt="Profile" />
         <span class="status-pill">
           <span class="status-dot" aria-hidden="true"></span>
           <span id="statusText">OFFLINE</span>
         </span>
       </div>
 
-      <!-- CENTER: ALWAYS VISIBLE TITLE -->
-      <div class="topbar__center">
-        <div class="tt-title">Traffic Trencher</div>
-        <!-- ✅ subtitle intentionally removed so it can't overlap -->
+      <!-- center: title -->
+      <div class="topbar__slot topbar__slot--center">
+        <div class="brand-title">Traffic Trencher</div>
       </div>
 
-      <!-- RIGHT: icon -->
-      <div class="topbar__right">
-        <img class="chud" src="img/chud.png" alt="" />
+      <!-- right: icon -->
+      <div class="topbar__slot topbar__slot--right">
+        <span class="iconchip" aria-hidden="true" title="Menu/Badge">
+          <!-- badge icon -->
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+            <path d="M7 7h10M7 12h10M7 17h10" stroke="rgba(233,238,251,.9)" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </span>
       </div>
-
     </div>
 
-    <!-- NAV BUTTONS -->
     <nav class="topnav" aria-label="Primary">
       <a class="navbtn" href="#live">Live</a>
       <a class="navbtn" href="#miles">Miles</a>
@@ -56,9 +63,6 @@
     </nav>
   </header>
 
-  <!-- ============================= -->
-  <!-- PAGE -->
-  <!-- ============================= -->
   <main class="page">
 
     <!-- HERO -->
@@ -91,32 +95,31 @@
       </div>
     </section>
 
-    <!-- PLACEHOLDER SECTIONS -->
     <section class="section" id="miles">
       <div class="section__inner">
         <h2>Miles</h2>
-        <p class="muted">Your miles content goes here.</p>
+        <p class="muted">Miles section…</p>
       </div>
     </section>
 
     <section class="section" id="fomo">
       <div class="section__inner">
         <h2>FOMO</h2>
-        <p class="muted">Your FOMO content goes here.</p>
+        <p class="muted">FOMO section…</p>
       </div>
     </section>
 
     <section class="section" id="operation">
       <div class="section__inner">
         <h2>The Operation</h2>
-        <p class="muted">Your operation content goes here.</p>
+        <p class="muted">Operation section…</p>
       </div>
     </section>
 
     <section class="section" id="links">
       <div class="section__inner">
         <h2>Links</h2>
-        <p class="muted">Your links go here.</p>
+        <p class="muted">Links section…</p>
       </div>
     </section>
 
