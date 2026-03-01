@@ -1,6 +1,4 @@
-// Traffic Trencher — app.js (v2)
-// Manual LIVE toggle + clean FOMO copy toast + miles/milestones
-
+// docs/app.js
 const CONFIG = {
   goalMiles: 25000,
   milestoneCount: 25,            // 25k / 25 = 1,000-mile checkpoints
@@ -122,7 +120,7 @@ function attachStreamUI(){
   }
 }
 
-/* ========= THESIS DEFAULT OPEN ON DESKTOP ========= */
+/* ========= THE OPERATION DEFAULT OPEN ON DESKTOP ========= */
 function setThesisDefault(){
   const d = qs("#thesisDetails");
   if (!d) return;
