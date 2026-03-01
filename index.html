@@ -3,245 +3,336 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Trencher Traffic — documenting the transition from human labor to autonomous systems in real time." />
-  <title>Trencher Traffic</title>
+  <meta name="description" content="Traffic Trencher — Drive-to-earn livestream. Road to 25,000 miles." />
+  <title>Traffic Trencher</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=200" />
+  <link rel="stylesheet" href="style.css?v=1200" />
 </head>
 
 <body>
-  <!-- Ambient background -->
-  <div class="site-bg" aria-hidden="true"></div>
 
-  <header class="topbar">
+<header class="topbar">
+  <div class="container topbar__inner">
+
     <div class="brand">
-      <div class="logo">TT</div>
-      <div class="brand-text">
-        <div class="brand-name">Trencher Traffic</div>
-        <div class="brand-sub">Independent Pharmacy Courier → Autonomous Fleet Owner</div>
+      <img class="brand__logo" src="images/PNG%20image.png" alt="Traffic Trencher" />
+
+      <div class="brand__text">
+        <div class="brand__row">
+          <div class="brand__name">Traffic Trencher</div>
+          <span id="liveBadge" class="live-badge">OFFLINE</span>
+        </div>
+        <div class="brand__tag">Drive-to-Earn • Road to 25,000 Miles</div>
       </div>
     </div>
 
     <nav class="nav">
       <a href="#live">Live</a>
       <a href="#miles">Miles</a>
-      <a href="#thesis">Thesis</a>
-      <a href="#doctrine">Doctrine</a>
-      <a href="#timeline">Timeline</a>
       <a href="#fomo">FOMO</a>
       <a href="#links">Links</a>
     </nav>
 
-    <div class="status-pill" id="statusPill" title="Set your stream link below to activate the live player">
-      <span class="dot"></span>
-      <span id="statusText">OFFLINE</span>
-    </div>
-  </header>
+  </div>
 
-  <main class="wrap">
-    <!-- HERO -->
-    <section class="hero" id="top">
-      <div class="hero-left">
-        <div class="kicker">CCM • IRL • AI • AUTONOMY</div>
-        <h1>The Last Human Miles</h1>
-        <p class="lead">
-          Documenting a real medical courier route in real time as AI approaches the threshold for unsupervised autonomy. Creator fees reinvest into hardware to transition from human driver to autonomous fleet owner.
-        </p>
+  <img
+    src="images/69322D1E-E63C-4AAD-AB15-42949634CA04.PNG"
+    alt="Header Graphic"
+    class="top-right-img"
+  />
+</header>
 
-        <div class="hero-cta">
-          <a class="btn primary" href="#live">Watch Live</a>
-          <a class="btn ghost" href="#thesis">Read Thesis</a>
-        </div>
+<main>
 
-        <div class="meta-row">
-          <div class="meta-card">
-            <div class="meta-label">Operating Window (ET)</div>
-            <div class="meta-value">Mon–Fri • ~3:00 PM – ~7:30 PM</div>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container">
+
+      <div class="hero__grid">
+
+        <!-- LEFT -->
+        <div>
+
+          <div class="chip">
+            <span class="chip__dot"></span>
+            HUMAN DRIVER ERA — ACTIVE
           </div>
-          <div class="meta-card">
-            <div class="meta-label">Ticker</div>
-            <div class="meta-value">TT</div>
-          </div>
-          <div class="meta-card">
-            <div class="meta-label">Creator Fee Rhythm</div>
-            <div class="meta-value">Claim every 1,000 miles</div>
-          </div>
-        </div>
-      </div>
 
-      <div class="hero-right">
-        <div class="panel">
-          <div class="panel-title">Autonomy Clock</div>
-          <p class="panel-text">
-            Tesla FSD (Supervised) has surpassed 8B miles (Feb 2026). Approaching ~10B miles as the threshold for unsupervised autonomy.
+          <h1 class="title">
+            Replacing My Job<br/>
+            <span>With AI</span><br/>
+            <span class="title__alt">Before AI Replaces Me</span>
+          </h1>
+
+          <p class="lead">
+            Independent medical courier documenting the transition from human labor → autonomous vehicles → fleet ownership.
           </p>
-          <div class="clock">
-            <div class="clock-row">
-              <span>8B</span>
-              <span class="muted">→</span>
-              <span>10B</span>
+
+          <!-- LORE + THESIS -->
+          <details id="thesisDetails" class="thesis card glass">
+            <summary class="thesis__summary">
+              <span class="thesis__tag">LORE + THESIS</span>
+              <span class="thesis__hint">Tap to expand</span>
+            </summary>
+
+            <div class="thesis__body">
+              <p class="thesis__title"><b>TRAFFIC TRENCHER: Drive-to-Earn • Road to 25,000 Miles</b></p>
+              <p><b>Ticker:</b> <b>TRAFFIC</b></p>
+              <p>Welcome to the real-world wage maxxing <b>CCM (Courier Content Maxxing)</b> meta.</p>
+
+              <hr class="hr" />
+
+              <p class="thesis__title"><b>The Origin Lore</b></p>
+              <p>In 2016, Elon Musk was sitting in Los Angeles traffic and publicly vented that it was driving him insane. That frustration became The Boring Company.</p>
+              <p>Ten years later, I’m sitting in traffic on my daily medical courier route.</p>
+              <p>Different city. Same brake lights. Same wasted time.</p>
+              <p>The route is fixed. The miles are guaranteed. The time is already being spent.</p>
+              <p>So I made a decision: <b>tokenize it</b>.</p>
+              <p>Don’t escape traffic. <b>Own it.</b></p>
+              <p>That’s where <b>TRAFFIC TRENCHER</b> was born.</p>
+
+              <hr class="hr" />
+
+              <p class="thesis__title"><b>The Thesis</b></p>
+              <p>I’m tokenizing my daily medical courier route in Southwest Florida — turning the grind into a live, community-driven experiment.</p>
+              <p>Every weekday, I’m behind the wheel streaming the loop live via <b>Starlink Mini Roam Unlimited</b>.</p>
+              <p><b>Operating Commitment (EST):</b> Monday–Friday • <b>3:00 PM – ~7:30 PM</b></p>
+              <p>Creator fees from the token get claimed transparently every <b>1,000 miles</b>.</p>
+              <p><b>Season 1:</b> Road to <b>25,000 Miles</b></p>
             </div>
-            <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="80">
-              <div class="bar-fill" style="width:80%"></div>
+          </details>
+
+          <div class="cta cta--center">
+            <a class="btn" href="https://x.com/traffictrencher" target="_blank" rel="noopener">Follow on X</a>
+            <a class="btn btn--primary" href="#live">Watch Live</a>
+            <a class="btn btn--ghost" href="#miles">Track Progress</a>
+          </div>
+
+          <div class="micro">
+            <span>CCM • IRL • Starlink</span>
+            <span>•</span>
+            <span>Ticker: <b>TRAFFIC</b></span>
+            <span>•</span>
+            <span>Season 1: <b>25,000 miles</b></span>
+          </div>
+
+        </div>
+
+        <!-- RIGHT: ROADMAP -->
+        <div class="card overview overview--pop glass">
+
+          <div class="roadmap-super-title">
+            Driving Until Autonomy
+          </div>
+
+          <div class="roadmap-evolution">
+            <img
+              src="images/IMG_2590.png"
+              alt="Transportation evolution timeline"
+              class="evolution-img"
+            />
+          </div>
+
+          <div class="roadmap-sub-title">
+            Claiming Creator Fees Every 1,000 Miles to Fund The Journey
+          </div>
+
+          <div class="roadmap">
+            <div class="roadmap__head">
+              <div class="roadmap__title">Roadmap: Honda → Tesla FSD (or Cyber Cab)</div>
+              <div class="roadmap__sub">10 steps. Real upgrades. No fake “soon”.</div>
             </div>
-            <div class="clock-foot">
-              <span class="muted">Illustrative progress (sources: Tesla reports).</span>
+
+            <ol class="roadmap__list">
+              <li><b>Baseline — Proof of Grind</b><span>Weekday route streams powered by Starlink Mini.</span></li>
+              <li><b>Creator Fee System</b><span>Every 1,000 miles = transparent claim.</span></li>
+              <li><b>Rig Upgrade Pack</b><span>Audio + cameras + overlays.</span></li>
+              <li><b>Clip Machine</b><span>Constant content output.</span></li>
+              <li><b>Tesla Fund Begins</b><span>Portion of claims allocated.</span></li>
+              <li><b>The Grind</b><span>Drive until autonomy.</span></li>
+              <li><b>Autonomy Milestone</b><span>Tesla FSD or Cyber Cab secured.</span></li>
+              <li><b>Hands-Off Era</b><span>AI drives. I narrate.</span></li>
+              <li><b>FOMO Quest</b><span>Top 25 traders all-time.</span></li>
+              <li><b>Break the Loop</b><span>Out-of-state missions.</span></li>
+            </ol>
+          </div>
+
+        </div>
+
+      </div><!-- /hero__grid -->
+
+    </div>
+  </section>
+
+  <!-- LIVE -->
+  <section id="live" class="section">
+    <div class="container">
+      <h2>Live Stream</h2>
+      <p class="muted">Save your stream URL. Flip LIVE on only when you’re actually live.</p>
+
+      <div class="livegrid">
+        <div class="card glass">
+          <div class="card__head">
+            <div class="card__title">Stream Player</div>
+          </div>
+          <div class="card__body">
+            <div class="embedwrap embedwrap--glass">
+              <iframe id="streamFrame" src="" allowfullscreen></iframe>
             </div>
           </div>
-
-          <div class="panel-actions">
-            <a class="btn tiny ghost" href="https://www.tesla.com/fsd" target="_blank" rel="noreferrer">Tesla FSD</a>
-          </div>
         </div>
 
-        <div class="panel accent">
-          <div class="panel-title">One-Liner</div>
-          <div class="quote">
-            “A live-streamed bet on the moment AI replaces human driving — documented from inside the job.”
+        <div class="card glass">
+          <div class="card__head">
+            <div class="card__title">Stream Setup</div>
+          </div>
+          <div class="card__body">
+
+            <label class="field">
+              <span>Stream URL</span>
+              <input id="streamUrl" placeholder="https://..." />
+            </label>
+
+            <label class="toggle">
+              <input id="liveToggle" type="checkbox" />
+              <span class="toggle__text">Set status to <b>LIVE</b> (manual)</span>
+            </label>
+
+            <div class="row">
+              <button class="btn btn--primary" id="saveStream">Save</button>
+              <button class="btn" id="clearStream" type="button">Clear</button>
+            </div>
+
+            <p class="small">Stream link is stored locally in your browser.</p>
+
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- LIVE -->
-    <section class="section" id="live">
-      <div class="section-head">
-        <h2>Live Stream</h2>
-        <p class="muted">Paste your pump.fun stream URL. Saved locally.</p>
-      </div>
+    </div>
+  </section>
 
-      <div class="grid two">
-        <div class="card">
-          <div class="card-title">Stream Player</div>
-          <div class="player">
-            <iframe id="streamFrame" title="Trencher Traffic Live" src="" loading="lazy"></iframe>
-            <div class="player-empty" id="playerEmpty">
-              <div class="player-empty-title">No stream set</div>
-              <div class="muted">Add URL below.</div>
+  <!-- MILES -->
+  <section id="miles" class="section section--alt">
+    <div class="container">
+      <h2>Mile Tracker</h2>
+
+      <div class="milegrid">
+        <div class="card glass">
+          <div class="card__body">
+            <div class="progress">
+              <div class="progress__meta">
+                <div><b id="currentMilesText">0</b> / 25,000 miles</div>
+                <div id="percentText">0%</div>
+              </div>
+
+              <div class="bar bar--glass">
+                <div class="bar__fill" id="barFill"></div>
+              </div>
+
+              <label class="field">
+                <span>Update miles</span>
+                <input id="currentMiles" type="number" placeholder="Enter miles" />
+              </label>
+
+              <button class="btn btn--primary" id="saveMiles">Save</button>
+
+              <p class="small">Miles are saved locally on this device/browser.</p>
             </div>
           </div>
         </div>
 
-        <div class="card">
-          <div class="card-title">Stream Setup</div>
-          <label class="label" for="streamUrl">pump.fun stream URL</label>
-          <input class="input" id="streamUrl" placeholder="https://pump.fun/stream/..." />
-          <div class="row">
-            <button class="btn primary" id="saveStream">Save</button>
-            <button class="btn ghost" id="clearStream">Clear</button>
+        <div class="card glass">
+          <div class="card__body">
+            <div class="milestones__head">
+              <h3 class="milestones__title">Milestones</h3>
+              <div class="milestones__pill">Every 1,000 miles</div>
+            </div>
+            <p class="small">Claims trigger every 1,000 miles.</p>
+            <ol id="milestoneList" class="milestones__list"></ol>
           </div>
-          <div class="hint">Local storage only.</div>
         </div>
       </div>
-    </section>
 
-    <!-- MILES -->
-    <section class="section" id="miles">
-      <div class="section-head">
-        <h2>Mile Tracker</h2>
-        <p class="muted">Track progress locally. Claim fees every 1,000 miles.</p>
-      </div>
+    </div>
+  </section>
 
-      <div class="grid two">
-        <div class="card">
-          <div class="big-miles">
-            <div class="big-number" id="mileNumber">0</div>
-            <div class="big-sub">/ 10,000 miles (Phase 1)</div>
+  <!-- FOMO -->
+  <section id="fomo" class="section">
+    <div class="container">
+
+      <div class="card fomo fomo--glow glass">
+        <div class="card__body fomo__body">
+
+          <div class="fomo__left">
+            <div class="fomo__tag">LIVE TRADING</div>
+
+            <h2 class="fomo__title">
+              Trade With Me Live on <span class="fomo__brand">FOMO</span>
+            </h2>
+
+            <p class="fomo__desc">
+              Real entries, real exits, live on stream.
+              If you’re going to trade, trade with a discount and watch it happen in real time.
+            </p>
+
+            <div class="fomo__cta">
+              <a class="btn btn--primary" href="https://fomo.family/r/TrafficTrencher" target="_blank" rel="noopener">
+                Trade on FOMO
+              </a>
+
+              <button class="btn" id="copyFomo" type="button">
+                Copy FOMO Link
+              </button>
+            </div>
+
+            <p class="small">
+              https://fomo.family/r/TrafficTrencher
+              <span id="copyToast" class="toast" hidden>Copied ✓</span>
+            </p>
           </div>
-          <div class="bar" aria-hidden="true">
-            <div class="bar-fill" id="mileBar" style="width:0%"></div>
+
+          <div class="fomo__right">
+            <img class="fomo__logo" src="images/fomo.jpg" alt="FOMO logo" />
           </div>
-          <label class="label" for="mileInput">Update Miles</label>
-          <input class="input" id="mileInput" type="number" placeholder="Enter miles" />
-          <button class="btn primary" id="saveMiles">Save</button>
-        </div>
 
-        <div class="card">
-          <div class="card-title">Milestones</div>
-          <ul class="list">
-            <li>1,000 miles: First claim</li>
-            <li>5,000 miles: Rig upgrade</li>
-            <li>10,000 miles: Autonomy entry</li>
-            <!-- Add more as needed -->
-          </ul>
         </div>
       </div>
-    </section>
 
-    <!-- THESIS -->
-    <section class="section" id="thesis">
-      <div class="section-head">
-        <h2>Master Thesis</h2>
-        <p class="muted">The core narrative.</p>
-      </div>
-      <div class="card">
-        <p>A live experiment documenting the transition from human labor to autonomous systems via a medical courier route streamed in real time. Aligned with Tesla autonomy toward the 10B-mile threshold. Tokenizes miles as proof of work, reinvests fees into hardware for evolution from driver to fleet owner.</p>
-      </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- DOCTRINE -->
-    <section class="section" id="doctrine">
-      <div class="section-head">
-        <h2>One-Page Doctrine</h2>
-        <p class="muted">Guiding principles.</p>
-      </div>
-      <div class="card">
-        <p>Core Mission: Document transition from human labor to autonomous systems in pharmacy logistics.</p>
-        <p>Central Idea: Worker replaces own job with AI to own the output.</p>
-        <!-- Add full doctrine text from conversation -->
-        <p>Doctrine Sentence: Trencher Traffic is a real-world experiment where an independent pharmacy courier replaces his own labor with autonomous systems, documenting humanity’s transition to automated production.</p>
-      </div>
-    </section>
+  <!-- LINKS -->
+  <section id="links" class="section section--alt">
+    <div class="container">
+      <h2>Links</h2>
 
-    <!-- TIMELINE -->
-    <section class="section" id="timeline">
-      <div class="section-head">
-        <h2>5-Year Timeline</h2>
-        <p class="muted">2026–2031 arc.</p>
-      </div>
-      <div class="card">
-        <ul class="list">
-          <li>2026: Final Human Era — Document with Honda Accord.</li>
-          <li>2027: Autonomy Entry — Acquire Tesla, supervised FSD.</li>
-          <li>2028: Attention Liberation — Digital work while assisted.</li>
-          <li>2029: Autonomous Operations — Fleet genesis.</li>
-          <li>2030–2031: Post-Work Operator — Fleet income.</li>
-        </ul>
-      </div>
-    </section>
+      <div class="linkgrid">
+        <a class="linkcard glass" href="https://x.com/traffictrencher" target="_blank" rel="noopener">
+          <b>X / Twitter</b>
+          <p>Updates & announcements</p>
+        </a>
 
-    <!-- FOMO -->
-    <section class="section" id="fomo">
-      <div class="section-head">
-        <h2>FOMO</h2>
-        <p class="muted">Trade live.</p>
+        <a class="linkcard glass" href="#live">
+          <b>Live Stream</b>
+          <p>Watch the journey</p>
+        </a>
       </div>
-      <div class="card">
-        <p>Live trading while driving. Join on FOMO for 10% off fees.</p>
-        <a class="btn primary" href="https://fomo.family/r/TrencherTraffic" target="_blank">Join FOMO</a>
-      </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- LINKS -->
-    <section class="section" id="links">
-      <div class="section-head">
-        <h2>Links</h2>
-        <p class="muted">Resources.</p>
-      </div>
-      <div class="card">
-        <ul class="list">
-          <li><a href="https://x.com/TrencherTraffic" target="_blank">X Profile</a></li>
-          <li><a href="https://pump.fun/" target="_blank">pump.fun</a></li>
-          <li><a href="https://tesla.com" target="_blank">Tesla</a></li>
-        </ul>
-      </div>
-    </section>
-  </main>
+</main>
 
-  <script src="app.js"></script>
+<footer class="footer">
+  <div class="container footer__inner">
+    <div>© <span id="year"></span> Traffic Trencher</div>
+  </div>
+</footer>
+
+<script src="app.js?v=1200"></script>
 </body>
 </html>
