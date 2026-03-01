@@ -1,5 +1,3 @@
-// /docs/app.js ✅ FULL REPLACEMENT (uses your v2 base)
-
 const CONFIG = {
   goalMiles: 25000,
   milestoneCount: 25,            // 25k / 25 = 1,000-mile checkpoints
@@ -45,7 +43,7 @@ function clearStream(){
 }
 
 function computeIsLive(streamUrl, liveFlag){
-  // Live only when toggle ON and a stream URL exists
+  // ✅ Live only when toggle is ON AND there is a stream URL saved
   return !!(liveFlag && streamUrl && String(streamUrl).trim().length > 0);
 }
 
@@ -103,7 +101,7 @@ function attachStreamUI(){
       clearStream();
       renderStream("");
 
-      // Clearing stream forces LIVE off
+      // ✅ Clearing stream also forces LIVE OFF
       saveLiveFlag(false);
       if (liveToggle) liveToggle.checked = false;
       syncLiveUI("", false);
@@ -121,7 +119,7 @@ function attachStreamUI(){
   }
 }
 
-/* ========= THE OPERATION DEFAULT OPEN ON DESKTOP ========= */
+/* ========= THESIS DEFAULT OPEN ON DESKTOP ========= */
 function setThesisDefault(){
   const d = qs("#thesisDetails");
   if (!d) return;
@@ -220,7 +218,7 @@ function attachCopyFomo(){
   const btn = qs("#copyFomo");
   const toast = qs("#copyToast");
 
-  // Force hidden on load every time
+  // ✅ Force hidden on load every time
   if (toast){
     toast.hidden = true;
     toast.textContent = "Copied ✓";
