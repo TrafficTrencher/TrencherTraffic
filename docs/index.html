@@ -11,40 +11,38 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <!-- cache bust if you want -->
-  <link rel="stylesheet" href="style.css?v=200" />
+  <!-- cache bust -->
+  <link rel="stylesheet" href="style.css?v=300" />
 </head>
 
 <body>
+  <!-- ============================= -->
+  <!-- SITE BACKGROUND -->
+  <!-- ============================= -->
+  <div class="site-bg" aria-hidden="true"></div>
 
   <!-- ============================= -->
-  <!-- FIXED HEADER -->
+  <!-- ✅ FIXED HEADER (MOBILE SAFE) -->
   <!-- ============================= -->
   <header class="topbar" role="banner">
     <div class="topbar__inner">
-
-      <!-- LEFT: profile + status -->
       <div class="topbar__left">
         <img class="avatar avatar--left" src="img/profile.jpg" alt="Profile" />
         <div class="status-pill" aria-label="Status">
           <span class="status-dot" aria-hidden="true"></span>
-          <span class="status-text">OFFLINE</span>
+          <span class="status-text" id="statusText">OFFLINE</span>
         </div>
       </div>
 
-      <!-- CENTER: title only (no subtitle line) -->
       <div class="topbar__center">
         <div class="brand-title">Traffic Trencher</div>
       </div>
 
-      <!-- RIGHT: icon aligned to avatar -->
       <div class="topbar__right">
         <img class="avatar avatar--right" src="img/chud.png" alt="Icon" />
       </div>
-
     </div>
 
-    <!-- NAV BUTTONS ROW -->
     <nav class="topnav" aria-label="Primary">
       <a class="topnav__btn" href="#live">Live</a>
       <a class="topnav__btn" href="#miles">Miles</a>
@@ -53,47 +51,393 @@
     </nav>
   </header>
 
-  <!-- Push page content below fixed header -->
+  <!-- ============================= -->
+  <!-- PAGE -->
+  <!-- ============================= -->
   <main class="page">
 
     <!-- ============================= -->
-    <!-- HERO (example - keep your content) -->
+    <!-- HERO -->
     <!-- ============================= -->
     <section class="hero" id="live">
       <div class="hero__inner">
-        <div class="era-pill">
-          <span class="era-dot"></span>
-          <span>HUMAN DRIVER ERA — ACTIVE</span>
-        </div>
+        <div class="hero__grid">
 
-        <h1 class="hero__title">
-          From Independent Medical Courier<br>
-          to <span class="accent">Autonomous</span><br>
-          <span class="accent2">Delivery Fleet</span><br>
-          <span class="accent2">Operator</span> —<br>
-          Documented Live
-        </h1>
+          <div class="hero__left">
+            <div class="era-pill">
+              <span class="era-dot" aria-hidden="true"></span>
+              <span id="eraLabel">HUMAN DRIVER ERA — ACTIVE</span>
+            </div>
 
-        <p class="hero__sub">
-          A real pharmacy delivery job streamed daily using Starlink —
-          turning labor into visibility, and visibility into capital for automation.
-        </p>
+            <h1 class="hero__title">
+              From Independent<br>
+              Medical Courier<br>
+              to <span class="accent">Autonomous</span><br>
+              <span class="accent2">Delivery Fleet</span><br>
+              <span class="accent2">Operator</span> —<br>
+              Documented Live
+            </h1>
 
-        <div class="hero__cta">
-          <a class="btn btn--primary" href="#operation">The Operation <span class="btn__hint">Tap to expand</span></a>
-          <a class="btn btn--ghost" href="#links">Follow on X</a>
-          <a class="btn btn--ghost" href="#watch">Watch Live</a>
+            <p class="hero__sub">
+              A real pharmacy delivery job streamed daily using Starlink —
+              turning labor into visibility, and visibility into capital for automation.
+            </p>
+
+            <div class="hero__cta">
+              <button class="btn btn--primary" id="openOperation">
+                <span>THE OPERATION</span>
+                <span class="btn__hint">Tap to expand</span>
+              </button>
+
+              <div class="cta-row">
+                <a class="btn btn--ghost" id="xLink" href="#" target="_blank" rel="noreferrer">
+                  Follow on X
+                </a>
+                <a class="btn btn--ghost" id="watchLink" href="#" target="_blank" rel="noreferrer">
+                  Watch Live
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero__right">
+            <div class="card metrics">
+              <div class="card__title">Live Metrics</div>
+
+              <div class="metric">
+                <div class="metric__label">Goal</div>
+                <div class="metric__value"><span id="goalMiles">25,000</span> miles</div>
+              </div>
+
+              <div class="metric">
+                <div class="metric__label">Progress</div>
+                <div class="metric__value"><span id="currentMiles">0</span> miles</div>
+              </div>
+
+              <div class="metric">
+                <div class="metric__label">Remaining</div>
+                <div class="metric__value"><span id="remainingMiles">25,000</span> miles</div>
+              </div>
+
+              <div class="progress">
+                <div class="progress__bar" aria-hidden="true">
+                  <div class="progress__fill" id="progressFill"></div>
+                </div>
+                <div class="progress__meta">
+                  <span id="progressPct">0%</span>
+                  <span class="muted">to goal</span>
+                </div>
+              </div>
+
+              <div class="mini">
+                <div class="mini__item">
+                  <div class="mini__label">FOMO</div>
+                  <div class="mini__value" id="fomoRank">—</div>
+                </div>
+                <div class="mini__item">
+                  <div class="mini__label">Creator fee claims</div>
+                  <div class="mini__value" id="claimsCount">0</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card notice">
+              <div class="card__title">Thesis</div>
+              <p class="muted">
+                Document the transition from full-attention human driving to zero-attention autonomy —
+                and build the operational base to survive the moment your employer can replace you with a robot car.
+              </p>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
 
-    <!-- placeholders so your nav targets work -->
-    <section id="miles" class="section"><div class="section__inner"><h2>Miles</h2></div></section>
-    <section id="fomo" class="section"><div class="section__inner"><h2>FOMO</h2></div></section>
-    <section id="links" class="section"><div class="section__inner"><h2>Links</h2></div></section>
-    <section id="operation" class="section"><div class="section__inner"><h2>The Operation</h2></div></section>
-    <section id="watch" class="section"><div class="section__inner"><h2>Watch Live</h2></div></section>
+    <!-- ============================= -->
+    <!-- MILES -->
+    <!-- ============================= -->
+    <section class="section" id="miles">
+      <div class="section__inner">
+        <div class="section__head">
+          <h2>Miles</h2>
+          <p class="muted">Track the grind. Turn the grind into proof.</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card__title">Daily loop</div>
+            <p class="muted">
+              Pharmacy deliveries across Southwest Florida. Streamed when safe. Logged daily.
+            </p>
+            <div class="pill-row">
+              <span class="pill">Starlink Mini</span>
+              <span class="pill">Drive-to-earn</span>
+              <span class="pill">Proof of miles</span>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card__title">Next milestone</div>
+            <div class="big-number">
+              <span id="nextClaimAt">1,000</span><span class="big-number__unit"> mi</span>
+            </div>
+            <p class="muted">
+              Creator-fee claim cadence (default): every <span id="claimEvery">1,000</span> miles.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================= -->
+    <!-- FOMO -->
+    <!-- ============================= -->
+    <section class="section" id="fomo">
+      <div class="section__inner">
+        <div class="section__head">
+          <h2>FOMO</h2>
+          <p class="muted">Top-25 attention goal (the Attention Era).</p>
+        </div>
+
+        <div class="grid-3">
+          <div class="card">
+            <div class="card__title">Goal</div>
+            <div class="big-number">Top <span class="accent2">25</span></div>
+            <p class="muted">Attention is leverage when the steering wheel disappears.</p>
+          </div>
+
+          <div class="card">
+            <div class="card__title">Current rank</div>
+            <div class="big-number" id="fomoRankBig">—</div>
+            <p class="muted">Wire this to your real data feed later.</p>
+          </div>
+
+          <div class="card">
+            <div class="card__title">Token / links</div>
+            <p class="muted">
+              Add pump.fun / Solscan / Dex links in the Links section below.
+            </p>
+            <div class="pill-row">
+              <span class="pill">pump.fun</span>
+              <span class="pill">Solana</span>
+              <span class="pill">Creator fee</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================= -->
+    <!-- THE OPERATION (EXPANDABLE) -->
+    <!-- ============================= -->
+    <section class="section" id="operation">
+      <div class="section__inner">
+        <div class="section__head">
+          <h2>The Operation</h2>
+          <p class="muted">How the grind becomes capital for autonomy.</p>
+        </div>
+
+        <div class="accordion">
+          <button class="accordion__btn" id="opToggle" aria-expanded="false" aria-controls="opPanel">
+            <span>Open the playbook</span>
+            <span class="accordion__chev" aria-hidden="true">▾</span>
+          </button>
+
+          <div class="accordion__panel" id="opPanel" hidden>
+            <div class="grid-2">
+              <div class="card">
+                <div class="card__title">Phase 1 — Human Driver Era</div>
+                <ul class="list">
+                  <li>Stream the route when safe (proof + reps).</li>
+                  <li>Log miles (public scoreboard).</li>
+                  <li>Build audience + operators who understand the mission.</li>
+                </ul>
+              </div>
+
+              <div class="card">
+                <div class="card__title">Phase 2 — Attention Era</div>
+                <ul class="list">
+                  <li>Reach Top-25 attention on FOMO.</li>
+                  <li>Convert attention into equipment + automation budget.</li>
+                  <li>Standardize routes, SOPs, and margins.</li>
+                </ul>
+              </div>
+
+              <div class="card">
+                <div class="card__title">Phase 3 — Model 3 w/ FSD</div>
+                <ul class="list">
+                  <li>Start autonomy testing on the same loop.</li>
+                  <li>Compare: human vs FSD time, safety, cost, throughput.</li>
+                  <li>Shift attention from driving → operations + community.</li>
+                </ul>
+              </div>
+
+              <div class="card">
+                <div class="card__title">Phase 4 — Cybercab</div>
+                <ul class="list">
+                  <li>Pre-order + purchase when available.</li>
+                  <li>Graduate from driver to fleet operator.</li>
+                  <li>Document the full transition live.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="card callout">
+              <div class="card__title">The line in the sand</div>
+              <p class="muted">
+                The point is not “AI will replace jobs someday.” The point is:
+                <strong>your employer will automate your exact lane the moment it’s economical</strong>.
+                So you build the system now—publicly—so you’re the operator when the switch flips.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================= -->
+    <!-- ROADMAP -->
+    <!-- ============================= -->
+    <section class="section" id="roadmap">
+      <div class="section__inner">
+        <div class="section__head">
+          <h2>Roadmap</h2>
+          <p class="muted">Readable in 5–10 seconds.</p>
+        </div>
+
+        <div class="timeline">
+          <div class="step">
+            <div class="step__dot"></div>
+            <div class="step__body">
+              <div class="step__title">Human Driver Era</div>
+              <div class="step__text">Stream + log miles. Build credibility and proof.</div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step__dot"></div>
+            <div class="step__body">
+              <div class="step__title">Attention Era</div>
+              <div class="step__text">Top-25 on FOMO. Turn attention into capital.</div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step__dot"></div>
+            <div class="step__body">
+              <div class="step__title">Model 3 + FSD</div>
+              <div class="step__text">Test autonomy on the same route. Compare metrics live.</div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step__dot"></div>
+            <div class="step__body">
+              <div class="step__title">Cybercab</div>
+              <div class="step__text">Pre-order → purchase. Full fleet operator transition.</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================= -->
+    <!-- LINKS -->
+    <!-- ============================= -->
+    <section class="section" id="links">
+      <div class="section__inner">
+        <div class="section__head">
+          <h2>Links</h2>
+          <p class="muted">Wire these to your real destinations.</p>
+        </div>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card__title">Primary</div>
+            <div class="linklist">
+              <a class="linkrow" id="linkWatch" href="#" target="_blank" rel="noreferrer">
+                <span>Watch Live</span><span class="muted">→</span>
+              </a>
+              <a class="linkrow" id="linkX" href="#" target="_blank" rel="noreferrer">
+                <span>X / Twitter</span><span class="muted">→</span>
+              </a>
+              <a class="linkrow" id="linkToken" href="#" target="_blank" rel="noreferrer">
+                <span>Token (pump.fun)</span><span class="muted">→</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card__title">Utilities</div>
+            <div class="linklist">
+              <a class="linkrow" href="#operation"><span>The Operation</span><span class="muted">→</span></a>
+              <a class="linkrow" href="#roadmap"><span>Roadmap</span><span class="muted">→</span></a>
+              <a class="linkrow" href="#miles"><span>Miles</span><span class="muted">→</span></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============================= -->
+    <!-- FOOTER -->
+    <!-- ============================= -->
+    <footer class="footer">
+      <div class="footer__inner">
+        <div class="muted">© <span id="year"></span> Traffic Trencher</div>
+        <div class="muted">Built for the trenches.</div>
+      </div>
+    </footer>
 
   </main>
+
+  <!-- OPERATION MODAL (optional nice UX) -->
+  <div class="modal" id="operationModal" aria-hidden="true">
+    <div class="modal__backdrop" data-close></div>
+    <div class="modal__panel" role="dialog" aria-modal="true" aria-label="The Operation">
+      <div class="modal__head">
+        <div class="modal__title">THE OPERATION</div>
+        <button class="iconbtn" data-close aria-label="Close">✕</button>
+      </div>
+
+      <div class="modal__body">
+        <p class="muted">
+          This is a live document of a worker trying to outrun automation by becoming the operator.
+          Human-first now. Autonomy-ready later.
+        </p>
+
+        <div class="grid-2">
+          <div class="card">
+            <div class="card__title">What I do</div>
+            <ul class="list">
+              <li>Run a real pharmacy delivery route.</li>
+              <li>Stream (when safe) + log progress.</li>
+              <li>Build audience + operational leverage.</li>
+            </ul>
+          </div>
+          <div class="card">
+            <div class="card__title">What I’m building</div>
+            <ul class="list">
+              <li>Repeatable SOPs + pricing logic.</li>
+              <li>Audience → capital for autonomy.</li>
+              <li>Model 3 FSD → Cybercab → fleet.</li>
+            </ul>
+          </div>
+        </div>
+
+        <button class="btn btn--primary" data-close style="width:100%; justify-content:center;">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js?v=300"></script>
 </body>
 </html>
