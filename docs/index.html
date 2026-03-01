@@ -1,37 +1,37 @@
-<!-- /docs/index.html  ✅ FULL REPLACEMENT -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Traffic Trencher — documenting the transition to autonomous delivery." />
+  <meta name="description" content="Traffic Trencher — Drive-to-earn livestream. Road to 25,000 miles." />
   <title>Traffic Trencher</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=1300" />
+  <!-- cache bust -->
+  <link rel="stylesheet" href="style.css?v=2001" />
 </head>
 
 <body>
 
 <header class="topbar">
+
   <div class="container topbar__inner">
 
-    <!-- LEFT: profile + OFFLINE (adjacent) -->
+    <!-- LEFT: profile + status (together) -->
     <div class="topbar__left">
       <img class="pfp" src="images/PNG%20image.png" alt="Traffic Trencher profile" />
       <span id="liveBadge" class="live-badge">OFFLINE</span>
     </div>
 
-    <!-- CENTER: name + short subtitle (no "operator" word in header) -->
+    <!-- CENTER: title only (no subtitle) -->
     <div class="topbar__center">
-      <div class="topbar__name">Traffic Trencher</div>
-      <div class="topbar__tag">From independent courier → autonomous fleet</div>
+      <div class="brand__name">Traffic Trencher</div>
     </div>
 
-    <!-- RIGHT: chud (parallel to profile) -->
+    <!-- RIGHT: chud -->
     <div class="topbar__right">
       <img
         src="images/69322D1E-E63C-4AAD-AB15-42949634CA04.PNG"
@@ -42,13 +42,16 @@
 
   </div>
 
-  <!-- NAV row (pills) -->
-  <nav class="nav nav--row2">
-    <a href="#live">Live</a>
-    <a href="#miles">Miles</a>
-    <a href="#fomo">FOMO</a>
-    <a href="#links">Links</a>
-  </nav>
+  <!-- NAV ROW -->
+  <div class="container topbar__navrow">
+    <nav class="nav">
+      <a href="#live">Live</a>
+      <a href="#miles">Miles</a>
+      <a href="#fomo">FOMO</a>
+      <a href="#links">Links</a>
+    </nav>
+  </div>
+
 </header>
 
 <main>
@@ -56,10 +59,12 @@
   <!-- HERO -->
   <section class="hero">
     <div class="container">
+
       <div class="hero__grid">
 
         <!-- LEFT -->
         <div>
+
           <div class="chip">
             <span class="chip__dot"></span>
             HUMAN DRIVER ERA — ACTIVE
@@ -69,8 +74,8 @@
             From Independent<br/>
             Medical Courier<br/>
             to <span>Autonomous</span><br/>
-            <span>Delivery Fleet</span><br/>
-            <span class="title__alt">Operator — Documented Live</span>
+            <span class="title__alt">Delivery Fleet Operator</span><br/>
+            — Documented Live
           </h1>
 
           <p class="lead">
@@ -78,7 +83,7 @@
             and visibility into capital for automation.
           </p>
 
-          <!-- THE OPERATION (replaces Lore+Thesis) -->
+          <!-- THE OPERATION (formerly lore + thesis) -->
           <details id="thesisDetails" class="thesis card glass">
             <summary class="thesis__summary">
               <span class="thesis__tag">THE OPERATION</span>
@@ -86,34 +91,33 @@
             </summary>
 
             <div class="thesis__body">
-              <p class="thesis__title"><b>TRAFFIC TRENCHER</b></p>
+              <p class="thesis__title"><b>TRAFFIC TRENCHER</b> — Drive-to-Earn • Road to 25,000 Miles</p>
               <p><b>Ticker:</b> <b>TRAFFIC</b></p>
 
               <hr class="hr" />
 
-              <p class="thesis__title"><b>What I’m doing</b></p>
+              <p class="thesis__title"><b>What’s happening</b></p>
               <p>Today, a real pharmacy delivery route is streamed daily as an independent contractor.</p>
-              <p>I’m building in public because autonomous driving is moving from testing into real-world deployment.</p>
-              <p>Rather than waiting for automation to replace my job, I’m aligning with the transition as it unfolds — and using it to scale.</p>
+              <p>Autonomous delivery is coming fast — and instead of waiting for my job to be replaced, I’m building the replacement myself.</p>
 
               <hr class="hr" />
 
-              <p class="thesis__title"><b>Why this exists</b></p>
-              <p>Streaming turns labor into visibility.</p>
-              <p>Visibility becomes capital for automation.</p>
+              <p class="thesis__title"><b>The plan</b></p>
+              <p><b>Streaming turns labor into visibility.</b> Visibility becomes capital for automation.</p>
+              <p>Creator fees are claimed transparently every <b>1,000 miles</b> and reinvested into upgrades, reach, and autonomy hardware.</p>
+              <p>The goal is to acquire an autonomous-capable vehicle and evolve from one route to operating multiple routes.</p>
 
               <hr class="hr" />
 
-              <p class="thesis__title"><b>The mission</b></p>
-              <p>Use creator fees + social revenue to acquire autonomy hardware and move from:</p>
-              <p><b>independent courier → autonomous vehicle → multi-vehicle fleet operator</b></p>
-              <p>…servicing pharmacy partners with an autonomous medical delivery fleet.</p>
+              <p class="thesis__title"><b>Why this matters</b></p>
+              <p>As autonomous driving moves from testing into real-world deployment, the work being streamed becomes increasingly relevant to the transition already underway.</p>
+              <p>This is a live record of going from <b>independent medical courier</b> → <b>autonomous delivery fleet operator</b>.</p>
 
               <hr class="hr" />
 
-              <p class="thesis__title"><b>Season 1</b></p>
-              <p><b>25,000 miles</b> documented.</p>
-              <p>Claims / checkpoints every <b>1,000 miles</b>.</p>
+              <p class="thesis__title"><b>Operating commitment</b></p>
+              <p><b>Weekdays (EST):</b> 3:00 PM – ~7:30 PM</p>
+              <p><b>Season 1:</b> Road to <b>25,000 miles</b></p>
             </div>
           </details>
 
@@ -130,41 +134,48 @@
             <span>•</span>
             <span>Season 1: <b>25,000 miles</b></span>
           </div>
+
         </div>
 
-        <!-- RIGHT -->
+        <!-- RIGHT: ROADMAP -->
         <div class="card overview overview--pop glass">
+
           <div class="roadmap-super-title">
             Driving Until Autonomy
           </div>
 
           <div class="roadmap-evolution">
-            <img src="images/IMG_2590.png" alt="Transportation evolution timeline" class="evolution-img" />
+            <img
+              src="images/IMG_2590.png"
+              alt="Transportation evolution timeline"
+              class="evolution-img"
+            />
           </div>
 
           <div class="roadmap-sub-title">
-            Creator checkpoints every 1,000 miles
+            Claiming Creator Fees Every 1,000 Miles to Fund The Journey
           </div>
 
           <div class="roadmap">
             <div class="roadmap__head">
               <div class="roadmap__title">Roadmap: Contractor → Fleet Operator</div>
-              <div class="roadmap__sub">Simple. Observable. Built in public.</div>
+              <div class="roadmap__sub">Simple. Real. Trackable.</div>
             </div>
 
             <ol class="roadmap__list">
-              <li><b>Stream the route</b><span>Daily proof-of-work on a real pharmacy job.</span></li>
-              <li><b>1,000-mile checkpoints</b><span>Claims / upgrades / receipts logged.</span></li>
-              <li><b>Upgrade the rig</b><span>Audio + cameras + overlays.</span></li>
-              <li><b>Acquire autonomy hardware</b><span>First autonomous-capable vehicle.</span></li>
-              <li><b>Run route comparisons</b><span>Human vs assisted vs autonomous performance.</span></li>
-              <li><b>Scale to multi-route ops</b><span>Operator mindset replaces contractor grind.</span></li>
-              <li><b>Deploy fleet</b><span>Autonomous medical delivery service for pharmacy partners.</span></li>
+              <li><b>Stream the Route</b><span>Daily proof-of-work mileage.</span></li>
+              <li><b>Claim Every 1,000</b><span>Transparent creator-fee checkpoints.</span></li>
+              <li><b>Reinvest</b><span>Gear, reach, reliability.</span></li>
+              <li><b>Acquire Autonomy Hardware</b><span>Step into assisted → autonomous capability.</span></li>
+              <li><b>Scale Routes</b><span>From one route to multiple.</span></li>
+              <li><b>Fleet Era</b><span>Autonomous delivery fleet servicing pharmacy partners.</span></li>
             </ol>
           </div>
+
         </div>
 
-      </div>
+      </div><!-- /hero__grid -->
+
     </div>
   </section>
 
@@ -191,6 +202,7 @@
             <div class="card__title">Stream Setup</div>
           </div>
           <div class="card__body">
+
             <label class="field">
               <span>Stream URL</span>
               <input id="streamUrl" placeholder="https://..." />
@@ -202,11 +214,12 @@
             </label>
 
             <div class="row">
-              <button class="btn btn--primary" id="saveStream" type="button">Save</button>
+              <button class="btn btn--primary" id="saveStream">Save</button>
               <button class="btn" id="clearStream" type="button">Clear</button>
             </div>
 
             <p class="small">Stream link is stored locally in your browser.</p>
+
           </div>
         </div>
       </div>
@@ -237,7 +250,7 @@
                 <input id="currentMiles" type="number" placeholder="Enter miles" />
               </label>
 
-              <button class="btn btn--primary" id="saveMiles" type="button">Save</button>
+              <button class="btn btn--primary" id="saveMiles">Save</button>
 
               <p class="small">Miles are saved locally on this device/browser.</p>
             </div>
@@ -262,6 +275,7 @@
   <!-- FOMO -->
   <section id="fomo" class="section">
     <div class="container">
+
       <div class="card fomo fomo--glow glass">
         <div class="card__body fomo__body">
 
@@ -282,7 +296,9 @@
                 Trade on FOMO
               </a>
 
-              <button class="btn" id="copyFomo" type="button">Copy FOMO Link</button>
+              <button class="btn" id="copyFomo" type="button">
+                Copy FOMO Link
+              </button>
             </div>
 
             <p class="small">
@@ -297,6 +313,7 @@
 
         </div>
       </div>
+
     </div>
   </section>
 
@@ -327,6 +344,6 @@
   </div>
 </footer>
 
-<script src="app.js?v=1300"></script>
+<script src="app.js?v=2001"></script>
 </body>
 </html>
