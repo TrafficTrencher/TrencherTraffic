@@ -1,3 +1,4 @@
+/* docs/style.css */
 :root{
   --bg:#0b0e14;
   --panel:#101626;
@@ -262,7 +263,7 @@ body::after{
   border-bottom:1px solid var(--line);
 }
 
-/* GLASS CARD SYSTEM */
+/* ✅ GLASS CARD SYSTEM */
 .card{
   border-radius:18px;
   box-shadow:var(--shadow);
@@ -282,7 +283,7 @@ body::after{
 .card__body{padding:16px}
 .card__title{font-weight:900}
 
-/* LORE + THESIS */
+/* THE OPERATION */
 .thesis{ margin:14px 0 10px; }
 .thesis__summary{
   cursor:pointer;
@@ -349,7 +350,6 @@ body::after{
 .roadmap__head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:6px;flex-wrap:wrap}
 .roadmap__title{font-weight:900;font-size:16px}
 .roadmap__sub{color:rgba(168,179,209,.95);font-size:12px;font-weight:800}
-
 .roadmap__list{
   margin:0;
   padding:0;
@@ -498,7 +498,7 @@ input:focus{border-color:rgba(124,92,255,.7)}
   border-color:rgba(255,255,255,.25)
 }
 
-/* FOMO COLOR + GLOW RESTORE */
+/* ✅ FOMO COLOR + GLOW RESTORE */
 .fomo{ border: 1px solid rgba(0,212,255,.22); }
 .fomo--glow{
   box-shadow:
