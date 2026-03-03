@@ -1,71 +1,91 @@
-/* =========================
-   Traffic Trencher — app.js
-   Works with the index.html you pasted.
-========================= */
+/* =====================================
+   TRAFFIC TRENCHER APP CORE
+===================================== */
 
-/**
- * Paste your stream link here. If empty, badge stays OFFLINE.
- * Example: "https://kick.com/yourchannel" or "https://www.youtube.com/watch?v=..."
- */
-const STREAM_URL = ""; // <- set this
+/* ========= STREAM CONFIG ========= */
 
-function setLiveBadge(isOnline) {
-  const badge = document.getElementById("liveBadge");
-  if (!badge) return;
+const STREAM_URL = ""; 
+// paste Prism / Kick / YouTube stream here
 
-  badge.classList.remove("is-online", "is-offline");
+const liveBadge = document.getElementById("liveBadge");
 
-  if (isOnline) {
-    badge.textContent = "ONLINE";
-    badge.classList.add("is-online");
-  } else {
-    badge.textContent = "OFFLINE";
-    badge.classList.add("is-offline");
-  }
+/* ========= LIVE STATUS ========= */
+
+if (STREAM_URL && STREAM_URL.length > 5) {
+
+    liveBadge.textContent = "LIVE";
+
+    liveBadge.style.background =
+        "linear-gradient(90deg,#ff003c,#ff5a5a)";
+
+} else {
+
+    liveBadge.textContent = "OFFLINE";
 }
 
-function wireDetailsHint() {
-  const d = document.getElementById("thesisDetails");
-  if (!d) return;
 
-  const hint = d.querySelector(".thesis__hint");
-  const update = () => {
-    if (!hint) return;
-    hint.textContent = d.open ? "Tap to collapse" : "Tap to expand";
-  };
+/* =====================================
+   PROOF OF WORK — MILE TRACKER
+===================================== */
 
-  // persist open/close
-  const KEY = "tt_thesis_open";
-  try {
-    const saved = localStorage.getItem(KEY);
-    if (saved === "0") d.open = false;
-    if (saved === "1") d.open = true;
-  } catch (_) {}
+const milesDisplay =
+    document.getElementById("milesValue");
 
-  update();
+let miles =
+    Number(localStorage.getItem("tt_miles")) || 0;
 
-  d.addEventListener("toggle", () => {
-    update();
-    try {
-      localStorage.setItem(KEY, d.open ? "1" : "0");
-    } catch (_) {}
-  });
+function updateMiles(){
+    if(milesDisplay){
+        milesDisplay.textContent = miles;
+    }
 }
 
-function init() {
-  setLiveBadge(Boolean(STREAM_URL && STREAM_URL.trim().length > 0));
-  wireDetailsHint();
+updateMiles();
 
-  // Optional: if you later add a button with id="openStreamBtn"
-  // it will open STREAM_URL.
-  const openBtn = document.getElementById("openStreamBtn");
-  if (openBtn) {
-    openBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      if (!STREAM_URL) return;
-      window.open(STREAM_URL, "_blank", "noopener,noreferrer");
-    });
-  }
-}
 
-document.addEventListener("DOMContentLoaded", init);
+/* ADD MILES BUTTON */
+window.addMiles = function(amount){
+
+    miles += amount;
+
+    localStorage.setItem(
+        "tt_miles",
+        miles
+    );
+
+    updateMiles();
+};
+
+
+/* RESET BUTTON */
+window.resetMiles = function(){
+
+    miles = 0;
+
+    localStorage.setItem(
+        "tt_miles",
+        miles
+    );
+
+    updateMiles();
+};
+
+
+/* =====================================
+   STREAM BUTTON
+===================================== */
+
+window.openStream = function(){
+
+    if(!STREAM_URL){
+        alert(
+        "Add STREAM_URL inside app.js first."
+        );
+        return;
+    }
+
+    window.open(
+        STREAM_URL,
+        "_blank"
+    );
+};
