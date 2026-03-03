@@ -1,51 +1,286 @@
-// Traffic Trencher — Mission Log placeholder
-// Later you can replace `sampleLog` with a fetch() to your real JSON feed.
+:root{
+  --bg:#07080c;
+  --panel:#0e111a;
+  --panel2:#0b0e16;
+  --text:#eef2ff;
+  --muted:#a8b3d1;
+  --line:rgba(255,255,255,.10);
 
-const sampleLog = [
-  { name: "Route Stream", meta: "Daily run (proof-of-work)", value: "LIVE / WEEKDAY" },
-  { name: "Mileage Checkpoint", meta: "Next creator-fee claim milestone", value: "1,000 mi" },
-  { name: "Upgrade Target", meta: "Hardware + autonomy stack", value: "IN PROGRESS" },
-  { name: "Fleet Expansion", meta: "From one route to multiple", value: "PLANNED" },
-];
+  /* Neon Crimson */
+  --red:#ff1b2d;
+  --red2:#b10014;
+  --redGlow: 0 0 22px rgba(255,27,45,.45);
 
-function renderLog(items){
-  const el = document.getElementById("logList");
-  if(!el) return;
-
-  el.innerHTML = "";
-  items.forEach((it) => {
-    const row = document.createElement("div");
-    row.className = "log-item";
-
-    const left = document.createElement("div");
-    left.className = "log-left";
-
-    const name = document.createElement("div");
-    name.className = "log-name";
-    name.textContent = it.name;
-
-    const meta = document.createElement("div");
-    meta.className = "log-meta";
-    meta.textContent = it.meta;
-
-    left.appendChild(name);
-    left.appendChild(meta);
-
-    const right = document.createElement("div");
-    right.className = "log-right";
-    right.textContent = it.value;
-
-    row.appendChild(left);
-    row.appendChild(right);
-    el.appendChild(row);
-  });
+  --shadow: 0 18px 50px rgba(0,0,0,.55);
+  --radius:18px;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  renderLog(sampleLog);
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{ -webkit-text-size-adjust:100%; }
+body{
+  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+  color:var(--text);
+  line-height:1.5;
+  background:var(--bg);
+  overflow-x:hidden;
+}
 
-  const btn = document.getElementById("refreshLog");
-  if(btn){
-    btn.addEventListener("click", () => renderLog(sampleLog));
-  }
-});
+/* Background */
+.site-bg{
+  position:fixed;
+  inset:0;
+  z-index:-10;
+  background:
+    radial-gradient(900px 600px at 10% 10%, rgba(255,27,45,.18), transparent 60%),
+    radial-gradient(800px 500px at 90% 30%, rgba(255,27,45,.12), transparent 62%),
+    radial-gradient(1200px 900px at 50% 110%, rgba(255,27,45,.10), transparent 55%),
+    linear-gradient(180deg, #05060a 0%, #070810 55%, #05060a 100%);
+}
+.bg-grid{
+  position:absolute; inset:0;
+  opacity:.25;
+  background-image:
+    linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(closest-side at 50% 40%, rgba(0,0,0,1), rgba(0,0,0,0));
+}
+.bg-glow{position:absolute; filter:blur(50px); opacity:.35;}
+.bg-glow-1{width:520px;height:520px;left:-120px;top:120px;background:rgba(255,27,45,.55);}
+.bg-glow-2{width:560px;height:560px;right:-160px;top:220px;background:rgba(255,27,45,.40);}
+
+/* Layout */
+.wrap{max-width:1120px;margin:0 auto;padding:24px 18px 60px;}
+.section{padding:42px 0;}
+.section-head{margin-bottom:16px;}
+.section-head h2{
+  margin:0 0 6px;
+  font-size:22px;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+.section-sub{margin:0;color:var(--muted);max-width:70ch}
+
+/* Topbar */
+.topbar{
+  position:sticky;
+  top:0;
+  z-index:999;
+  backdrop-filter: blur(18px);
+  background: rgba(8,9,14,.68);
+  border-bottom: 1px solid rgba(255,255,255,.08);
+}
+.topbar-inner{
+  max-width:1120px;
+  margin:0 auto;
+  padding:12px 18px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+}
+.brand-group{display:flex;align-items:center;gap:12px;min-width:0;}
+.brand-text{display:flex;flex-direction:column;gap:2px;min-width:0}
+.brand-title{font-weight:800;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand-sub{font-size:12px;color:var(--muted)}
+.red{color:var(--red)}
+
+.top-logo{
+  height:42px;width:auto;object-fit:contain;
+  filter: drop-shadow(0 0 18px rgba(255,27,45,.45)) drop-shadow(0 10px 24px rgba(0,0,0,.7));
+}
+.top-pfp{
+  height:38px;width:38px;border-radius:50%;object-fit:cover;
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow: 0 0 14px rgba(255,27,45,.18), 0 8px 22px rgba(0,0,0,.65);
+}
+
+/* Nav */
+.nav-links{display:flex;align-items:center;gap:18px;}
+.nav-links a{
+  color:#dce3ff;
+  text-decoration:none;
+  font-weight:600;
+  font-size:14px;
+  opacity:.9;
+}
+.nav-links a:hover{color:#fff; opacity:1}
+.nav-pill{
+  padding:9px 12px;
+  border-radius:999px;
+  background: rgba(255,27,45,.14);
+  border: 1px solid rgba(255,27,45,.25);
+  box-shadow: var(--redGlow);
+}
+
+/* Mobile Nav */
+.nav-toggle{
+  display:none;
+  width:44px;height:40px;
+  background:transparent;border:1px solid rgba(255,255,255,.10);
+  border-radius:12px;color:#fff;
+}
+.nav-toggle span{
+  display:block;width:18px;height:2px;margin:4px auto;background:#fff;border-radius:10px;opacity:.9;
+}
+.mobile-nav{
+  display:none;
+  padding:10px 18px 16px;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.mobile-nav a{
+  display:block;
+  padding:10px 10px;
+  border-radius:12px;
+  color:#e8eeff;
+  text-decoration:none;
+  font-weight:700;
+}
+.mobile-nav a:hover{background:rgba(255,255,255,.06)}
+
+/* Hero */
+.hero{
+  padding:28px 0 8px;
+  display:grid;
+  grid-template-columns: 1.15fr .85fr;
+  gap:18px;
+  align-items:start;
+}
+.kicker{
+  display:inline-flex;align-items:center;gap:10px;
+  color:var(--muted);
+  font-weight:700;
+  letter-spacing:.02em;
+}
+.dot{width:9px;height:9px;border-radius:999px;background:var(--red); box-shadow: var(--redGlow);}
+.h1{
+  margin:10px 0 10px;
+  font-size:46px;
+  line-height:1.06;
+  letter-spacing:-.02em;
+}
+.lead{margin:0;color:#d5ddff;max-width:65ch;font-size:16px}
+.cta-row{margin-top:16px;display:flex;flex-wrap:wrap;gap:10px}
+
+/* Panels / Cards */
+.panel, .card{
+  background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  border: 1px solid rgba(255,255,255,.10);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.panel{padding:18px}
+.card{padding:16px}
+.card-proof{position:relative; overflow:hidden;}
+.card-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.card-title{font-weight:900;letter-spacing:.02em}
+.badge{
+  font-size:12px;font-weight:900;letter-spacing:.08em;
+  padding:6px 10px;border-radius:999px;
+  background: rgba(255,27,45,.16);
+  border: 1px solid rgba(255,27,45,.28);
+  box-shadow: var(--redGlow);
+}
+
+.kv{display:grid;gap:10px;margin:10px 0 12px}
+.kv-row{display:flex;justify-content:space-between;gap:10px;padding:10px 12px;border-radius:14px;background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.08)}
+.kv-k{color:var(--muted);font-weight:700}
+.kv-v{font-weight:800}
+
+.hint{color:var(--muted);font-size:12px;margin-top:10px}
+code{background:rgba(0,0,0,.28);border:1px solid rgba(255,255,255,.10);padding:2px 6px;border-radius:8px}
+
+/* Buttons */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  text-decoration:none;
+  font-weight:900;
+  letter-spacing:.02em;
+  border-radius:14px;
+  padding:12px 14px;
+  border:1px solid rgba(255,255,255,.12);
+  transition: transform .15s ease, filter .15s ease, background .15s ease;
+  user-select:none;
+}
+.btn:hover{transform: translateY(-1px);}
+.btn-full{width:100%}
+
+.btn-glass{
+  background: rgba(255,255,255,.07);
+  backdrop-filter: blur(16px);
+  color:#f3f6ff;
+}
+.btn-red{
+  background: linear-gradient(180deg, rgba(255,27,45,.95), rgba(177,0,20,.95));
+  border: 1px solid rgba(255,27,45,.35);
+  color:#fff;
+  box-shadow: 0 0 26px rgba(255,27,45,.35), 0 18px 42px rgba(0,0,0,.55);
+}
+
+/* Content typography */
+.panel h3{margin:10px 0 8px;font-size:16px;letter-spacing:.02em}
+.panel p{margin:0 0 12px;color:#d6ddff}
+.steps{margin:10px 0 14px;padding-left:18px;color:#d6ddff}
+.bullets{margin:10px 0 14px;padding-left:18px;color:#d6ddff}
+.closing{margin:10px 0 0;font-weight:900}
+
+/* Roadmap tiles */
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.tile{
+  padding:16px;
+  border-radius:18px;
+  background: rgba(0,0,0,.22);
+  border:1px solid rgba(255,255,255,.10);
+  box-shadow: 0 14px 34px rgba(0,0,0,.45);
+}
+.tile-k{color:var(--muted);font-weight:900;letter-spacing:.08em;text-transform:uppercase;font-size:12px}
+.tile-t{margin-top:8px;font-weight:900;font-size:16px}
+.tile-p{margin-top:6px;color:#cdd6ff}
+
+/* Mission Log */
+.log-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.log-title{font-weight:900}
+.log-meta{color:var(--muted);font-weight:700;font-size:12px}
+.log-list{display:grid;gap:10px}
+.log-item{
+  padding:12px 12px;
+  border-radius:16px;
+  background: rgba(0,0,0,.22);
+  border: 1px solid rgba(255,255,255,.10);
+}
+.log-item .t{font-weight:900;margin-bottom:4px}
+.log-item .m{color:#cdd6ff}
+.log-item .d{color:var(--muted);font-size:12px;margin-top:8px}
+
+/* Watch */
+.watch-panel{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.watch-badge{display:inline-flex;align-items:center;gap:10px;color:var(--muted);font-weight:900;letter-spacing:.08em;font-size:12px}
+.watch-title{font-size:18px;font-weight:900;margin-top:6px}
+.watch-sub{color:#cdd6ff;margin-top:6px}
+.watch-right{display:flex;gap:10px;flex-wrap:wrap}
+
+/* Footer */
+.footer{padding-top:18px}
+.footer-inner{
+  border-top:1px solid rgba(255,255,255,.08);
+  padding-top:14px;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  color:var(--muted);
+}
+.footer-links{display:flex;gap:12px;flex-wrap:wrap}
+.footer a{color:var(--muted);text-decoration:none;font-weight:800}
+.footer a:hover{color:#fff}
+
+/* Responsive */
+@media (max-width: 920px){
+  .hero{grid-template-columns:1fr;gap:12px}
+  .h1{font-size:40px}
+  .grid-3{grid-template-columns:1fr}
+  .nav-links{display:none}
+  .nav-toggle{display:block}
+}
+@media (max-width: 420px){
+  .h1{font-size:34px}
+  .top-logo{height:38px}
+}
