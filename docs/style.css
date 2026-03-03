@@ -1,309 +1,263 @@
-:root{
-  --bg:#070912;
-  --panel: rgba(16, 22, 38, .62);
-  --panel2: rgba(12, 16, 28, .55);
-  --text:#eef2ff;
-  --muted: rgba(238,242,255,.72);
-  --line: rgba(255,255,255,.10);
+const CONFIG = {
+  goalMiles: 25000,
+  milestoneCount: 25,            // 25k / 25 = 1,000-mile checkpoints
+  milesStorageKey: "tt_miles_v2",
+  streamStorageKey: "tt_stream_v2",
+  liveStorageKey: "tt_live_v2",
+  fomoReferralUrl: "https://fomo.family/r/TrafficTrencher"
+};
 
-  --accentA:#33c1ff;   /* cyan */
-  --accentB:#7a5cff;   /* purple */
+const qs = (s) => document.querySelector(s);
 
-  --shadow: 0 22px 70px rgba(0,0,0,.55);
-  --radius: 22px;
+function clampInt(n){
+  const v = parseInt(n, 10);
+  if (Number.isNaN(v) || !Number.isFinite(v)) return 0;
+  return Math.max(0, v);
 }
 
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  color: var(--text);
-  background: var(--bg);
-  overflow-x:hidden;
+function setYear(){
+  const y = qs("#year");
+  if (y) y.textContent = String(new Date().getFullYear());
 }
 
-/* ===================== */
-/* BACKGROUND (photo)    */
-/* ===================== */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:-5;
-
-  /* 🔧 IMPORTANT: set your traffic background image here */
-  background:
-    radial-gradient(1000px 700px at 50% 25%, rgba(0,0,0,.20), rgba(0,0,0,.80) 70%),
-    linear-gradient(180deg, rgba(10,12,18,.25) 0%, rgba(7,9,18,.76) 55%, rgba(7,9,18,.94) 100%),
-    radial-gradient(800px 520px at 28% 42%, rgba(51,193,255,.16), transparent 60%),
-    radial-gradient(900px 620px at 72% 55%, rgba(122,92,255,.14), transparent 62%),
-    url("images/traffic-bg.jpg");
-  background-size: cover;
-  background-position: center;
-  background-repeat:no-repeat;
-  transform: scale(1.02);
-  filter: saturate(1.08) contrast(1.05);
+/* ========= LIVE (MANUAL) ========= */
+function loadLiveFlag(){
+  try{ return localStorage.getItem(CONFIG.liveStorageKey) === "1"; }
+  catch{ return false; }
+}
+function saveLiveFlag(on){
+  try{ localStorage.setItem(CONFIG.liveStorageKey, on ? "1" : "0"); }
+  catch{}
+}
+function loadStream(){
+  try{ return localStorage.getItem(CONFIG.streamStorageKey) || ""; }
+  catch{ return ""; }
+}
+function saveStream(url){
+  try{ localStorage.setItem(CONFIG.streamStorageKey, url); }
+  catch{}
+}
+function clearStream(){
+  try{ localStorage.removeItem(CONFIG.streamStorageKey); }
+  catch{}
 }
 
-/* subtle noise */
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:-4;
-  opacity:.16;
-  pointer-events:none;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.25'/%3E%3C/svg%3E");
-  mix-blend-mode: overlay;
+function computeIsLive(streamUrl, liveFlag){
+  // ✅ Live only when toggle is ON AND there is a stream URL saved
+  return !!(liveFlag && streamUrl && String(streamUrl).trim().length > 0);
 }
 
-/* ===================== */
-/* LAYOUT                */
-/* ===================== */
-.container{
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 0 14px;
+function setLiveBadge(isLive){
+  const badge = qs("#liveBadge");
+  if (!badge) return;
+
+  if (isLive){
+    badge.textContent = "LIVE";
+    badge.classList.add("is-live");
+  }else{
+    badge.textContent = "OFFLINE";
+    badge.classList.remove("is-live");
+  }
 }
 
-/* ===================== */
-/* TOP BAR               */
-/* ===================== */
-.topbar{
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  padding: 10px 12px;
+function renderStream(url){
+  const frame = qs("#streamFrame");
+  if (!frame) return;
+  frame.src = url || "";
 }
 
-.topbar__inner{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap: 12px;
+function syncLiveUI(streamUrl, liveFlag){
+  const toggle = qs("#liveToggle");
+  if (toggle) toggle.checked = !!liveFlag;
 
-  background: rgba(10, 12, 18, .45);
-  border: 1px solid rgba(255,255,255,.08);
-  backdrop-filter: blur(16px);
-  border-radius: 18px;
-  padding: 10px 12px;
+  const isLive = computeIsLive(streamUrl, liveFlag);
+  setLiveBadge(isLive);
 }
 
-/* brand left */
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  min-width:0;
+function attachStreamUI(){
+  const input = qs("#streamUrl");
+  const saveBtn = qs("#saveStream");
+  const clearBtn = qs("#clearStream");
+  const liveToggle = qs("#liveToggle");
+
+  if (input){
+    input.value = loadStream();
+  }
+
+  if (saveBtn && input){
+    saveBtn.addEventListener("click", () => {
+      const url = String(input.value || "").trim();
+      saveStream(url);
+      renderStream(url);
+
+      const liveFlag = loadLiveFlag();
+      syncLiveUI(url, liveFlag);
+    });
+  }
+
+  if (clearBtn && input){
+    clearBtn.addEventListener("click", () => {
+      input.value = "";
+      clearStream();
+      renderStream("");
+
+      // ✅ Clearing stream also forces LIVE OFF
+      saveLiveFlag(false);
+      if (liveToggle) liveToggle.checked = false;
+      syncLiveUI("", false);
+    });
+  }
+
+  if (liveToggle){
+    liveToggle.addEventListener("change", () => {
+      const on = !!liveToggle.checked;
+      saveLiveFlag(on);
+
+      const url = loadStream();
+      syncLiveUI(url, on);
+    });
+  }
 }
 
-.brand__logo{
-  width:40px;
-  height:40px;
-  border-radius: 14px;
-  object-fit: cover;
-  border:1px solid rgba(255,255,255,.14);
-  filter: drop-shadow(0 10px 24px rgba(0,0,0,.55));
+/* ========= THESIS DEFAULT OPEN ON DESKTOP ========= */
+function setThesisDefault(){
+  const d = qs("#thesisDetails");
+  if (!d) return;
+
+  const mq = window.matchMedia("(min-width: 901px)");
+  const apply = () => { d.open = mq.matches; };
+
+  apply();
+  try{ mq.addEventListener("change", apply); }
+  catch{ mq.addListener(apply); }
 }
 
-.brand__text{min-width:0}
-.brand__name{
-  font-weight: 950;
-  letter-spacing: .01em;
-  font-size: 18px;
-  line-height:1.05;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  max-width: 54vw;
+/* ========= MILES + MILESTONES ========= */
+function loadMiles(){
+  try{
+    const raw = localStorage.getItem(CONFIG.milesStorageKey);
+    return clampInt(raw ?? 0);
+  }catch{
+    return 0;
+  }
 }
-.brand__tag{
-  margin-top:2px;
-  font-size: 13px;
-  color: var(--muted);
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-  max-width: 54vw;
+function saveMiles(miles){
+  try{ localStorage.setItem(CONFIG.milesStorageKey, String(clampInt(miles))); }
+  catch{}
 }
 
-.topbar__right{
-  display:flex;
-  align-items:center;
-  gap:10px;
+function renderMiles(miles){
+  const currentMilesText = qs("#currentMilesText");
+  const percentText = qs("#percentText");
+  const barFill = qs("#barFill");
+
+  const pct = CONFIG.goalMiles > 0
+    ? Math.min(100, Math.floor((miles / CONFIG.goalMiles) * 100))
+    : 0;
+
+  if (currentMilesText) currentMilesText.textContent = String(miles);
+  if (percentText) percentText.textContent = `${pct}%`;
+  if (barFill) barFill.style.width = `${pct}%`;
 }
 
-/* OFFLINE / LIVE pill */
-.live-badge{
-  padding: 8px 14px;
-  border-radius: 999px;
-  font-weight: 950;
-  font-size: 12px;
-  letter-spacing: .08em;
-  color: rgba(255,255,255,.88);
-  background: rgba(255,255,255,.10);
-  border: 1px solid rgba(255,255,255,.12);
+function renderMilestones(miles){
+  const list = qs("#milestoneList");
+  if (!list) return;
+
+  const step = Math.floor(CONFIG.goalMiles / CONFIG.milestoneCount); // 1000
+  const items = [];
+
+  for (let i = 1; i <= CONFIG.milestoneCount; i++){
+    const at = i * step;
+    const done = miles >= at;
+
+    items.push(`
+      <li style="color:${done ? "rgba(233,238,251,.95)" : "rgba(168,179,209,.85)"}">
+        <b>${done ? "✓" : "•"}</b> ${at.toLocaleString()} miles
+      </li>
+    `);
+  }
+
+  list.innerHTML = items.join("");
 }
 
-/* profile image */
-.profile-img{
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 1px solid rgba(255,255,255,.18);
-  filter: drop-shadow(0 10px 24px rgba(0,0,0,.55));
+function attachMilesUI(){
+  const input = qs("#currentMiles");
+  const btn = qs("#saveMiles");
+
+  if (!input || !btn) return;
+
+  btn.addEventListener("click", () => {
+    const miles = clampInt(input.value);
+    saveMiles(miles);
+    renderMiles(miles);
+    renderMilestones(miles);
+    input.value = "";
+  });
 }
 
-/* your top-right TT logo */
-.top-right-img{
-  width: 34px;
-  height: 34px;
-  object-fit: contain;
-  filter: drop-shadow(0 10px 24px rgba(0,0,0,.55));
-  opacity: .96;
+/* ========= COPY FOMO (clean default state) ========= */
+async function copyToClipboard(text){
+  if (navigator.clipboard && navigator.clipboard.writeText){
+    await navigator.clipboard.writeText(text);
+    return true;
+  }
+  const ta = document.createElement("textarea");
+  ta.value = text;
+  ta.setAttribute("readonly", "");
+  ta.style.position = "absolute";
+  ta.style.left = "-9999px";
+  document.body.appendChild(ta);
+  ta.select();
+  const ok = document.execCommand("copy");
+  document.body.removeChild(ta);
+  return ok;
 }
 
-/* ===================== */
-/* HERO                  */
-/* ===================== */
-.hero{
-  padding: 18px 0 40px;
+function attachCopyFomo(){
+  const btn = qs("#copyFomo");
+  const toast = qs("#copyToast");
+
+  // ✅ Force hidden on load every time
+  if (toast){
+    toast.hidden = true;
+    toast.textContent = "Copied ✓";
+  }
+
+  if (!btn) return;
+
+  btn.addEventListener("click", async () => {
+    try{
+      await copyToClipboard(CONFIG.fomoReferralUrl);
+      if (toast){
+        toast.hidden = false;
+        clearTimeout(attachCopyFomo._t);
+        attachCopyFomo._t = setTimeout(() => { toast.hidden = true; }, 1400);
+      }
+    }catch{
+      window.open(CONFIG.fomoReferralUrl, "_blank", "noopener");
+    }
+  });
 }
 
-.hero__grid{
-  display:grid;
-  grid-template-columns: 1fr;
-  gap: 16px;
-}
+/* ========= INIT ========= */
+(function init(){
+  setYear();
+  setThesisDefault();
 
-.title{
-  margin: 18px 0 10px;
-  font-weight: 950;
-  letter-spacing: -0.02em;
-  font-size: 46px;
-  line-height: 1.03;
-  text-shadow: 0 24px 70px rgba(0,0,0,.65);
-}
+  // Miles
+  const miles = loadMiles();
+  renderMiles(miles);
+  renderMilestones(miles);
+  attachMilesUI();
 
-.title span{
-  background: linear-gradient(90deg, var(--accentA), var(--accentB));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
+  // Stream + Live
+  const stream = loadStream();
+  renderStream(stream);
+  const liveFlag = loadLiveFlag();
+  syncLiveUI(stream, liveFlag);
+  attachStreamUI();
 
-.title__alt{
-  background: linear-gradient(90deg, var(--accentB), var(--accentA));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-
-.lead{
-  margin: 0 0 14px;
-  color: rgba(238,242,255,.72);
-  font-size: 16px;
-  max-width: 52ch;
-  text-shadow: 0 24px 70px rgba(0,0,0,.65);
-}
-
-/* ===================== */
-/* GLASS CARD + DETAILS   */
-/* ===================== */
-.card{
-  border-radius: var(--radius);
-  border: 1px solid rgba(255,255,255,.10);
-  box-shadow: var(--shadow);
-  overflow:hidden;
-}
-
-.glass{
-  background: linear-gradient(180deg, rgba(18,24,40,.72), rgba(10,12,18,.62));
-  backdrop-filter: blur(16px);
-}
-
-/* DETAILS styling */
-details.thesis{
-  margin-top: 10px;
-}
-
-/* summary row */
-.thesis__summary{
-  list-style:none;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap: 10px;
-  padding: 14px 16px;
-  cursor:pointer;
-
-  background: linear-gradient(90deg, rgba(51,193,255,.18), rgba(122,92,255,.18));
-  border-bottom: 1px solid rgba(255,255,255,.08);
-}
-
-.thesis__summary::-webkit-details-marker{display:none}
-
-/* OPERATIONS pill */
-.thesis__tag{
-  font-weight: 950;
-  letter-spacing: .08em;
-  font-size: 14px;
-  text-transform: uppercase;
-}
-
-/* Tap hint */
-.thesis__hint{
-  font-weight: 800;
-  font-size: 14px;
-  color: rgba(238,242,255,.78);
-}
-
-/* body */
-.thesis__body{
-  padding: 16px;
-  color: rgba(238,242,255,.74);
-  line-height: 1.6;
-}
-
-.thesis__title{
-  margin: 4px 0 10px;
-  font-size: 18px;
-  color: rgba(238,242,255,.92);
-}
-
-.thesis__body h3{
-  margin: 16px 0 8px;
-  font-size: 16px;
-  font-weight: 950;
-  color: rgba(238,242,255,.92);
-}
-
-.thesis__body p{
-  margin: 0 0 12px;
-}
-
-.thesis__body ol{
-  margin: 0 0 12px;
-  padding-left: 18px;
-}
-
-.hr{
-  border:0;
-  height:1px;
-  background: rgba(255,255,255,.10);
-  margin: 14px 0;
-}
-
-/* when open, change hint text vibe slightly */
-details[open] .thesis__hint{
-  color: rgba(238,242,255,.90);
-}
-
-/* ===================== */
-/* MOBILE TUNING         */
-/* ===================== */
-@media (max-width: 420px){
-  .title{font-size: 40px;}
-  .brand__name{font-size: 17px;}
-}
+  // Copy
+  attachCopyFomo();
+})();
