@@ -1,36 +1,38 @@
-// ======= SET YOUR STREAM URL HERE =======
-const STREAM_URL = "https://example.com";
-
-// Status pill text (OFFLINE / LIVE)
-const STATUS = "OFFLINE"; // change to "LIVE" whenever you want
+// ===== SETTINGS =====
+const STATUS = "OFFLINE"; // change to "LIVE" whenever
+// ====================
 
 function qs(id){ return document.getElementById(id); }
 
-function initAccordion() {
-  const toggle = qs("opToggle");
-  const body = qs("opBody");
-  const card = toggle?.closest(".card");
-  if (!toggle || !body || !card) return;
+function initLiveBadge(){
+  const badge = qs("liveBadge");
+  if (!badge) return;
+  badge.textContent = STATUS;
 
-  toggle.addEventListener("click", () => {
-    const open = card.classList.toggle("open");
-    toggle.setAttribute("aria-expanded", open ? "true" : "false");
-  });
-
-  // Start CLOSED like your screenshot
-  card.classList.remove("open");
-  toggle.setAttribute("aria-expanded", "false");
+  if (STATUS === "LIVE"){
+    badge.style.background = "rgba(51, 255, 160, .16)";
+    badge.style.borderColor = "rgba(51, 255, 160, .22)";
+    badge.style.color = "rgba(238, 255, 248, .95)";
+  }
 }
 
-function initStreamLinks() {
-  const watchBtn = qs("watchBtn");
-  if (watchBtn) watchBtn.href = STREAM_URL;
+function initDetailsHint(){
+  const details = qs("thesisDetails");
+  if (!details) return;
 
-  const pill = qs("statusPill");
-  if (pill) pill.textContent = STATUS;
+  const summary = details.querySelector(".thesis__summary");
+  const hint = details.querySelector(".thesis__hint");
+  if (!summary || !hint) return;
+
+  const setHint = () => {
+    hint.textContent = details.open ? "Tap to collapse" : "Tap to expand";
+  };
+
+  setHint();
+  details.addEventListener("toggle", setHint);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  initAccordion();
-  initStreamLinks();
+  initLiveBadge();
+  initDetailsHint();
 });
