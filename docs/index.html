@@ -3,305 +3,124 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Traffic Trencher — Drive-to-earn livestream. Real route. Real miles. Real transition." />
+  <meta name="description" content="Traffic Trencher — Drive-to-Earn • Road to 25,000 miles." />
   <title>Traffic Trencher</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <!-- IMPORTANT: path assumes this file is /docs/index.html and style is /docs/style.css -->
-  <link rel="stylesheet" href="./style.css?v=120" />
+  <link rel="stylesheet" href="./style.css?v=201" />
 </head>
 
 <body>
-  <!-- Background -->
-  <div class="site-bg" aria-hidden="true">
-    <div class="bg-grid"></div>
-    <div class="bg-glow bg-glow-1"></div>
-    <div class="bg-glow bg-glow-2"></div>
+  <!-- HERO BACKGROUND (traffic photo) -->
+  <div class="hero-bg" aria-hidden="true">
+    <!-- IMPORTANT: replace this filename with your actual traffic image name -->
+    <img class="hero-bg-img" src="./images/traffic-bg.jpg" alt="">
+    <div class="hero-bg-vignette"></div>
+    <div class="hero-bg-gradient"></div>
+    <div class="hero-bg-noise"></div>
   </div>
 
-  <!-- Top Bar -->
+  <!-- TOP BAR -->
   <header class="topbar">
     <div class="topbar-inner">
+      <div class="topbar-left">
+        <!-- PFP (replace filename if yours differs) -->
+        <img class="pfp" src="./images/pfp.png" alt="Profile">
 
-      <div class="brand-group">
-        <!-- YOUR LOGO -->
-        <img
-          src="./images/5D51EF79-8947-462C-8BF0-19FE1D2ACE98.png"
-          class="top-logo"
-          alt="Traffic Trencher Logo"
-        />
-
-        <!-- YOUR PFP (rename your actual file to pfp.png OR change this path) -->
-        <img
-          src="./images/pfp.png"
-          class="top-pfp"
-          alt="Profile"
-        />
-
-        <div class="brand-text">
+        <div class="brand">
           <div class="brand-title">Traffic Trencher</div>
-          <div class="brand-sub">Ticker: <strong>TRAFFIC</strong></div>
+          <div class="brand-sub">Drive-to-Earn • Road to 25,000…</div>
         </div>
       </div>
 
-      <nav class="nav-links" aria-label="Primary">
-        <a href="#operations">Operations</a>
-        <a href="#roadmap">Roadmap</a>
-        <a href="#mission">Mission Log</a>
-        <a class="nav-pill" href="#watch">Watch Live</a>
-      </nav>
+      <div class="topbar-right">
+        <div class="status-pill" id="statusPill">OFFLINE</div>
 
-      <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-
-    <!-- Mobile dropdown -->
-    <div class="mobile-nav" id="mobileNav">
-      <a href="#operations">Operations</a>
-      <a href="#roadmap">Roadmap</a>
-      <a href="#mission">Mission Log</a>
-      <a href="#watch">Watch Live</a>
+        <!-- NEW TT LOGO adjacent to PFP (your uploaded file name) -->
+        <img
+          class="top-logo"
+          src="./images/5D51EF79-8947-462C-8BF0-19FE1D2ACE98.png"
+          alt="TT Logo"
+        />
+      </div>
     </div>
   </header>
 
   <main class="wrap">
 
-    <!-- Hero -->
+    <!-- HERO -->
     <section class="hero">
-      <div class="hero-left">
-        <div class="kicker">
-          <span class="dot"></span>
-          Drive-to-earn • Creator Capital Markets
-        </div>
+      <h1 class="hero-title">
+        Delivery Driver<br>
+        <span class="accent">in the Age</span><br>
+        <span class="accent">of Automation</span>
+      </h1>
 
-        <h1 class="h1">
-          Real route. Real miles. Real transition.
-        </h1>
-
-        <p class="lead">
-          A pharmacy delivery route is streamed live every weekday — because it’s the job.
-          <strong>TRAFFIC</strong> documents what happens when human labor collides with autonomy.
-        </p>
-
-        <div class="cta-row">
-          <a class="btn btn-glass" href="#operations">Read Operations</a>
-          <a class="btn btn-glass" href="#proof">Track Proof-of-Work</a>
-          <a class="btn btn-red" href="#watch">Watch Live</a>
-        </div>
-      </div>
-
-      <div class="hero-right">
-        <div class="card card-proof" id="proof">
-          <div class="card-top">
-            <div class="card-title">Proof-of-Work</div>
-            <div class="badge">LIVE</div>
-          </div>
-
-          <div class="kv">
-            <div class="kv-row">
-              <div class="kv-k">Ticker</div>
-              <div class="kv-v"><strong>TRAFFIC</strong></div>
-            </div>
-
-            <div class="kv-row">
-              <div class="kv-k">Proof</div>
-              <div class="kv-v">Miles streamed</div>
-            </div>
-
-            <div class="kv-row">
-              <div class="kv-k">Mission</div>
-              <div class="kv-v">Autonomy acquisition</div>
-            </div>
-
-            <div class="kv-row">
-              <div class="kv-k">TT</div>
-              <div class="kv-v">Official mark</div>
-            </div>
-
-            <div class="kv-row">
-              <div class="kv-k">Watch Live</div>
-              <div class="kv-v">Daily route stream via Starlink</div>
-            </div>
-          </div>
-
-          <a class="btn btn-red btn-full" id="openStreamBtn" href="https://example.com" target="_blank" rel="noopener">
-            Open Stream
-          </a>
-
-          <div class="hint">
-            Paste your stream URL into <code>const STREAM_URL</code> in <code>app.js</code>.
-          </div>
-        </div>
-      </div>
+      <p class="hero-sub">
+        From Independent Medical Courier to Autonomous Delivery Fleet Operator — documented live.
+      </p>
     </section>
 
-    <!-- Operations -->
-    <section class="section" id="operations">
-      <div class="section-head">
-        <h2>TRAFFIC TRENCHER — OPERATIONS</h2>
-        <p class="section-sub">The narrative core. Fixed. Measurable. Executed in public.</p>
-      </div>
+    <!-- OPERATION CARD (Accordion) -->
+    <section class="card" id="operation">
+      <button class="card-head" id="opToggle" aria-expanded="false">
+        <div class="card-head-left">
+          <div class="card-kicker">THE OPERATION</div>
+        </div>
+        <div class="card-head-right">
+          <div class="tap">Tap to expand</div>
+        </div>
+      </button>
 
-      <div class="panel">
-        <h3>Ticker: <span class="red">TRAFFIC</span></h3>
-
-        <p>
-          Today, a real pharmacy delivery route is streamed live — because it’s my job.
-          I operate as an independent medical delivery driver where income remains directly tied to human time,
-          attention, and miles driven. Every weekday, the route runs regardless of markets, narratives, or sentiment.
-          Traffic Trencher documents what happens when that reality collides with automation.
-        </p>
-
-        <h3>The Shift Happening Now</h3>
-        <p>
-          Autonomous transportation is moving from research into commercial deployment. Companies such as Tesla, Uber,
-          Amazon, Waymo and major logistics networks are actively building systems designed to operate without human drivers.
-          <strong>The transition will not occur through permission — it will occur when autonomous systems are technologically capable
-          and economically more efficient than human drivers.</strong>
-        </p>
-
-        <ol class="steps">
-          <li>Industry adopts automation</li>
-          <li>Workers are displaced</li>
-          <li>Society reacts afterward</li>
-        </ol>
+      <div class="card-body" id="opBody">
+        <h2 class="card-title">TRAFFIC TRENCHER</h2>
+        <div class="card-meta">Ticker: <strong>TRAFFIC</strong></div>
 
         <p>
-          For most workers, technological change only becomes real after jobs begin disappearing.
-          Traffic Trencher reverses that order. Instead of waiting to be replaced, this project documents a delivery driver
-          adapting in real time — using today’s labor and visibility to acquire the autonomous systems replacing the job.
-          <strong>Traffic Trencher exists to adapt before that threshold is crossed.</strong>
+          Today, a real pharmacy delivery route is being streamed live — because it’s <strong>my job</strong>.
+          I run the route as an independent contractor, where pay is still tied to human time, attention, and miles driven.
         </p>
 
-        <h3>The Funding Rail</h3>
+        <hr class="rule">
+
+        <h3>The Pattern (Industrial Revolution → Now)</h3>
         <p>
-          The TRAFFIC token acts as the funding rail for this transition. It is a Creator Capital Markets experiment:
-          <strong>Convert attention → transparent capital → deploy capital into autonomy hardware and fleet expansion.</strong>
-          Creator fee claims and upgrades are tied directly to real mileage checkpoints, keeping progress grounded in execution rather than promises.
-          <strong>The story advances only when real work advances.</strong>
+          For generations, big technological shifts followed the same order:
+          industry adopts automation, workers are displaced, society reacts afterward.
+          Autonomous mobility targets driving itself.
         </p>
 
-        <h3>Why Streaming Matters</h3>
+        <h3>What Traffic Trencher Does</h3>
         <p>
-          The route is streamed daily using Starlink. Miles driven become public proof of work.
-          Streaming turns labor into visibility. Visibility becomes capital for automation.
-          As autonomous driving enters real-world deployment, the stream becomes a live record of transition —
-          from human driver to autonomous operator.
+          Instead of waiting to be replaced, this project documents a driver adapting in real time —
+          using today’s labor + visibility to acquire the autonomy systems replacing the job.
         </p>
 
-        <h3>For The Trenches</h3>
-        <p>
-          Traffic Trencher exists as an attempt to build something original in crypto — something rooted in reality rather than replication.
-          Most tokens compete by copying narratives until attention fragments and projects PvP each other into irrelevance.
-          Because this project is tied to a real-world operation, fixed timelines and measurable execution, it cannot simply be cloned
-          or rushed into existence elsewhere. Early participants are not merely trading volatility — they are supporting the creation of a new model:
-          a token funding a real transition whose outcome is publicly documented.
-        </p>
-
-        <h3>The Mission</h3>
-        <ul class="bullets">
-          <li>Convert creator capital into autonomous vehicles.</li>
-          <li>Transition from one route to multiple routes.</li>
-          <li>Operate an autonomous medical delivery fleet servicing pharmacy partners.</li>
+        <h3>Proof-of-Work</h3>
+        <ul>
+          <li>Route streamed daily via Starlink</li>
+          <li>Miles become public proof</li>
+          <li>Progress happens only when real work happens</li>
         </ul>
 
-        <p class="closing">
-          Traffic Trencher documents the moment a replaceable worker becomes the operator of the systems replacing him.
+        <h3>Mission</h3>
+        <p>
+          Convert creator capital into autonomous vehicles. Expand from one route to multiple routes.
+          Become the operator of the systems replacing drivers.
         </p>
-      </div>
-    </section>
 
-    <!-- Roadmap -->
-    <section class="section" id="roadmap">
-      <div class="section-head">
-        <h2>Roadmap</h2>
-        <p class="section-sub">Milestones tied to real execution — not vibes.</p>
-      </div>
-
-      <div class="grid-3">
-        <div class="tile">
-          <div class="tile-k">Phase 1</div>
-          <div class="tile-t">Stream Proof-of-Work</div>
-          <div class="tile-p">Daily route streams + mileage checkpoints + public logs.</div>
-        </div>
-
-        <div class="tile">
-          <div class="tile-k">Phase 2</div>
-          <div class="tile-t">Autonomy Acquisition</div>
-          <div class="tile-p">Deploy creator capital into autonomy hardware + testing.</div>
-        </div>
-
-        <div class="tile">
-          <div class="tile-k">Phase 3</div>
-          <div class="tile-t">Fleet Expansion</div>
-          <div class="tile-p">Scale from one route to multiple routes; operator > driver.</div>
+        <div class="card-actions">
+          <a class="btn" id="watchBtn" href="https://example.com" target="_blank" rel="noopener">Watch Live</a>
+          <a class="btn ghost" href="#operation">Read More</a>
         </div>
       </div>
     </section>
-
-    <!-- Mission Log -->
-    <section class="section" id="mission">
-      <div class="section-head">
-        <h2>Mission Log</h2>
-        <p class="section-sub">A simple feed you can update anytime. (Optional JSON support included.)</p>
-      </div>
-
-      <div class="panel">
-        <div class="log-top">
-          <div class="log-title">Latest Entries</div>
-          <div class="log-meta" id="logMeta">Loading…</div>
-        </div>
-
-        <div class="log-list" id="logList">
-          <!-- JS fills this -->
-        </div>
-
-        <div class="hint">
-          To auto-load logs, create <code>docs/mission-log.json</code> later. If it doesn’t exist, this page still looks good.
-        </div>
-      </div>
-    </section>
-
-    <!-- Watch -->
-    <section class="section" id="watch">
-      <div class="section-head">
-        <h2>Watch Live</h2>
-        <p class="section-sub">Set your stream link once in <code>app.js</code>. The buttons will update automatically.</p>
-      </div>
-
-      <div class="panel watch-panel">
-        <div class="watch-left">
-          <div class="watch-badge">
-            <span class="dot"></span> LIVE WHEN STREAMING
-          </div>
-          <div class="watch-title">Daily route stream via Starlink</div>
-          <div class="watch-sub">Open the stream in one tap.</div>
-        </div>
-
-        <div class="watch-right">
-          <a class="btn btn-red" id="watchBtn" href="https://example.com" target="_blank" rel="noopener">Open Stream</a>
-          <a class="btn btn-glass" href="#operations">Read Operations</a>
-        </div>
-      </div>
-    </section>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        <div>© <span id="year"></span> Traffic Trencher</div>
-        <div class="footer-links">
-          <a href="#operations">Operations</a>
-          <a href="#roadmap">Roadmap</a>
-          <a href="#mission">Mission Log</a>
-        </div>
-      </div>
-    </footer>
 
   </main>
 
-  <script src="./app.js?v=120"></script>
+  <script src="./app.js?v=201"></script>
 </body>
 </html>
