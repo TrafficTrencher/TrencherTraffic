@@ -1,384 +1,51 @@
-:root{
-  --bg:#07080b;
-  --panel:#0d0f14;
-  --panel2:#0b0c10;
-  --text:#eef1ff;
-  --muted:rgba(238,241,255,.70);
-  --line:rgba(255,255,255,.10);
+// Traffic Trencher — Mission Log placeholder
+// Later you can replace `sampleLog` with a fetch() to your real JSON feed.
 
-  /* Neon crimson */
-  --crimson:#ff2a2a;
-  --crimson2:#b80000;
+const sampleLog = [
+  { name: "Route Stream", meta: "Daily run (proof-of-work)", value: "LIVE / WEEKDAY" },
+  { name: "Mileage Checkpoint", meta: "Next creator-fee claim milestone", value: "1,000 mi" },
+  { name: "Upgrade Target", meta: "Hardware + autonomy stack", value: "IN PROGRESS" },
+  { name: "Fleet Expansion", meta: "From one route to multiple", value: "PLANNED" },
+];
 
-  --shadow: 0 18px 55px rgba(0,0,0,.55);
-  --radius:18px;
-}
+function renderLog(items){
+  const el = document.getElementById("logList");
+  if(!el) return;
 
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-body{
-  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  color:var(--text);
-  background: var(--bg);
-  line-height:1.55;
-  overflow-x:hidden;
-}
+  el.innerHTML = "";
+  items.forEach((it) => {
+    const row = document.createElement("div");
+    row.className = "log-item";
 
-/* Background */
-.site-bg{
-  position:fixed; inset:0;
-  z-index:-10;
-}
-.bg-grid{
-  position:absolute; inset:-2px;
-  background-image:
-    linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
-  background-size: 56px 56px;
-  opacity:.08;
-}
-.bg-vignette{
-  position:absolute; inset:0;
-  background:
-    radial-gradient(60% 55% at 50% 30%, rgba(255,42,42,.12), transparent 60%),
-    radial-gradient(70% 70% at 50% 110%, rgba(0,0,0,.85), rgba(0,0,0,.95));
-}
-.bg-glow{
-  position:absolute; inset:0;
-  background:
-    radial-gradient(40% 25% at 25% 15%, rgba(255,42,42,.10), transparent 55%),
-    radial-gradient(35% 22% at 75% 20%, rgba(255,42,42,.08), transparent 60%);
-  filter: blur(6px);
-  opacity:.85;
+    const left = document.createElement("div");
+    left.className = "log-left";
+
+    const name = document.createElement("div");
+    name.className = "log-name";
+    name.textContent = it.name;
+
+    const meta = document.createElement("div");
+    meta.className = "log-meta";
+    meta.textContent = it.meta;
+
+    left.appendChild(name);
+    left.appendChild(meta);
+
+    const right = document.createElement("div");
+    right.className = "log-right";
+    right.textContent = it.value;
+
+    row.appendChild(left);
+    row.appendChild(right);
+    el.appendChild(row);
+  });
 }
 
-/* Topbar */
-.topbar{
-  position:sticky; top:0;
-  z-index:50;
-  background: rgba(7,8,11,.55);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--line);
-}
-.topbar-inner{
-  max-width:1100px;
-  margin:0 auto;
-  padding:14px 18px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:14px;
-}
+document.addEventListener("DOMContentLoaded", () => {
+  renderLog(sampleLog);
 
-.brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  text-decoration:none;
-  color:var(--text);
-}
-.brand-mark{
-  width:38px;height:38px;
-  display:grid;place-items:center;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.14);
-  background: rgba(255,255,255,.06);
-  box-shadow: 0 0 0 1px rgba(255,42,42,.12), 0 12px 30px rgba(0,0,0,.35);
-  font-weight:900;
-  letter-spacing:.02em;
-}
-.brand-title{font-weight:900}
-.brand-sub{display:block; font-size:12px; color:var(--muted); margin-top:2px}
-
-.nav{
-  display:flex;
-  gap:14px;
-  align-items:center;
-}
-.nav-link{
-  color:var(--muted);
-  text-decoration:none;
-  font-weight:600;
-  font-size:14px;
-  padding:8px 10px;
-  border-radius:12px;
-}
-.nav-link:hover{
-  color:var(--text);
-  background: rgba(255,255,255,.06);
-}
-
-.cta{display:flex; gap:10px; align-items:center}
-
-/* Buttons */
-.btn{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  border-radius:14px;
-  padding:10px 14px;
-  font-weight:800;
-  text-decoration:none;
-  border:1px solid rgba(255,255,255,.12);
-  cursor:pointer;
-  user-select:none;
-  color:var(--text);
-  background: rgba(255,255,255,.06);
-  backdrop-filter: blur(14px);
-}
-.btn:hover{transform: translateY(-1px)}
-.btn:active{transform: translateY(0px)}
-.btn-primary{
-  border-color: rgba(255,42,42,.45);
-  background: radial-gradient(120% 180% at 50% 0%, rgba(255,42,42,.40), rgba(184,0,0,.25));
-  box-shadow: 0 0 0 1px rgba(255,42,42,.18), 0 18px 50px rgba(0,0,0,.45);
-}
-.btn-glass{
-  background: rgba(255,255,255,.07);
-}
-.btn-lg{padding:12px 18px; border-radius:16px}
-.btn-block{width:100%}
-
-/* Layout */
-main{max-width:1100px; margin:0 auto; padding:26px 18px 60px}
-
-.section{padding:44px 0}
-.section-head{margin-bottom:18px}
-.section-head h2{
-  margin:0 0 8px 0;
-  font-size:26px;
-  letter-spacing:-.02em;
-}
-.muted{color:var(--muted); margin:0}
-
-/* Hero */
-.hero{padding:34px 0 10px}
-.hero-inner{
-  display:grid;
-  grid-template-columns: 1.2fr .8fr;
-  gap:18px;
-  align-items:start;
-}
-.pill{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:8px 12px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.12);
-  background: rgba(255,255,255,.06);
-  color:var(--muted);
-  font-weight:700;
-  font-size:13px;
-}
-.pill .dot{
-  width:8px;height:8px;border-radius:50%;
-  background: var(--crimson);
-  box-shadow: 0 0 18px rgba(255,42,42,.65);
-}
-.hero h1{
-  font-size:46px;
-  line-height:1.05;
-  margin:14px 0 12px;
-  letter-spacing:-.03em;
-}
-.accent{
-  color: var(--crimson);
-  text-shadow: 0 0 22px rgba(255,42,42,.22);
-}
-.lead{
-  margin:0 0 16px;
-  color:var(--muted);
-  font-size:16px;
-  max-width: 58ch;
-}
-.hero-actions{display:flex; gap:12px; flex-wrap:wrap; margin-top:8px}
-.stats{
-  display:flex; gap:12px; flex-wrap:wrap;
-  margin-top:16px;
-}
-.stat{
-  min-width:160px;
-  padding:12px 14px;
-  border-radius:16px;
-  background: rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.10);
-}
-.stat-k{color:var(--muted); font-weight:700; font-size:12px}
-.stat-v{font-weight:900; margin-top:4px}
-
-/* Right cards */
-.logo-card, .watch-card, .panel{
-  background: rgba(255,255,255,.05);
-  border:1px solid rgba(255,255,255,.10);
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-}
-.logo-card{padding:14px}
-.logo-frame{
-  border-radius: 18px;
-  background: rgba(0,0,0,.55);
-  border:1px solid rgba(255,255,255,.08);
-  padding:18px;
-  display:grid;
-  place-items:center;
-  min-height: 260px;
-}
-.logo-img{
-  max-width: 100%;
-  height:auto;
-  display:block;
-  filter: drop-shadow(0 16px 40px rgba(0,0,0,.55));
-}
-.logo-fallback .logo-fallback-text{display:grid}
-.logo-fallback-text{
-  display:none;
-  font-size:64px;
-  font-weight:900;
-  color: var(--crimson);
-  text-shadow: 0 0 28px rgba(255,42,42,.35);
-}
-.logo-meta{margin-top:12px}
-.logo-meta-title{font-weight:900}
-.logo-meta-sub{color:var(--muted); font-size:13px; margin-top:2px}
-
-.watch-card{padding:16px; margin-top:12px}
-.watch-title{font-weight:900; font-size:16px}
-.watch-sub{color:var(--muted); font-size:13px; margin:6px 0 12px}
-.watch-hint{color:rgba(238,241,255,.55); font-size:12px; margin-top:10px}
-
-/* Operations */
-.panel{padding:18px}
-.ops-grid{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap:14px;
-}
-.ops-block{
-  padding:16px;
-  border-radius: 16px;
-  border:1px solid rgba(255,255,255,.10);
-  background: rgba(0,0,0,.30);
-}
-.ops-block h3{
-  margin:0 0 10px;
-  font-size:16px;
-  letter-spacing:-.01em;
-}
-.ops-block p{margin:0 0 10px; color:rgba(238,241,255,.82)}
-.ops-block p:last-child{margin-bottom:0}
-.ops-block.wide{grid-column: 1 / -1}
-
-.callout{
-  border-left: 3px solid rgba(255,42,42,.75);
-  padding-left: 12px;
-  color:rgba(238,241,255,.92) !important;
-  background: rgba(255,42,42,.06);
-  border-radius: 12px;
-  padding-top:10px;
-  padding-bottom:10px;
-}
-
-.bullets{
-  margin: 0;
-  padding-left: 18px;
-  color:rgba(238,241,255,.86);
-}
-.bullets li{margin:8px 0}
-.closing{
-  margin-top:12px !important;
-  font-weight:800;
-}
-
-/* Roadmap cards */
-.cards{
-  display:grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap:12px;
-}
-.card{
-  padding:16px;
-  border-radius: 18px;
-  border:1px solid rgba(255,255,255,.10);
-  background: rgba(255,255,255,.05);
-  box-shadow: var(--shadow);
-}
-.card-top{display:flex; align-items:center; justify-content:space-between; gap:10px}
-.badge{
-  font-size:12px;
-  font-weight:900;
-  padding:6px 10px;
-  border-radius:999px;
-  border:1px solid rgba(255,42,42,.35);
-  background: rgba(255,42,42,.08);
-  color: rgba(255,200,200,.95);
-}
-.card h3{margin:8px 0 8px; font-size:16px}
-.card p{margin:0; color:var(--muted)}
-
-/* Mission log */
-.log-header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-  margin-bottom:12px;
-}
-.log-title{font-weight:900}
-.log-sub{color:var(--muted); font-size:13px; margin-top:4px}
-.log-list{display:grid; gap:10px}
-.log-item{
-  padding:14px;
-  border-radius: 16px;
-  border:1px solid rgba(255,255,255,.10);
-  background: rgba(0,0,0,.30);
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  align-items:flex-start;
-}
-.log-left{display:flex; flex-direction:column; gap:4px}
-.log-name{font-weight:900}
-.log-meta{color:var(--muted); font-size:13px}
-.log-right{
-  color: rgba(255,42,42,.95);
-  font-weight:900;
-  white-space:nowrap;
-  text-shadow: 0 0 18px rgba(255,42,42,.25);
-}
-
-/* Footer */
-.footer{
-  margin-top:26px;
-  border-top:1px solid var(--line);
-  padding-top:18px;
-}
-.footer-inner{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-}
-.footer-brand{font-weight:900}
-.footer-sub{color:var(--muted); font-size:13px; margin-top:4px}
-.footer-right{display:flex; gap:12px; flex-wrap:wrap}
-.footer-link{
-  color:var(--muted);
-  text-decoration:none;
-  font-weight:700;
-  font-size:13px;
-}
-.footer-link:hover{color:var(--text)}
-
-/* Responsive */
-@media (max-width: 980px){
-  .hero-inner{grid-template-columns: 1fr; }
-  .cards{grid-template-columns: 1fr 1fr}
-}
-@media (max-width: 640px){
-  .nav{display:none}
-  .hero h1{font-size:38px}
-  .ops-grid{grid-template-columns: 1fr}
-  .cards{grid-template-columns: 1fr}
-}
+  const btn = document.getElementById("refreshLog");
+  if(btn){
+    btn.addEventListener("click", () => renderLog(sampleLog));
+  }
+});
