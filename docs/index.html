@@ -1,227 +1,300 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<meta name="description" content="Traffic Trencher — Delivery Driver in the Age of Automation." />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="description" content="Traffic Trencher — TRAFFIC. Real route streamed daily. Creator Capital Markets experiment funding the transition from human driver to autonomous operator." />
+  <title>Traffic Trencher</title>
 
-<title>Traffic Trencher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-
-<link rel="stylesheet" href="style.css?v=1400" />
+  <link rel="stylesheet" href="style.css?v=1" />
 </head>
 
 <body>
+  <!-- Background layers -->
+  <div class="site-bg" aria-hidden="true">
+    <div class="bg-grid"></div>
+    <div class="bg-vignette"></div>
+    <div class="bg-glow"></div>
+  </div>
 
-<!-- ================= HEADER ================= -->
-<header class="topbar">
-<div class="container topbar__inner">
+  <!-- Top Bar -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark" aria-hidden="true">TT</span>
+        <span class="brand-text">
+          <span class="brand-title">Traffic Trencher</span>
+          <span class="brand-sub">Ticker: <strong>TRAFFIC</strong></span>
+        </span>
+      </a>
 
-<div class="brand">
-<img class="brand__logo" src="images/PNG image.png"/>
-<div class="brand__text">
-<div class="brand__name">Traffic Trencher</div>
-<div class="brand__tag">Drive-to-Earn • Road to 25,000 Miles</div>
-</div>
-</div>
+      <nav class="nav">
+        <a class="nav-link" href="#operations">Operations</a>
+        <a class="nav-link" href="#roadmap">Roadmap</a>
+        <a class="nav-link" href="#mission-log">Mission Log</a>
+      </nav>
 
-<div class="topbar__right">
-<span id="liveBadge" class="live-badge">OFFLINE</span>
+      <div class="cta">
+        <a class="btn btn-glass" href="#operations">Lore & Thesis</a>
+        <a class="btn btn-primary" href="#watch">Watch Live</a>
+      </div>
+    </div>
+  </header>
 
-<img class="profile-img"
-src="images/PNG image.png"
-alt="Profile"/>
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-left">
+          <div class="pill">
+            <span class="dot"></span>
+            <span>Drive-to-earn • Creator Capital Markets</span>
+          </div>
 
-<img
-src="images/69322D1E-E63C-4AAD-AB15-42949634CA04.PNG"
-class="top-right-img"/>
-</div>
+          <h1>
+            Real route. Real miles.
+            <span class="accent">Real transition.</span>
+          </h1>
 
-</div>
-</header>
+          <p class="lead">
+            A pharmacy delivery route is streamed live every weekday — because it’s the job.
+            TRAFFIC documents what happens when human labor collides with autonomy.
+          </p>
 
-<!-- ================= MAIN ================= -->
-<main>
+          <div class="hero-actions">
+            <a class="btn btn-primary btn-lg" href="#operations">Read Operations</a>
+            <a class="btn btn-glass btn-lg" href="#mission-log">Track Proof-of-Work</a>
+          </div>
 
-<section class="hero">
-<div class="container">
-<div class="hero__grid">
+          <div class="stats">
+            <div class="stat">
+              <div class="stat-k">Ticker</div>
+              <div class="stat-v">TRAFFIC</div>
+            </div>
+            <div class="stat">
+              <div class="stat-k">Proof</div>
+              <div class="stat-v">Miles streamed</div>
+            </div>
+            <div class="stat">
+              <div class="stat-k">Mission</div>
+              <div class="stat-v">Autonomy acquisition</div>
+            </div>
+          </div>
+        </div>
 
-<!-- LEFT SIDE -->
-<div>
+        <div class="hero-right">
+          <!-- Put your final logo file here -->
+          <!-- Example: docs/assets/tt-logo.png -->
+          <div class="logo-card">
+            <div class="logo-frame">
+              <img
+                class="logo-img"
+                src="assets/tt-logo.png"
+                alt="Traffic Trencher logo"
+                onerror="this.style.display='none'; this.parentElement.classList.add('logo-fallback');"
+              />
+              <div class="logo-fallback-text" aria-hidden="true">
+                TT
+              </div>
+            </div>
+            <div class="logo-meta">
+              <div class="logo-meta-title">Official Mark</div>
+              <div class="logo-meta-sub">Shield emblem • Neon crimson</div>
+            </div>
+          </div>
 
-<h1 class="title">
-Delivery Driver<br>
-<span>in the Age</span><br>
-<span class="title__alt">of Automation</span>
-</h1>
+          <div id="watch" class="watch-card">
+            <div class="watch-title">Watch Live</div>
+            <div class="watch-sub">Daily route stream via Starlink</div>
+            <a class="btn btn-primary btn-block" href="#" aria-label="Watch live stream link">Open Stream</a>
+            <div class="watch-hint">Paste your stream URL into the button link in index.html.</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<p class="lead">
-From Independent Medical Courier to Autonomous Delivery Fleet Operator — documented live.
-</p>
+    <!-- Operations -->
+    <section id="operations" class="section">
+      <div class="section-head">
+        <h2>TRAFFIC TRENCHER — OPERATIONS</h2>
+        <p class="muted">
+          The narrative core. Fixed. Measurable. Executed in public.
+        </p>
+      </div>
 
-<!-- ================= OPERATIONS ================= -->
-<details id="thesisDetails" class="thesis card glass" open>
+      <div class="panel">
+        <div class="ops-grid">
+          <div class="ops-block">
+            <h3>Ticker: TRAFFIC</h3>
+            <p>
+              Today, a real pharmacy delivery route is streamed live — because it’s my job.
+            </p>
+            <p>
+              I operate as an independent medical delivery driver where income remains directly tied to human time,
+              attention, and miles driven. Every weekday, the route runs regardless of markets, narratives, or sentiment.
+            </p>
+            <p>
+              <strong>Traffic Trencher documents what happens when that reality collides with automation.</strong>
+            </p>
+          </div>
 
-<summary class="thesis__summary">
-<span class="thesis__tag">OPERATIONS</span>
-<span class="thesis__hint">Tap to collapse</span>
-</summary>
+          <div class="ops-block">
+            <h3>The Shift Happening Now</h3>
+            <p>
+              Autonomous transportation is moving from research into commercial deployment. Companies such as Tesla, Uber,
+              Amazon, Waymo and major logistics networks are building systems designed to operate without human drivers.
+            </p>
+            <p class="callout">
+              The transition will not occur through permission — it will occur when autonomous systems are
+              technologically capable and economically more efficient than human drivers.
+            </p>
+            <p>
+              Traffic Trencher reverses the usual order: instead of waiting to be replaced, it documents a driver adapting
+              in real time — using today’s labor and visibility to acquire the autonomous systems replacing the job.
+              <strong>Traffic Trencher exists to adapt before that threshold is crossed.</strong>
+            </p>
+          </div>
 
-<div class="thesis__body">
+          <div class="ops-block">
+            <h3>The Funding Rail</h3>
+            <p>
+              The TRAFFIC token acts as the funding rail for this transition. It’s a Creator Capital Markets experiment:
+              <strong>Convert attention → transparent capital → deploy capital into autonomy hardware and fleet expansion.</strong>
+            </p>
+            <p>
+              Creator fee claims and upgrades are tied directly to real mileage checkpoints, keeping progress grounded in
+              execution rather than promises. <strong>The story advances only when real work advances.</strong>
+            </p>
+          </div>
 
-<p class="thesis__title"><b>TRAFFIC TRENCHER — OPERATIONS</b></p>
-<p><b>Ticker:</b> TRAFFIC</p>
+          <div class="ops-block">
+            <h3>Why Streaming Matters</h3>
+            <p>
+              The route is streamed daily using Starlink. Miles driven become public proof of work.
+            </p>
+            <p>
+              Streaming turns labor into visibility. Visibility becomes capital for automation.
+              As autonomous driving enters real-world deployment, the stream becomes a live record of transition —
+              from human driver to autonomous operator.
+            </p>
+          </div>
 
-<p>
-Today, a real pharmacy delivery route is streamed live — because it’s <b>my job</b>.
-</p>
+          <div class="ops-block wide">
+            <h3>For The Trenches</h3>
+            <p>
+              Traffic Trencher exists as an attempt to build something original in crypto — something rooted in reality
+              rather than replication. Most tokens compete by copying narratives until attention fragments and projects PvP
+              each other into irrelevance.
+            </p>
+            <p>
+              Because this project is tied to a real-world operation, fixed timelines and measurable execution, it cannot
+              simply be cloned or rushed into existence elsewhere.
+            </p>
+            <p>
+              Early participants aren’t merely trading volatility — they’re supporting a new model:
+              <strong>a token funding a real transition whose outcome is publicly documented.</strong>
+            </p>
+          </div>
 
-<p>
-I operate as an independent medical delivery driver where income remains directly tied to human time, attention, and miles driven.
-Every weekday, the route runs regardless of markets, narratives, or sentiment.
-</p>
+          <div class="ops-block wide">
+            <h3>The Mission</h3>
+            <ul class="bullets">
+              <li>Convert creator capital into autonomous vehicles.</li>
+              <li>Transition from one route to multiple routes.</li>
+              <li>Operate an autonomous medical delivery fleet servicing pharmacy partners.</li>
+            </ul>
+            <p class="closing">
+              Traffic Trencher documents the moment a replaceable worker becomes the operator of the systems replacing him.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-<p>
-Traffic Trencher documents what happens when that reality collides with automation.
-</p>
+    <!-- Roadmap -->
+    <section id="roadmap" class="section">
+      <div class="section-head">
+        <h2>Roadmap</h2>
+        <p class="muted">Only ships when miles ship.</p>
+      </div>
 
-<hr class="hr">
+      <div class="cards">
+        <article class="card">
+          <div class="card-top">
+            <div class="badge">Phase 1</div>
+            <h3>Proof of Work</h3>
+          </div>
+          <p>Daily streaming. Mileage checkpoints. Transparent execution cadence.</p>
+        </article>
 
-<h3>The Shift Happening Now</h3>
+        <article class="card">
+          <div class="card-top">
+            <div class="badge">Phase 2</div>
+            <h3>Capital → Hardware</h3>
+          </div>
+          <p>Creator fee claims deployed into autonomy upgrades and operational tooling.</p>
+        </article>
 
-<p>
-Autonomous transportation is moving from research into commercial deployment.
-Companies such as Tesla, Uber, Amazon, Waymo and major logistics networks are actively building systems designed to operate without human drivers.
-</p>
+        <article class="card">
+          <div class="card-top">
+            <div class="badge">Phase 3</div>
+            <h3>Route Expansion</h3>
+          </div>
+          <p>From one route to multiple routes. Repeatable execution, same proof standard.</p>
+        </article>
 
-<p><b>
-The transition will not occur through permission — it will occur when autonomous systems are technologically capable and economically more efficient than human drivers.
-</b></p>
+        <article class="card">
+          <div class="card-top">
+            <div class="badge">Phase 4</div>
+            <h3>Autonomous Operator</h3>
+          </div>
+          <p>Human driver → autonomy operator. The transition captured end-to-end.</p>
+        </article>
+      </div>
+    </section>
 
-<p>
-For centuries, technological revolutions have followed the same pattern:
-</p>
+    <!-- Mission Log -->
+    <section id="mission-log" class="section">
+      <div class="section-head">
+        <h2>Mission Log</h2>
+        <p class="muted">Optional: connect to a JSON feed later (app.js).</p>
+      </div>
 
-<ol>
-<li>Industry adopts automation</li>
-<li>Workers are displaced</li>
-<li>Society reacts afterward</li>
-</ol>
+      <div class="panel">
+        <div class="log-header">
+          <div>
+            <div class="log-title">Recent checkpoints</div>
+            <div class="log-sub">This is placeholder data until you wire it to your feed.</div>
+          </div>
+          <button class="btn btn-glass" id="refreshLog" type="button">Refresh</button>
+        </div>
 
-<p>
-The Industrial Revolution mechanized labor.<br>
-The internet automated information work.<br>
-Autonomous mobility targets driving itself.
-</p>
+        <div class="log-list" id="logList" aria-live="polite">
+          <!-- JS populates -->
+        </div>
+      </div>
+    </section>
 
-<p>
-For most workers, technological change only becomes real after jobs begin disappearing.
-</p>
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-inner">
+        <div class="footer-left">
+          <div class="footer-brand">Traffic Trencher</div>
+          <div class="footer-sub">Ticker: <strong>TRAFFIC</strong></div>
+        </div>
+        <div class="footer-right">
+          <a class="footer-link" href="#operations">Operations</a>
+          <a class="footer-link" href="#roadmap">Roadmap</a>
+          <a class="footer-link" href="#mission-log">Mission Log</a>
+        </div>
+      </div>
+    </footer>
+  </main>
 
-<p><b>Traffic Trencher reverses that order.</b></p>
-
-<p>
-Instead of waiting to be replaced, this project documents a delivery driver adapting in real time —
-using today’s labor and visibility to acquire the autonomous systems replacing the job.
-</p>
-
-<p><b>
-Traffic Trencher exists to adapt before that threshold is crossed.
-</b></p>
-
-<hr class="hr">
-
-<h3>The Funding Rail</h3>
-
-<p>
-The <b>TRAFFIC token</b> acts as the funding rail for this transition.
-</p>
-
-<p>
-It is a <b>Creator Capital Markets</b> experiment:
-</p>
-
-<p>
-Convert attention → transparent capital → deploy capital into autonomy hardware and fleet expansion.
-</p>
-
-<p>
-Creator fee claims and upgrades are tied directly to real mileage checkpoints,
-keeping progress grounded in execution rather than promises.
-</p>
-
-<p><b>The story advances only when real work advances.</b></p>
-
-<hr class="hr">
-
-<h3>Why Streaming Matters</h3>
-
-<p>The route is streamed daily using Starlink.</p>
-
-<p>Miles driven become public proof of work.</p>
-
-<p><b>Streaming turns labor into visibility.</b><br>
-<b>Visibility becomes capital for automation.</b></p>
-
-<p>
-As autonomous driving enters real-world deployment,
-the stream becomes a live record of transition —
-from human driver to autonomous operator.
-</p>
-
-<hr class="hr">
-
-<h3>For The Trenches</h3>
-
-<p>
-Traffic Trencher exists as an attempt to build something original in crypto —
-something rooted in reality rather than replication.
-</p>
-
-<p>
-Most tokens compete by copying narratives until attention fragments and projects PvP each other into irrelevance.
-</p>
-
-<p>
-Because this project is tied to a real-world operation, fixed timelines and measurable execution,
-it cannot simply be cloned or rushed into existence elsewhere.
-</p>
-
-<p>
-Early participants are not merely trading volatility —
-they are supporting the creation of a new model:
-a token funding a real transition whose outcome is publicly documented.
-</p>
-
-<hr class="hr">
-
-<h3>The Mission</h3>
-
-<p>
-Convert creator capital into autonomous vehicles.<br>
-Transition from one route to multiple routes.<br>
-Operate an autonomous medical delivery fleet servicing pharmacy partners.
-</p>
-
-<p><b>
-Traffic Trencher documents the moment a replaceable worker becomes the operator of the systems replacing him.
-</b></p>
-
-</div>
-</details>
-
-</div>
-
-</div>
-</div>
-</section>
-
-</main>
-
-<script src="app.js?v=1400"></script>
-
+  <script src="app.js?v=1"></script>
 </body>
 </html>
