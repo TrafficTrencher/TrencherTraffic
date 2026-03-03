@@ -1,313 +1,147 @@
-:root{
-  --bg:#060910;
-  --text:#e9eefb;
-  --muted:rgba(233,238,251,.70);
-  --line:rgba(255,255,255,.10);
-
-  /* topbar glass */
-  --topbarA: rgba(24, 45, 78, .70);
-  --topbarB: rgba(12, 22, 40, .65);
-
-  /* hero glass */
-  --glassA: rgba(25, 38, 66, .52);
-  --glassB: rgba(12, 18, 34, .42);
-
-  /* accents like your screenshot */
-  --accent:#15d0ff;
-  --accent2:#7a5cff;
-
-  --radius:22px;
-  --shadow: 0 24px 70px rgba(0,0,0,.55);
-
-  /* ✅ CHANGE THIS if your traffic background filename differs */
-  --traffic-bg: url("images/tt-traffic.jpg");
+*{
+box-sizing:border-box;
+margin:0;
+padding:0;
 }
 
-/* =========================
-   RESET
-========================= */
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
 body{
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  color:var(--text);
-  background: #000;
-  overflow-x:hidden;
+font-family:Inter,sans-serif;
+color:#fff;
+
+/* ✅ REAL TRAFFIC BACKGROUND */
+background:
+linear-gradient(
+rgba(6,10,20,.82),
+rgba(6,10,20,.95)
+),
+url("images/Traffic.png");
+
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
 }
 
-/* =========================
-   BACKGROUND (traffic image + dark fade)
-========================= */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:-3;
-  background:
-    radial-gradient(1200px 900px at 30% 20%, rgba(21,208,255,.18), transparent 60%),
-    radial-gradient(900px 700px at 70% 10%, rgba(122,92,255,.18), transparent 55%),
-    linear-gradient(180deg, rgba(0,0,0,.80), rgba(0,0,0,.55) 35%, rgba(0,0,0,.82));
-}
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:-4;
-  background-image: var(--traffic-bg);
-  background-size: cover;
-  background-position: center;
-  filter: saturate(1.05) contrast(1.03);
-  transform: scale(1.02);
-}
+/* ================= CONTAINER ================= */
 
-/* =========================
-   CONTAINER
-========================= */
 .container{
-  width:min(1120px, calc(100% - 34px));
-  margin:0 auto;
+width:92%;
+max-width:1100px;
+margin:auto;
 }
 
-/* =========================
-   TOPBAR
-========================= */
+/* ================= TOPBAR ================= */
+
 .topbar{
-  position:sticky;
-  top:0;
-  z-index:50;
-  padding: 14px 0;
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  background:
-    linear-gradient(90deg, var(--topbarA), var(--topbarB));
-  border-bottom: 1px solid rgba(255,255,255,.10);
-  box-shadow: 0 14px 50px rgba(0,0,0,.35);
+backdrop-filter:blur(18px);
+background:rgba(20,28,45,.65);
+border-bottom:1px solid rgba(255,255,255,.08);
 }
 
 .topbar__inner{
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:14px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:14px 0;
 }
 
 .brand{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  min-width: 0;
+display:flex;
+align-items:center;
+gap:12px;
 }
+
 .brand__logo{
-  width:42px;
-  height:42px;
-  border-radius: 14px;
-  object-fit: cover;
-  box-shadow: 0 10px 28px rgba(0,0,0,.38);
-  border:1px solid rgba(255,255,255,.10);
+width:42px;
+height:42px;
+border-radius:50%;
 }
-.brand__text{min-width:0}
+
 .brand__name{
-  font-weight: 900;
-  letter-spacing:.2px;
-  font-size: 22px;
-  line-height:1.05;
+font-weight:800;
+font-size:18px;
 }
+
 .brand__tag{
-  margin-top:3px;
-  font-size: 13px;
-  color: rgba(233,238,251,.72);
-  white-space: nowrap;
-  overflow:hidden;
-  text-overflow: ellipsis;
-  max-width: 52vw;
+font-size:13px;
+opacity:.7;
 }
 
-/* right cluster */
 .topbar__right{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
-.live-badge{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  padding: 10px 16px;
-  border-radius: 999px;
-  font-weight: 800;
-  letter-spacing: .8px;
-  font-size: 12px;
-  text-transform: uppercase;
-
-  color: rgba(233,238,251,.92);
-  background: rgba(255,255,255,.10);
-  border: 1px solid rgba(255,255,255,.16);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
-}
-.live-badge.is-online{
-  background: rgba(21,208,255,.18);
-  border-color: rgba(21,208,255,.35);
-  color: #dff9ff;
-}
-.live-badge.is-offline{
-  background: rgba(255,255,255,.10);
-  border-color: rgba(255,255,255,.16);
+display:flex;
+align-items:center;
+gap:12px;
 }
 
 .profile-img{
-  width:42px;
-  height:42px;
-  border-radius: 999px;
-  object-fit: cover;
-  border: 2px solid rgba(255,255,255,.14);
-  box-shadow: 0 12px 34px rgba(0,0,0,.42);
+width:42px;
+height:42px;
+border-radius:50%;
 }
 
-/* ✅ Your new coin logo in the topbar */
-.top-right-img{
-  width:42px;
-  height:42px;
-  border-radius: 14px;
-  object-fit: cover;
-  border: 1px solid rgba(255,255,255,.14);
-  box-shadow: 0 12px 34px rgba(0,0,0,.42);
+.tt-logo{
+width:40px;
+height:40px;
+object-fit:contain;
 }
 
-/* =========================
-   HERO
-========================= */
+/* ================= BADGE ================= */
+
+.live-badge{
+padding:6px 16px;
+border-radius:20px;
+background:rgba(255,255,255,.12);
+font-weight:700;
+}
+
+/* ================= HERO ================= */
+
 .hero{
-  padding: 26px 0 50px;
-}
-.hero__grid{
-  display:grid;
-  grid-template-columns: 1fr;
-  gap: 18px;
+padding:70px 0;
 }
 
-/* =========================
-   TYPOGRAPHY
-========================= */
 .title{
-  margin: 18px 0 8px;
-  font-weight: 900;
-  letter-spacing: -0.8px;
-  line-height: .95;
-  font-size: clamp(44px, 7vw, 74px);
-  text-shadow: 0 18px 55px rgba(0,0,0,.55);
+font-size:48px;
+font-weight:900;
+line-height:1.05;
 }
-.title span{display:inline-block}
+
+.title span{
+color:#66bfff;
+}
+
 .title__alt{
-  background: linear-gradient(90deg, var(--accent), var(--accent2));
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
+color:#8aa7ff;
 }
 
 .lead{
-  margin: 10px 0 18px;
-  font-size: 18px;
-  line-height: 1.55;
-  color: rgba(233,238,251,.64);
-  max-width: 58ch;
-  text-shadow: 0 12px 40px rgba(0,0,0,.45);
+margin-top:18px;
+opacity:.85;
+max-width:600px;
 }
 
-/* =========================
-   GLASS CARD SYSTEM
-========================= */
+/* ================= CARD ================= */
+
 .card{
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  border: 1px solid rgba(255,255,255,.10);
+margin-top:40px;
+border-radius:20px;
+padding:22px;
 }
 
 .glass{
-  background: linear-gradient(180deg, var(--glassA), var(--glassB));
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+background:rgba(20,28,45,.65);
+backdrop-filter:blur(20px);
+border:1px solid rgba(255,255,255,.08);
 }
 
-.hr{
-  border:0;
-  height:1px;
-  background: rgba(255,255,255,.12);
-  margin: 18px 0;
+.summary{
+display:flex;
+justify-content:space-between;
+cursor:pointer;
+font-weight:700;
+padding-bottom:12px;
 }
 
-/* =========================
-   DETAILS (OPERATIONS)
-========================= */
-.thesis{
-  overflow:hidden;
-}
-
-.thesis__summary{
-  list-style:none;
-  cursor:pointer;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap: 12px;
-
-  padding: 18px 18px;
-  border-radius: calc(var(--radius) + 6px);
-  margin: 0;
-
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.10);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.10);
-}
-.thesis__summary::-webkit-details-marker{display:none}
-
-.thesis__tag{
-  font-weight: 900;
-  letter-spacing: 1px;
-  color: rgba(21,208,255,.92);
-  text-transform: uppercase;
-  font-size: 14px;
-}
-.thesis__hint{
-  color: rgba(233,238,251,.65);
-  font-weight: 700;
-  font-size: 14px;
-}
-
-.thesis[open] .thesis__hint{opacity:.95}
-
-.thesis__body{
-  padding: 18px 18px 20px;
-  color: rgba(233,238,251,.78);
-}
-.thesis__title{
-  color: rgba(233,238,251,.94);
-  letter-spacing:.2px;
-  margin: 2px 0 10px;
-}
-
-.thesis__body h3{
-  margin: 14px 0 10px;
-  color: rgba(233,238,251,.95);
-  font-size: 18px;
-}
-.thesis__body p{
-  margin: 10px 0;
-}
-.thesis__body ol{
-  margin: 10px 0 12px 20px;
-  color: rgba(233,238,251,.74);
-}
-.thesis__body li{margin: 6px 0}
-
-/* =========================
-   MOBILE TUNING (match screenshot spacing)
-========================= */
-@media (max-width: 520px){
-  .container{width: calc(100% - 26px)}
-  .brand__name{font-size: 20px}
-  .brand__tag{max-width: 44vw}
-  .title{margin-top: 12px}
-  .thesis__summary{padding: 16px}
-  .thesis__body{padding: 16px}
+.card-body{
+margin-top:15px;
+line-height:1.6;
 }
