@@ -615,3 +615,57 @@ input:focus{border-color:rgba(124,92,255,.7)}
   flex-wrap:wrap;
   gap:12px;
 }
+/* ===========================
+   iPhone safe-area padding
+   fixes PFP leaking left
+=========================== */
+.container{
+  padding-left: max(18px, env(safe-area-inset-left));
+  padding-right: max(18px, env(safe-area-inset-right));
+}
+
+/* ===========================
+   Center logo: bigger but controlled
+=========================== */
+.topbar__centerlogo{
+  line-height: 0;
+  height: 44px;
+}
+.topbar__centerlogo img{
+  width: 44px !important;
+  height: 44px !important;
+  max-width: 44px !important;
+  max-height: 44px !important;
+  object-fit: contain;
+}
+
+/* Mobile: still prominent */
+@media(max-width:900px){
+  .topbar__centerlogo{ height: 40px; }
+  .topbar__centerlogo img{
+    width: 40px !important;
+    height: 40px !important;
+    max-width: 40px !important;
+    max-height: 40px !important;
+  }
+}
+
+/* ===========================
+   Nav buttons equal sizing
+=========================== */
+.nav{
+  display:grid !important;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 12px;
+  width: 100%;
+}
+.nav a{
+  text-align:center;
+}
+
+/* ===========================
+   Guarantee chip never shows a logo image
+   (if an img somehow gets inserted)
+=========================== */
+.chip img{ display:none !important; }
