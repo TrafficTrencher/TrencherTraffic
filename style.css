@@ -759,4 +759,21 @@ input:focus{border-color:rgba(124,92,255,.7)}
 
   display:flex;
   align-items:center;
+}/* Correct TT logo vertical alignment */
+
+.topbar__centerlogo{
+  position:absolute;
+  right:18px;
+
+  top:22px;   /* aligns with PFP center */
+  transform:none;
+
+  display:flex;
+  align-items:center;
+}
+
+.topbar__centerlogo img{
+  width:53px;
+  height:53px;
+  object-fit:contain;
 }
