@@ -748,3 +748,15 @@ input:focus{border-color:rgba(124,92,255,.7)}
   justify-content:center;
   margin-top:8px;
 }
+/* Fix red logo vertical alignment */
+
+.topbar__centerlogo{
+  position:absolute;
+  right:18px;
+
+  top:50%;
+  transform:translateY(-50%);
+
+  display:flex;
+  align-items:center;
+}
