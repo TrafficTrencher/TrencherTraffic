@@ -1,407 +1,368 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="description" content="Traffic Trencher — Drive-to-earn livestream. Road to 25,000 miles." />
-  <title>Traffic Trencher</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Traffic Trencher — Drive-to-earn livestream. Road to 25,000 miles.">
+<title>Traffic Trencher</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link rel="stylesheet" href="style.css?v=1202" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <!-- Small, safe overrides so you don't have to touch style.css -->
-  <style>
-    /* Title in header matches red logo */
-    .brand__name { color:#ff2a2a !important; }
-
-    /* Red logo + pfp aligned and sized */
-    .topbar__top{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      padding-top:10px;
-    }
-    .brand { flex:0 0 auto; }
-    .brand__logo{
-      width:64px;
-      height:64px;
-      border-radius:16px;
-      object-fit:cover;
-      display:block;
-      margin-left:4px; /* prevents left “leak” */
-    }
-    .brand__text{
-      flex:1 1 auto;
-      text-align:center;
-      min-width:0;
-    }
-    .brand__row{
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      gap:10px;
-    }
-    .topbar__rightlogo{
-      flex:0 0 auto;
-      display:flex;
-      align-items:center;
-      justify-content:flex-end;
-      padding-right:6px;
-    }
-    .topbar__rightlogo img{
-      height:72px; /* 20% bigger feel */
-      width:auto;
-      display:block;
-    }
-
-    /* If your CSS is forcing desktop grid on mobile, this guarantees stacking */
-    @media (max-width: 900px){
-      .hero__grid{ display:block !important; }
-      .overview{ margin-top:18px; }
-      .nav{ display:grid !important; grid-template-columns:1fr 1fr; gap:12px; }
-      .nav a{ text-align:center; }
-    }
-  </style>
+<link rel="stylesheet" href="style.css?v=1202">
 </head>
 
 <body>
 
 <header class="topbar">
-  <div class="container topbar__inner">
 
-    <!-- TOP ROW: PFP | CENTER TITLE | RED LOGO -->
-    <div class="topbar__top">
-      <div class="brand">
-        <img class="brand__logo" src="images/PNG%20image.png" alt="Traffic Trencher" />
-      </div>
+<div class="container topbar__inner">
 
-      <div class="brand__text">
-        <div class="brand__row">
-          <div class="brand__name">Traffic Trencher</div>
-        </div>
-        <div class="brand__tag">Drive-to-Earn • Road to 25,000 Miles</div>
-      </div>
+<div class="topbar__top">
 
-      <div class="topbar__rightlogo" aria-hidden="true">
-        <img src="images/RED%20LOGO.PNG" alt="" />
-      </div>
-    </div>
+<div class="brand">
+<img class="brand__logo" src="images/PNG%20image.png" alt="Traffic Trencher">
+</div>
 
-    <!-- NAV ROW -->
-    <nav class="nav">
-      <a href="#live">Live</a>
-      <a href="#miles">Miles</a>
-      <a href="#fomo">FOMO</a>
-      <a href="#links">Links</a>
-    </nav>
+<div class="brand__text">
 
-  </div>
+<div class="brand__row">
+<div class="brand__name">Traffic Trencher</div>
+</div>
+
+<div class="brand__tag">
+Drive-to-Earn • Road to 25,000 Miles
+</div>
+
+</div>
+
+<div class="topbar__rightlogo">
+<img src="images/RED%20LOGO.PNG" style="height:60px;width:auto;" alt="">
+</div>
+
+</div>
+
+<nav class="nav">
+
+<a href="#live">Live</a>
+<a href="#miles">Miles</a>
+<a href="#fomo">FOMO</a>
+<a href="#links">Links</a>
+
+</nav>
+
+</div>
+
 </header>
 
 <main>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="container">
-      <div class="hero__grid">
+<section class="hero">
 
-        <!-- LEFT -->
-        <div>
+<div class="container">
 
-          <!-- ✅ UPDATED TITLE -->
-          <h1 class="title">
-            Delivery Driver<br/>
-            <span>in the Age</span><br/>
-            <span class="title__alt">of Automation</span>
-          </h1>
+<div class="hero__grid">
 
-          <p class="lead">
-            Independent medical courier documenting the transition from one route → autonomous vehicle → multi-route operator.
-          </p>
+<div>
 
-          <!-- OPERATION / THESIS -->
-          <details id="thesisDetails" class="thesis card glass">
-            <summary class="thesis__summary">
-              <span class="thesis__tag">THE OPERATION</span>
-              <span class="thesis__hint">Tap to expand</span>
-            </summary>
+<h1 class="title">
 
-            <div class="thesis__body">
+Delivery Driver<br>
 
-              <p class="thesis__title"><b>TRAFFIC TRENCHER — OPERATIONS</b></p>
-              <p><b>Ticker:</b> <b>TRAFFIC</b></p>
+<span>in the Age</span><br>
 
-              <p>
-                Today, a real pharmacy delivery route is streamed live — because it’s <b>my job</b>.
-              </p>
+<span class="title__alt">of Automation</span>
 
-              <p>
-                I operate as an independent medical delivery driver where income remains directly tied to human time, attention, and miles driven.
-                Every weekday, the route runs regardless of markets, narratives, or sentiment.
-              </p>
+</h1>
 
-              <p>
-                Traffic Trencher documents what happens when that reality collides with automation.
-              </p>
+<p class="lead">
 
-              <hr class="hr" />
+Independent medical courier documenting the transition from one route → autonomous vehicle → multi-route operator.
 
-              <p class="thesis__title"><b>The Shift Happening Now</b></p>
+</p>
 
-              <p>
-                Autonomous transportation is moving from research into commercial deployment.
-                Companies such as Tesla, Uber, Amazon, Waymo and major logistics networks are actively building systems designed to operate without human drivers.
-              </p>
+<details id="thesisDetails" class="thesis card glass">
 
-              <p><b>
-                The transition will not occur through permission — it will occur when autonomous systems are technologically capable and economically more efficient than human drivers.
-              </b></p>
+<summary class="thesis__summary">
 
-              <hr class="hr" />
+<span class="thesis__tag">THE OPERATION</span>
 
-              <p class="thesis__title"><b>The Mission</b></p>
+<span class="thesis__hint">Tap to expand</span>
 
-              <p>
-                Convert creator capital into autonomous vehicles.<br/>
-                Transition from one route to multiple routes.<br/>
-                Operate an autonomous medical delivery fleet servicing pharmacy partners.
-              </p>
+</summary>
 
-              <p><b>
-                Traffic Trencher documents the moment a replaceable worker becomes the operator of the systems replacing him.
-              </b></p>
+<div class="thesis__body">
 
-              <p class="small">
-                Operating Commitment (EST): Monday–Friday • <b>3:00 PM – ~7:30 PM</b><br/>
-                Creator checkpoints: every <b>1,000 miles</b> • Season 1: <b>25,000 miles</b>
-              </p>
+<p class="thesis__title"><b>TRAFFIC TRENCHER — OPERATIONS</b></p>
 
-            </div>
-          </details>
+<p><b>Ticker:</b> <b>TRAFFIC</b></p>
 
-          <div class="cta cta--center">
-            <a class="btn" href="https://x.com/traffictrencher" target="_blank" rel="noopener">Follow on X</a>
-            <a class="btn btn--primary" href="#live">Watch Live</a>
-            <a class="btn btn--ghost" href="#miles">Track Progress</a>
-          </div>
+<p>
+Today, a real pharmacy delivery route is streamed live — because it’s <b>my job</b>.
+</p>
 
-          <div class="micro">
-            <span>CCM • IRL • Starlink</span>
-            <span>•</span>
-            <span>Ticker: <b>TRAFFIC</b></span>
-            <span>•</span>
-            <span>Season 1: <b>25,000 miles</b></span>
-          </div>
+<p>
+I operate as an independent medical delivery driver where income remains directly tied to human time, attention, and miles driven.
+Every weekday, the route runs regardless of markets, narratives, or sentiment.
+</p>
 
-        </div>
+<p>
+Traffic Trencher documents what happens when that reality collides with automation.
+</p>
 
-        <!-- RIGHT: ROADMAP -->
-        <div class="card overview overview--pop glass">
+<hr class="hr">
 
-          <div class="roadmap-super-title">
-            Driving Until Autonomy
-          </div>
+<p class="thesis__title"><b>The Shift Happening Now</b></p>
 
-          <div class="roadmap-evolution">
-            <img
-              src="images/IMG_2590.png"
-              alt="Transportation evolution timeline"
-              class="evolution-img"
-            />
-          </div>
+<p>
+Autonomous transportation is moving from research into commercial deployment.
+Companies such as Tesla, Uber, Amazon, Waymo and major logistics networks are actively building systems designed to operate without human drivers.
+</p>
 
-          <div class="roadmap-sub-title">
-            Claiming Creator Fees Every 1,000 Miles to Fund The Journey
-          </div>
+<p><b>
+The transition will not occur through permission — it will occur when autonomous systems are technologically capable and economically more efficient than human drivers.
+</b></p>
 
-          <div class="roadmap">
-            <div class="roadmap__head">
-              <div class="roadmap__title">Roadmap: Honda → Tesla FSD (or Cyber Cab)</div>
-              <div class="roadmap__sub">10 steps. Real upgrades. No fake “soon”.</div>
-            </div>
+<p>
+For centuries, technological revolutions have followed the same pattern:
+</p>
 
-            <ol class="roadmap__list">
-              <li><b>Baseline — Proof of Grind</b><span>Weekday pharmacy route streams powered by Starlink.</span></li>
-              <li><b>Creator Checkpoints</b><span>Every 1,000 miles = documented progress milestone.</span></li>
-              <li><b>Rig Upgrade Pack</b><span>Audio + cameras + overlays.</span></li>
-              <li><b>Clip Machine</b><span>Consistent IRL output.</span></li>
-              <li><b>Autonomy Fund</b><span>Creator revenue → autonomy hardware.</span></li>
-              <li><b>The Grind</b><span>Accumulate proof-of-work miles.</span></li>
-              <li><b>Autonomy Entry</b><span>Acquire an autonomous-capable vehicle.</span></li>
-              <li><b>Supervisor Era</b><span>AI drives more, attention frees up.</span></li>
-              <li><b>Multi-Route Operator</b><span>Transition from one route to multiple routes.</span></li>
-              <li><b>Fleet Direction</b><span>Autonomous medical delivery fleet serving pharmacy partners.</span></li>
-            </ol>
-          </div>
+<ol>
+<li>Industry adopts automation</li>
+<li>Workers are displaced</li>
+<li>Society reacts afterward</li>
+</ol>
 
-        </div>
+<p>
+The Industrial Revolution mechanized labor.<br>
+The internet automated information work.<br>
+Autonomous mobility targets driving itself.
+</p>
 
-      </div>
-    </div>
-  </section>
+<p>
+For most workers, technological change only becomes real after jobs begin disappearing.
+</p>
 
-  <!-- LIVE -->
-  <section id="live" class="section">
-    <div class="container">
-      <h2>Live Stream</h2>
-      <p class="muted">Save your stream URL. Flip LIVE on only when you’re actually live.</p>
+<p><b>Traffic Trencher reverses that order.</b></p>
 
-      <div class="livegrid">
-        <div class="card glass">
-          <div class="card__head">
-            <div class="card__title">Stream Player</div>
-          </div>
-          <div class="card__body">
-            <div class="embedwrap embedwrap--glass">
-              <iframe id="streamFrame" src="" allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
+<p>
+Instead of waiting to be replaced, this project documents a delivery driver adapting in real time —
+using today’s labor and visibility to acquire the autonomous systems replacing the job.
+</p>
 
-        <div class="card glass">
-          <div class="card__head">
-            <div class="card__title">Stream Setup</div>
-          </div>
-          <div class="card__body">
-            <label class="field">
-              <span>Stream URL</span>
-              <input id="streamUrl" placeholder="https://..." />
-            </label>
+<p><b>
+Traffic Trencher exists to adapt before that threshold is crossed.
+</b></p>
 
-            <label class="toggle">
-              <input id="liveToggle" type="checkbox" />
-              <span class="toggle__text">Set status to <b>LIVE</b> (manual)</span>
-            </label>
+<hr class="hr">
 
-            <div class="row">
-              <button class="btn btn--primary" id="saveStream" type="button">Save</button>
-              <button class="btn" id="clearStream" type="button">Clear</button>
-            </div>
+<p class="thesis__title"><b>The Mission</b></p>
 
-            <p class="small">Stream link is stored locally in your browser.</p>
-          </div>
-        </div>
-      </div>
+<p>
+Convert creator capital into autonomous vehicles.<br>
+Transition from one route to multiple routes.<br>
+Operate an autonomous medical delivery fleet servicing pharmacy partners.
+</p>
 
-    </div>
-  </section>
+<p><b>
+Traffic Trencher documents the moment a replaceable worker becomes the operator of the systems replacing him.
+</b></p>
 
-  <!-- MILES -->
-  <section id="miles" class="section section--alt">
-    <div class="container">
-      <h2>Mile Tracker</h2>
+</div>
+</details>
 
-      <div class="milegrid">
-        <div class="card glass">
-          <div class="card__body">
-            <div class="progress">
-              <div class="progress__meta">
-                <div><b id="currentMilesText">0</b> / 25,000 miles</div>
-                <div id="percentText">0%</div>
-              </div>
+<div class="cta cta--center">
 
-              <div class="bar bar--glass">
-                <div class="bar__fill" id="barFill"></div>
-              </div>
+<a class="btn" href="https://x.com/traffictrencher" target="_blank">Follow on X</a>
 
-              <label class="field">
-                <span>Update miles</span>
-                <input id="currentMiles" type="number" placeholder="Enter miles" />
-              </label>
+<a class="btn btn--primary" href="#live">Watch Live</a>
 
-              <button class="btn btn--primary" id="saveMiles" type="button">Save</button>
-              <p class="small">Miles are saved locally on this device/browser.</p>
-            </div>
-          </div>
-        </div>
+<a class="btn btn--ghost" href="#miles">Track Progress</a>
 
-        <div class="card glass">
-          <div class="card__body">
-            <div class="milestones__head">
-              <h3 class="milestones__title">Milestones</h3>
-              <div class="milestones__pill">Every 1,000 miles</div>
-            </div>
-            <p class="small">Claims trigger every 1,000 miles.</p>
-            <ol id="milestoneList" class="milestones__list"></ol>
-          </div>
-        </div>
-      </div>
+</div>
 
-    </div>
-  </section>
+</div>
 
-  <!-- FOMO -->
-  <section id="fomo" class="section">
-    <div class="container">
-      <div class="card fomo fomo--glow glass">
-        <div class="card__body fomo__body">
+<div class="card overview overview--pop glass">
 
-          <div class="fomo__left">
-            <div class="fomo__tag">LIVE TRADING</div>
+<div class="roadmap-super-title">
+Driving Until Autonomy
+</div>
 
-            <h2 class="fomo__title">
-              Trade With Me Live on <span class="fomo__brand">FOMO</span>
-            </h2>
+<div class="roadmap-evolution">
 
-            <p class="fomo__desc">
-              Real entries, real exits, live on stream.
-              If you’re going to trade, trade with a discount and watch it happen in real time.
-            </p>
+<img src="images/IMG_2590.png" alt="Transportation evolution timeline" class="evolution-img">
 
-            <div class="fomo__cta">
-              <a class="btn btn--primary" href="https://fomo.family/r/TrafficTrencher" target="_blank" rel="noopener">
-                Trade on FOMO
-              </a>
+</div>
 
-              <button class="btn" id="copyFomo" type="button">Copy FOMO Link</button>
-            </div>
+<div class="roadmap-sub-title">
+Claiming Creator Fees Every 1,000 Miles to Fund The Journey
+</div>
 
-            <p class="small">
-              https://fomo.family/r/TrafficTrencher
-              <span id="copyToast" class="toast" hidden>Copied ✓</span>
-            </p>
-          </div>
+<div class="roadmap">
 
-          <div class="fomo__right">
-            <img class="fomo__logo" src="images/fomo.jpg" alt="FOMO logo" />
-          </div>
+<div class="roadmap__head">
 
-        </div>
-      </div>
-    </div>
-  </section>
+<div class="roadmap__title">
+Roadmap: Honda → Tesla FSD (or Cyber Cab)
+</div>
 
-  <!-- LINKS -->
-  <section id="links" class="section section--alt">
-    <div class="container">
-      <h2>Links</h2>
+<div class="roadmap__sub">
+10 steps. Real upgrades. No fake “soon”.
+</div>
 
-      <div class="linkgrid">
-        <a class="linkcard glass" href="https://x.com/traffictrencher" target="_blank" rel="noopener">
-          <b>X / Twitter</b>
-          <p>Updates & announcements</p>
-        </a>
+</div>
 
-        <a class="linkcard glass" href="#live">
-          <b>Live Stream</b>
-          <p>Watch the journey</p>
-        </a>
-      </div>
-    </div>
-  </section>
+<ol class="roadmap__list">
+
+<li><b>Baseline — Proof of Grind</b><span>Weekday pharmacy route streams powered by Starlink.</span></li>
+
+<li><b>Creator Checkpoints</b><span>Every 1,000 miles = documented progress milestone.</span></li>
+
+<li><b>Rig Upgrade Pack</b><span>Audio + cameras + overlays.</span></li>
+
+<li><b>Clip Machine</b><span>Consistent IRL output.</span></li>
+
+<li><b>Autonomy Fund</b><span>Creator revenue → autonomy hardware.</span></li>
+
+<li><b>The Grind</b><span>Accumulate proof-of-work miles.</span></li>
+
+<li><b>Autonomy Entry</b><span>Acquire an autonomous-capable vehicle.</span></li>
+
+<li><b>Supervisor Era</b><span>AI drives more, attention frees up.</span></li>
+
+<li><b>Multi-Route Operator</b><span>Transition from one route to multiple routes.</span></li>
+
+<li><b>Fleet Direction</b><span>Autonomous medical delivery fleet serving pharmacy partners.</span></li>
+
+</ol>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FOMO -->
+
+<section id="fomo" class="section">
+
+<div class="container">
+
+<div class="card fomo fomo--glow glass">
+
+<div class="card__body fomo__body">
+
+<div class="fomo__left">
+
+<div class="fomo__tag">
+LIVE TRADING
+</div>
+
+<h2 class="fomo__title">
+Trade With Me Live on <span class="fomo__brand">FOMO</span>
+</h2>
+
+<p class="fomo__desc">
+Real entries, real exits, live on stream.
+If you’re going to trade, trade with a discount and watch it happen in real time.
+</p>
+
+<div class="fomo__cta">
+
+<a class="btn btn--primary" href="https://fomo.family/r/TrafficTrencher" target="_blank">
+
+Trade on FOMO
+
+</a>
+
+<button class="btn" id="copyFomo" type="button">
+
+Copy FOMO Link
+
+</button>
+
+</div>
+
+<p class="small">
+https://fomo.family/r/TrafficTrencher
+</p>
+
+</div>
+
+<div class="fomo__right">
+
+<img class="fomo__logo" src="images/fomo.jpg" alt="FOMO logo">
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- LINKS -->
+
+<section id="links" class="section section--alt">
+
+<div class="container">
+
+<h2>
+Links
+</h2>
+
+<div class="linkgrid">
+
+<a class="linkcard glass" href="https://x.com/traffictrencher" target="_blank">
+
+<b>X / Twitter</b>
+
+<p>
+Updates & announcements
+</p>
+
+</a>
+
+<a class="linkcard glass" href="#live">
+
+<b>Live Stream</b>
+
+<p>
+Watch the journey
+</p>
+
+</a>
+
+</div>
+
+</div>
+
+</section>
 
 </main>
 
 <footer class="footer">
-  <div class="container footer__inner">
-    <div>© <span id="year"></span> Traffic Trencher</div>
-  </div>
+
+<div class="container footer__inner">
+
+<div>
+© <span id="year"></span> Traffic Trencher
+</div>
+
+</div>
+
 </footer>
 
 <script src="app.js?v=1201"></script>
+
 </body>
 </html>
