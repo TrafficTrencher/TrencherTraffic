@@ -669,3 +669,24 @@ input:focus{border-color:rgba(124,92,255,.7)}
    (if an img somehow gets inserted)
 =========================== */
 .chip img{ display:none !important; }
+/* 🔥 Red logo +33% bigger */
+@media (max-width: 900px){
+  .topbar__centerlogo{ height: 53px !important; }
+  .topbar__centerlogo img{
+    width: 53px !important;
+    height: 53px !important;
+    max-width: 53px !important;
+    max-height: 53px !important;
+  }
+}
+
+/* (Optional) desktop also a bit bigger to match */
+@media (min-width: 901px){
+  .topbar__centerlogo{ height: 59px !important; }
+  .topbar__centerlogo img{
+    width: 59px !important;
+    height: 59px !important;
+    max-width: 59px !important;
+    max-height: 59px !important;
+  }
+}
