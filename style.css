@@ -1,288 +1,213 @@
-:root{
-  --bg:#0b0e14;
-  --panel:#101626;
-  --panel2:#0f1422;
-  --text:#e9eefb;
-  --muted:#a8b3d1;
-  --line:rgba(255,255,255,.10);
-  --accent:#7c5cff;
-  --accent2:#00d4ff;
-  --shadow:0 18px 50px rgba(0,0,0,.45);
-  --radius:18px;
-}
-
-/* GLOBAL */
-
-*{
-box-sizing:border-box;
-}
-
-html,body{
-margin:0;
-padding:0;
+html{
+-webkit-text-size-adjust:100%;
 }
 
 body{
-font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-color:var(--text);
-line-height:1.5;
-background:#0b0e14;
-overflow-x:hidden;
+
+margin:0;
+font-family:Inter,system-ui;
+background:#0b0f18;
+color:white;
+
 }
 
-/* CONTAINER */
+.header{
 
-.container{
-max-width:1100px;
-margin:0 auto;
+background:#12192b;
 padding:20px;
+
 }
 
-/* TOPBAR */
+.header-inner{
 
-.topbar{
-position:sticky;
-top:0;
-z-index:20;
-backdrop-filter:blur(20px);
-background:rgba(15,20,34,.75);
-border-bottom:1px solid var(--line);
-}
-
-.topbar__inner{
-display:flex;
-flex-direction:column;
-gap:12px;
-}
-
-.topbar__top{
 display:flex;
 align-items:center;
 justify-content:space-between;
+
 }
 
-/* PROFILE IMAGE */
+.pfp{
 
-.brand__logo{
-width:54px;
-height:54px;
+width:60px;
+height:60px;
 border-radius:50%;
-object-fit:cover;
+
 }
 
-/* TITLE */
+.title-block{
 
-.brand__text{
 text-align:center;
 flex:1;
+
 }
 
-.brand__row{
-display:flex;
-justify-content:center;
-align-items:center;
-gap:10px;
+.site-title{
+
+color:#ff2a2a;
+font-size:24px;
+margin:0;
+
 }
 
-/* TRAFFIC TRENCHER TITLE */
+.tagline{
 
-.brand__name{
-font-weight:800;
-font-size:28px;
-letter-spacing:.5px;
-color:#ff1a1a;
-text-shadow:
-0 0 6px #ff1a1a,
-0 0 12px #ff1a1a,
-0 0 24px rgba(255,0,0,.7);
+font-size:12px;
+opacity:.8;
+
 }
 
-.brand__tag{
-font-size:14px;
-color:var(--muted);
+.logo-right{
+
+height:75px;
+
 }
-
-/* RED SHIELD LOGO */
-
-.topbar__rightlogo img{
-height:60px;
-width:auto;
-}
-
-/* NAV */
 
 .nav{
+
 display:grid;
 grid-template-columns:1fr 1fr;
-gap:12px;
+gap:10px;
+margin-top:15px;
+
 }
 
 .nav a{
-display:flex;
-align-items:center;
-justify-content:center;
-padding:16px;
-border-radius:40px;
-background:rgba(255,255,255,.04);
-border:1px solid rgba(255,255,255,.08);
-text-decoration:none;
-color:var(--text);
-font-weight:600;
-font-size:16px;
-backdrop-filter:blur(10px);
-}
 
-/* HERO */
+background:#1b2337;
+padding:12px;
+border-radius:10px;
+text-align:center;
+text-decoration:none;
+color:white;
+
+}
 
 .hero{
-position:relative;
-padding:40px 0;
-background:
-linear-gradient(
-rgba(10,12,18,.85),
-rgba(10,12,18,.95)
-),
-url("images/traffic.jpg");
-background-size:cover;
-background-position:center;
+
+padding:25px;
+
 }
 
-.hero__grid{
-display:grid;
-grid-template-columns:1fr;
-gap:40px;
+.hero-title{
+
+font-size:32px;
+line-height:1.2;
+
 }
 
-.title{
-font-size:42px;
-font-weight:900;
-line-height:1.1;
-margin:10px 0;
+.blue{
+
+color:#5fa7ff;
+
 }
 
-.title span{
-color:#6bb3ff;
+.hero-text{
+
+opacity:.8;
+
 }
 
-.title__alt{
-color:#57d0ff;
+.operation{
+
+margin-top:10px;
+
 }
 
-.lead{
-color:var(--muted);
-font-size:16px;
-max-width:600px;
-}
+.buttons{
 
-/* GLASS CARD */
-
-.card{
-background:rgba(255,255,255,.04);
-border:1px solid rgba(255,255,255,.08);
-border-radius:var(--radius);
-backdrop-filter:blur(20px);
-}
-
-.glass{
-background:rgba(255,255,255,.03);
-}
-
-/* BUTTONS */
-
-.btn{
-display:inline-flex;
-justify-content:center;
-align-items:center;
-padding:14px 20px;
-border-radius:30px;
-text-decoration:none;
-color:var(--text);
-border:1px solid rgba(255,255,255,.15);
-background:rgba(255,255,255,.05);
-font-weight:600;
-}
-
-.btn--primary{
-background:linear-gradient(90deg,#ff1a1a,#ff3a3a);
-border:none;
-color:white;
-}
-
-.btn--ghost{
-background:transparent;
-}
-
-.cta{
 display:flex;
 flex-direction:column;
-gap:12px;
+gap:10px;
 margin-top:20px;
+
 }
 
-.cta--center{
-align-items:stretch;
+.btn{
+
+padding:12px;
+border-radius:10px;
+text-align:center;
+text-decoration:none;
+background:#1d2335;
+color:white;
+
 }
 
-/* MICRO TEXT */
+.btn.primary{
 
-.micro{
-margin-top:18px;
-display:flex;
-flex-wrap:wrap;
-gap:8px;
-font-size:13px;
-color:var(--muted);
+background:#ff2a2a;
+
 }
 
-/* ROADMAP */
+.btn.outline{
+
+border:1px solid #555;
+
+}
 
 .roadmap{
-margin-top:20px;
+
+padding:25px;
+
 }
 
-.roadmap__list{
-padding-left:18px;
+.evolution{
+
+width:100%;
+margin:20px 0;
+
 }
 
-.roadmap__list li{
-margin-bottom:12px;
+.section{
+
+padding:25px;
+
 }
 
-.roadmap__list span{
-display:block;
-font-size:13px;
-color:var(--muted);
+.card{
+
+background:#141c2d;
+padding:20px;
+border-radius:12px;
+
 }
 
-/* FOOTER */
+.player{
 
-.footer{
-margin-top:60px;
-padding:20px 0;
-border-top:1px solid var(--line);
+height:180px;
+background:black;
+
 }
 
-.footer__inner{
-display:flex;
-justify-content:center;
-color:var(--muted);
-font-size:14px;
+.bar{
+
+background:#1c2540;
+height:12px;
+border-radius:10px;
+overflow:hidden;
+
 }
 
-/* MOBILE */
+.fill{
 
-@media(max-width:700px){
+width:0%;
+height:100%;
+background:#ff2a2a;
 
-.title{
-font-size:34px;
 }
 
-.brand__name{
-font-size:24px;
+.fomo-card{
+
+background:#131a2b;
+padding:30px;
+border-radius:12px;
+
 }
 
-.nav{
-grid-template-columns:1fr 1fr;
-}
+footer{
+
+padding:40px;
+text-align:center;
+opacity:.6;
 
 }
