@@ -10,7 +10,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=1201" />
+  <link rel="stylesheet" href="style.css?v=1202" />
 </head>
 
 <body>
@@ -18,6 +18,7 @@
 <header class="topbar">
   <div class="container topbar__inner">
 
+    <!-- LEFT: Brand (pfp + name + badge + subtitle) -->
     <div class="brand">
       <img class="brand__logo" src="images/PNG%20image.png" alt="Traffic Trencher" />
 
@@ -30,6 +31,12 @@
       </div>
     </div>
 
+    <!-- CENTER: Red Logo (prominent) -->
+    <div class="topbar__centerlogo" aria-hidden="true">
+      <img src="images/RED%20LOGO.PNG" alt="Traffic Trencher Logo" />
+    </div>
+
+    <!-- RIGHT: Nav -->
     <nav class="nav">
       <a href="#live">Live</a>
       <a href="#miles">Miles</a>
@@ -38,13 +45,6 @@
     </nav>
 
   </div>
-
-  <!-- ✅ REPLACED: removed 2DB034DF... / cartoon image and used RED LOGO.PNG -->
-  <img
-    src="images/RED%20LOGO.PNG"
-    alt="Traffic Trencher Logo"
-    class="top-right-img"
-  />
 </header>
 
 <main>
@@ -58,12 +58,13 @@
         <!-- LEFT -->
         <div>
 
-          <div class="chip">
-            <span class="chip__dot"></span>
+          <!-- ✅ Chip icon removed (2DB... image). Using RED LOGO.PNG instead -->
+          <div class="chip chip--logo">
+            <img class="chip__logo" src="images/RED%20LOGO.PNG" alt="" aria-hidden="true" />
             HUMAN DRIVER ERA — ACTIVE
           </div>
 
-          <!-- ✅ TITLE -->
+          <!-- ✅ Title -->
           <h1 class="title">
             Delivery Driver<br/>
             <span>in the Age</span><br/>
@@ -86,18 +87,14 @@
               <p class="thesis__title"><b>TRAFFIC TRENCHER — OPERATIONS</b></p>
               <p><b>Ticker:</b> <b>TRAFFIC</b></p>
 
-              <p>
-                Today, a real pharmacy delivery route is streamed live — because it’s <b>my job</b>.
-              </p>
+              <p>Today, a real pharmacy delivery route is streamed live — because it’s <b>my job</b>.</p>
 
               <p>
-                I operate as an independent medical delivery driver where income remains directly tied to human time, attention, and miles driven.
-                Every weekday, the route runs regardless of markets, narratives, or sentiment.
+                I operate as an independent medical delivery driver where income remains directly tied to human time,
+                attention, and miles driven. Every weekday, the route runs regardless of markets, narratives, or sentiment.
               </p>
 
-              <p>
-                Traffic Trencher documents what happens when that reality collides with automation.
-              </p>
+              <p>Traffic Trencher documents what happens when that reality collides with automation.</p>
 
               <hr class="hr" />
 
@@ -105,16 +102,16 @@
 
               <p>
                 Autonomous transportation is moving from research into commercial deployment.
-                Companies such as Tesla, Uber, Amazon, Waymo and major logistics networks are actively building systems designed to operate without human drivers.
+                Companies such as Tesla, Uber, Amazon, Waymo and major logistics networks are actively building systems
+                designed to operate without human drivers.
               </p>
 
               <p><b>
-                The transition will not occur through permission — it will occur when autonomous systems are technologically capable and economically more efficient than human drivers.
+                The transition will not occur through permission — it will occur when autonomous systems are technologically capable
+                and economically more efficient than human drivers.
               </b></p>
 
-              <p>
-                For centuries, technological revolutions have followed the same pattern:
-              </p>
+              <p>For centuries, technological revolutions have followed the same pattern:</p>
 
               <ol>
                 <li>Industry adopts automation</li>
@@ -128,9 +125,7 @@
                 Autonomous mobility targets driving itself.
               </p>
 
-              <p>
-                For most workers, technological change only becomes real after jobs begin disappearing.
-              </p>
+              <p>For most workers, technological change only becomes real after jobs begin disappearing.</p>
 
               <p><b>Traffic Trencher reverses that order.</b></p>
 
@@ -139,25 +134,17 @@
                 using today’s labor and visibility to acquire the autonomous systems replacing the job.
               </p>
 
-              <p><b>
-                Traffic Trencher exists to adapt before that threshold is crossed.
-              </b></p>
+              <p><b>Traffic Trencher exists to adapt before that threshold is crossed.</b></p>
 
               <hr class="hr" />
 
               <p class="thesis__title"><b>The Funding Rail</b></p>
 
-              <p>
-                The <b>TRAFFIC token</b> acts as the funding rail for this transition.
-              </p>
+              <p>The <b>TRAFFIC token</b> acts as the funding rail for this transition.</p>
 
-              <p>
-                It is a <b>Creator Capital Markets</b> experiment:
-              </p>
+              <p>It is a <b>Creator Capital Markets</b> experiment:</p>
 
-              <p>
-                Convert attention → transparent capital → deploy capital into autonomy hardware and fleet expansion.
-              </p>
+              <p>Convert attention → transparent capital → deploy capital into autonomy hardware and fleet expansion.</p>
 
               <p>
                 Creator fee claims and upgrades are tied directly to real mileage checkpoints,
@@ -225,7 +212,7 @@
                 Creator checkpoints: every <b>1,000 miles</b> • Season 1: <b>25,000 miles</b>
               </p>
 
-            </div><!-- /thesis__body -->
+            </div>
           </details>
 
           <div class="cta cta--center">
@@ -242,7 +229,7 @@
             <span>Season 1: <b>25,000 miles</b></span>
           </div>
 
-        </div><!-- /LEFT -->
+        </div>
 
         <!-- RIGHT: ROADMAP -->
         <div class="card overview overview--pop glass">
@@ -283,7 +270,7 @@
             </ol>
           </div>
 
-        </div><!-- /RIGHT -->
+        </div>
 
       </div><!-- /hero__grid -->
 
