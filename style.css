@@ -63,7 +63,9 @@ body::after{
     linear-gradient(180deg, rgba(11,14,20,.40), rgba(11,14,20,.74));
 }
 
-/* TOPBAR */
+/* ===================================================== */
+/* ✅ TOPBAR (FIXED: no PFP leak + equal logo sizing)     */
+/* ===================================================== */
 .topbar{
   position:sticky;
   top:0;
@@ -83,12 +85,17 @@ body::after{
 
 .topbar__inner{
   padding:14px 0;
+  /* extra safety so nothing can visually “kiss” the edge */
+  padding-left: max(18px, env(safe-area-inset-left));
+  padding-right: max(18px, env(safe-area-inset-right));
 }
 
-/* ✅ NEW: top row is 3 columns so PFP + CENTER + RED LOGO stay parallel */
+/* Make L/R columns same width so red logo mirrors PFP */
 .topbar__top{
+  --avatarSize: 56px;
+
   display:grid;
-  grid-template-columns:auto 1fr auto;
+  grid-template-columns: var(--avatarSize) 1fr var(--avatarSize);
   align-items:center;
   column-gap:16px;
 }
@@ -97,10 +104,12 @@ body::after{
 .brand{
   display:flex;
   align-items:center;
+  justify-content:flex-start;
+  min-width:0;
 }
 .brand__logo{
-  width:56px;           /* ≈ 33% bigger than your old ~42/44 */
-  height:56px;
+  width: var(--avatarSize);
+  height: var(--avatarSize);
   border-radius:999px;
   object-fit:cover;
   display:block;
@@ -112,7 +121,7 @@ body::after{
   display:flex;
   flex-direction:column;
   justify-content:center;
-  align-items:center;       /* center between PFP & logo */
+  align-items:center;
   text-align:center;
   min-width:0;
 }
@@ -122,20 +131,36 @@ body::after{
   justify-content:center;
   gap:10px;
   width:100%;
+  min-width:0;
 }
-.brand__name{font-weight:900; font-size:22px; line-height:1.1}
-.brand__tag{font-size:12px;color:var(--muted);line-height:1.2; margin-top:4px}
+.brand__name{
+  font-weight:900;
+  font-size:22px;
+  line-height:1.1;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width: 100%;
+}
+.brand__tag{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.2;
+  margin-top:4px;
+}
 
-/* RIGHT: red logo (aligned with PFP vertically) */
+/* RIGHT: red logo (exact same box as PFP) */
 .topbar__rightlogo{
   display:flex;
   align-items:center;
   justify-content:flex-end;
+  min-width:0;
 }
 .topbar__rightlogo img{
-  width:56px;
-  height:56px;
+  width: var(--avatarSize);
+  height: var(--avatarSize);
   object-fit:contain;
+  display:block;
   filter: drop-shadow(0 12px 22px rgba(0,0,0,.55));
 }
 
@@ -164,7 +189,7 @@ body::after{
   background:rgba(255,255,255,.05);
 }
 
-/* ✅ Mobile: force symmetrical 2x2 */
+/* Mobile: 2x2 symmetrical buttons */
 @media(max-width:900px){
   .nav{
     display:grid;
@@ -547,7 +572,7 @@ input:focus{border-color:rgba(124,92,255,.7)}
   border-color:rgba(255,255,255,.25)
 }
 
-/* FOMO COLOR + GLOW RESTORE */
+/* FOMO */
 .fomo{ border: 1px solid rgba(0,212,255,.22); }
 .fomo--glow{
   box-shadow:
