@@ -572,3 +572,33 @@ input:focus{border-color:rgba(124,92,255,.7)}
   flex-wrap:wrap;
   gap:12px;
 }
+/* ===================================== */
+/* MOBILE TOPBAR FIX (left avatar clipped) */
+/* ===================================== */
+@media (max-width: 520px){
+  .container{ padding-left: 22px; padding-right: 16px; }
+  .topbar__inner{ padding-right: 62px; }
+  .brand__logo{
+    margin-left: 0 !important;   /* was -4px */
+  }
+}
+
+/* ===================================== */
+/* HERO RED LOGO (replaces chip)         */
+/* ===================================== */
+.hero-logo{
+  display:flex;
+  align-items:center;
+  margin: 0 0 14px;
+}
+.hero-logo__img{
+  width: 72px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 18px 40px rgba(0,0,0,.55));
+}
+
+/* Slightly larger on desktop */
+@media (min-width: 901px){
+  .hero-logo__img{ width: 82px; }
+}
