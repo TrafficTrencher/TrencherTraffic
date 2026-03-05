@@ -297,3 +297,18 @@ body::after{
   }
 
 }
+/* FIX BLUE LINK TEXT */
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+.nav a{
+  color:var(--text);
+}
+.nav a:hover{
+  color:white;
+  border-color:rgba(255,255,255,.35);
+  background:rgba(255,255,255,.06);
+}
