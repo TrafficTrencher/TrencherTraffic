@@ -690,3 +690,61 @@ input:focus{border-color:rgba(124,92,255,.7)}
     max-height: 59px !important;
   }
 }
+/* ============================
+   1. Bigger profile picture
+============================ */
+
+.brand__logo{
+  width:42px !important;
+  height:42px !important;
+}
+
+
+/* ============================
+   2. Center the title block
+============================ */
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  flex:1;
+}
+
+.brand__text{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+
+
+/* Center title + status */
+
+.brand__row{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+}
+
+
+/* ============================
+   3. Keep red logo fixed right
+============================ */
+
+.topbar__centerlogo{
+  position:absolute;
+  right:18px;
+}
+
+
+/* ============================
+   4. Prevent nav from shifting
+============================ */
+
+.nav{
+  justify-content:center;
+  margin-top:8px;
+}
