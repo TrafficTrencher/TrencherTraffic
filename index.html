@@ -1,3 +1,6 @@
+<!-- =========================
+FILE: index.html
+========================= -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -10,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=1202" />
+  <link rel="stylesheet" href="style.css?v=1203" />
 </head>
 
 <body>
@@ -26,19 +29,18 @@
         <img class="brand__logo" src="images/PNG%20image.png" alt="Traffic Trencher" />
       </div>
 
-      <!-- CENTER: TITLE + SUBTITLE -->
-      <div class="brand__text">
-        <div class="brand__row">
+      <!-- CENTER: TITLE + SUBTITLE (BADGE REMOVED) -->
+      <div class="brand__text brand__text--center">
+        <div class="brand__row brand__row--center">
           <div class="brand__name">Traffic Trencher</div>
-
-          <!-- OFFLINE / ONLINE BADGE -->
-          <span id="liveBadge" class="live-badge">OFFLINE</span>
         </div>
         <div class="brand__tag">Drive-to-Earn • Road to 25,000 Miles</div>
       </div>
 
-      <!-- RIGHT: RED LOGO (top-right) -->
-      <img class="top-right-img" src="images/RED%20LOGO.PNG" alt="Traffic Trencher Logo" />
+      <!-- RIGHT: RED LOGO (SAME SIZE AS PFP) -->
+      <div class="rightmark">
+        <img class="rightmark__logo" src="images/RED%20LOGO.PNG" alt="Traffic Trencher Logo" />
+      </div>
 
     </div><!-- /topbar__top -->
 
@@ -64,10 +66,8 @@
         <!-- LEFT -->
         <div>
 
-          <!-- HERO CHIP (IF YOU WANT IT GONE, DELETE THIS WHOLE DIV) -->
+          <!-- HERO CHIP -->
           <div class="chip">
-            <!-- If your build used a logo here, it would be inside this chip.
-                 Right now it's just a dot. -->
             <span class="chip__dot"></span>
             HUMAN DRIVER ERA — ACTIVE
           </div>
@@ -395,45 +395,33 @@
   <!-- FOMO -->
   <section id="fomo" class="section">
     <div class="container">
-
       <div class="card fomo fomo--glow glass">
         <div class="card__body fomo__body">
-
           <div class="fomo__left">
             <div class="fomo__tag">LIVE TRADING</div>
-
             <h2 class="fomo__title">
               Trade With Me Live on <span class="fomo__brand">FOMO</span>
             </h2>
-
             <p class="fomo__desc">
               Real entries, real exits, live on stream.
               If you’re going to trade, trade with a discount and watch it happen in real time.
             </p>
-
             <div class="fomo__cta">
               <a class="btn btn--primary" href="https://fomo.family/r/TrafficTrencher" target="_blank" rel="noopener">
                 Trade on FOMO
               </a>
-
-              <button class="btn" id="copyFomo" type="button">
-                Copy FOMO Link
-              </button>
+              <button class="btn" id="copyFomo" type="button">Copy FOMO Link</button>
             </div>
-
             <p class="small">
               https://fomo.family/r/TrafficTrencher
               <span id="copyToast" class="toast" hidden>Copied ✓</span>
             </p>
           </div>
-
           <div class="fomo__right">
             <img class="fomo__logo" src="images/fomo.jpg" alt="FOMO logo" />
           </div>
-
         </div>
       </div>
-
     </div>
   </section>
 
@@ -441,13 +429,11 @@
   <section id="links" class="section section--alt">
     <div class="container">
       <h2>Links</h2>
-
       <div class="linkgrid">
         <a class="linkcard glass" href="https://x.com/traffictrencher" target="_blank" rel="noopener">
           <b>X / Twitter</b>
           <p>Updates & announcements</p>
         </a>
-
         <a class="linkcard glass" href="#live">
           <b>Live Stream</b>
           <p>Watch the journey</p>
