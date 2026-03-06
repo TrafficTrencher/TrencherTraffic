@@ -157,15 +157,14 @@ body::after{
 
 /* RIGHT: red logo (same size as PFP) */
 .top-right-img{
-  width:46px;
-  height:46px;
+  width:56px;
+  height:56px;
   object-fit:contain;
   display:block;
   pointer-events:none;
   filter: drop-shadow(0 10px 20px rgba(0,0,0,.55));
   justify-self:end;
 }
-
 /* Desktop bumps */
 @media(min-width:901px){
   .topbar__top{ grid-template-columns: 54px 1fr 54px; }
