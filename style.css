@@ -167,7 +167,9 @@ body::after{
 }
 /* Desktop bumps */
 @media(min-width:901px){
-  .topbar__top{ grid-template-columns: 54px 1fr 68px; }
+  ..topbar__top{ 
+  grid-template-columns: 54px 1fr 110px;
+}
   .brand__logo{width:64px;height:64px}
   .top-right-img{width:88px;height:88px}
 }
