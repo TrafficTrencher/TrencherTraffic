@@ -157,8 +157,8 @@ body::after{
 
 /* RIGHT: red logo (same size as PFP) */
 .top-right-img{
-  width:78px;
-  height:78px;
+  width:100px;
+  height:100px;
   object-fit:contain;
   display:block;
   pointer-events:none;
@@ -167,13 +167,18 @@ body::after{
 }
 /* Desktop bumps */
 @media(min-width:901px){
-  ..topbar__top{ 
-  grid-template-columns: 54px 1fr 110px;
-}
-  .brand__logo{width:64px;height:64px}
-  .top-right-img{width:88px;height:88px}
-}
+  .topbar__top{ grid-template-columns: 64px 1fr 120px; }
 
+  .brand__logo{
+    width:64px;
+    height:64px;
+  }
+
+  .top-right-img{
+    width:110px;
+    height:110px;
+  }
+}
 /* NAV */
 .nav{
   width:100%;
