@@ -97,23 +97,22 @@ body::after{
   flex-wrap:nowrap;
 }
 
-/* Top row = 3-column grid: red logo | centered title | PFP */
+/* Top row = 3-column grid: PFP | centered title | red logo */
 .topbar__top{
   width:100%;
   display:grid;
-  grid-template-columns: 72px 1fr 46px;
+  grid-template-columns: 46px 1fr 72px;
   align-items:center;
   gap:12px;
   min-width:0;
 }
 
-/* RIGHT: PFP */
+/* LEFT: PFP */
 .brand{
   display:flex;
   align-items:center;
-  justify-content:flex-end;
+  justify-content:flex-start;
   min-width:0;
-  grid-column:3;
 }
 .brand__logo{
   width:46px;
@@ -156,27 +155,21 @@ body::after{
 /* Hide OFFLINE badge (keep element for JS but not visible) */
 .live-badge{display:none !important}
 
-/* LEFT: red logo */
+/* RIGHT: red logo */
 .top-right-img{
   width:64px;
   height:64px;
   object-fit:contain;
   display:block;
   pointer-events:none;
-  filter: drop-shadow(0 2px 6px rgba(255,0,0,.12)) drop-shadow(0 4px 10px rgba(0,0,0,.28));
-  justify-self:start;
-  grid-column:1;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,.55));
+  justify-self:center;
 }
 
 /* Desktop bumps */
 @media(min-width:901px){
   .topbar__top{
-    grid-template-columns: 88px 1fr 64px;
-  }
-
-  .brand{
-    justify-content:flex-end;
-    grid-column:3;
+    grid-template-columns: 64px 1fr 88px;
   }
 
   .brand__logo{
@@ -187,9 +180,7 @@ body::after{
   .top-right-img{
     width:72px;
     height:72px;
-    justify-self:start;
-    grid-column:1;
-    filter: drop-shadow(0 3px 8px rgba(255,0,0,.12)) drop-shadow(0 5px 12px rgba(0,0,0,.30));
+    justify-self:center;
   }
 }
 
