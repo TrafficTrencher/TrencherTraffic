@@ -141,7 +141,7 @@ body::after{
 .brand__name{
   font-weight:900;
   letter-spacing:.2px;
-  color:#FF1A1A;
+  color:#D4D4D4;
   font-size:clamp(18px, 3.8vw, 26px);
   line-height:1.1;
   margin:0;
