@@ -157,8 +157,8 @@ body::after{
 
 /* RIGHT: red logo (same size as PFP) */
 .top-right-img{
-  width:56px;
-  height:56px;
+  width:58px;
+  height:58px;
   object-fit:contain;
   display:block;
   pointer-events:none;
@@ -167,9 +167,9 @@ body::after{
 }
 /* Desktop bumps */
 @media(min-width:901px){
-  .topbar__top{ grid-template-columns: 54px 1fr 64px; }
+  .topbar__top{ grid-template-columns: 54px 1fr 68px; }
   .brand__logo{width:54px;height:54px}
-  .top-right-img{width:64px;height:64px}
+  .top-right-img{width:68px;height:68px}
 }
 
 /* NAV */
