@@ -304,7 +304,6 @@ milesStorageNote.textContent = supabaseConfigured()
 
 /* –––––––––––––
 THESIS DIV ACCORDION
-(replaces <details> to kill iOS Safari disclosure dots)
 ––––––––––––– */
 function setupThesisToggle() {
 const summary = $(“thesisSummary”);
@@ -314,23 +313,31 @@ if (!summary || !body) return;
 
 // Start expanded
 body.style.display = “block”;
+body.style.overflow = “hidden”;
 let open = true;
+let tapping = false;
 
-function toggle(e) {
-e.preventDefault();
-e.stopPropagation();
+function doToggle() {
 open = !open;
 body.style.display = open ? “block” : “none”;
 if (hint) hint.textContent = open ? “Tap to collapse” : “Tap to expand”;
 summary.setAttribute(“aria-expanded”, String(open));
 }
 
-// Both click and touchend for iOS reliability
-summary.addEventListener(“click”, toggle);
-summary.addEventListener(“touchend”, toggle, { passive: false });
+// touchstart sets flag, touchend fires toggle (prevents ghost click double-fire)
+summary.addEventListener(“touchstart”, () => { tapping = true; }, { passive: true });
+summary.addEventListener(“touchend”, (e) => {
+if (tapping) { tapping = false; e.preventDefault(); doToggle(); }
+}, { passive: false });
+
+// click handles desktop + cases where touch didn’t fire
+summary.addEventListener(“click”, () => {
+if (!tapping) doToggle();
+tapping = false;
+});
 
 summary.addEventListener(“keydown”, (e) => {
-if (e.key === “Enter” || e.key === “ “) { e.preventDefault(); toggle(e); }
+if (e.key === “Enter” || e.key === “ “) { e.preventDefault(); doToggle(); }
 });
 }
 
