@@ -1,830 +1,450 @@
-:root{
-  --bg:#0b0e14;
-  --panel:#101626;
-  --panel2:#0f1422;
-  --text:#e9eefb;
-  --muted:#a8b3d1;
-  --line:rgba(255,255,255,.10);
-  --accent:#7c5cff;
-  --accent2:#00d4ff;
-  --shadow: 0 18px 50px rgba(0,0,0,.45);
-  --radius:18px;
+/* =========================================================
+Traffic Trencher — app.js (v1202)
+Changes from v1201:
 
-  /* Glass (a bit stronger so cards look "right" over the Traffic background) */
-  --glass-bg: rgba(12, 18, 34, .58);
-  --glass-bg2: rgba(10, 14, 26, .42);
-  --glass-border: rgba(255,255,255,.14);
-  --glass-border2: rgba(0,212,255,.22);
-}
+- Mile tracker now uses Supabase for shared/live miles
+  (all visitors see the real number, not localStorage 0)
+- Falls back to localStorage if Supabase not configured
+- Admin panel only visible at ?admin=1 — you update from
+  any device by visiting traffictrencher.com?admin=1
+- Token CA copy button wired up
+- Thesis hint text flips between “expand” / “collapse”
+- Links section expanded to 4 cards (no JS needed)
+  ========================================================= */
 
-/* Reset */
-*{box-sizing:border-box}
-html,body{margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
+/* –––––––––––––
+SUPABASE CONFIG
+─────────────────────────
+To enable shared live miles:
 
-body{
-  font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
-  color:var(--text);
-  line-height:1.5;
-  overflow-x:hidden;
-  background: var(--bg);
-  position:relative;
-}
+1. Create a free Supabase project at https://supabase.com
+1. In the SQL editor run:
+   
+   create table miles (
+   id int primary key default 1,
+   current int not null default 0,
+   check (id = 1)   – only ever one row
+   );
+   insert into miles (id, current) values (1, 0);
+   
+   – allow public read, restrict write to anon only via RLS:
+   alter table miles enable row level security;
+   create policy “public read” on miles for select using (true);
+   create policy “anon write” on miles for update using (true);
+1. Fill in your project URL and anon key below.
+1. Done. Miles update from your device → all visitors see it.
 
-/* IMPORTANT: stop iOS/Safari blue link + underline everywhere */
-a, a:visited{color:inherit;text-decoration:none}
-a:hover{text-decoration:none}
+Leave SUPABASE_URL as “” to use localStorage fallback instead.
+––––––––––––– */
+const SUPABASE_URL = “”;          // e.g. “https://xyzxyz.supabase.co”
+const SUPABASE_ANON_KEY = “”;     // your project’s anon/public key
+const SUPABASE_TABLE = “miles”;
+const SUPABASE_COLUMN = “current”;
+const SUPABASE_ROW_ID = 1;
 
-img{max-width:100%;height:auto;display:block}
-iframe{width:100%;height:100%;border:0;display:block}
+/* –––––––––––––
+CONFIG
+––––––––––––– */
+const MILES_TARGET = 25000;
+const MILESTONE_STEP = 1000;
 
-.container{max-width:1120px;margin:0 auto;padding:0 18px}
+const LS_STREAM_URL  = “tt_stream_url”;
+const LS_STREAM_LIVE = “tt_live_toggle”;   // “1” / “0”
+const LS_MILES       = “tt_current_miles”; // fallback only
 
-/* BACKGROUND (Traffic.PNG) */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:-30;
-  pointer-events:none;
-  background: url("images/Traffic.PNG") center 48% / cover no-repeat;
-  opacity:.80;
-  filter:saturate(1.08) contrast(1.18);
-  transform: translateZ(0);
-}
-@media(max-width:900px){
-  body::before{ background: url("images/Traffic.PNG") center 42% / cover no-repeat; }
-}
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:-29;
-  pointer-events:none;
-  background:
-    radial-gradient(1200px 900px at 20% -10%, rgba(124,92,255,.16), transparent 60%),
-    radial-gradient(1000px 800px at 90% 10%, rgba(0,212,255,.10), transparent 55%),
-    linear-gradient(180deg, rgba(11,14,20,.35), rgba(11,14,20,.78));
-}
+/* –––––––––––––
+DOM HELPERS
+––––––––––––– */
+const $ = (id) => document.getElementById(id);
 
-/* =========================
-   TOPBAR (HEADER)
-   ========================= */
-.topbar{
-  position:sticky;
-  top:0;
-  z-index:50;
-  overflow: visible;
+const liveBadge        = $(“liveBadge”);
+const streamFrame      = $(“streamFrame”);
+const streamUrlInput   = $(“streamUrl”);
+const liveToggle       = $(“liveToggle”);
+const saveStreamBtn    = $(“saveStream”);
+const clearStreamBtn   = $(“clearStream”);
 
-  background:
-    radial-gradient(900px 260px at 10% 0%, rgba(124,92,255,.22), transparent 60%),
-    radial-gradient(900px 260px at 90% 0%, rgba(0,212,255,.18), transparent 58%),
-    linear-gradient(180deg, rgba(16,22,38,.92), rgba(9,12,22,.92));
+const currentMilesText  = $(“currentMilesText”);
+const percentText       = $(“percentText”);
+const barFill           = $(“barFill”);
+const currentMilesInput = $(“currentMiles”);
+const saveMilesBtn      = $(“saveMiles”);
+const milestoneList     = $(“milestoneList”);
+const milesAdminPanel   = $(“milesAdminPanel”);
+const milesStorageNote  = $(“milesStorageNote”);
 
-  border-bottom: 1px solid rgba(0,212,255,.18);
-  box-shadow: 0 10px 30px rgba(0,0,0,.35);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
+const copyFomoBtn  = $(“copyFomo”);
+const copyToast    = $(“copyToast”);
 
-/* IMPORTANT: make header deterministic on mobile */
-.topbar__inner{
-  position:relative;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  padding:14px 0;
-  flex-wrap:nowrap;
+const tokenCAEl    = $(“tokenCA”);
+const copyCABtn    = $(“copyCA”);
+const caCopyToast  = $(“caCopyToast”);
+
+const yearEl = $(“year”);
+
+/* –––––––––––––
+UTIL
+––––––––––––– */
+function clamp(n, min, max) {
+return Math.max(min, Math.min(max, n));
 }
 
-/* Top row = 3-column grid: PFP | centered title | red logo */
-.topbar__top{
-  width:100%;
-  display:grid;
-  grid-template-columns: 46px 1fr 72px;
-  align-items:center;
-  gap:12px;
-  min-width:0;
+function safeUrl(url) {
+if (!url) return “”;
+const trimmed = String(url).trim();
+if (!/^https?:///i.test(trimmed)) return “”;
+return trimmed;
 }
 
-/* LEFT: PFP */
-.brand{
-  display:flex;
-  align-items:center;
-  justify-content:flex-start;
-  min-width:0;
-}
-.brand__logo{
-  width:46px;
-  height:46px;
-  object-fit:cover;
-  display:block;
-  border-radius:999px;
-  filter: drop-shadow(0 8px 18px rgba(0,0,0,.45));
+function isAdminMode() {
+return new URLSearchParams(window.location.search).get(“admin”) === “1”;
 }
 
-/* CENTER: title + subtitle (always centered) */
-.brand__text{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-  min-width:0;
-  text-align:center;
-}
-.brand__row{
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:10px;
-  width:100%;
-}
-.brand__name{
-  font-weight:900;
-  letter-spacing:.2px;
-  color:#D4D4D4;
-  font-size:clamp(18px, 3.8vw, 26px);
-  line-height:1.1;
-  margin:0;
-}
-.brand__tag{
-  font-size:12px;
-  color:var(--muted);
-  line-height:1.2;
+function supabaseConfigured() {
+return Boolean(SUPABASE_URL && SUPABASE_ANON_KEY);
 }
 
-/* Hide OFFLINE badge (keep element for JS but not visible) */
-.live-badge{display:none !important}
-
-/* RIGHT: red logo */
-.top-right-img{
-  width:64px;
-  height:64px;
-  object-fit:contain;
-  display:block;
-  pointer-events:none;
-  filter: drop-shadow(0 10px 20px rgba(0,0,0,.55));
-  justify-self:center;
+/* –––––––––––––
+LIVE BADGE
+––––––––––––– */
+function setBadgeLive(isLive) {
+if (!liveBadge) return;
+if (isLive) {
+liveBadge.textContent = “LIVE”;
+liveBadge.classList.add(“is-live”);
+liveBadge.style.background = “linear-gradient(90deg,#ff003c,#ff5a5a)”;
+liveBadge.style.borderColor = “rgba(255,90,90,.75)”;
+liveBadge.style.color = “#fff”;
+} else {
+liveBadge.textContent = “OFFLINE”;
+liveBadge.classList.remove(“is-live”);
+liveBadge.style.background = “rgba(255,255,255,.12)”;
+liveBadge.style.borderColor = “rgba(255,255,255,.25)”;
+liveBadge.style.color = “#ddd”;
+}
 }
 
-/* Desktop bumps */
-@media(min-width:901px){
-  .topbar__top{
-    grid-template-columns: 64px 1fr 88px;
-  }
-
-  .brand__logo{
-    width:64px;
-    height:64px;
-  }
-
-  .top-right-img{
-    width:72px;
-    height:72px;
-    justify-self:center;
-  }
+/* –––––––––––––
+STREAM
+––––––––––––– */
+function loadStreamFromStorage() {
+const url    = safeUrl(localStorage.getItem(LS_STREAM_URL) || “”);
+const isLive = (localStorage.getItem(LS_STREAM_LIVE) || “0”) === “1”;
+if (streamUrlInput) streamUrlInput.value = url;
+if (liveToggle)     liveToggle.checked   = isLive;
+applyStream(url, isLive);
 }
 
-/* NAV */
-.nav{
-  width:100%;
-  display:flex;
-  gap:12px;
-  flex-wrap:wrap;
-  justify-content:center;
-  align-items:center;
-  padding-top:6px;
-}
-.nav a{
-  color:var(--text) !important;
-  text-decoration:none !important;
-  font-weight:900;
-  padding:12px 16px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.04);
-  white-space:nowrap;
-  min-width:92px;
-  text-align:center;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-.nav a:hover{
-  border-color:rgba(255,255,255,.22);
-  background:rgba(255,255,255,.06);
+function applyStream(url, isLive) {
+setBadgeLive(Boolean(isLive));
+if (streamFrame) streamFrame.src = url || “”;
 }
 
-/* HERO */
-.hero{padding:44px 0}
-@media(max-width:900px){ .hero{padding:34px 0} }
-
-.hero__grid{
-  display:grid;
-  grid-template-columns: 1.05fr .95fr;
-  gap:18px;
-  align-items:start;
+function saveStream() {
+const url    = safeUrl(streamUrlInput ? streamUrlInput.value : “”);
+const isLive = Boolean(liveToggle && liveToggle.checked);
+if (!url && streamUrlInput) {
+alert(“Paste a valid https:// stream URL (or tap Clear).”);
+return;
 }
-@media(max-width:900px){
-  .hero__grid{ grid-template-columns:1fr; }
+localStorage.setItem(LS_STREAM_URL,  url);
+localStorage.setItem(LS_STREAM_LIVE, isLive ? “1” : “0”);
+applyStream(url, isLive);
 }
 
-.chip{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:8px 12px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.18);
-  background:rgba(0,0,0,.26);
-  font-weight:900;
-  letter-spacing:.7px;
-  font-size:12px;
-  margin-bottom:14px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-.chip__dot{
-  width:9px;height:9px;border-radius:99px;
-  background: var(--accent2);
-  box-shadow:0 0 12px rgba(0,212,255,.65);
+function clearStream() {
+localStorage.removeItem(LS_STREAM_URL);
+localStorage.setItem(LS_STREAM_LIVE, “0”);
+if (streamUrlInput) streamUrlInput.value = “”;
+if (liveToggle)     liveToggle.checked   = false;
+applyStream(””, false);
 }
 
-.title{
-  font-size:clamp(34px, 6vw, 56px);
-  margin:0 0 10px;
-  line-height:1.02;
-  font-weight:900;
+/* –––––––––––––
+MILES — SUPABASE LAYER
+––––––––––––– */
+
+/** Fetch current miles from Supabase. Returns number or null on error. */
+async function fetchMilesRemote() {
+try {
+const res = await fetch(
+`${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?id=eq.${SUPABASE_ROW_ID}&select=${SUPABASE_COLUMN}`,
+{
+headers: {
+“apikey”: SUPABASE_ANON_KEY,
+“Authorization”: `Bearer ${SUPABASE_ANON_KEY}`,
 }
-.title span{
-  background: linear-gradient(135deg, var(--accent2), var(--accent));
-  -webkit-background-clip:text;
-  background-clip:text;
-  color:transparent;
 }
-.title__alt{
-  background: linear-gradient(135deg, #9d8bff, var(--accent2)) !important;
-  -webkit-background-clip:text !important;
-  background-clip:text !important;
-  color:transparent !important;
+);
+if (!res.ok) return null;
+const data = await res.json();
+if (Array.isArray(data) && data.length > 0) {
+return Number(data[0][SUPABASE_COLUMN]) || 0;
+}
+return null;
+} catch {
+return null;
+}
 }
 
-.lead{ color:rgba(168,179,209,.96); margin:0 0 14px; max-width:62ch; }
-.micro{ margin-top:10px; color:rgba(168,179,209,.95); font-size:12px; font-weight:800; display:flex; gap:10px; flex-wrap:wrap; }
-
-/* CTA */
-.cta{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}
-.cta--center{
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-  align-items:stretch;
+/** Save miles to Supabase. Returns true on success. */
+async function saveMilesRemote(miles) {
+try {
+const res = await fetch(
+`${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?id=eq.${SUPABASE_ROW_ID}`,
+{
+method: “PATCH”,
+headers: {
+“apikey”: SUPABASE_ANON_KEY,
+“Authorization”: `Bearer ${SUPABASE_ANON_KEY}`,
+“Content-Type”: “application/json”,
+“Prefer”: “return=minimal”,
+},
+body: JSON.stringify({ [SUPABASE_COLUMN]: miles })
 }
-.cta--center .btn{width:100%}
-
-/* Buttons */
-.btn{
-  padding:12px 14px;
-  border-radius:14px;
-  background: rgba(255,255,255,.06);
-  border: 1px solid rgba(255,255,255,.20);
-  color:white !important;
-  text-decoration:none !important;
-  font-weight:900;
-  letter-spacing:.2px;
-  transition: transform .08s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-height:46px;
-  text-align:center;
-  line-height:1.1;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  cursor:pointer;
+);
+return res.ok;
+} catch {
+return false;
 }
-.btn:hover{
-  transform:translateY(-1px);
-  background: rgba(255,255,255,.10);
-  border-color:rgba(255,255,255,.40);
-  box-shadow: 0 0 22px rgba(0,212,255,.18);
-}
-.btn--primary{
-  background: rgba(255,255,255,.07);
-  border: 1px solid rgba(0,212,255,.40);
-  box-shadow: 0 0 0 1px rgba(0,212,255,.18) inset;
-}
-.btn--ghost{background:transparent}
-
-.small{font-size:12px;color:var(--muted)}
-.muted{color:var(--muted)}
-.hr{border:0;border-top:1px solid rgba(255,255,255,.10);margin:12px 0}
-
-/* Sections */
-.section{padding:50px 0}
-.section--alt{
-  background:rgba(255,255,255,.02);
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
 }
 
-/* GLASS CARD SYSTEM */
-.card{
-  border-radius:18px;
-  box-shadow:var(--shadow);
-  overflow:hidden;
-  border:1px solid var(--glass-border);
-}
-.card.glass{
-  background:
-    radial-gradient(900px 420px at 10% 0%, rgba(124,92,255,.14), transparent 62%),
-    radial-gradient(900px 420px at 90% 0%, rgba(0,212,255,.12), transparent 60%),
-    linear-gradient(180deg, var(--glass-bg), var(--glass-bg2));
-  border:1px solid rgba(0,212,255,.18);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-}
-.card__head{padding:14px;border-bottom:1px solid rgba(255,255,255,.10)}
-.card__body{padding:16px}
-.card__title{font-weight:900}
-
-/* LORE + THESIS */
-.thesis{ margin:14px 0 10px; }
-.thesis__summary{
-  cursor:pointer;
-  list-style:none;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:14px;
-  margin: 10px 12px 12px;
-  padding: 14px 18px;
-  border-radius: 999px;
-  border: 1px solid rgba(0,212,255,.22);
-  background:
-    linear-gradient(135deg, rgba(124,92,255,.26), rgba(0,212,255,.16)),
-    rgba(255,255,255,.04);
-  font-weight: 900;
-  text-decoration:none !important;
-}
-.thesis__summary::-webkit-details-marker{display:none}
-details summary::-webkit-details-marker{display:none}
-details > summary{list-style:none}
-details > summary::marker{display:none;content:""}
-.thesis__tag{font-size:12px;letter-spacing:1px;color: rgba(154,252,255,.98);font-weight:900}
-.thesis__hint{font-size:12px;color: rgba(233,238,251,.92);font-weight:800;opacity:.9}
-.thesis__body{padding: 14px 16px 16px;color: rgba(168,179,209,.96)}
-.thesis__title{margin:0 0 10px;color: rgba(233,238,251,.98)}
-
-/* ROADMAP CARD */
-.overview--pop{
-  position:relative;
-  border: 1px solid rgba(0,212,255,.22);
-}
-.overview--pop::before{
-  content:"";
-  position:absolute;
-  inset:-1px;
-  border-radius:18px;
-  padding:1px;
-  background: linear-gradient(135deg, rgba(124,92,255,.75), rgba(0,212,255,.55));
-  -webkit-mask:
-    linear-gradient(#000 0 0) content-box,
-    linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-  opacity:.35;
-  pointer-events:none;
-}
-.roadmap-super-title,
-.roadmap-sub-title{
-  font-size:clamp(26px, 4.4vw, 34px);
-  font-weight:900;
-  line-height:1.05;
-  text-align:center;
-  width:100%;
-  margin:0;
-  padding: 12px 18px 6px;
-}
-.roadmap-sub-title{ padding-top:6px; padding-bottom:10px; color: rgba(233,238,251,.92); }
-.roadmap-evolution{ text-align:center; padding: 0; margin: 0; }
-.evolution-img{
-  display:block;
-  margin: 0 auto;
-  width: 100%;
-  max-width: 92%;
-  filter: saturate(1.25) contrast(1.10) drop-shadow(0 12px 28px rgba(0,0,0,.55));
-}
-.roadmap{ padding: 10px 16px 14px; }
-.roadmap__head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:6px;flex-wrap:wrap}
-.roadmap__title{font-weight:900;font-size:16px}
-.roadmap__sub{color:rgba(168,179,209,.95);font-size:12px;font-weight:800}
-
-.roadmap__list{
-  margin:0;
-  padding:0;
-  list-style:none;
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-.roadmap__list li{
-  padding:12px 12px;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,.14);
-  background: rgba(0,0,0,.18);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-.roadmap__list li b{display:block;font-size:14px;letter-spacing:.2px}
-.roadmap__list li span{display:block;color: rgba(168,179,209,.95);font-size:12px;margin-top:4px}
-
-/* LIVE */
-.livegrid{
-  display:grid;
-  grid-template-columns:1.2fr .8fr;
-  gap:16px;
-  min-width:0;
-}
-.livegrid > *{min-width:0}
-@media(max-width:900px){ .livegrid{grid-template-columns:1fr} }
-
-.embedwrap{
-  aspect-ratio:16/9;
-  border-radius:14px;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.12);
-}
-.embedwrap--glass{
-  background: rgba(0,0,0,.22);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+/* –––––––––––––
+MILES — LOCAL FALLBACK
+––––––––––––– */
+function getMilesLocal() {
+const raw = localStorage.getItem(LS_MILES);
+const n   = Number(raw);
+return Number.isFinite(n) ? clamp(Math.floor(n), 0, 9999999) : 0;
 }
 
-.field{display:flex;flex-direction:column;gap:6px;margin:10px 0}
-.field span{font-size:12px;color:var(--muted)}
-input{
-  padding:10px 12px;
-  border-radius:12px;
-  border:1px solid rgba(255,255,255,.14);
-  background: rgba(0,0,0,.20);
-  color:white;
-  outline:none;
-  width:100%;
-  max-width:100%;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-input:focus{border-color:rgba(124,92,255,.7)}
-
-.toggle{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  margin:10px 0 12px;
-  padding:10px 12px;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,.12);
-  background: rgba(0,0,0,.16);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-.toggle__text{font-size:12px;color: rgba(233,238,251,.92);font-weight:800}
-.row{display:flex;gap:10px;flex-wrap:wrap}
-.row .btn{flex:1}
-
-/* MILES */
-.milegrid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
-  min-width:0;
-}
-.milegrid > *{min-width:0}
-@media(max-width:900px){ .milegrid{grid-template-columns:1fr} }
-
-.progress{margin-top:10px}
-.progress__meta{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap}
-
-.bar{
-  height:14px;
-  border-radius:999px;
-  overflow:hidden;
-  border:1px solid rgba(255,255,255,.10);
-  margin:8px 0;
-}
-.bar--glass{
-  background: rgba(0,0,0,.18);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-.bar__fill{
-  height:100%;
-  width:0%;
-  background:linear-gradient(90deg,var(--accent),var(--accent2));
-  transition:width .25s ease;
+function setMilesLocal(n) {
+localStorage.setItem(LS_MILES, String(clamp(Math.floor(n), 0, 9999999)));
 }
 
-/* Milestones */
-.milestones__head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
-.milestones__title{margin:0}
-.milestones__pill{
-  font-size:11px;
-  font-weight:900;
-  letter-spacing:.6px;
-  padding:6px 10px;
-  border-radius:999px;
-  border:1px solid rgba(0,212,255,.28);
-  background: rgba(0,212,255,.10);
-  color: rgba(154,252,255,.95);
-}
-.milestones__list{
-  margin:10px 0 0;
-  padding-left: 18px;
-}
-.milestones__list li{ margin:8px 0; }
-
-/* LINKS */
-.linkgrid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:16px;
-  min-width:0;
-}
-.linkgrid > *{min-width:0}
-@media(max-width:900px){ .linkgrid{grid-template-columns:1fr} }
-
-.linkcard{
-  padding:16px;
-  border:1px solid rgba(255,255,255,.14);
-  border-radius:14px;
-  background:
-    radial-gradient(700px 260px at 10% 0%, rgba(124,92,255,.10), transparent 70%),
-    linear-gradient(180deg, rgba(0,0,0,.16), rgba(0,0,0,.10));
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  transition: transform .08s ease, border-color .2s ease, background .2s ease;
-}
-.linkcard:hover{
-  transform:translateY(-1px);
-  border-color:rgba(255,255,255,.25)
-}
-.linkcard p{margin:6px 0 0;color:rgba(168,179,209,.95)}
-
-/* FOMO */
-.fomo{ border: 1px solid rgba(0,212,255,.22); }
-.fomo--glow{
-  box-shadow:
-    0 18px 60px rgba(0,0,0,.35),
-    0 0 0 1px rgba(0,212,255,.12) inset,
-    0 0 40px rgba(0,212,255,.10);
-}
-.fomo__body{
-  display:grid;
-  grid-template-columns: 1.2fr .8fr;
-  gap: 18px;
-  align-items:center;
-  min-width:0;
-}
-.fomo__body > *{min-width:0}
-@media(max-width:900px){
-  .fomo__body{grid-template-columns:1fr}
-}
-.fomo__tag{
-  display:inline-flex;
-  font-size:11px;
-  letter-spacing:.9px;
-  font-weight:900;
-  padding:6px 10px;
-  border-radius:999px;
-  border:1px solid rgba(0,212,255,.35);
-  background: rgba(0,212,255,.10);
-  color: rgba(154,252,255,.95);
-  margin-bottom: 10px;
-}
-.fomo__title{ margin: 0 0 10px; font-size: 28px; line-height: 1.1; font-weight:900; }
-.fomo__brand{
-  background: linear-gradient(135deg, var(--accent2), var(--accent));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-.fomo__desc{ margin: 0 0 14px; color: rgba(233,238,251,.90); max-width: 65ch; }
-.fomo__cta{ display:flex; gap:10px; flex-wrap:wrap; margin: 10px 0 8px; }
-.fomo__right{ display:flex; justify-content:center; }
-.fomo__logo{
-  width: 240px;
-  max-width: 100%;
-  height: auto;
-  object-fit: contain;
-  border-radius: 18px;
-  filter: drop-shadow(0 18px 60px rgba(0,212,255,.22));
-  opacity: .98;
+/* –––––––––––––
+MILES — RENDER
+––––––––––––– */
+function renderMiles(miles) {
+const pct = clamp((miles / MILES_TARGET) * 100, 0, 100);
+if (currentMilesText) currentMilesText.textContent = miles.toLocaleString();
+if (percentText)      percentText.textContent      = `${Math.floor(pct)}%`;
+if (barFill)          barFill.style.width           = `${pct}%`;
+renderMilestones(miles);
 }
 
-/* Copied toast */
-.toast{
-  display:inline-flex;
-  margin-left:10px;
-  padding:4px 10px;
-  border-radius:999px;
-  border:1px solid rgba(0,212,255,.25);
-  background:rgba(0,212,255,.10);
-  font-weight:900;
+function renderMilestones(miles) {
+if (!milestoneList) return;
+const count   = Math.ceil(MILES_TARGET / MILESTONE_STEP);
+const reached = Math.floor(miles / MILESTONE_STEP);
+milestoneList.innerHTML = “”;
+for (let i = 1; i <= count; i++) {
+const at  = i * MILESTONE_STEP;
+const li  = document.createElement(“li”);
+li.textContent = (i <= reached)
+? `✅ ${at.toLocaleString()} miles checkpoint`
+: `⬜ ${at.toLocaleString()} miles checkpoint`;
+milestoneList.appendChild(li);
+}
 }
 
-/* Footer */
-.footer{
-  border-top:1px solid var(--line);
-  padding:18px 0;
-  color:var(--muted);
+/* Load miles on page init */
+async function loadMiles() {
+if (supabaseConfigured()) {
+const remote = await fetchMilesRemote();
+if (remote !== null) {
+renderMiles(remote);
+if (milesStorageNote) milesStorageNote.textContent = “Live miles — updated by the creator daily.”;
+return;
 }
-.footer__inner{
-  display:flex;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:12px;
 }
-
-/* Mobile spacing */
-@media (max-width: 520px){
-  .container{ padding-left: 18px; padding-right: 18px; }
-
-  /* Nav — fit all 5 items on one row */
-  .nav{gap:5px}
-  .nav a{min-width:0;padding:9px 10px;font-size:12px;letter-spacing:0}
-
-  /* Header — reduce height but keep logos readable */
-  .topbar__inner{gap:6px;padding:10px 0}
-  .topbar__top{grid-template-columns:48px 1fr 56px;gap:8px;padding:0 12px}
-  .brand__logo{width:48px;height:48px}
-  .top-right-img{width:52px;height:52px}
-  .brand__name{font-size:16px}
-  .brand__tag{font-size:10px}
+// Fallback: localStorage
+renderMiles(getMilesLocal());
+if (milesStorageNote) milesStorageNote.textContent = “Miles saved locally on this device.”;
 }
 
-/* =========================
-   TOKEN SECTION
-   (new styles — nothing above changed)
-   ========================= */
+/* Save miles from admin input */
+async function saveMilesFromInput() {
+const val = currentMilesInput ? Number(currentMilesInput.value) : NaN;
+if (!Number.isFinite(val) || val < 0) {
+alert(“Enter a valid number of miles.”);
+return;
+}
+const clean = clamp(Math.floor(val), 0, 9999999);
 
-.token__header{
-  text-align:center;
-  max-width:640px;
-  margin:0 auto 32px;
+if (supabaseConfigured()) {
+const ok = await saveMilesRemote(clean);
+if (ok) {
+renderMiles(clean);
+alert(`✅ Miles updated to ${clean.toLocaleString()} — all visitors will now see this.`);
+} else {
+alert(“⚠️ Supabase save failed. Check your config or internet connection.”);
 }
-.token__tag{
-  display:inline-flex;
-  font-size:11px;
-  letter-spacing:.9px;
-  font-weight:900;
-  padding:6px 12px;
-  border-radius:999px;
-  border:1px solid rgba(0,212,255,.35);
-  background:rgba(0,212,255,.10);
-  color:rgba(154,252,255,.95);
-  margin-bottom:12px;
+} else {
+// Fallback: localStorage
+setMilesLocal(clean);
+renderMiles(clean);
 }
-.token__title{
-  font-size:clamp(28px,5vw,42px);
-  font-weight:900;
-  margin:0 0 10px;
-  line-height:1.05;
-}
-.token__desc{
-  color:rgba(168,179,209,.95);
-  font-size:15px;
-  margin:0;
-  line-height:1.6;
 }
 
-/* 3-column grid: CA | Buy | How it works */
-.token__grid{
-  display:grid;
-  grid-template-columns:1fr 1fr 1fr;
-  gap:16px;
-  align-items:start;
+/* –––––––––––––
+ADMIN PANEL VISIBILITY
+––––––––––––– */
+function setupAdminPanel() {
+if (!milesAdminPanel) return;
+if (isAdminMode()) {
+milesAdminPanel.style.display = “block”;
+if (milesStorageNote) {
+milesStorageNote.textContent = supabaseConfigured()
+? “Admin mode — changes save to Supabase (all visitors will see).”
+: “Admin mode — changes save to localStorage (this device only).”;
 }
-@media(max-width:900px){
-  .token__grid{ grid-template-columns:1fr; }
 }
-
-.token__card{
-  padding:20px;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-}
-.token__card-label{
-  font-size:11px;
-  letter-spacing:.8px;
-  font-weight:900;
-  color:rgba(154,252,255,.85);
-  text-transform:uppercase;
-}
-.token__card-desc{
-  color:rgba(168,179,209,.95);
-  font-size:13px;
-  margin:0;
-  line-height:1.5;
-}
-.token__card-sub{
-  font-size:11px;
-  color:rgba(168,179,209,.65);
-  margin-top:4px;
 }
 
-/* Contract address row */
-.token__ca-wrap{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  background:rgba(0,0,0,.25);
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:12px;
-  padding:10px 12px;
-  min-width:0;
-}
-.token__ca{
-  font-family: "SF Mono", "Fira Code", "Fira Mono", "Roboto Mono", monospace;
-  font-size:12px;
-  color:rgba(233,238,251,.90);
-  word-break:break-all;
-  flex:1;
-  min-width:0;
-}
-.token__ca-copy{
-  flex-shrink:0;
-  padding:6px 8px;
-  min-height:32px;
-  border-radius:8px;
+/* –––––––––––––
+THESIS DIV ACCORDION
+(replaces <details> to kill iOS Safari disclosure dots)
+––––––––––––– */
+function setupThesisToggle() {
+const summary = $(“thesisSummary”);
+const body    = $(“thesisBody”);
+const hint    = $(“thesisHint”);
+if (!summary || !body) return;
+
+// Start expanded
+body.style.display = “block”;
+let open = true;
+
+function toggle(e) {
+e.preventDefault();
+e.stopPropagation();
+open = !open;
+body.style.display = open ? “block” : “none”;
+if (hint) hint.textContent = open ? “Tap to collapse” : “Tap to expand”;
+summary.setAttribute(“aria-expanded”, String(open));
 }
 
-/* Network pills */
-.token__network{
-  display:flex;
-  gap:8px;
-  flex-wrap:wrap;
-  margin-top:2px;
-}
-.token__pill{
-  font-size:10px;
-  font-weight:900;
-  letter-spacing:.5px;
-  padding:4px 10px;
-  border-radius:999px;
-  border:1px solid rgba(255,255,255,.14);
-  background:rgba(255,255,255,.05);
-  color:rgba(233,238,251,.80);
-}
-.token__pill--live{
-  border-color:rgba(255,160,0,.35);
-  background:rgba(255,160,0,.10);
-  color:rgba(255,200,80,.95);
-}
-.token__pill--live-active{
-  border-color:rgba(0,212,100,.45) !important;
-  background:rgba(0,212,100,.12) !important;
-  color:rgba(80,255,160,.95) !important;
+// Both click and touchend for iOS reliability
+summary.addEventListener(“click”, toggle);
+summary.addEventListener(“touchend”, toggle, { passive: false });
+
+summary.addEventListener(“keydown”, (e) => {
+if (e.key === “Enter” || e.key === “ “) { e.preventDefault(); toggle(e); }
+});
 }
 
-/* Buy card accent */
-.token__card--buy{
-  border-color:rgba(0,212,255,.28) !important;
-  box-shadow:
-    0 0 0 1px rgba(0,212,255,.10) inset,
-    0 0 30px rgba(0,212,255,.08);
+/* –––––––––––––
+TOKEN — CA COPY
+Replace the CA string below when you launch.
+The button will auto-hide if CA is still “coming soon”.
+––––––––––––– */
+const TOKEN_CA = “”; // <– paste contract address here when live, e.g. “ABC123…xyz”
+
+function setupTokenCA() {
+if (!tokenCAEl) return;
+
+if (TOKEN_CA) {
+tokenCAEl.textContent = TOKEN_CA;
+// Update buy button to Pump.fun link
+const buyBtn = $(“buyTokenBtn”);
+if (buyBtn) {
+buyBtn.href        = `https://pump.fun/${TOKEN_CA}`;
+buyBtn.textContent = “Buy on Pump.fun”;
 }
-.token__buy-btn{
-  width:100%;
-  font-size:15px;
-  padding:14px;
+// Update status pill
+const pill = $(“tokenStatusPill”);
+if (pill) {
+pill.textContent = “Live”;
+pill.classList.add(“token__pill–live-active”);
+}
+// Update card desc
+const desc = document.querySelector(”.token__card–buy .token__card-desc”);
+if (desc) desc.textContent = “Trade TRAFFIC on Pump.fun. Creator fees fund autonomy hardware.”;
 }
 
-/* How it works steps */
-.token__steps{
-  list-style:none;
-  margin:0;
-  padding:0;
-  display:flex;
-  flex-direction:column;
-  gap:10px;
+// Wire copy button
+if (copyCABtn) {
+if (!TOKEN_CA) {
+copyCABtn.style.display = “none”; // hide copy when no CA yet
+} else {
+copyCABtn.addEventListener(“click”, async () => {
+await copyText(TOKEN_CA, caCopyToast);
+});
 }
-.token__steps li{
-  display:flex;
-  align-items:flex-start;
-  gap:10px;
-  font-size:13px;
-  color:rgba(168,179,209,.95);
-  line-height:1.45;
 }
-.token__step-n{
-  font-size:10px;
-  font-weight:900;
-  letter-spacing:.5px;
-  color:rgba(0,212,255,.85);
-  background:rgba(0,212,255,.10);
-  border:1px solid rgba(0,212,255,.22);
-  border-radius:6px;
-  padding:3px 7px;
-  flex-shrink:0;
-  margin-top:1px;
 }
+
+/* –––––––––––––
+FOMO COPY
+––––––––––––– */
+async function copyFomoLink() {
+await copyText(“https://fomo.family/r/TrafficTrencher”, copyToast);
+}
+
+/* –––––––––––––
+COPY UTIL
+––––––––––––– */
+async function copyText(text, toastEl) {
+try {
+await navigator.clipboard.writeText(text);
+flashToast(toastEl);
+} catch {
+const ta = document.createElement(“textarea”);
+ta.value = text;
+ta.style.cssText = “position:fixed;opacity:0;pointer-events:none”;
+document.body.appendChild(ta);
+ta.focus();
+ta.select();
+try { document.execCommand(“copy”); flashToast(toastEl); } finally {
+document.body.removeChild(ta);
+}
+}
+}
+
+function flashToast(el) {
+if (!el) return;
+el.hidden = false;
+clearTimeout(el._t);
+el._t = setTimeout(() => (el.hidden = true), 1400);
+}
+
+/* –––––––––––––
+INIT / EVENTS
+––––––––––––– */
+function bindEvents() {
+if (saveStreamBtn)  saveStreamBtn.addEventListener(“click”, saveStream);
+if (clearStreamBtn) clearStreamBtn.addEventListener(“click”, clearStream);
+
+if (liveToggle) {
+liveToggle.addEventListener(“change”, () => {
+const url    = safeUrl(streamUrlInput ? streamUrlInput.value : localStorage.getItem(LS_STREAM_URL));
+const isLive = Boolean(liveToggle.checked);
+localStorage.setItem(LS_STREAM_LIVE, isLive ? “1” : “0”);
+applyStream(url || “”, isLive);
+});
+}
+
+if (saveMilesBtn) saveMilesBtn.addEventListener(“click”, saveMilesFromInput);
+
+if (currentMilesInput) {
+currentMilesInput.addEventListener(“keydown”, (e) => {
+if (e.key === “Enter”) saveMilesFromInput();
+});
+}
+
+if (copyFomoBtn) copyFomoBtn.addEventListener(“click”, copyFomoLink);
+}
+
+async function init() {
+if (yearEl) yearEl.textContent = String(new Date().getFullYear());
+
+loadStreamFromStorage();
+setupAdminPanel();
+setupThesisToggle();
+setupTokenCA();
+await loadMiles();
+bindEvents();
+}
+
+document.addEventListener(“DOMContentLoaded”, init);
