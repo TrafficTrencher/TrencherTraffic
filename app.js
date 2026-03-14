@@ -303,20 +303,30 @@ milesStorageNote.textContent = supabaseConfigured()
 }
 
 /* –––––––––––––
-THESIS HINT TEXT TOGGLE
+THESIS DIV ACCORDION
+(replaces <details> to kill iOS Safari disclosure dots)
 ––––––––––––– */
 function setupThesisToggle() {
-const details = $(“thesisDetails”);
-if (!details) return;
-const hint = details.querySelector(”.thesis__hint”);
-if (!hint) return;
+const summary = $(“thesisSummary”);
+const body    = $(“thesisBody”);
+const hint    = $(“thesisHint”);
+if (!summary || !body) return;
 
-function updateHint() {
-hint.textContent = details.open ? “Tap to collapse” : “Tap to expand”;
+// Start expanded
+body.style.display = “block”;
+let open = true;
+
+function toggle() {
+open = !open;
+body.style.display = open ? “block” : “none”;
+if (hint) hint.textContent = open ? “Tap to collapse” : “Tap to expand”;
+summary.setAttribute(“aria-expanded”, String(open));
 }
 
-details.addEventListener(“toggle”, updateHint);
-updateHint();
+summary.addEventListener(“click”, toggle);
+summary.addEventListener(“keydown”, (e) => {
+if (e.key === “Enter” || e.key === “ “) { e.preventDefault(); toggle(); }
+});
 }
 
 /* –––––––––––––
