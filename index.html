@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=103">
+  <link rel="stylesheet" href="style.css?v=104">
 </head>
 
 <body>
@@ -20,15 +20,12 @@
   <div class="container topbar__inner">
 
 ```
-<!-- TOP ROW: PFP | CENTER TITLE | RED LOGO -->
 <div class="topbar__top">
 
-  <!-- LEFT: PFP -->
   <div class="brand">
     <img class="brand__logo" src="images/PNG%20image.png" alt="Traffic Trencher" />
   </div>
 
-  <!-- CENTER: TITLE + SUBTITLE -->
   <div class="brand__text brand__text--center">
     <div class="brand__row brand__row--center">
       <div class="brand__name">Traffic Trencher</div>
@@ -36,14 +33,12 @@
     <div class="brand__tag">Drive-to-Earn • Road to 25,000 Miles</div>
   </div>
 
-  <!-- RIGHT: RED LOGO -->
   <div class="rightmark">
     <img class="top-right-img" src="images/RED%20LOGO.PNG" alt="Traffic Trencher Logo" />
   </div>
 
-</div><!-- /topbar__top -->
+</div>
 
-<!-- NAV ROW -->
 <nav class="nav">
   <a href="#token">Token</a>
   <a href="#live">Live</a>
@@ -58,24 +53,19 @@
 
 <main>
 
-  <!-- HERO -->
-
   <section class="hero">
     <div class="container">
 
 ```
   <div class="hero__grid">
 
-    <!-- LEFT -->
     <div>
 
-      <!-- HERO CHIP -->
       <div class="chip">
         <span class="chip__dot"></span>
         HUMAN DRIVER ERA — ACTIVE
       </div>
 
-      <!-- TITLE -->
       <h1 class="title">
         Delivery Driver<br/>
         <span>in the Age</span><br/>
@@ -86,7 +76,6 @@
         Independent medical courier documenting the transition from one route → autonomous vehicle → multi-route operator.
       </p>
 
-      <!-- OPERATION / THESIS -->
       <div id="thesisDetails" class="thesis card glass">
         <div class="thesis__summary" id="thesisSummary" role="button" tabindex="0" aria-expanded="true">
           <span class="thesis__tag">THE OPERATION</span>
@@ -237,8 +226,8 @@
             Creator checkpoints: every <b>1,000 miles</b> • Season 1: <b>25,000 miles</b>
           </p>
 
-        </div><!-- /thesis__body -->
-      </div><!-- /thesisDetails -->
+        </div>
+      </div>
 
       <div class="cta cta--center">
         <a class="btn" href="https://x.com/traffictrencher" target="_blank" rel="noopener">Follow on X</a>
@@ -254,9 +243,8 @@
         <span>Season 1: <b>25,000 miles</b></span>
       </div>
 
-    </div><!-- /LEFT -->
+    </div>
 
-    <!-- RIGHT: ROADMAP -->
     <div class="card overview overview--pop glass">
 
       <div class="roadmap-super-title">
@@ -295,9 +283,9 @@
         </ol>
       </div>
 
-    </div><!-- /RIGHT -->
+    </div>
 
-  </div><!-- /hero__grid -->
+  </div>
 
 </div>
 ```
@@ -320,7 +308,6 @@
 
   <div class="token__grid">
 
-    <!-- CONTRACT ADDRESS -->
     <div class="card glass token__card">
       <div class="token__card-label">Contract Address</div>
       <div class="token__ca-wrap">
@@ -337,18 +324,16 @@
       </div>
     </div>
 
-    <!-- BUY -->
     <div class="card glass token__card token__card--buy">
       <div class="token__card-label">Trade TRAFFIC</div>
       <p class="token__card-desc">Launch pending. Follow on X for the announcement.</p>
-      <!-- When CA is live: replace href with Pump.fun or Jupiter link -->
+      
       <a class="btn btn--primary token__buy-btn" id="buyTokenBtn" href="https://x.com/traffictrencher" target="_blank" rel="noopener">
         Follow for Launch
       </a>
       <div class="token__card-sub">Launched on Pump.fun • Solana</div>
     </div>
 
-    <!-- HOW IT WORKS -->
     <div class="card glass token__card token__card--how">
       <div class="token__card-label">How It Works</div>
       <ol class="token__steps">
@@ -360,14 +345,12 @@
       </ol>
     </div>
 
-  </div><!-- /token__grid -->
+  </div>
 
 </div>
 ```
 
   </section>
-
-  <!-- LIVE -->
 
   <section id="live" class="section">
     <div class="container">
@@ -419,8 +402,6 @@
 
   </section>
 
-  <!-- MILES -->
-
   <section id="miles" class="section section--alt">
     <div class="container">
       <h2>Mile Tracker</h2>
@@ -439,7 +420,6 @@
             <div class="bar__fill" id="barFill"></div>
           </div>
 
-          <!-- ADMIN UPDATE PANEL — only shown when ?admin=1 is in URL -->
           <div id="milesAdminPanel" style="display:none">
             <label class="field">
               <span>Update miles <span class="token__pill" style="font-size:10px;padding:2px 8px">Admin</span></span>
@@ -469,8 +449,6 @@
 ```
 
   </section>
-
-  <!-- FOMO -->
 
   <section id="fomo" class="section">
     <div class="container">
@@ -504,8 +482,6 @@
     </div>
   </section>
 
-  <!-- LINKS -->
-
   <section id="links" class="section section--alt">
     <div class="container">
       <h2>Links</h2>
@@ -538,7 +514,7 @@
   </div>
 </footer>
 
-<script src="app.js?v=1204"></script>
+<script src="app.js?v=1205"></script>
 
 </body>
 </html>
