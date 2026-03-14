@@ -15,7 +15,13 @@ FILE: index.html
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=99">
+  <link rel="stylesheet" href="style.css?v=100">
+  <style>
+    /* iOS Safari details marker fix — inline to guarantee load order */
+    details > summary { list-style: none !important; }
+    details > summary::-webkit-details-marker { display: none !important; }
+    details > summary::marker { display: none !important; content: "" !important; }
+  </style>
 </head>
 
 <body>
