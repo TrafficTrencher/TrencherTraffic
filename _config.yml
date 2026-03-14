@@ -1,1 +1,5 @@
+markdown: none
 plugins: []
+exclude: []
+include: [".nojekyll"]
+safe: true
