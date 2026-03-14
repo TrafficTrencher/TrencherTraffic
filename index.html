@@ -15,13 +15,7 @@ FILE: index.html
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css?v=100">
-  <style>
-    /* iOS Safari details marker fix — inline to guarantee load order */
-    details > summary { list-style: none !important; }
-    details > summary::-webkit-details-marker { display: none !important; }
-    details > summary::marker { display: none !important; content: "" !important; }
-  </style>
+  <link rel="stylesheet" href="style.css?v=101">
 </head>
 
 <body>
@@ -97,14 +91,13 @@ FILE: index.html
       </p>
 
       <!-- OPERATION / THESIS -->
-      <!-- open attribute = expanded by default on all screen sizes -->
-      <details id="thesisDetails" class="thesis card glass" open>
-        <summary class="thesis__summary">
+      <div id="thesisDetails" class="thesis card glass">
+        <div class="thesis__summary" id="thesisSummary" role="button" tabindex="0" aria-expanded="true">
           <span class="thesis__tag">THE OPERATION</span>
-          <span class="thesis__hint">Tap to collapse</span>
-        </summary>
+          <span class="thesis__hint" id="thesisHint">Tap to collapse</span>
+        </div>
 
-        <div class="thesis__body">
+        <div class="thesis__body" id="thesisBody">
 
           <p class="thesis__title"><b>TRAFFIC TRENCHER — OPERATIONS</b></p>
           <p><b>Ticker:</b> <b>TRAFFIC</b></p>
@@ -249,7 +242,7 @@ FILE: index.html
           </p>
 
         </div><!-- /thesis__body -->
-      </details>
+      </div><!-- /thesisDetails -->
 
       <div class="cta cta--center">
         <a class="btn" href="https://x.com/traffictrencher" target="_blank" rel="noopener">Follow on X</a>
