@@ -311,33 +311,15 @@ const body    = $(“thesisBody”);
 const hint    = $(“thesisHint”);
 if (!summary || !body) return;
 
-// Start expanded
 body.style.display = “block”;
-body.style.overflow = “hidden”;
 let open = true;
-let tapping = false;
 
-function doToggle() {
+summary.style.cursor = “pointer”;
+
+summary.addEventListener(“click”, function() {
 open = !open;
 body.style.display = open ? “block” : “none”;
 if (hint) hint.textContent = open ? “Tap to collapse” : “Tap to expand”;
-summary.setAttribute(“aria-expanded”, String(open));
-}
-
-// touchstart sets flag, touchend fires toggle (prevents ghost click double-fire)
-summary.addEventListener(“touchstart”, () => { tapping = true; }, { passive: true });
-summary.addEventListener(“touchend”, (e) => {
-if (tapping) { tapping = false; e.preventDefault(); doToggle(); }
-}, { passive: false });
-
-// click handles desktop + cases where touch didn’t fire
-summary.addEventListener(“click”, () => {
-if (!tapping) doToggle();
-tapping = false;
-});
-
-summary.addEventListener(“keydown”, (e) => {
-if (e.key === “Enter” || e.key === “ “) { e.preventDefault(); doToggle(); }
 });
 }
 
