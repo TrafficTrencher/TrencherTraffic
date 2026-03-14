@@ -74,7 +74,7 @@ body::after{
   position:sticky;
   top:0;
   z-index:50;
-  overflow: visible;
+  overflow: hidden;
 
   background:
     radial-gradient(900px 260px at 10% 0%, rgba(124,92,255,.22), transparent 60%),
@@ -85,6 +85,8 @@ body::after{
   box-shadow: 0 10px 30px rgba(0,0,0,.35);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 /* IMPORTANT: make header deterministic on mobile */
@@ -654,7 +656,7 @@ input:focus{border-color:rgba(124,92,255,.7)}
 
   /* Header — reduce height but keep logos readable */
   .topbar__inner{gap:6px;padding:10px 0}
-  .topbar__top{grid-template-columns:48px 1fr 56px;gap:8px}
+  .topbar__top{grid-template-columns:48px 1fr 56px;gap:8px;padding:0 12px}
   .brand__logo{width:48px;height:48px}
   .top-right-img{width:52px;height:52px}
   .brand__name{font-size:16px}
