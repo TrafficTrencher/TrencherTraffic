@@ -366,6 +366,9 @@ body::after{
   text-decoration:none !important;
 }
 .thesis__summary::-webkit-details-marker{display:none}
+details summary::-webkit-details-marker{display:none}
+details > summary{list-style:none}
+details > summary::marker{display:none;content:""}
 .thesis__tag{font-size:12px;letter-spacing:1px;color: rgba(154,252,255,.98);font-weight:900}
 .thesis__hint{font-size:12px;color: rgba(233,238,251,.92);font-weight:800;opacity:.9}
 .thesis__body{padding: 14px 16px 16px;color: rgba(168,179,209,.96)}
@@ -644,8 +647,18 @@ input:focus{border-color:rgba(124,92,255,.7)}
 /* Mobile spacing */
 @media (max-width: 520px){
   .container{ padding-left: 18px; padding-right: 18px; }
-  .nav{gap:10px}
-  .nav a{min-width:84px;padding:12px 14px}
+
+  /* Nav — fit all 5 items on one row */
+  .nav{gap:5px}
+  .nav a{min-width:0;padding:9px 10px;font-size:12px;letter-spacing:0}
+
+  /* Header — reduce height */
+  .topbar__inner{gap:6px;padding:10px 0}
+  .topbar__top{grid-template-columns:36px 1fr 44px;gap:8px}
+  .brand__logo{width:36px;height:36px}
+  .top-right-img{width:40px;height:40px}
+  .brand__name{font-size:16px}
+  .brand__tag{font-size:10px}
 }
 
 /* =========================
