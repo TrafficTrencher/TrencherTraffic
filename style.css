@@ -20,7 +20,8 @@
 /* Reset */
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;overflow-anchor:none}
+*{overflow-anchor:none}
 
 body{
   font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
@@ -365,6 +366,9 @@ body::after{
     rgba(255,255,255,.04);
   font-weight: 900;
   text-decoration:none !important;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
 }
 .thesis__summary::-webkit-details-marker{display:none}
 details summary::-webkit-details-marker{display:none}
