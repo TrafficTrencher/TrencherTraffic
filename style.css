@@ -50,8 +50,8 @@ body::before{
   pointer-events:none;
   background: url("images/Traffic.PNG") center 48% / cover no-repeat;
   opacity:.80;
-  filter:saturate(1.08) contrast(1.18);
   transform: translateZ(0);
+  display:block;
 }
 @media(max-width:900px){
   body::before{ background: url("images/Traffic.PNG") center 42% / cover no-repeat; }
@@ -807,4 +807,3 @@ input:focus{border-color:rgba(124,92,255,.7)}
   flex-shrink:0;
   margin-top:1px;
 }
-
