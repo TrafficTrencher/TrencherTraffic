@@ -1,56 +1,28 @@
 /* =========================================================
-Traffic Trencher — app.js (v1202)
-Changes from v1201:
+Traffic Trencher — app.js (v1206)
+Changes from v1205:
 
-- Mile tracker now uses Supabase for shared/live miles
-  (all visitors see the real number, not localStorage 0)
-- Falls back to localStorage if Supabase not configured
-- Admin panel only visible at ?admin=1 — you update from
-  any device by visiting traffictrencher.com?admin=1
-- Token CA copy button wired up
-- Thesis hint text flips between “expand” / “collapse”
-- Links section expanded to 4 cards (no JS needed)
+- Fixed thesis toggle click/keyboard handler
   ========================================================= */
 
 /* –––––––––––––
 SUPABASE CONFIG
-─────────────────────────
-To enable shared live miles:
-
-1. Create a free Supabase project at https://supabase.com
-1. In the SQL editor run:
-   
-   create table miles (
-   id int primary key default 1,
-   current int not null default 0,
-   check (id = 1)   – only ever one row
-   );
-   insert into miles (id, current) values (1, 0);
-   
-   – allow public read, restrict write to anon only via RLS:
-   alter table miles enable row level security;
-   create policy “public read” on miles for select using (true);
-   create policy “anon write” on miles for update using (true);
-1. Fill in your project URL and anon key below.
-1. Done. Miles update from your device → all visitors see it.
-
-Leave SUPABASE_URL as “” to use localStorage fallback instead.
 ––––––––––––– */
-const SUPABASE_URL = “”;          // e.g. “https://xyzxyz.supabase.co”
-const SUPABASE_ANON_KEY = “”;     // your project’s anon/public key
-const SUPABASE_TABLE = “miles”;
-const SUPABASE_COLUMN = “current”;
-const SUPABASE_ROW_ID = 1;
+const SUPABASE_URL      = “”;          // e.g. “https://xyzxyz.supabase.co”
+const SUPABASE_ANON_KEY = “”;          // your project’s anon/public key
+const SUPABASE_TABLE    = “miles”;
+const SUPABASE_COLUMN   = “current”;
+const SUPABASE_ROW_ID   = 1;
 
 /* –––––––––––––
 CONFIG
 ––––––––––––– */
-const MILES_TARGET = 25000;
-const MILESTONE_STEP = 1000;
+const MILES_TARGET    = 25000;
+const MILESTONE_STEP  = 1000;
 
 const LS_STREAM_URL  = “tt_stream_url”;
-const LS_STREAM_LIVE = “tt_live_toggle”;   // “1” / “0”
-const LS_MILES       = “tt_current_miles”; // fallback only
+const LS_STREAM_LIVE = “tt_live_toggle”;
+const LS_MILES       = “tt_current_miles”;
 
 /* –––––––––––––
 DOM HELPERS
@@ -76,9 +48,9 @@ const milesStorageNote  = $(“milesStorageNote”);
 const copyFomoBtn  = $(“copyFomo”);
 const copyToast    = $(“copyToast”);
 
-const tokenCAEl    = $(“tokenCA”);
-const copyCABtn    = $(“copyCA”);
-const caCopyToast  = $(“caCopyToast”);
+const tokenCAEl   = $(“tokenCA”);
+const copyCABtn   = $(“copyCA”);
+const caCopyToast = $(“caCopyToast”);
 
 const yearEl = $(“year”);
 
@@ -112,15 +84,15 @@ if (!liveBadge) return;
 if (isLive) {
 liveBadge.textContent = “LIVE”;
 liveBadge.classList.add(“is-live”);
-liveBadge.style.background = “linear-gradient(90deg,#ff003c,#ff5a5a)”;
-liveBadge.style.borderColor = “rgba(255,90,90,.75)”;
-liveBadge.style.color = “#fff”;
+liveBadge.style.background   = “linear-gradient(90deg,#ff003c,#ff5a5a)”;
+liveBadge.style.borderColor  = “rgba(255,90,90,.75)”;
+liveBadge.style.color        = “#fff”;
 } else {
 liveBadge.textContent = “OFFLINE”;
 liveBadge.classList.remove(“is-live”);
-liveBadge.style.background = “rgba(255,255,255,.12)”;
+liveBadge.style.background  = “rgba(255,255,255,.12)”;
 liveBadge.style.borderColor = “rgba(255,255,255,.25)”;
-liveBadge.style.color = “#ddd”;
+liveBadge.style.color       = “#ddd”;
 }
 }
 
@@ -163,15 +135,13 @@ applyStream(””, false);
 /* –––––––––––––
 MILES — SUPABASE LAYER
 ––––––––––––– */
-
-/** Fetch current miles from Supabase. Returns number or null on error. */
 async function fetchMilesRemote() {
 try {
 const res = await fetch(
 `${SUPABASE_URL}/rest/v1/${SUPABASE_TABLE}?id=eq.${SUPABASE_ROW_ID}&select=${SUPABASE_COLUMN}`,
 {
 headers: {
-“apikey”: SUPABASE_ANON_KEY,
+“apikey”:        SUPABASE_ANON_KEY,
 “Authorization”: `Bearer ${SUPABASE_ANON_KEY}`,
 }
 }
@@ -187,7 +157,6 @@ return null;
 }
 }
 
-/** Save miles to Supabase. Returns true on success. */
 async function saveMilesRemote(miles) {
 try {
 const res = await fetch(
@@ -195,10 +164,10 @@ const res = await fetch(
 {
 method: “PATCH”,
 headers: {
-“apikey”: SUPABASE_ANON_KEY,
+“apikey”:        SUPABASE_ANON_KEY,
 “Authorization”: `Bearer ${SUPABASE_ANON_KEY}`,
-“Content-Type”: “application/json”,
-“Prefer”: “return=minimal”,
+“Content-Type”:  “application/json”,
+“Prefer”:        “return=minimal”,
 },
 body: JSON.stringify({ [SUPABASE_COLUMN]: miles })
 }
@@ -239,8 +208,8 @@ const count   = Math.ceil(MILES_TARGET / MILESTONE_STEP);
 const reached = Math.floor(miles / MILESTONE_STEP);
 milestoneList.innerHTML = “”;
 for (let i = 1; i <= count; i++) {
-const at  = i * MILESTONE_STEP;
-const li  = document.createElement(“li”);
+const at = i * MILESTONE_STEP;
+const li = document.createElement(“li”);
 li.textContent = (i <= reached)
 ? `✅ ${at.toLocaleString()} miles checkpoint`
 : `⬜ ${at.toLocaleString()} miles checkpoint`;
@@ -248,7 +217,6 @@ milestoneList.appendChild(li);
 }
 }
 
-/* Load miles on page init */
 async function loadMiles() {
 if (supabaseConfigured()) {
 const remote = await fetchMilesRemote();
@@ -258,12 +226,10 @@ if (milesStorageNote) milesStorageNote.textContent = “Live miles — updated b
 return;
 }
 }
-// Fallback: localStorage
 renderMiles(getMilesLocal());
 if (milesStorageNote) milesStorageNote.textContent = “Miles saved locally on this device.”;
 }
 
-/* Save miles from admin input */
 async function saveMilesFromInput() {
 const val = currentMilesInput ? Number(currentMilesInput.value) : NaN;
 if (!Number.isFinite(val) || val < 0) {
@@ -281,14 +247,13 @@ alert(`✅ Miles updated to ${clean.toLocaleString()} — all visitors will now 
 alert(“⚠️ Supabase save failed. Check your config or internet connection.”);
 }
 } else {
-// Fallback: localStorage
 setMilesLocal(clean);
 renderMiles(clean);
 }
 }
 
 /* –––––––––––––
-ADMIN PANEL VISIBILITY
+ADMIN PANEL
 ––––––––––––– */
 function setupAdminPanel() {
 if (!milesAdminPanel) return;
@@ -303,7 +268,7 @@ milesStorageNote.textContent = supabaseConfigured()
 }
 
 /* –––––––––––––
-THESIS DIV ACCORDION
+THESIS TOGGLE  ← FIXED
 ––––––––––––– */
 function setupThesisToggle() {
 const summary = $(“thesisSummary”);
@@ -311,51 +276,57 @@ const body    = $(“thesisBody”);
 const hint    = $(“thesisHint”);
 if (!summary || !body) return;
 
+// Start open
 body.style.display = “block”;
+body.style.overflow = “hidden”;
 let open = true;
 
-summary.style.cursor = “pointer”;
+summary.style.cursor     = “pointer”;
+summary.style.userSelect = “none”;
+summary.style.webkitUserSelect = “none”;
 
-summary.addEventListener(“click”, function() {
+function toggle() {
 open = !open;
 body.style.display = open ? “block” : “none”;
 if (hint) hint.textContent = open ? “Tap to collapse” : “Tap to expand”;
+}
+
+summary.addEventListener(“click”, toggle);
+summary.addEventListener(“keydown”, (e) => {
+if (e.key === “Enter” || e.key === “ “) {
+e.preventDefault();
+toggle();
+}
 });
 }
 
 /* –––––––––––––
-TOKEN — CA COPY
-Replace the CA string below when you launch.
-The button will auto-hide if CA is still “coming soon”.
+TOKEN CA
 ––––––––––––– */
-const TOKEN_CA = “”; // <– paste contract address here when live, e.g. “ABC123…xyz”
+const TOKEN_CA = “”; // paste contract address here when live
 
 function setupTokenCA() {
 if (!tokenCAEl) return;
 
 if (TOKEN_CA) {
 tokenCAEl.textContent = TOKEN_CA;
-// Update buy button to Pump.fun link
 const buyBtn = $(“buyTokenBtn”);
 if (buyBtn) {
 buyBtn.href        = `https://pump.fun/${TOKEN_CA}`;
 buyBtn.textContent = “Buy on Pump.fun”;
 }
-// Update status pill
 const pill = $(“tokenStatusPill”);
 if (pill) {
 pill.textContent = “Live”;
 pill.classList.add(“token__pill–live-active”);
 }
-// Update card desc
 const desc = document.querySelector(”.token__card–buy .token__card-desc”);
 if (desc) desc.textContent = “Trade TRAFFIC on Pump.fun. Creator fees fund autonomy hardware.”;
 }
 
-// Wire copy button
 if (copyCABtn) {
 if (!TOKEN_CA) {
-copyCABtn.style.display = “none”; // hide copy when no CA yet
+copyCABtn.style.display = “none”;
 } else {
 copyCABtn.addEventListener(“click”, async () => {
 await copyText(TOKEN_CA, caCopyToast);
@@ -385,9 +356,8 @@ ta.style.cssText = “position:fixed;opacity:0;pointer-events:none”;
 document.body.appendChild(ta);
 ta.focus();
 ta.select();
-try { document.execCommand(“copy”); flashToast(toastEl); } finally {
-document.body.removeChild(ta);
-}
+try { document.execCommand(“copy”); flashToast(toastEl); }
+finally { document.body.removeChild(ta); }
 }
 }
 
